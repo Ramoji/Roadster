@@ -58,8 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let stateListViewController = navigationController.topViewController as! StateListViewController
         stateListViewController.states = self.states
         stateListViewController.managedObjectContext = managedObjectContext
-        let secondViewController = controllers![1] as! SecondViewController
-        secondViewController.managedObjectContext = managedObjectContext
        return true
     }
 

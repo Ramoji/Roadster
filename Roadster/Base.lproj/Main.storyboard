@@ -125,6 +125,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="segmentedControl" destination="hEf-ND-XJy" id="dt8-N5-iyA"/>
                         <outlet property="tableView" destination="E5o-du-PLI" id="2u4-Sf-vUN"/>
                     </connections>
                 </viewController>
@@ -132,39 +133,10 @@
             </objects>
             <point key="canvasLocation" x="3189.5999999999999" y="-689.5052473763119"/>
         </scene>
-        <!--Map View Controller-->
-        <scene sceneID="Due-Ud-Ag3">
-            <objects>
-                <viewController id="2yx-AP-0ib" customClass="MapViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QxR-HH-Ymv"/>
-                        <viewControllerLayoutGuide type="bottom" id="mBX-xX-99Z"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FeO-6M-HYu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YCz-wx-0Em">
-                                <frame key="frameInset" width="1000" height="1000"/>
-                            </mapView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="YCz-wx-0Em" firstAttribute="centerX" secondItem="FeO-6M-HYu" secondAttribute="centerX" id="6AK-zN-cT6"/>
-                            <constraint firstItem="YCz-wx-0Em" firstAttribute="centerY" secondItem="FeO-6M-HYu" secondAttribute="centerY" id="8dM-h3-Blt"/>
-                            <constraint firstAttribute="trailing" secondItem="YCz-wx-0Em" secondAttribute="trailing" id="Jvi-rw-IFe"/>
-                            <constraint firstItem="YCz-wx-0Em" firstAttribute="top" secondItem="FeO-6M-HYu" secondAttribute="top" id="aVX-8b-fGp"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="o2g-FY-lWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3986" y="-689"/>
-        </scene>
-        <!--Second-->
+        <!--Near By-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="NearByViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L7p-HK-0SC"/>
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
@@ -173,27 +145,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3Ap-8G-LuW">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="2bi-wo-tBk"/>
-                                    <constraint firstAttribute="height" constant="667" id="9Aa-Qo-MbR"/>
-                                </constraints>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PdG-Oi-3Of">
                                 <connections>
-                                    <outlet property="dataSource" destination="8rJ-Kc-sve" id="lga-GA-iXe"/>
-                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="PQR-dY-XfU"/>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="gky-Ha-JPY"/>
                                 </connections>
-                            </tableView>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="3Ap-8G-LuW" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Yrr-EU-Kj6"/>
-                            <constraint firstItem="3Ap-8G-LuW" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="iPP-j7-cSH"/>
+                            <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="PdG-Oi-3Of" secondAttribute="bottom" id="200-mM-i6Q"/>
+                            <constraint firstAttribute="trailing" secondItem="PdG-Oi-3Of" secondAttribute="trailing" id="9jw-k3-1Jm"/>
+                            <constraint firstItem="PdG-Oi-3Of" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="XN5-AJ-Dmb"/>
+                            <constraint firstItem="PdG-Oi-3Of" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="lBk-EK-SrV"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Near By" image="second" id="cPa-gy-q4n"/>
                     <connections>
-                        <outlet property="tableView" destination="3Ap-8G-LuW" id="axh-P9-2oO"/>
+                        <outlet property="mapView" destination="PdG-Oi-3Of" id="3P7-eb-gjd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

@@ -12,22 +12,21 @@
 		212315991DADD4260068F190 /* NoRestStopsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212315981DADD4260068F190 /* NoRestStopsCell.xib */; };
 		2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123159A1DADD7A10068F190 /* NoRestStopsCell.swift */; };
 		2123159D1DAEC19C0068F190 /* RestStopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123159C1DAEC19C0068F190 /* RestStopListViewController.swift */; };
-		2141C5471DA81FA9003DE1EF /* DataStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2141C5441DA81FA9003DE1EF /* DataStore.sqlite */; };
-		2141C5481DA81FA9003DE1EF /* DataStore.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 2141C5451DA81FA9003DE1EF /* DataStore.sqlite-shm */; };
-		2141C5491DA81FA9003DE1EF /* DataStore.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 2141C5461DA81FA9003DE1EF /* DataStore.sqlite-wal */; };
+		212315A31DB08C220068F190 /* DataStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 212315A01DB08C220068F190 /* DataStore.sqlite */; };
+		212315A41DB08C220068F190 /* DataStore.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 212315A11DB08C220068F190 /* DataStore.sqlite-shm */; };
+		212315A51DB08C220068F190 /* DataStore.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 212315A21DB08C220068F190 /* DataStore.sqlite-wal */; };
+		212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212315A61DB1C1560068F190 /* NearByViewController.swift */; };
 		2141C5521DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */; };
 		2141C5531DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */; };
 		21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */; };
 		21C8E6211D7FD44A007F67E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E6201D7FD44A007F67E2 /* AppDelegate.swift */; };
 		21C8E6231D7FD44A007F67E2 /* StateListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */; };
-		21C8E6251D7FD44A007F67E2 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E6241D7FD44A007F67E2 /* SecondViewController.swift */; };
 		21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E6261D7FD44A007F67E2 /* Main.storyboard */; };
 		21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E6291D7FD44A007F67E2 /* Assets.xcassets */; };
 		21C8E62D1D7FD44A007F67E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E62B1D7FD44A007F67E2 /* LaunchScreen.storyboard */; };
 		21C8E6351D80644C007F67E2 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E6341D80644C007F67E2 /* States.swift */; };
 		21C8E63B1D806838007F67E2 /* CellWithImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E63A1D806838007F67E2 /* CellWithImageView.xib */; };
 		21C8E63D1D8073A2007F67E2 /* CellWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */; };
-		21C8E63F1D811F7F007F67E2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E63E1D811F7F007F67E2 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,16 +35,16 @@
 		212315981DADD4260068F190 /* NoRestStopsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoRestStopsCell.xib; sourceTree = "<group>"; };
 		2123159A1DADD7A10068F190 /* NoRestStopsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoRestStopsCell.swift; sourceTree = "<group>"; };
 		2123159C1DAEC19C0068F190 /* RestStopListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestStopListViewController.swift; sourceTree = "<group>"; };
-		2141C5441DA81FA9003DE1EF /* DataStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DataStore.sqlite; sourceTree = "<group>"; };
-		2141C5451DA81FA9003DE1EF /* DataStore.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataStore.sqlite-shm"; sourceTree = "<group>"; };
-		2141C5461DA81FA9003DE1EF /* DataStore.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataStore.sqlite-wal"; sourceTree = "<group>"; };
+		212315A01DB08C220068F190 /* DataStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = DataStore.sqlite; path = "../../../../Library/Developer/CoreSimulator/Devices/9389E0E4-6471-4D69-B748-3B5C42FA97D9/data/Containers/Data/Application/FEAC8C98-B046-4766-BC85-3094C5072A3F/Documents/DataStore.sqlite"; sourceTree = "<group>"; };
+		212315A11DB08C220068F190 /* DataStore.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-shm"; path = "../../../../Library/Developer/CoreSimulator/Devices/9389E0E4-6471-4D69-B748-3B5C42FA97D9/data/Containers/Data/Application/FEAC8C98-B046-4766-BC85-3094C5072A3F/Documents/DataStore.sqlite-shm"; sourceTree = "<group>"; };
+		212315A21DB08C220068F190 /* DataStore.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-wal"; path = "../../../../Library/Developer/CoreSimulator/Devices/9389E0E4-6471-4D69-B748-3B5C42FA97D9/data/Containers/Data/Application/FEAC8C98-B046-4766-BC85-3094C5072A3F/Documents/DataStore.sqlite-wal"; sourceTree = "<group>"; };
+		212315A61DB1C1560068F190 /* NearByViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NearByViewController.swift; path = ../NearByViewController.swift; sourceTree = "<group>"; };
 		2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighwayListViewController.swift; sourceTree = "<group>"; };
 		21C8E61D1D7FD44A007F67E2 /* Roadster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21C8E6201D7FD44A007F67E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateListViewController.swift; sourceTree = "<group>"; };
-		21C8E6241D7FD44A007F67E2 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		21C8E6271D7FD44A007F67E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		21C8E6291D7FD44A007F67E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21C8E62C1D7FD44A007F67E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,7 +52,6 @@
 		21C8E6341D80644C007F67E2 /* States.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		21C8E63A1D806838007F67E2 /* CellWithImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellWithImageView.xib; path = ../CellWithImageView.xib; sourceTree = "<group>"; };
 		21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellWithImageView.swift; sourceTree = "<group>"; };
-		21C8E63E1D811F7F007F67E2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,14 +98,13 @@
 				21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */,
 				212315981DADD4260068F190 /* NoRestStopsCell.xib */,
 				212315961DACC8330068F190 /* NSString+NSFetchRequestResult.swift */,
-				21C8E63E1D811F7F007F67E2 /* MapViewController.swift */,
-				21C8E6241D7FD44A007F67E2 /* SecondViewController.swift */,
+				212315A61DB1C1560068F190 /* NearByViewController.swift */,
 				21C8E6341D80644C007F67E2 /* States.swift */,
 				21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */,
 				212315941DACC2EE0068F190 /* DataModel.xcdatamodel */,
-				2141C5441DA81FA9003DE1EF /* DataStore.sqlite */,
-				2141C5451DA81FA9003DE1EF /* DataStore.sqlite-shm */,
-				2141C5461DA81FA9003DE1EF /* DataStore.sqlite-wal */,
+				212315A01DB08C220068F190 /* DataStore.sqlite */,
+				212315A11DB08C220068F190 /* DataStore.sqlite-shm */,
+				212315A21DB08C220068F190 /* DataStore.sqlite-wal */,
 			);
 			path = Roadster;
 			sourceTree = "<group>";
@@ -173,10 +170,10 @@
 			files = (
 				212315991DADD4260068F190 /* NoRestStopsCell.xib in Resources */,
 				21C8E63B1D806838007F67E2 /* CellWithImageView.xib in Resources */,
+				212315A41DB08C220068F190 /* DataStore.sqlite-shm in Resources */,
 				21C8E62D1D7FD44A007F67E2 /* LaunchScreen.storyboard in Resources */,
-				2141C5481DA81FA9003DE1EF /* DataStore.sqlite-shm in Resources */,
-				2141C5491DA81FA9003DE1EF /* DataStore.sqlite-wal in Resources */,
-				2141C5471DA81FA9003DE1EF /* DataStore.sqlite in Resources */,
+				212315A51DB08C220068F190 /* DataStore.sqlite-wal in Resources */,
+				212315A31DB08C220068F190 /* DataStore.sqlite in Resources */,
 				21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */,
 				21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */,
 			);
@@ -191,11 +188,10 @@
 			files = (
 				2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */,
 				21C8E6351D80644C007F67E2 /* States.swift in Sources */,
-				21C8E63F1D811F7F007F67E2 /* MapViewController.swift in Sources */,
 				2141C5531DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift in Sources */,
-				21C8E6251D7FD44A007F67E2 /* SecondViewController.swift in Sources */,
 				212315951DACC2EE0068F190 /* DataModel.xcdatamodel in Sources */,
 				21C8E6211D7FD44A007F67E2 /* AppDelegate.swift in Sources */,
+				212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */,
 				2123159D1DAEC19C0068F190 /* RestStopListViewController.swift in Sources */,
 				212315971DACC8330068F190 /* NSString+NSFetchRequestResult.swift in Sources */,
 				2141C5521DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift in Sources */,

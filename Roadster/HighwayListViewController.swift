@@ -47,7 +47,7 @@ class HighwayListViewController: UIViewController {
         
         do{
             let objects = try managedObjectContext.fetch(fetchRequest)
-            for (index, element) in objects.enumerated(){
+            for element in objects{
                 let element2 = element as! [String: String]
                 routes.append(element2["routeName"]!)
             }
