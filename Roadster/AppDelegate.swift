@@ -9,12 +9,14 @@
 import UIKit
 import CoreData
 import Foundation
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let states = States()
+    let locationManager = CLLocationManager()
     lazy var managedObjectContext: NSManagedObjectContext = {
         //**********************Getting Data Model********************************
         guard let dataModelURL = Bundle.main.url(forResource: "DataModel", withExtension: "mom") else {
@@ -40,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do{
             let persistenceCordinator = NSPersistentStoreCoordinator(managedObjectModel: dataModel)
             try persistenceCordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dataStoreURL, options: nil)
-            //*******************Initiating managed object context******************
+        //*******************Initiating managed object context**********************
             let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             context.persistentStoreCoordinator = persistenceCordinator
             return context
@@ -58,6 +60,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let stateListViewController = navigationController.topViewController as! StateListViewController
         stateListViewController.states = self.states
         stateListViewController.managedObjectContext = managedObjectContext
+        stateListViewController.appWindow = window
+        let navigationController2 = controllers![1] as! UINavigationController
+        let nearByViewController = navigationController2.topViewController as! NearByViewController
+        nearByViewController.locationManger = self.locationManager
+        if CLLocationManager.authorizationStatus() == .notDetermined{
+            locationManager.requestWhenInUseAuthorization()
+        }
+        nearByViewController.managedObjectContext = managedObjectContext
+        //**********DANGER ZONE PROCEED WITH CAUTION***********
+        //editDatabase()
+        //*****************************************************
        return true
     }
 
@@ -83,5 +96,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func defineUserDefaults(){
+        UserDefaults.standard.register(defaults: ["firstTimeRun": true])
+    }
+    
+    
+    func editDatabase(){
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "USRestStop")
+        let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
+        fetchRequest.entity = entity
+        let predicate1 = NSPredicate(format: "state = %@", "WA")
+        let predicate2 = NSPredicate(format: "routeName = %@", "SR-12")
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicate1, predicate2])
+        fetchRequest.predicate = compoundPredicate
+        do{
+            let objects = try managedObjectContext.fetch(fetchRequest) as! [USRestStop]
+            correctRouteName(objects)
+        }catch let error as NSError{
+            print(error.debugDescription)
+            fatalError("Failed to fetch rest stop for route name correction!")
+        }
+        
+    }
+    
+    func correctRouteName(_ objects: [USRestStop]){
+        
+        for object in objects{
+        
+            let objectToInsert = USRestStop(context: managedObjectContext)
+            objectToInsert.routeName = "US-12"
+            objectToInsert.bound = object.bound
+            objectToInsert.closed = object.closed
+            objectToInsert.drinkingWater = object.drinkingWater
+            objectToInsert.foodRest = object.foodRest
+            objectToInsert.gas = object.gas
+            objectToInsert.handicappedFacilities = object.handicappedFacilities
+            objectToInsert.index = object.index
+            objectToInsert.latitude = object.latitude
+            objectToInsert.longitude = object.longitude
+            objectToInsert.noFacilities = object.noFacilities
+            objectToInsert.noTrucks = object.noTrucks
+            objectToInsert.petArea = object.petArea
+            objectToInsert.phone = object.phone
+            objectToInsert.picnicTables = object.picnicTables
+            objectToInsert.restRoom = object.restRoom
+            objectToInsert.rvDump = object.rvDump
+            objectToInsert.scenic = object.scenic
+            objectToInsert.state = object.state
+            objectToInsert.stopDescription = object.stopDescription
+            objectToInsert.stopName = object.stopName
+            objectToInsert.vMachine = object.vMachine
+            
+            managedObjectContext.insert(objectToInsert)
+            do{
+                try managedObjectContext.save()
+            } catch let error as NSError{
+                fatalError("failed to save to persistence store! 1")
+            }
+            
+            managedObjectContext.delete(object)
+            do{
+                try managedObjectContext.save()
+            }catch let error as NSError{
+                fatalError("failed to delete object from persistence store! 1")
+            }
+        }
+        
+    }
+    
+    func deleteRestStop(_ restStops: [USRestStop]){
+        
+        for restStop in restStops{
+            managedObjectContext.delete(restStop)
+            do{
+                try managedObjectContext.save()
+            }catch let error as NSError{
+                print(error.debugDescription)
+                fatalError("Failed to delete rest stop from the database!")
+            }
+        }
+    }
 }
 

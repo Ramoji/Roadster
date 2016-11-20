@@ -16,6 +16,8 @@ class HighwayListViewController: UIViewController {
     var stateName: String!
     var stateAbbreviation: String!
     var routes: [String] = [String]()
+    let blurredBackgroundView = BlurredBackgroundView(frame: .zero, addBackgroundPic: true)
+    var appWindow: UIWindow!
     
     
     
@@ -24,6 +26,8 @@ class HighwayListViewController: UIViewController {
         
         registerNibs()
         getUniqueRouteNames()
+        tableView.backgroundView = blurredBackgroundView
+        
     
     }
 
@@ -69,17 +73,35 @@ class HighwayListViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell)
     }
     
+    func numberOfRestStops(forRoute route: String) -> Int{
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "USRestStop")
+        let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
+        let predicate1 = NSPredicate(format: "routeName = %@", route)
+        let predicate2 = NSPredicate(format: "state = %@", stateAbbreviation)
+        let compoundPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates:[predicate1, predicate2])
+        fetchRequest.predicate = compoundPredicate
+        fetchRequest.entity = entity
+        do{
+            let managedObjects = try managedObjectContext.fetch(fetchRequest)
+            return managedObjects.count
+        } catch let error as NSError{
+            print(error.debugDescription)
+            fatalError("Failed to fetch managed objects to get number of rest stops per route!")
+        }
+    }
+    
     //MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowListRestStops"{
+        if segue.identifier == "ShowRestStopListMapView"{
             let cell = sender as! CellWithImageView
             let routeName = cell.stateNameLabel.text!
-            let restStopListViewController = segue.destination as! RestStopListViewController
-            restStopListViewController.stateAbbreviation = self.stateAbbreviation
-            restStopListViewController.managedObjectContext = self.managedObjectContext
-            restStopListViewController.states = self.states
-            restStopListViewController.routeName = routeName
+            let restStopListMapViewController = segue.destination as! RestStopListMapViewController
+            restStopListMapViewController.stateAbbreviation = self.stateAbbreviation
+            restStopListMapViewController.managedObjectContext = self.managedObjectContext
+            restStopListMapViewController.states = self.states
+            restStopListMapViewController.routeName = routeName
+            restStopListMapViewController.appWindow = appWindow
         }
     }
 }
@@ -96,13 +118,12 @@ extension HighwayListViewController: UITableViewDataSource{
         
         if stateName == "Alaska" || stateName == "Hawaii" || stateName == "District of Columbia"{
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell, for: indexPath) as! NoRestStopsCell
+            cell.backgroundColor = UIColor.clear
             return cell
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.CellWithImageView, for: indexPath) as! CellWithImageView
-            cell.stateNameLabel.text = routes[indexPath.row]
-            cell.imageView?.isHidden = true
-            cell.nicknameLabel.isHidden = true
+            cell.configureCell(forHighway: routes[indexPath.row], numberOfRestStops: numberOfRestStops(forRoute: routes[indexPath.row]))
             return cell
         }
     }
@@ -111,9 +132,23 @@ extension HighwayListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 66
     }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if routes.count == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! CellWithImageView
-        performSegue(withIdentifier: "ShowListRestStops", sender: cell)
+        if routes.count == 0 {
+            return
+        } else {
+            let cell = tableView.cellForRow(at: indexPath) as! CellWithImageView
+            performSegue(withIdentifier: "ShowRestStopListMapView", sender: cell)
+            print(routes[indexPath.row])
+        }
     }
 }
 

@@ -26,11 +26,32 @@ class CellWithImageView: UITableViewCell {
     }
     
     func configureCell(forState state: (String, String)) {
-        stateNameLabel.text = state.0
-        if let image = UIImage(named: "NoImage"){
+        let stateName = state.0
+        stateNameLabel.text = stateName
+        if let image = UIImage(named: stateName.lowercased())?.resizeImage(CGSize(width: 62.0, height: 62.0)){
             stateImageView.image = image
+            stateImageView.contentMode = UIViewContentMode.scaleAspectFit
+        } else {
+            stateImageView.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 62.0, height: 62.0))
+            stateImageView.contentMode = UIViewContentMode.scaleAspectFit
         }
         nicknameLabel.text = state.1
+    }
+    
+    func configureCell(forHighway highway: String, numberOfRestStops: Int){
+        
+        imageView?.image = nil
+        stateNameLabel.text = ""
+        nicknameLabel.text = ""
+        stateNameLabel.text = highway
+        nicknameLabel.text = String(numberOfRestStops) + " rest stops"
+        imageView?.contentMode = UIViewContentMode.scaleAspectFit
+        if let image = UIImage(named: highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
+            imageView?.image = image
+        } else {
+            imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+        }
+        backgroundColor = UIColor.clear
     }
 
 }

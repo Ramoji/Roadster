@@ -21,17 +21,20 @@ class StateListViewController: UIViewController {
     var states: States!
     var filteredStateList: [(String, String)]!
     var searchController: UISearchController!
+    let blurredBackgroundView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
+    var appWindow: UIWindow!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
         registerNibs()
-        
+        print(appWindow.bounds.size.height)
     }
     
     override func loadView() {
         super.loadView()
         setUpSearchController()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +45,7 @@ class StateListViewController: UIViewController {
     func setUpSearchController(){
     
         searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.backgroundColor = UIColor.clear
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         searchController.dimsBackgroundDuringPresentation = true
@@ -57,6 +61,9 @@ class StateListViewController: UIViewController {
     }
     
     func setUpTableView(){
+        tableView.backgroundView?.backgroundColor = UIColor.clear
+        tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurredBackgroundView.blurEffectView.effect as! UIBlurEffect)
+        tableView.backgroundView = blurredBackgroundView
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 77, bottom: 0, right: 0)
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
@@ -96,10 +103,12 @@ extension StateListViewController: UITableViewDataSource{
         if searchController.isActive && searchController.searchBar.text != ""{
             let element = filteredStateList[indexPath.row]
             cell.configureCell(forState: element)
+            cell.backgroundColor = UIColor.clear
             
         } else {
             let element = states.stateNamesAndNicknamesElement(forIndex: (indexPath as NSIndexPath).row)
             cell.configureCell(forState: element)
+            cell.backgroundColor = UIColor.clear
         }
         return cell
     }
@@ -129,7 +138,15 @@ extension StateListViewController{
             highwayListViewController.managedObjectContext = self.managedObjectContext
             highwayListViewController.states = self.states
             highwayListViewController.stateName = stateName
+            highwayListViewController.appWindow = appWindow
         }
+    }
+}
+
+extension UIImage{
+    class func blurredViewImage() -> UIImage {
+        let image = UIImage(named: "blurredImage")
+        return image!
     }
 }
 
