@@ -14,11 +14,11 @@
 		212315991DADD4260068F190 /* NoRestStopsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212315981DADD4260068F190 /* NoRestStopsCell.xib */; };
 		2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123159A1DADD7A10068F190 /* NoRestStopsCell.swift */; };
 		212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212315A61DB1C1560068F190 /* NearByViewController.swift */; };
+		213391331DE35CC10053A2BD /* DataStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 213391301DE35CC10053A2BD /* DataStore.sqlite */; };
+		213391341DE35CC10053A2BD /* DataStore.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 213391311DE35CC10053A2BD /* DataStore.sqlite-shm */; };
+		213391351DE35CC10053A2BD /* DataStore.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 213391321DE35CC10053A2BD /* DataStore.sqlite-wal */; };
 		2141C5521DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */; };
 		2141C5531DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */; };
-		214540251DE1E92B004FE58E /* DataStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 214540221DE1E92B004FE58E /* DataStore.sqlite */; };
-		214540261DE1E92B004FE58E /* DataStore.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 214540231DE1E92B004FE58E /* DataStore.sqlite-shm */; };
-		214540271DE1E92B004FE58E /* DataStore.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 214540241DE1E92B004FE58E /* DataStore.sqlite-wal */; };
 		21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */; };
 		218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */; };
 		2187664C1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */; };
@@ -33,6 +33,7 @@
 		21C8E63D1D8073A2007F67E2 /* CellWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */; };
 		21EFCCAB1DCF27D70051D224 /* PresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EFCCAA1DCF27D70051D224 /* PresentationAnimator.swift */; };
 		21EFCCAD1DD0712D0051D224 /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EFCCAC1DD0712D0051D224 /* DismissAnimator.swift */; };
+		21F6281F1DE29A530033BFCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6281E1DE29A530033BFCA /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,11 +44,11 @@
 		212315981DADD4260068F190 /* NoRestStopsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoRestStopsCell.xib; sourceTree = "<group>"; };
 		2123159A1DADD7A10068F190 /* NoRestStopsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoRestStopsCell.swift; sourceTree = "<group>"; };
 		212315A61DB1C1560068F190 /* NearByViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NearByViewController.swift; path = ../NearByViewController.swift; sourceTree = "<group>"; };
+		213391301DE35CC10053A2BD /* DataStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = DataStore.sqlite; path = DataStores/DataStore.sqlite; sourceTree = SOURCE_ROOT; };
+		213391311DE35CC10053A2BD /* DataStore.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-shm"; path = "DataStores/DataStore.sqlite-shm"; sourceTree = SOURCE_ROOT; };
+		213391321DE35CC10053A2BD /* DataStore.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-wal"; path = "DataStores/DataStore.sqlite-wal"; sourceTree = SOURCE_ROOT; };
 		2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		214540221DE1E92B004FE58E /* DataStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = DataStore.sqlite; path = DataStores/DataStore.sqlite; sourceTree = SOURCE_ROOT; };
-		214540231DE1E92B004FE58E /* DataStore.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-shm"; path = "DataStores/DataStore.sqlite-shm"; sourceTree = SOURCE_ROOT; };
-		214540241DE1E92B004FE58E /* DataStore.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DataStore.sqlite-wal"; path = "DataStores/DataStore.sqlite-wal"; sourceTree = SOURCE_ROOT; };
 		21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighwayListViewController.swift; sourceTree = "<group>"; };
 		218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestStopListMapViewController.swift; sourceTree = "<group>"; };
 		2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestStopListChildTableViewController.swift; path = ../RestStopListChildTableViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellWithImageView.swift; sourceTree = "<group>"; };
 		21EFCCAA1DCF27D70051D224 /* PresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationAnimator.swift; sourceTree = "<group>"; };
 		21EFCCAC1DD0712D0051D224 /* DismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
+		21F6281E1DE29A530033BFCA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				21C37AED1DB86E9300203B68 /* dummyStuff */,
 				21C8E6291D7FD44A007F67E2 /* Assets.xcassets */,
+				21F6281E1DE29A530033BFCA /* AppDelegate.swift */,
 				21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */,
 				2123159A1DADD7A10068F190 /* NoRestStopsCell.swift */,
 				21C8E63A1D806838007F67E2 /* CellWithImageView.xib */,
@@ -128,9 +131,9 @@
 				21C37AEE1DBC7A3D00203B68 /* BlurredBackgroundView.swift */,
 				2121E9A51DC6F2650057F4B0 /* CustomUIPresentationController.swift */,
 				212315941DACC2EE0068F190 /* DataModel.xcdatamodel */,
-				214540221DE1E92B004FE58E /* DataStore.sqlite */,
-				214540231DE1E92B004FE58E /* DataStore.sqlite-shm */,
-				214540241DE1E92B004FE58E /* DataStore.sqlite-wal */,
+				213391301DE35CC10053A2BD /* DataStore.sqlite */,
+				213391311DE35CC10053A2BD /* DataStore.sqlite-shm */,
+				213391321DE35CC10053A2BD /* DataStore.sqlite-wal */,
 			);
 			path = Roadster;
 			sourceTree = "<group>";
@@ -197,10 +200,10 @@
 			files = (
 				212315991DADD4260068F190 /* NoRestStopsCell.xib in Resources */,
 				21C8E63B1D806838007F67E2 /* CellWithImageView.xib in Resources */,
-				214540261DE1E92B004FE58E /* DataStore.sqlite-shm in Resources */,
+				213391341DE35CC10053A2BD /* DataStore.sqlite-shm in Resources */,
 				21C8E62D1D7FD44A007F67E2 /* LaunchScreen.storyboard in Resources */,
-				214540271DE1E92B004FE58E /* DataStore.sqlite-wal in Resources */,
-				214540251DE1E92B004FE58E /* DataStore.sqlite in Resources */,
+				213391351DE35CC10053A2BD /* DataStore.sqlite-wal in Resources */,
+				213391331DE35CC10053A2BD /* DataStore.sqlite in Resources */,
 				21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */,
 				21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */,
 			);
@@ -215,6 +218,7 @@
 			files = (
 				21C37AF11DBC8E6200203B68 /* RestStopDetailDisclosureViewController.swift in Sources */,
 				2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */,
+				21F6281F1DE29A530033BFCA /* AppDelegate.swift in Sources */,
 				21C37AEF1DBC7A3E00203B68 /* BlurredBackgroundView.swift in Sources */,
 				21C8E6351D80644C007F67E2 /* States.swift in Sources */,
 				2141C5531DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift in Sources */,
@@ -349,6 +353,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6G593VN7SW;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Roadster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -363,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6G593VN7SW;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Roadster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

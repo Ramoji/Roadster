@@ -123,7 +123,7 @@ extension HighwayListViewController: UITableViewDataSource{
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.CellWithImageView, for: indexPath) as! CellWithImageView
-            cell.configureCell(forHighway: routes[indexPath.row], numberOfRestStops: numberOfRestStops(forRoute: routes[indexPath.row]))
+            cell.configureCell(forHighway: routes[indexPath.row], stateAbbreviation: stateAbbreviation, numberOfRestStops: numberOfRestStops(forRoute: routes[indexPath.row]))
             return cell
         }
     }

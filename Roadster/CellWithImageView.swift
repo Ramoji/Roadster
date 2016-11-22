@@ -38,7 +38,7 @@ class CellWithImageView: UITableViewCell {
         nicknameLabel.text = state.1
     }
     
-    func configureCell(forHighway highway: String, numberOfRestStops: Int){
+    func configureCell(forHighway highway: String, stateAbbreviation: String, numberOfRestStops: Int){
         
         imageView?.image = nil
         stateNameLabel.text = ""
@@ -46,12 +46,20 @@ class CellWithImageView: UITableViewCell {
         stateNameLabel.text = highway
         nicknameLabel.text = String(numberOfRestStops) + " rest stops"
         imageView?.contentMode = UIViewContentMode.scaleAspectFit
-        if let image = UIImage(named: highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
-            imageView?.image = image
+        if highway.contains("I-") || highway.contains("US-"){
+            if let image = UIImage(named: highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
+                imageView?.image = image
+            } else {
+                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+            }
         } else {
-            imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+            
+            if let image = UIImage(named: stateAbbreviation+"-"+highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
+                imageView?.image = image
+            } else {
+                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+            }
         }
         backgroundColor = UIColor.clear
     }
-
 }

@@ -105,8 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "USRestStop")
         let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
         fetchRequest.entity = entity
-        let predicate1 = NSPredicate(format: "state = %@", "WA")
-        let predicate2 = NSPredicate(format: "routeName = %@", "SR-12")
+        let predicate1 = NSPredicate(format: "state = %@", "WY")
+        let predicate2 = NSPredicate(format: "routeName = %@", "SR-487")
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicate1, predicate2])
         fetchRequest.predicate = compoundPredicate
         do{
@@ -124,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for object in objects{
         
             let objectToInsert = USRestStop(context: managedObjectContext)
-            objectToInsert.routeName = "US-12"
+            objectToInsert.routeName = "Wyoming Highway 487"
             objectToInsert.bound = object.bound
             objectToInsert.closed = object.closed
             objectToInsert.drinkingWater = object.drinkingWater

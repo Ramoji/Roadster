@@ -48,7 +48,6 @@ class NearByViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("*** ViewDidAppear!")
         getUserCurrentLocation()
     }
     
@@ -159,7 +158,6 @@ class NearByViewController: UIViewController {
 extension NearByViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(locations.last)
-        print("Bitch!")
         let newLocation = locations.last
         if let newLocation = newLocation {
             if newLocation.timestamp.timeIntervalSinceNow < -5 {
