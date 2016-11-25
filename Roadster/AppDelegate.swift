@@ -68,6 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
         nearByViewController.managedObjectContext = managedObjectContext
+        let navigationController3 = controllers![2] as! UINavigationController
+        let pinViewController = navigationController3.topViewController as! PinViewController
+        pinViewController.managedObjectContext = managedObjectContext
+        
         //**********DANGER ZONE PROCEED WITH CAUTION***********
         //editDatabase()
         //*****************************************************
