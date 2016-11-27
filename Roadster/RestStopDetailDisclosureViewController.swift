@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import MapKit
 
 protocol RestStopDetailDisclosureViewControllerDelegate: class {
     func restStopDetailDisclosureDidClose(_ viewController: RestStopDetailDisclosureViewController)
+    func restStopDetailDisclosureDidPick(_ viewController: RestStopDetailDisclosureViewController, mapType type: MKMapType)
 }
 
 class RestStopDetailDisclosureViewController: UIViewController {
     
     var delegate: RestStopDetailDisclosureViewControllerDelegate!
     var tapGestureRecognizer: UITapGestureRecognizer!
+    var segmentedControl: UISegmentedControl!
+    var myView: UIView!
+    var restStop: USRestStop!
+    var titleLabel: UILabel!
+    var states: States!
+    var fullStateName: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +43,11 @@ class RestStopDetailDisclosureViewController: UIViewController {
         self.transitioningDelegate = self
     }
     
+    override func viewWillLayoutSubviews() {
+        segmentedControl.frame = CGRect(x: myView.bounds.size.width - (segmentedControl.frame.size.width + 15), y: 15, width: segmentedControl.frame.width, height: segmentedControl.frame.size.height)
+        titleLabel.frame = CGRect(x: 15, y: 50, width: titleLabel.frame.size.width / 2, height: titleLabel.frame.size.height)
+    }
+    
     func setUpDetailDisclosureSubView(){
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: view.bounds.size.width - 50, height: view.bounds.size.height - 50), cornerRadius: 15)
         let pathRect = CGRect(x: 0, y: 125, width: view.bounds.size.width - 50 , height: view.bounds.size.width - 170)
@@ -45,24 +58,47 @@ class RestStopDetailDisclosureViewController: UIViewController {
         fillLayer.fillRule = kCAFillRuleEvenOdd
         fillLayer.fillColor = UIColor.white.cgColor
         let myFrame = CGRect(x: 25, y: 25, width: view.bounds.size.width - 50, height: view.bounds.size.height - 50)
-        let myView = UIView(frame: myFrame)
+        myView = UIView(frame: myFrame)
         myView.layer.insertSublayer(fillLayer, below: myView.layer)
         
-       
-        let closeButton = UIButton(type: .custom)
-        closeButton.frame = CGRect(x: 10, y: 10, width: 20, height: 20)
-        closeButton.contentMode = UIViewContentMode.scaleAspectFit
-        let closeButtonImage = UIImage(named: "CloseButton")?.resizeImage(CGSize(width: 20, height: 20))
-        closeButton.setImage(closeButtonImage, for: .normal)
-        closeButton.layer.cornerRadius = 10
-        closeButton.clipsToBounds = true
-        closeButton.backgroundColor = UIColor.clear
-        closeButton.addTarget(self, action: #selector(closeDetailDisclosureView), for: UIControlEvents.touchUpInside)
-        myView.addSubview(closeButton)
-        addFacilitiesView(to: myView)
-        print(myView.bounds.size.width)
-        print(myView.bounds.size.height)
+        setUpSegmentedControl()
+        setUpTitleLabel()
         view.addSubview(myView)
+        view.setNeedsLayout()
+        
+        
+    }
+    
+    func changeMapType(){
+        switch segmentedControl.selectedSegmentIndex{
+        case 0:
+            delegate?.restStopDetailDisclosureDidPick(self, mapType: .standard)
+        case 1:
+            delegate?.restStopDetailDisclosureDidPick(self, mapType: .hybrid)
+        default:
+            fatalError("Error while calling delegate method to set RestStopListMapViewController's map type.")
+        }
+    }
+    
+    func setUpSegmentedControl(){
+        segmentedControl = UISegmentedControl(items: ["Map","Satellite"])
+        segmentedControl.addTarget(self, action: #selector(changeMapType), for: .valueChanged)
+        segmentedControl.frame = CGRect.zero
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.sizeToFit()
+        myView.addSubview(segmentedControl)
+        view.setNeedsLayout()
+    }
+    
+    func setUpTitleLabel(){
+        let font = UIFont(name: "HelveticaNeue", size: 14)
+        let text = NSAttributedString(string: "Rest Stop on \(restStop.routeName) in \(fullStateName!)", attributes: [NSFontAttributeName: font])
+        UILabel.appearance().defaultNumberOfLines = 0
+        titleLabel = UILabel(frame: CGRect.zero)
+        titleLabel.attributedText = text
+        titleLabel.sizeToFit()
+        
+        myView.addSubview(titleLabel)
     }
     
     func addFacilitiesView(to myView: UIView){
@@ -76,14 +112,7 @@ class RestStopDetailDisclosureViewController: UIViewController {
     }
     
     func addFacilitieIcons(to facilitiesView: UIView){
-        let i = 12
-        //for i in 1...12{
-            let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 26, height: 26))
-            imageView.image = UIImage(named: "dog")?.resizeImage(CGSize(width: 26, height: 26))
-            imageView.layer.cornerRadius = 7
-            imageView.clipsToBounds = true
-            facilitiesView.addSubview(imageView)
-        //}
+        
     }
     
     func closeDetailDisclosureView(){

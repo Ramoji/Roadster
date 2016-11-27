@@ -18,6 +18,7 @@ class HighwayListViewController: UIViewController {
     var routes: [String] = [String]()
     let blurredBackgroundView = BlurredBackgroundView(frame: .zero, addBackgroundPic: true)
     var appWindow: UIWindow!
+    var fullStateName: String!
     
     
     
@@ -102,6 +103,7 @@ class HighwayListViewController: UIViewController {
             restStopListMapViewController.states = self.states
             restStopListMapViewController.routeName = routeName
             restStopListMapViewController.appWindow = appWindow
+            restStopListMapViewController.fullStateName = fullStateName
         }
     }
 }

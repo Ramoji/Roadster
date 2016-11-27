@@ -38,8 +38,8 @@ class RestStopListMapViewController: UIViewController {
     var routeName: String!
     var managedObjectContext: NSManagedObjectContext!
     var states: States!
+    var fullStateName:String!
     var childController: RestStopListChildTableViewController!
-    var polyLine: MKPolyline!
     var childControllerCurrentCenterPoint: CGPoint!
     var appWindow: UIWindow!
     
@@ -232,6 +232,9 @@ class RestStopListMapViewController: UIViewController {
             if !annotations.isEmpty{
                 detailDisclosureViewController.delegate = self
                 let restStop = annotations[0]
+                detailDisclosureViewController.restStop = restStop
+                detailDisclosureViewController.states = states
+                detailDisclosureViewController.fullStateName = fullStateName
                 if appWindow.bounds.size.height <= 568.0{
                     setMapView80KMRegionSmallerScreen(restStop: restStop)
                 } else {
@@ -249,9 +252,9 @@ class RestStopListMapViewController: UIViewController {
     
     func setMapView80KMRegion(restStop: USRestStop){
         let preCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude)
-        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 8000, 8000)
+        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 800, 800)
         let finalCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.25), longitude: restStop.longitude)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 8000, 8000)
+        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 800, 800)
         mapView.setRegion(finalRegion, animated: true)
     }
     
@@ -263,9 +266,9 @@ class RestStopListMapViewController: UIViewController {
     
     func setMapView80KMRegionSmallerScreen(restStop: USRestStop){
         let preCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude)
-        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 8000, 8000)
+        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 800, 800)
         let finalCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.20), longitude: restStop.longitude)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 8000, 8000)
+        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 800, 800)
         mapView.setRegion(finalRegion, animated: true)
     }
     
@@ -321,7 +324,7 @@ extension RestStopListMapViewController: MKMapViewDelegate{
 
 extension RestStopListMapViewController: RestStopDetailDisclosureViewControllerDelegate{
     func restStopDetailDisclosureDidClose(_ viewController: RestStopDetailDisclosureViewController) {
-        print("Detail disclosure delegate method works!")
+        mapView.mapType = MKMapType.standard
         UIView.animate(withDuration: 0.3, animations: {
             self.childController.view.center.y = self.childControllerCurrentCenterPoint.y
         })
@@ -334,6 +337,11 @@ extension RestStopListMapViewController: RestStopDetailDisclosureViewControllerD
                 setMapView100KMRegion(restStop: restStop)
             }
         }
+    }
+    
+    func restStopDetailDisclosureDidPick(_ viewController: RestStopDetailDisclosureViewController, mapType type: MKMapType) {
+    
+        mapView.mapType = type
     }
 }
 

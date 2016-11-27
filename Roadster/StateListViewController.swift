@@ -139,6 +139,7 @@ extension StateListViewController{
             highwayListViewController.states = self.states
             highwayListViewController.stateName = stateName
             highwayListViewController.appWindow = appWindow
+            highwayListViewController.fullStateName = cell.stateNameLabel.text!
         }
     }
 }

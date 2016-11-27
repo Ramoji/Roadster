@@ -21,6 +21,7 @@
 		2141C5521DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */; };
 		2141C5531DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */; };
 		216A2BA51DE8A5FA0097DC83 /* PinRestStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216A2BA41DE8A5FA0097DC83 /* PinRestStopAnnotation.swift */; };
+		216A2BA91DEAAC280097DC83 /* UILabel+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216A2BA81DEAAC280097DC83 /* UILabel+Modify.swift */; };
 		21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */; };
 		218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */; };
 		2187664C1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */; };
@@ -53,6 +54,7 @@
 		2141C5501DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2141C5511DA87CAB003DE1EF /* USRestStop+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "USRestStop+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		216A2BA41DE8A5FA0097DC83 /* PinRestStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinRestStopAnnotation.swift; sourceTree = "<group>"; };
+		216A2BA81DEAAC280097DC83 /* UILabel+Modify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Modify.swift"; sourceTree = "<group>"; };
 		21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighwayListViewController.swift; sourceTree = "<group>"; };
 		218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestStopListMapViewController.swift; sourceTree = "<group>"; };
 		2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestStopListChildTableViewController.swift; path = ../RestStopListChildTableViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				2121E9A31DC6D0DB0057F4B0 /* UIImage+Resize.swift */,
 				213391361DE45C850053A2BD /* ViewControllers */,
 				213391381DE45CF60053A2BD /* xib files */,
+				216A2BA81DEAAC280097DC83 /* UILabel+Modify.swift */,
 			);
 			path = Roadster;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				216A2BA91DEAAC280097DC83 /* UILabel+Modify.swift in Sources */,
 				21C37AF11DBC8E6200203B68 /* RestStopDetailDisclosureViewController.swift in Sources */,
 				2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */,
 				21F6281F1DE29A530033BFCA /* AppDelegate.swift in Sources */,
