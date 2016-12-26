@@ -42,10 +42,15 @@ class RestStopListMapViewController: UIViewController {
     var childController: RestStopListChildTableViewController!
     var childControllerCurrentCenterPoint: CGPoint!
     var appWindow: UIWindow!
-    
+    var isViewFirstLoad = 1
+    let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func loadView() {
+        super.loadView()
         listOfRestStops = restStops(forContext: managedObjectContext)
         sortRestStopBound()
         NBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: NBlistOfRestStops, forBound: .NB)
@@ -53,19 +58,41 @@ class RestStopListMapViewController: UIViewController {
         EBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: EBlistOfRestStops, forBound: .EB)
         WBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: WBlistOfRestStops, forBound: .WB)
         setUpSegmentedControl()
+        setUpActivityIndicator()
+        view.setNeedsLayout()
         mapView.delegate = self
-        for restStop in listOfRestStops{
-            print(restStop.bound)
-        }
+        calculateAvailableArea()
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        print("***Receiving Memory Warning from RestStopListMapViewController!")
     }
     
    
-
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
+    func setUpActivityIndicator(){
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        view.setNeedsLayout()
+        mapView.isHidden = true
+        childController.view.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        mapView.isHidden = false
+        childController.view.isHidden = false
+        activityIndicator.removeFromSuperview()
+    }
     
     
     func restStops(forContext context: NSManagedObjectContext) -> [USRestStop]{
@@ -176,28 +203,37 @@ class RestStopListMapViewController: UIViewController {
         if !NBlistOfRestStops.isEmpty || !SBlistOfRestStops.isEmpty {
             if segmentedControl.selectedSegmentIndex == 0 {
                 childController.restStopList = NBlistOfRestStops
+                childController.getRestStopDistanceFromUser()
+                childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             } else {
                 childController.restStopList = SBlistOfRestStops
+                childController.getRestStopDistanceFromUser()
+                childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             }
         } else if !EBlistOfRestStops.isEmpty || !WBlistOfRestStops.isEmpty{
             if segmentedControl.selectedSegmentIndex == 0 {
                 childController.restStopList = EBlistOfRestStops
+                childController.getRestStopDistanceFromUser()
+                childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             } else {
                 childController.restStopList = WBlistOfRestStops
+                childController.getRestStopDistanceFromUser()
+                childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             }
         }
-        childController.tableView.reloadData()
-        childController.selectFirstRow()
+        childController.mapViewDidChangeBound()
     }
     
     func addChildTableViewController(){
         
         childController = storyboard?.instantiateViewController(withIdentifier: "tableController") as! RestStopListChildTableViewController
-        childController.view.frame = CGRect(x: 0, y: view.bounds.size.height - ((self.tabBarController?.tabBar.frame.size.height)! + 196), width: view.bounds.size.width, height: 198)
+        childController.fullStateName = fullStateName
+        childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
+        childController.view.frame = CGRect(x: 0, y: view.bounds.size.height - ((self.tabBarController?.tabBar.frame.size.height)! + 222), width: view.bounds.size.width, height: 222)
         childController.view.layer.cornerRadius = 10
         childController.view.clipsToBounds = true
         view.addSubview((childController.view)!)
@@ -219,9 +255,19 @@ class RestStopListMapViewController: UIViewController {
         }
     }
     
+    func calculateAvailableArea(){
+        let navigationBarHeight = navigationController?.navigationBar.bounds.size.height
+        let tabBarHeight = tabBarController?.tabBar.bounds.size.height
+        let childTableViewHeight = childController.tableView.frame.size.height
+        print("***The height of the navigationBar is: \(navigationBarHeight)")
+        let availableHeight = view.bounds.size.height - (navigationBarHeight! + tabBarHeight! + childTableViewHeight)
+        print("*** The height of the map must be: \(availableHeight)")
+    }
+    
     
     deinit {
-        print("RestStopListMapViewController has deallocated!")
+        print("***RestStopListMapViewController has deallocated!")
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -235,11 +281,7 @@ class RestStopListMapViewController: UIViewController {
                 detailDisclosureViewController.restStop = restStop
                 detailDisclosureViewController.states = states
                 detailDisclosureViewController.fullStateName = fullStateName
-                if appWindow.bounds.size.height <= 568.0{
-                    setMapView80KMRegionSmallerScreen(restStop: restStop)
-                } else {
-                    setMapView80KMRegion(restStop: restStop)
-                }
+                setMapViewTo100KMRegion(for: restStop)
                 childControllerCurrentCenterPoint = childController.view.center
                 UIView.animate(withDuration: 0.3, animations: {
                     self.childController.view.center.y = self.childController.view.center.y * 1.5
@@ -250,33 +292,18 @@ class RestStopListMapViewController: UIViewController {
         }
     }
     
-    func setMapView80KMRegion(restStop: USRestStop){
-        let preCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude)
-        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 800, 800)
-        let finalCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.25), longitude: restStop.longitude)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 800, 800)
-        mapView.setRegion(finalRegion, animated: true)
+    func setMapViewTo100KMRegion(for restStop: USRestStop){
+        let region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, 100000, 100000)
+        mapView.setRegion(region, animated: true)
     }
     
-    func setMapView100KMRegion(restStop: USRestStop){
-        let preRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude), 80467, 80467)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.30), longitude: restStop.longitude), 100000, 100000)
-        mapView.setRegion(finalRegion, animated: true)
+    func setMapViewRegionWithCurrentSpan(for restStop: USRestStop){
+        var region = mapView.region
+        region.center = restStop.coordinate
+        mapView.setRegion(region, animated: true)
     }
     
-    func setMapView80KMRegionSmallerScreen(restStop: USRestStop){
-        let preCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude)
-        let preRegion = MKCoordinateRegionMakeWithDistance(preCoordinates, 800, 800)
-        let finalCoordinates = CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.20), longitude: restStop.longitude)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(finalCoordinates, 800, 800)
-        mapView.setRegion(finalRegion, animated: true)
-    }
     
-    func setMapView100KMRegionSmallerScreen(restStop: USRestStop){
-        let preRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude), 80467, 80467)
-        let finalRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: restStop.latitude - (preRegion.span.latitudeDelta * 0.33), longitude: restStop.longitude), 100000, 100000)
-        mapView.setRegion(finalRegion, animated: true)
-    }
 }
 
 extension RestStopListMapViewController: RestStopListChildTableViewControllerDelegate{
@@ -284,13 +311,27 @@ extension RestStopListMapViewController: RestStopListChildTableViewControllerDel
         let annotations = mapView.annotations
         mapView.removeAnnotations(annotations)
         mapView.addAnnotation(restStop)
-        if appWindow.bounds.size.height <= 568.0 {
-            setMapView100KMRegionSmallerScreen(restStop: restStop)
+        
+        if isViewFirstLoad == 1 {
+            setMapViewTo100KMRegion(for: restStop)
+            isViewFirstLoad = 0
         } else {
-            setMapView100KMRegion(restStop: restStop)
+            setMapViewRegionWithCurrentSpan(for: restStop)
         }
-        
-        
+    }
+    
+    func restStopListTable(_ childTableViewController: RestStopListChildTableViewController, didFindUserLocation: CLLocation) {
+        hideActivityIndicator()
+    }
+    
+    func restStopListTableDidNotFindLocation(_ childTableViewController: RestStopListChildTableViewController) {
+        let alert = UIAlertController(title: "Weak GPS signal!", message: "Could not get user location. Please try again in a few minutes.", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: {
+            dismissAction in
+            self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(dismissAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -331,17 +372,14 @@ extension RestStopListMapViewController: RestStopDetailDisclosureViewControllerD
         let annotations = mapView.annotations
         if annotations.count != 0 {
             let restStop = annotations[0] as! USRestStop
-            if appWindow.bounds.size.height <= 568.0{
-                setMapView100KMRegionSmallerScreen(restStop: restStop)
-            } else {
-                setMapView100KMRegion(restStop: restStop)
-            }
+            setMapViewTo100KMRegion(for: restStop)
         }
     }
     
     func restStopDetailDisclosureDidPick(_ viewController: RestStopDetailDisclosureViewController, mapType type: MKMapType) {
     
         mapView.mapType = type
+
     }
 }
 

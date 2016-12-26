@@ -6,55 +6,54 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellWithImageView" rowHeight="66" id="xyE-qa-X52" customClass="CellWithImageView" customModule="Roadster" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellWithImageView" rowHeight="74" id="xyE-qa-X52" customClass="CellWithImageView" customModule="Roadster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xyE-qa-X52" id="xn7-lJ-sGQ">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="65"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="73"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StateName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIl-EJ-ALD">
-                        <rect key="frame" x="95" y="15" width="90" height="21"/>
+                        <rect key="frame" x="95" y="17.5" width="90" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="180" id="DNc-c9-xic"/>
+                            <constraint firstAttribute="height" constant="22" id="Rhz-0K-hnd"/>
+                        </constraints>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="0.0" green="0.011764705882352941" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FZ-KZ-5iv">
-                        <rect key="frame" x="95" y="37" width="38" height="18"/>
+                        <rect key="frame" x="95" y="40.5" width="38" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="wGO-zU-aMa"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="180" id="xai-94-SIF"/>
+                        </constraints>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8IS-R0-ggf">
-                        <rect key="frame" x="15" y="2" width="62" height="62"/>
+                        <rect key="frame" x="15" y="4" width="62" height="62"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="62" id="1Sj-xB-7eQ"/>
-                            <constraint firstAttribute="width" constant="62" id="u6O-Qx-mtU"/>
+                            <constraint firstAttribute="width" constant="62" id="0dk-O1-3Lu"/>
+                            <constraint firstAttribute="height" constant="62" id="JCL-fn-YvN"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="JIl-EJ-ALD" firstAttribute="top" secondItem="xn7-lJ-sGQ" secondAttribute="topMargin" constant="7" id="1Ar-qU-BSO"/>
-                    <constraint firstItem="8IS-R0-ggf" firstAttribute="top" secondItem="xn7-lJ-sGQ" secondAttribute="topMargin" constant="-6" id="ELA-N0-LoB"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="3FZ-KZ-5iv" secondAttribute="trailing" constant="10" id="dYe-iD-ZUH"/>
-                    <constraint firstItem="3FZ-KZ-5iv" firstAttribute="leading" secondItem="8IS-R0-ggf" secondAttribute="trailing" constant="18" id="daR-m9-ZLC"/>
-                    <constraint firstItem="8IS-R0-ggf" firstAttribute="leading" secondItem="xn7-lJ-sGQ" secondAttribute="leadingMargin" constant="7" id="eQK-aI-stX"/>
-                    <constraint firstItem="3FZ-KZ-5iv" firstAttribute="top" secondItem="JIl-EJ-ALD" secondAttribute="bottom" constant="1" id="fIc-hY-6JO"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="JIl-EJ-ALD" secondAttribute="trailing" constant="10" id="l9j-26-8zq"/>
-                    <constraint firstItem="8IS-R0-ggf" firstAttribute="top" secondItem="xn7-lJ-sGQ" secondAttribute="topMargin" constant="-6" id="qYt-NG-C35"/>
-                    <constraint firstItem="JIl-EJ-ALD" firstAttribute="leading" secondItem="8IS-R0-ggf" secondAttribute="trailing" constant="18" id="vk7-vj-ZzP"/>
+                    <constraint firstItem="8IS-R0-ggf" firstAttribute="top" secondItem="xn7-lJ-sGQ" secondAttribute="top" constant="4" id="14q-cz-XX4"/>
+                    <constraint firstAttribute="bottom" secondItem="3FZ-KZ-5iv" secondAttribute="bottom" constant="15" id="3qx-7m-o5g"/>
+                    <constraint firstItem="JIl-EJ-ALD" firstAttribute="leading" secondItem="8IS-R0-ggf" secondAttribute="trailing" constant="18" id="8Np-8U-DPO"/>
+                    <constraint firstItem="3FZ-KZ-5iv" firstAttribute="top" secondItem="JIl-EJ-ALD" secondAttribute="bottom" constant="1" id="Pmd-nk-zDD"/>
+                    <constraint firstItem="3FZ-KZ-5iv" firstAttribute="leading" secondItem="8IS-R0-ggf" secondAttribute="trailing" constant="18" id="PnC-87-cYc"/>
+                    <constraint firstItem="8IS-R0-ggf" firstAttribute="leading" secondItem="xn7-lJ-sGQ" secondAttribute="leading" constant="15" id="zBT-WM-lh9"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="qYt-NG-C35"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nicknameLabel" destination="3FZ-KZ-5iv" id="sSF-kb-fnz"/>

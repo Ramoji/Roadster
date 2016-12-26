@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EndRestStopCell" rowHeight="74" id="thH-xs-VOD" customClass="EndRestStopCell" customModule="Roadster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="thH-xs-VOD" id="Vf7-l0-2K5">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOw-Ru-P8L">
+                        <rect key="frame" x="10" y="30.5" width="34" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="12" id="Xvq-K3-0SD"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="eZT-Qm-fEE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.50105064659999998" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle" translatesAutoresizingMaskIntoConstraints="NO" id="che-GI-riq">
+                        <rect key="frame" x="24" y="0.0" width="4" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="3dB-Pr-Ub7"/>
+                            <constraint firstAttribute="width" constant="4" id="7rU-fC-8GP"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="end" translatesAutoresizingMaskIntoConstraints="NO" id="GiY-he-hXB">
+                        <rect key="frame" x="24" y="43" width="4" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="47h-ZO-UQV"/>
+                            <constraint firstAttribute="width" constant="4" id="FXg-9s-AyV"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="yzD-Hd-yWp">
+                        <rect key="frame" x="23" y="66" width="6" height="6"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="Hdz-B1-8WQ"/>
+                            <constraint firstAttribute="width" constant="6" id="mUw-GE-A05"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="che-GI-riq" firstAttribute="leading" secondItem="Vf7-l0-2K5" secondAttribute="leading" constant="24" id="5gX-zu-esS"/>
+                    <constraint firstItem="che-GI-riq" firstAttribute="top" secondItem="Vf7-l0-2K5" secondAttribute="top" id="8II-qt-93S"/>
+                    <constraint firstItem="GiY-he-hXB" firstAttribute="leading" secondItem="Vf7-l0-2K5" secondAttribute="leading" constant="24" id="8VR-M1-GJe"/>
+                    <constraint firstItem="yzD-Hd-yWp" firstAttribute="top" secondItem="GiY-he-hXB" secondAttribute="bottom" constant="2" id="Xf4-0l-89H"/>
+                    <constraint firstItem="dOw-Ru-P8L" firstAttribute="leading" secondItem="Vf7-l0-2K5" secondAttribute="leading" constant="10" id="aTi-tV-E2s"/>
+                    <constraint firstItem="GiY-he-hXB" firstAttribute="top" secondItem="dOw-Ru-P8L" secondAttribute="bottom" constant="0.5" id="gQz-DB-2Wm"/>
+                    <constraint firstItem="yzD-Hd-yWp" firstAttribute="leading" secondItem="Vf7-l0-2K5" secondAttribute="leading" constant="23" id="h99-ej-joO"/>
+                    <constraint firstItem="dOw-Ru-P8L" firstAttribute="centerY" secondItem="Vf7-l0-2K5" secondAttribute="centerY" id="ohd-He-RTm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="distanceLabel" destination="dOw-Ru-P8L" id="1b5-rh-GM4"/>
+            </connections>
+            <point key="canvasLocation" x="40" y="15"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="circle" width="6" height="6"/>
+        <image name="end" width="4" height="11"/>
+        <image name="middle" width="4" height="11"/>
+    </resources>
+</document>

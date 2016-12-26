@@ -31,7 +31,7 @@ class PinViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
+        print("***Receiving Memory Warning from PinViewController!")
     }
     
     func configureGestureRecognizer(){

@@ -34,7 +34,7 @@ class RestStopDetailDisclosureViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        print("***Receiving Memory Warning from RestStopDetailDisclosureViewController!")
     }
 
     required init?(coder aDecoder: NSCoder) {

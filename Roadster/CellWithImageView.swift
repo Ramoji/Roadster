@@ -47,17 +47,17 @@ class CellWithImageView: UITableViewCell {
         nicknameLabel.text = String(numberOfRestStops) + " rest stops"
         imageView?.contentMode = UIViewContentMode.scaleAspectFit
         if highway.contains("I-") || highway.contains("US-"){
-            if let image = UIImage(named: highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
+            if let image = UIImage(named: highway)?.resizeImage(CGSize(width: 62.0, height: 62.0)){
                 imageView?.image = image
             } else {
-                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 62.0, height: 62.0))
             }
         } else {
             
-            if let image = UIImage(named: stateAbbreviation+"-"+highway)?.resizeImage(CGSize(width: 50.0, height: 50.0)){
+            if let image = UIImage(named: stateAbbreviation+"-"+highway)?.resizeImage(CGSize(width: 62.0, height: 62.0)){
                 imageView?.image = image
             } else {
-                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 50.0, height: 50.0))
+                imageView?.image = UIImage(named: "NoImage")?.resizeImage(CGSize(width: 62.0, height: 62.0))
             }
         }
         backgroundColor = UIColor.clear

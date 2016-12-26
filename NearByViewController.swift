@@ -11,6 +11,8 @@ import MapKit
 import CoreLocation
 import Dispatch
 import CoreData
+import YelpAPI
+import QuartzCore
 
 protocol NearByViewControllerDelegate: class {
     func nearByViewController(_ controller: NearByViewController, didFinishPicking item: USRestStop)
@@ -24,6 +26,7 @@ class NearByViewController: UIViewController {
     var location: CLLocation!
     var locationManagerUpdating: Bool!
     var userCurrentLocation: CLLocationCoordinate2D!
+    var userCurrentCLLocation: CLLocation!
     var maxLat: Double!
     var minLat: Double!
     var maxLong: Double!
@@ -34,25 +37,47 @@ class NearByViewController: UIViewController {
     var startRegion: MKCoordinateRegion!
     var fetchRequest: NSFetchRequest<NSFetchRequestResult>!
     let concurrentQueue = DispatchQueue(label: "myQueue", attributes: .concurrent)
+    var busiPickerView: UIPickerView =  UIPickerView()
+    var client: YLPClient!
+    var businessResults: [YLPBusiness] = [YLPBusiness]()
+    var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery", "Veterinarian"]
+    var childController: BusinessSearchResultTableViewController!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var dropDownTextField: NoCursorTextField!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerUserDefaults()
         mapView.isHidden = true
         getUserCurrentLocation()
         setUpSegmentedControl()
+        setUpBusiPickerView()
+        setUpDropDownTextField()
     }
-    
+
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         getUserCurrentLocation()
+        if let userCurrentCLLocation = userCurrentCLLocation{
+            getUserCurrentLocation()
+        }
     }
+    
+    override func loadView() {
+        super.loadView()
+        addChildTableViewController()
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("*** Receiving Memory Warning from NearByViewController!")
     }
     
     func setUpMapView(){
@@ -147,13 +172,91 @@ class NearByViewController: UIViewController {
         }
     }
     
+    func registerUserDefaults(){
+        UserDefaults.standard.register(defaults: ["pickedBusiness": "Rest Stops"])
+    }
+    
+    func getBusinesses(withSearchTerm term: String, userCoordinates coordinate: CLLocationCoordinate2D){
+        
+        let ylpCoordinate = YLPCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
+        YLPClient.authorize(withAppId: "F9jmXf_AL6xCSqDUA0qrJA", secret: "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"){
+            client, error in
+            
+            self.client = client
+            
+            client?.search(with: ylpCoordinate, term: term, limit: 40, offset: 0, sort: .distance){
+                search, error in
+                
+                if error != nil {
+                    let alert = UIAlertController(title: "Limited Service", message: "Unable to seatch for \(term)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.businessResults = (search?.businesses)!
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    
+                    self.updateChildTableView(withList: self.businessResults)
+                }
+            }
+        }
+    }
+    
+    func addChildTableViewController(){
+        
+        childController = storyboard?.instantiateViewController(withIdentifier: "BusinessSearchResultTableViewController") as! BusinessSearchResultTableViewController
+        let childControllerHeight = view.bounds.height - ((tabBarController?.tabBar.bounds.height)! + (navigationController?.navigationBar.bounds.height)! * 2)
+        childController.view.frame = CGRect(x: 0, y: 200, width: view.bounds.size.width, height: childControllerHeight)
+        childController.view.layer.cornerRadius = 15
+        childController.view.clipsToBounds = true
+        view.addSubview(childController.view)
+        self.addChildViewController(childController)
+        childController.didMove(toParentViewController: self)
+        childController.view.addShadow(withCornerRadius: 15)
+        
+    }
+    
+    func updateChildTableView(withList list: [AnyObject]){
+        
+        childController.businesses = []
+        childController.restStops = []
+        
+        if list is [USRestStop]{
+            childController.restStops = list as! [USRestStop]
+            childController.tableView.reloadData()
+        } else {
+            childController.businesses = list as! [YLPBusiness]
+            childController.tableView.reloadData()
+        }
+        
+    }
+    
+   
+    
+    // MARK: - *** Set Ups
+    
     func setUpSegmentedControl(){
         segmentedControl.addTarget(self, action: #selector(switchMapSatellite), for: .valueChanged)
         segmentedControl.layer.backgroundColor = UIColor.white.cgColor
         
     }
     
-   
+    func setUpDropDownTextField(){
+        dropDownTextField.inputView = busiPickerView
+        dropDownTextField.text = UserDefaults.standard.string(forKey: "pickedBusiness")!
+    }
+    
+    func setUpBusiPickerView(){
+        busiPickerView.delegate = self
+        busiPickerView.dataSource = self
+        busiPickerView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        busiPickerView.addShadow(withCornerRadius: 0)
+    }
+    
 }
 extension NearByViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -173,10 +276,13 @@ extension NearByViewController: CLLocationManagerDelegate{
                 if location.horizontalAccuracy <= locationManger.desiredAccuracy{
                     print("*** We are done with location manager!")
                     mapView.isHidden = false
-                    userCurrentLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    userCurrentLocation = location.coordinate
+                    userCurrentCLLocation = location
+                    getBusinesses(withSearchTerm: dropDownTextField.text!, userCoordinates: userCurrentLocation)
                     getMinMaxLatLong()
                     performFetch()
                     setUpMapView()
+                    updateChildTableView(withList: nearByRestStops)
                     stopLocationManager()
                 }
             }
@@ -191,6 +297,8 @@ extension NearByViewController: CLLocationManagerDelegate{
         stopLocationManager()
         location = nil
     }
+    
+   
 }
 
 
@@ -207,6 +315,28 @@ extension NearByViewController: MKMapViewDelegate{
     
 }
 
+
+extension NearByViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return businesses.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return businesses[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        dropDownTextField.text = businesses[row]
+        dropDownTextField.resignFirstResponder()
+        UserDefaults.standard.set(businesses[row] as String, forKey: "pickedBusiness")
+        getUserCurrentLocation()
+        
+    }
+}
 
 
 

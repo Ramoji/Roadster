@@ -12,6 +12,9 @@ import CoreData
 struct CustomCellTypeIdentifiers {
     static let CellWithImageView = "CellWithImageView"
     static let NoRestStopsCell = "NoRestStopsCell"
+    static let RestStopCell = "RestStopCell"
+    static let FirstRestStopCell = "FirstRestStopCell"
+    static let EndRestStopCell = "EndRestStopCell"
 }
 
 class StateListViewController: UIViewController {
@@ -39,7 +42,7 @@ class StateListViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    
+        print("***Receiving Memory Warning from StateListViewController!")
     }
     
     func setUpSearchController(){
@@ -75,7 +78,7 @@ class StateListViewController: UIViewController {
 
 extension StateListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 66
+        return 74
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

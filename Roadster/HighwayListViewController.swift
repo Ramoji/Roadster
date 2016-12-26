@@ -28,12 +28,14 @@ class HighwayListViewController: UIViewController {
         registerNibs()
         getUniqueRouteNames()
         tableView.backgroundView = blurredBackgroundView
+        navigationItem.title = fullStateName.capitalized
         
     
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print("*** Receiving Memory Warning from HighwayListViewController!")
         
     }
     
@@ -132,7 +134,7 @@ extension HighwayListViewController: UITableViewDataSource{
 }
 extension HighwayListViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 66
+        return 74
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FirstRestStopCell" rowHeight="74" id="mtZ-fj-jDU" customClass="FirstRestStopCell" customModule="Roadster" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mtZ-fj-jDU" id="5gQ-FB-Jm1">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLZ-Av-5Fy">
+                        <rect key="frame" x="10" y="31" width="34" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="GgY-5d-Gl7"/>
+                            <constraint firstAttribute="height" constant="12" id="ZV3-bp-jG0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.50105064659999998" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start" translatesAutoresizingMaskIntoConstraints="NO" id="Ffc-Je-TAE">
+                        <rect key="frame" x="24" y="9.5" width="4" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="4" id="1a6-T7-UtZ"/>
+                            <constraint firstAttribute="height" constant="21" id="yW9-Wb-tlG"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="middle" translatesAutoresizingMaskIntoConstraints="NO" id="wlZ-d9-xeU">
+                        <rect key="frame" x="24" y="44" width="4" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="4" id="JJN-DC-MYn"/>
+                            <constraint firstAttribute="height" constant="30" id="Sbl-L9-TCe"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" translatesAutoresizingMaskIntoConstraints="NO" id="fIK-nm-YSi">
+                        <rect key="frame" x="23" y="2" width="6" height="6"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="H5B-iB-Ehz"/>
+                            <constraint firstAttribute="width" constant="6" id="ujl-w7-WZW"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ffc-Je-TAE" firstAttribute="leading" secondItem="5gQ-FB-Jm1" secondAttribute="leading" constant="24" id="165-kZ-v6a"/>
+                    <constraint firstItem="wlZ-d9-xeU" firstAttribute="leading" secondItem="5gQ-FB-Jm1" secondAttribute="leading" constant="24" id="BqR-Kh-Q4l"/>
+                    <constraint firstItem="fIK-nm-YSi" firstAttribute="top" secondItem="5gQ-FB-Jm1" secondAttribute="top" constant="2" id="QrK-s4-CWj"/>
+                    <constraint firstItem="fIK-nm-YSi" firstAttribute="leading" secondItem="5gQ-FB-Jm1" secondAttribute="leading" constant="23" id="W4a-do-TnU"/>
+                    <constraint firstItem="fLZ-Av-5Fy" firstAttribute="leading" secondItem="5gQ-FB-Jm1" secondAttribute="leadingMargin" constant="2" id="bov-vn-laG"/>
+                    <constraint firstItem="Ffc-Je-TAE" firstAttribute="top" secondItem="fIK-nm-YSi" secondAttribute="bottom" constant="2" id="dCg-0d-bRm"/>
+                    <constraint firstItem="fLZ-Av-5Fy" firstAttribute="top" secondItem="Ffc-Je-TAE" secondAttribute="bottom" constant="0.5" id="s9F-3j-RXf"/>
+                    <constraint firstAttribute="bottom" secondItem="wlZ-d9-xeU" secondAttribute="bottom" id="t17-lp-KbA"/>
+                    <constraint firstItem="Ffc-Je-TAE" firstAttribute="top" secondItem="fIK-nm-YSi" secondAttribute="bottom" constant="2" id="yQe-k8-FE5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="distanceLabel" destination="fLZ-Av-5Fy" id="3Nt-GF-Ijr"/>
+            </connections>
+            <point key="canvasLocation" x="39.5" y="15"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="circle" width="6" height="6"/>
+        <image name="middle" width="4" height="11"/>
+        <image name="start" width="4" height="11"/>
+    </resources>
+</document>
