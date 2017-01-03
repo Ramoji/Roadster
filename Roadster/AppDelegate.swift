@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //**********************Getting persistence store*************************
         let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let dataStoreURL = documentsDirectoryURL.appendingPathComponent("DataStore.sqlite")
-        print(dataStoreURL)
         if !FileManager.default.fileExists(atPath: dataStoreURL.path){
             let sourceSqliteURLs = [Bundle.main.url(forResource: "DataStore", withExtension: "sqlite"), Bundle.main.url(forResource: "DataStore", withExtension: "sqlite-shm"), Bundle.main.url(forResource: "DataStore", withExtension: "sqlite-wal")]
             let destSqliteURLs = [documentsDirectoryURL.appendingPathComponent("DataStore.sqlite"), documentsDirectoryURL.appendingPathComponent("DataStore.sqlite-shm"), documentsDirectoryURL.appendingPathComponent("DataStore.sqlite-wal")]

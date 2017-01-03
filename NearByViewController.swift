@@ -27,11 +27,8 @@ class NearByViewController: UIViewController {
     var locationManagerUpdating: Bool!
     var userCurrentLocation: CLLocationCoordinate2D!
     var userCurrentCLLocation: CLLocation!
-    var maxLat: Double!
-    var minLat: Double!
-    var maxLong: Double!
-    var minLong: Double!
-    var nearByRestStops: [USRestStop]!
+    var maxCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    var minCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var managedObjectContext: NSManagedObjectContext!
     var myRegion: MKCoordinateRegion!
     var startRegion: MKCoordinateRegion!
@@ -39,7 +36,6 @@ class NearByViewController: UIViewController {
     let concurrentQueue = DispatchQueue(label: "myQueue", attributes: .concurrent)
     var busiPickerView: UIPickerView =  UIPickerView()
     var client: YLPClient!
-    var businessResults: [YLPBusiness] = [YLPBusiness]()
     var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery", "Veterinarian"]
     var childController: BusinessSearchResultTableViewController!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -62,8 +58,7 @@ class NearByViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        getUserCurrentLocation()
-        if let userCurrentCLLocation = userCurrentCLLocation{
+        if let _ = userCurrentCLLocation{
             getUserCurrentLocation()
         }
     }
@@ -79,37 +74,7 @@ class NearByViewController: UIViewController {
         super.didReceiveMemoryWarning()
         print("*** Receiving Memory Warning from NearByViewController!")
     }
-    
-    func setUpMapView(){
-        mapView.showsCompass = true
-        mapView.showsScale = true
-        mapView.setRegion(myRegion, animated: true)
-        mapView.addAnnotations(nearByRestStops)
-        mapView.showsUserLocation = true
-    }
-    
-    func performFetch(){
-        
-        fetchRequest = {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
-            fetchRequest.entity = USRestStop.entity()
-            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [NSPredicate(format: "latitude BETWEEN {%@, %@}", argumentArray: [minLat, maxLat]), NSPredicate(format: "longitude BETWEEN {%@, %@}", argumentArray: [minLong, maxLong])])
-            fetchRequest.predicate = compoundPredicate
-            fetchRequest.fetchBatchSize = 100
-            fetchRequest.entity = USRestStop.entity()
-            return fetchRequest
-        }()
-        
-        do{
-            nearByRestStops = try managedObjectContext.fetch(fetchRequest) as! [USRestStop]
-    
-        }catch let error as NSError{
-            print(error.debugDescription)
-            fatalError("Fetching close restStops failed!")
-        }
-    }
-    
-    
+
     func getUserCurrentLocation(){
         let authStatus = CLLocationManager.authorizationStatus()
         if authStatus == .denied || authStatus == .restricted {
@@ -150,18 +115,10 @@ class NearByViewController: UIViewController {
     func getMinMaxLatLong(){
         myRegion = MKCoordinateRegionMakeWithDistance(userCurrentLocation, 80467, 80467)
         startRegion = MKCoordinateRegionMakeWithDistance(userCurrentLocation, 80467, 80467)
-        maxLat = myRegion.center.latitude + 0.5 * startRegion.span.latitudeDelta
-        print("Max Lat:")
-        print(maxLat)
-        minLat = myRegion.center.latitude - 0.5 * startRegion.span.latitudeDelta
-        print("Min Lat:")
-        print(minLat)
-        maxLong = myRegion.center.longitude + 0.5 * startRegion.span.longitudeDelta
-        print("Max Long:")
-        print(maxLong)
-        minLong = myRegion.center.longitude - 0.5 * startRegion.span.longitudeDelta
-        print("Min Long:")
-        print(minLong)
+        maxCoordinate.latitude = myRegion.center.latitude + 0.5 * startRegion.span.latitudeDelta
+        minCoordinate.latitude = myRegion.center.latitude - 0.5 * startRegion.span.latitudeDelta
+        maxCoordinate.longitude = myRegion.center.longitude + 0.5 * startRegion.span.longitudeDelta
+        minCoordinate.longitude = myRegion.center.longitude - 0.5 * startRegion.span.longitudeDelta
     }
     
     func switchMapSatellite(){
@@ -176,39 +133,13 @@ class NearByViewController: UIViewController {
         UserDefaults.standard.register(defaults: ["pickedBusiness": "Rest Stops"])
     }
     
-    func getBusinesses(withSearchTerm term: String, userCoordinates coordinate: CLLocationCoordinate2D){
-        
-        let ylpCoordinate = YLPCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-        
-        YLPClient.authorize(withAppId: "F9jmXf_AL6xCSqDUA0qrJA", secret: "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"){
-            client, error in
-            
-            self.client = client
-            
-            client?.search(with: ylpCoordinate, term: term, limit: 40, offset: 0, sort: .distance){
-                search, error in
-                
-                if error != nil {
-                    let alert = UIAlertController(title: "Limited Service", message: "Unable to seatch for \(term)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    self.businessResults = (search?.businesses)!
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
-                    
-                    self.updateChildTableView(withList: self.businessResults)
-                }
-            }
-        }
-    }
+   
     
     func addChildTableViewController(){
         
         childController = storyboard?.instantiateViewController(withIdentifier: "BusinessSearchResultTableViewController") as! BusinessSearchResultTableViewController
+        childController.delegate = self
+        childController.managedObjectContext = managedObjectContext
         let childControllerHeight = view.bounds.height - ((tabBarController?.tabBar.bounds.height)! + (navigationController?.navigationBar.bounds.height)! * 2)
         childController.view.frame = CGRect(x: 0, y: 200, width: view.bounds.size.width, height: childControllerHeight)
         childController.view.layer.cornerRadius = 15
@@ -217,21 +148,6 @@ class NearByViewController: UIViewController {
         self.addChildViewController(childController)
         childController.didMove(toParentViewController: self)
         childController.view.addShadow(withCornerRadius: 15)
-        
-    }
-    
-    func updateChildTableView(withList list: [AnyObject]){
-        
-        childController.businesses = []
-        childController.restStops = []
-        
-        if list is [USRestStop]{
-            childController.restStops = list as! [USRestStop]
-            childController.tableView.reloadData()
-        } else {
-            childController.businesses = list as! [YLPBusiness]
-            childController.tableView.reloadData()
-        }
         
     }
     
@@ -257,10 +173,20 @@ class NearByViewController: UIViewController {
         busiPickerView.addShadow(withCornerRadius: 0)
     }
     
+    func setUpMapView(with list: [AnyObject]){
+        
+        if list is [USRestStop]{
+            mapView.showsCompass = true
+            mapView.showsScale = true
+            mapView.setRegion(myRegion, animated: true)
+            mapView.addAnnotations(list as! [USRestStop])
+            mapView.showsUserLocation = true
+        }
+    }
+    
 }
 extension NearByViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations.last)
         let newLocation = locations.last
         if let newLocation = newLocation {
             if newLocation.timestamp.timeIntervalSinceNow < -5 {
@@ -278,11 +204,8 @@ extension NearByViewController: CLLocationManagerDelegate{
                     mapView.isHidden = false
                     userCurrentLocation = location.coordinate
                     userCurrentCLLocation = location
-                    getBusinesses(withSearchTerm: dropDownTextField.text!, userCoordinates: userCurrentLocation)
                     getMinMaxLatLong()
-                    performFetch()
-                    setUpMapView()
-                    updateChildTableView(withList: nearByRestStops)
+                    childController.getBusinessSearchResultTableViewControllerList(with: dropDownTextField.text!, userCurrentLocation: userCurrentLocation, maxCoordinate: maxCoordinate, minCoordinate: minCoordinate)
                     stopLocationManager()
                 }
             }
@@ -339,6 +262,23 @@ extension NearByViewController: UIPickerViewDelegate, UIPickerViewDataSource{
 }
 
 
-
+extension NearByViewController: BusinessSearchResultTableViewControllerProtocol{
+    
+    func businessSearchResultTableViewStartedGettingBusiness() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func businessSearchResultTableViewStopedGettingBusiness(with searchResultList: [AnyObject]){
+        // Also add a condition for when list is not an array of USRestStops.
+        setUpMapView(with: searchResultList)
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.isHidden = true
+        
+        
+    }
+    
+}
 
 
