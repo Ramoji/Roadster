@@ -20,6 +20,7 @@ extension UIView{
         self.layer.shadowOpacity = 0.3
         self.layer.shadowRadius = 2.0
         self.layer.masksToBounds = false
+        self.layer.cornerRadius = 15
         
     }
     

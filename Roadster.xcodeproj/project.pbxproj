@@ -40,6 +40,8 @@
 		21C8E63B1D806838007F67E2 /* CellWithImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E63A1D806838007F67E2 /* CellWithImageView.xib */; };
 		21C8E63D1D8073A2007F67E2 /* CellWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */; };
 		21CB896E1E07A98C006C7B3D /* NoCursorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CB896D1E07A98C006C7B3D /* NoCursorTextField.swift */; };
+		21CBA7E81E213A8E000E1015 /* YelpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21CBA7E71E213A8E000E1015 /* YelpTableViewCell.xib */; };
+		21CBA7EA1E218997000E1015 /* YelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CBA7E91E218997000E1015 /* YelpTableViewCell.swift */; };
 		21E9BDF81DEF78FA00127C7C /* FirstRestStopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E9BDF71DEF78FA00127C7C /* FirstRestStopCell.xib */; };
 		21E9BDFA1DEF790900127C7C /* EndRestStopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21E9BDF91DEF790900127C7C /* EndRestStopCell.xib */; };
 		21E9BDFE1DEF85BB00127C7C /* FirstRestStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E9BDFD1DEF85BB00127C7C /* FirstRestStopCell.swift */; };
@@ -87,6 +89,8 @@
 		21C8E63A1D806838007F67E2 /* CellWithImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellWithImageView.xib; path = ../CellWithImageView.xib; sourceTree = "<group>"; };
 		21C8E63C1D8073A2007F67E2 /* CellWithImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellWithImageView.swift; sourceTree = "<group>"; };
 		21CB896D1E07A98C006C7B3D /* NoCursorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoCursorTextField.swift; sourceTree = "<group>"; };
+		21CBA7E71E213A8E000E1015 /* YelpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YelpTableViewCell.xib; sourceTree = "<group>"; };
+		21CBA7E91E218997000E1015 /* YelpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpTableViewCell.swift; sourceTree = "<group>"; };
 		21E9BDF71DEF78FA00127C7C /* FirstRestStopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstRestStopCell.xib; sourceTree = "<group>"; };
 		21E9BDF91DEF790900127C7C /* EndRestStopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EndRestStopCell.xib; sourceTree = "<group>"; };
 		21E9BDFD1DEF85BB00127C7C /* FirstRestStopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstRestStopCell.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				216D18721DED0D1D00FCA922 /* RestStopCell.xib */,
 				21E9BDF71DEF78FA00127C7C /* FirstRestStopCell.xib */,
 				21E9BDF91DEF790900127C7C /* EndRestStopCell.xib */,
+				21CBA7E71E213A8E000E1015 /* YelpTableViewCell.xib */,
 			);
 			name = "xib files";
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 				216D18751DEDDDB600FCA922 /* RestStopCell.swift */,
 				21E9BDFD1DEF85BB00127C7C /* FirstRestStopCell.swift */,
 				21E9BDFF1DEF85F200127C7C /* EndRestStopCell.swift */,
+				21CBA7E91E218997000E1015 /* YelpTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -268,7 +274,7 @@
 				TargetAttributes = {
 					21C8E61C1D7FD44A007F67E2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 6G593VN7SW;
+						DevelopmentTeam = 653MCLBKD7;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -303,6 +309,7 @@
 				21C8E62D1D7FD44A007F67E2 /* LaunchScreen.storyboard in Resources */,
 				213391351DE35CC10053A2BD /* DataStore.sqlite-wal in Resources */,
 				213391331DE35CC10053A2BD /* DataStore.sqlite in Resources */,
+				21CBA7E81E213A8E000E1015 /* YelpTableViewCell.xib in Resources */,
 				21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */,
 				21E9BDFA1DEF790900127C7C /* EndRestStopCell.xib in Resources */,
 				21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */,
@@ -380,6 +387,7 @@
 				21E9BDFE1DEF85BB00127C7C /* FirstRestStopCell.swift in Sources */,
 				212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */,
 				218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */,
+				21CBA7EA1E218997000E1015 /* YelpTableViewCell.swift in Sources */,
 				2141C5521DA87CAB003DE1EF /* USRestStop+CoreDataClass.swift in Sources */,
 				21A337F21E08C423003EAC1F /* BusinessDetailTableViewController.swift in Sources */,
 				216A2BAD1DEB15BC0097DC83 /* StaticDetailTableViewController.swift in Sources */,
@@ -512,12 +520,12 @@
 			baseConfigurationReference = 5688100F4BF6B56B1C166BFB /* Pods-Roadster.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6G593VN7SW;
+				DEVELOPMENT_TEAM = 653MCLBKD7;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Roadster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.exampleaj.Roadster;
+				PRODUCT_BUNDLE_IDENTIFIER = come.me;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -528,12 +536,12 @@
 			baseConfigurationReference = 19ECEE6FC44FE74531381AF8 /* Pods-Roadster.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6G593VN7SW;
+				DEVELOPMENT_TEAM = 653MCLBKD7;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Roadster/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.exampleaj.Roadster;
+				PRODUCT_BUNDLE_IDENTIFIER = come.me;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

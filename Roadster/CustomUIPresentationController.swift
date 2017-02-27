@@ -21,9 +21,7 @@ class CustomUIPresentationController: UIPresentationController {
         
     }
     
-    
-    
-    
+
     override var shouldRemovePresentersView: Bool {return false}
     
     func drawSeeThroughWindow(){

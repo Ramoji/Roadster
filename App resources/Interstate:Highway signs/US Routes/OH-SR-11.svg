@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="600"
+   height="600"
+   id="svg2">
+  <title
+     id="title4">Ohio State Route 11</title>
+  <defs
+     id="defs13" />
+  <metadata
+     id="metadata6">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Ohio State Route 11</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="g3766">
+    <rect
+       width="600"
+       height="600"
+       rx="37.5"
+       ry="37"
+       x="0"
+       y="0"
+       id="rect3760"
+       style="fill:#000000;fill-rule:nonzero" />
+    <path
+       d="m 35.684,35.525 h 152.8 c 11.878,7.4633 25.825,13.302 41.064,17.82 15.239,4.518 32.952,-5.8749 50.001,-3.6927 8.5243,1.0911 15.405,7.394 24.091,7.5722 8.6859,0.17818 19.177,-5.7684 27.83,-5.5406 17.307,0.4556 22.538,17.336 49.188,14.902 15.962,-1.4579 27.536,-10.302 43.373,-16.182 15.836,-5.8802 35.987,-8.0005 52.714,-7.8043 32.029,0.37571 64.058,-16.015 96.087,-22.952 l 1.6713,226.42 c -16.88,11.321 -4.2266,30.351 -5.3553,48.012 -0.61683,9.6524 -1.9248,19.637 -9.3038,24.781 -7.3505,5.1248 -6.6474,17.268 -3.1851,31.198 4.5833,18.44 -3,36.947 -6.632,55.024 -3.6319,18.077 -11.016,35.099 -25.602,49.873 -14.268,14.453 -35.577,38.832 -60.761,42.639 -32.51,4.9138 -43.364,19.832 -60.825,38.85 -8.0529,8.7704 -11.805,11.253 -30.617,12.924 -10.486,0.93144 -7.7747,9.0298 -31.157,10.416 -23.075,1.368 -44.484,14.745 -58.221,14.722 -38.506,-0.0634 -70.102,-51.29 -120.86,-58.384 -25.336,-3.5407 -48.786,-14.768 -71.752,-27.008 -11.533,-6.15 -22.595,-18.33 -35.338,-20.54 -15.347,-2.65 -18.672,-15.13 -29.395,-20.39 v -401.76 c -0.3649,-7.3923 4.2841,-11.024 10.187,-10.895 z"
+       inkscape:connector-curvature="0"
+       id="path8"
+       style="fill:#ffffff;stroke-width:0;stroke-miterlimit:4" />
+  </g>
+  <g
+     id="routenum"
+     style="font-size:446.42999268px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:100%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;font-family:Roadgeek 2005 Series C">
+    <path
+       d="M 215.62,440 V 197.59 h -27.232 v -37.946 h 3.125 c 6.25,2.8e-4 12.5,-1.6366 18.75,-4.9107 6.2499,-3.2735 11.458,-7.8866 15.625,-13.839 h 37.946 v 299.11 H 215.62"
+       inkscape:connector-curvature="0"
+       id="path2988" />
+    <path
+       d="M 351.45,440 V 197.59 h -27.232 v -37.946 h 3.125 c 6.25,2.8e-4 12.5,-1.6366 18.75,-4.9107 6.25,-3.2735 11.458,-7.8866 15.625,-13.839 h 37.946 v 299.11 H 351.45"
+       inkscape:connector-curvature="0"
+       id="path2990" />
+  </g>
+</svg>

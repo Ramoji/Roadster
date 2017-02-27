@@ -79,9 +79,6 @@ class RestStopListChildTableViewController: UITableViewController {
     
     func setUpTableView(){
         tableView.backgroundView?.layer.shadowColor = UIColor.black.cgColor
-        tableView.backgroundView?.layer.shadowRadius = 5
-        tableView.isUserInteractionEnabled = true
-        tableView.remembersLastFocusedIndexPath = true
         tableView.backgroundView = blurredBackgroundView
         tableView.separatorEffect = blurredBackgroundView.blurEffectView.effect
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -144,6 +141,10 @@ class RestStopListChildTableViewController: UITableViewController {
             staticDetailTableViewController.fullStateName = fullStateName
             staticDetailTableViewController.bound = bound
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        tableView.addShadow(withCornerRadius: 15)
     }
     
     deinit{

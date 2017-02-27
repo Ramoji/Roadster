@@ -15,6 +15,7 @@ struct CustomCellTypeIdentifiers {
     static let RestStopCell = "RestStopCell"
     static let FirstRestStopCell = "FirstRestStopCell"
     static let EndRestStopCell = "EndRestStopCell"
+    static let YelpTableViewCell = "YelpTableViewCell"
 }
 
 class StateListViewController: UIViewController {
