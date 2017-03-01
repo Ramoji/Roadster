@@ -32,15 +32,18 @@ class BusinessSearchResultTableViewController: UIViewController{
     var appWindow: UIWindow!
     var headerView: UIView!
     
+    
    
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let blurredBackgroundView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
+        tableView.backgroundView = blurredBackgroundView
         registerNibs()
         setUpHeaderView()
         setUpTableView()
     }
+    
     
     
     
@@ -55,26 +58,8 @@ class BusinessSearchResultTableViewController: UIViewController{
     
     //MARK: - SetUps
     func setUpHeaderView(){
-        //let headerViewFrame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 50)
-        //headerView = UIView(frame: headerViewFrame)
+        
         headerView = UIView()
-            headerView.backgroundColor = UIColor.clear
-        let grabViewFrame = CGRect(x: view.bounds.size.width / 2 - 20, y: 5, width: 40, height: 5)
-        let grabView = UIView(frame: grabViewFrame)
-            grabView.backgroundColor = tableView.separatorColor
-            grabView.layer.cornerRadius = 2.5
-        let separatorFrame = CGRect(x: 0, y: 49, width: view.bounds.size.width, height: 0.7)
-        let separator = UIView(frame: separatorFrame)
-            separator.backgroundColor = tableView.separatorColor
-        let searchLabelFrame = CGRect(x: 0, y: 10, width: view.bounds.size.width, height: 34)
-        let searchLabel = UILabel(frame: searchLabelFrame)
-            searchLabel.textAlignment = .center
-        let searchLabelFont = UIFont.systemFont(ofSize: 15)
-        let searchLabelAttributedText = NSAttributedString(string: "Search Results", attributes: [NSFontAttributeName: searchLabelFont])
-        searchLabel.attributedText = searchLabelAttributedText
-        headerView.addSubview(searchLabel)
-        headerView.addSubview(separator)
-        headerView.addSubview(grabView)
         view.addSubview(headerView)
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,8 +67,47 @@ class BusinessSearchResultTableViewController: UIViewController{
         let heightConstraint = headerView.heightAnchor.constraint(equalToConstant: 50)
         let leadingConstraint = headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailingConstraint = headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        
         NSLayoutConstraint.activate([topConstraint, heightConstraint, leadingConstraint, trailingConstraint])
+        
+        let grabView = UIView()
+        let searchLabel = UILabel()
+        let separator = UIView()
+        
+        
+        headerView.addSubview(searchLabel)
+        headerView.addSubview(separator)
+        headerView.addSubview(grabView)
+        
+        
+        grabView.backgroundColor = tableView.separatorColor
+        grabView.layer.cornerRadius = 2.5
+        grabView.translatesAutoresizingMaskIntoConstraints = false
+        let grabViewWidthConstraint = grabView.widthAnchor.constraint(equalTo: headerView.widthAnchor, multiplier: 0.10)
+        let grabViewHeightConstraint = grabView.heightAnchor.constraint(equalToConstant: 5)
+        let grabViewTopConstraint = grabView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 5)
+        let grabViewHorizonalConstraint = grabView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor)
+        NSLayoutConstraint.activate([grabViewWidthConstraint, grabViewHeightConstraint, grabViewTopConstraint,grabViewHorizonalConstraint])
+        
+        
+        searchLabel.textAlignment = .center
+        let searchLabelFont = UIFont.systemFont(ofSize: 15)
+        let searchLabelAttributedText = NSAttributedString(string: "Search Results", attributes: [NSFontAttributeName: searchLabelFont])
+        searchLabel.attributedText = searchLabelAttributedText
+        searchLabel.translatesAutoresizingMaskIntoConstraints = false
+        let searchLabelTrailingConstraint = searchLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+        let searchLabelLeadingConstraint = searchLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor)
+        let searchLabelHeightConstraint = searchLabel.heightAnchor.constraint(equalToConstant: 34.0)
+        let searchLabelTopConstraint = searchLabel.topAnchor.constraint(equalTo: grabView.bottomAnchor)
+        NSLayoutConstraint.activate([searchLabelTrailingConstraint, searchLabelLeadingConstraint, searchLabelHeightConstraint, searchLabelTopConstraint])
+    
+        
+        separator.backgroundColor = tableView.separatorColor
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        let seperatorBottomConstraint = separator.topAnchor.constraint(equalTo: tableView.topAnchor)
+        let seperatorTrailingConstraint = separator.trailingAnchor.constraint(equalTo: headerView.trailingAnchor)
+        let seperatorLeadingConstraint = separator.leadingAnchor.constraint(equalTo: headerView.leadingAnchor)
+        let seperatorHeightConstraint = separator.heightAnchor.constraint(equalToConstant: 0.7)
+        NSLayoutConstraint.activate([seperatorBottomConstraint, seperatorTrailingConstraint, seperatorLeadingConstraint, seperatorHeightConstraint])
     }
     
     func setUpTableView(){
@@ -104,7 +128,7 @@ class BusinessSearchResultTableViewController: UIViewController{
     }
     
     func setUpView(){
-        view.addShadow(withCornerRadius: 15)
+        view.addShadow(withCornerRadius: 15.0)
     }
     
     
@@ -112,8 +136,15 @@ class BusinessSearchResultTableViewController: UIViewController{
         
         let ylpCoordinate = YLPCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude)
         let dimView = UIView(frame: view.bounds)
-        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         view.addSubview(dimView)
+        
+        view.layoutIfNeeded()
+        
+        let maskPath = UIBezierPath(roundedRect: dimView.bounds, byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 15.0, height: 15.0))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = maskPath.cgPath
+        dimView.layer.mask = maskLayer
         
         globalQueue.async {
             YLPClient.authorize(withAppId: "F9jmXf_AL6xCSqDUA0qrJA", secret: "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"){

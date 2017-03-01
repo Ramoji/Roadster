@@ -110,37 +110,6 @@
             </objects>
             <point key="canvasLocation" x="2561" y="-1531"/>
         </scene>
-        <!--Rest Stop List Child Table View Controller-->
-        <scene sceneID="iSy-ed-XGW">
-            <objects>
-                <tableViewController storyboardIdentifier="tableController" id="vwn-Ak-wMn" customClass="RestStopListChildTableViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CkF-Yv-SyR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="t2a-ma-PCM">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t2a-ma-PCM" id="TTo-6J-u0h">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vwn-Ak-wMn" id="hVv-Ne-cXV"/>
-                            <outlet property="delegate" destination="vwn-Ak-wMn" id="ydS-uE-OdU"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <segue destination="nH8-3U-MS4" kind="show" identifier="showStaticDetailTable" id="F5v-vS-t1M"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tYG-e4-3ru" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3454" y="-2230"/>
-        </scene>
         <!--Rest Stop List Map View Controller-->
         <scene sceneID="3pI-IW-bER">
             <objects>
@@ -182,30 +151,49 @@
                     <connections>
                         <outlet property="mapView" destination="fr1-a0-xcw" id="Jrl-fw-1Qz"/>
                         <outlet property="segmentedControl" destination="gyk-fP-EOr" id="kLo-cr-VLZ"/>
-                        <segue destination="OMB-oC-Bkr" kind="presentation" identifier="showDetailDisclosurePage" id="OpC-x7-Qx8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QUO-Ae-Btt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3455" y="-1531"/>
         </scene>
-        <!--Rest Stop Detail Disclosure View Controller-->
-        <scene sceneID="9ou-qp-YWy">
+        <!--Rest Stop List Child Table View Controller-->
+        <scene sceneID="4Zw-3x-AU1">
             <objects>
-                <viewController id="OMB-oC-Bkr" customClass="RestStopDetailDisclosureViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tableController" id="krY-hT-ptE" customClass="RestStopListChildTableViewController" customModule="Roadster" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="98J-tp-jPC"/>
-                        <viewControllerLayoutGuide type="bottom" id="eIF-0Z-LEj"/>
+                        <viewControllerLayoutGuide type="top" id="tfZ-sm-ElU"/>
+                        <viewControllerLayoutGuide type="bottom" id="vFM-lC-e1j"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="nl2-4V-UAm">
+                    <view key="view" contentMode="scaleToFill" id="QHv-kI-FZo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NQ3-CL-1Hi">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="krY-hT-ptE" id="0Hi-ZW-1YI"/>
+                                    <outlet property="delegate" destination="krY-hT-ptE" id="N0l-os-bY9"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="NQ3-CL-1Hi" secondAttribute="trailing" id="42P-g0-9hY"/>
+                            <constraint firstItem="vFM-lC-e1j" firstAttribute="top" secondItem="NQ3-CL-1Hi" secondAttribute="bottom" id="VUy-zd-4Qn"/>
+                            <constraint firstItem="NQ3-CL-1Hi" firstAttribute="top" secondItem="QHv-kI-FZo" secondAttribute="top" id="acR-x2-QfV"/>
+                            <constraint firstItem="NQ3-CL-1Hi" firstAttribute="leading" secondItem="QHv-kI-FZo" secondAttribute="leading" id="vJl-Vg-hDX"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="NQ3-CL-1Hi" id="x0k-AX-bwD"/>
+                        <segue destination="nH8-3U-MS4" kind="show" identifier="showStaticDetailTable" id="kQO-oQ-mER"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gIe-Jw-dcz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3mK-yF-kN2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4390" y="-1531"/>
+            <point key="canvasLocation" x="3428" y="-2228.6356821589206"/>
         </scene>
         <!--Static Detail Table View Controller-->
         <scene sceneID="9B5-iG-DMN">
@@ -368,7 +356,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PdG-Oi-3Of">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PdG-Oi-3Of">
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                 <connections>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="azl-tJ-0L7"/>

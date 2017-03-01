@@ -88,7 +88,7 @@ class HighwayListViewController: UIViewController {
             let managedObjects = try managedObjectContext.fetch(fetchRequest)
             return managedObjects.count
         } catch let error as NSError{
-            print(error.debugDescription)
+            print(error.description)
             fatalError("Failed to fetch managed objects to get number of rest stops per route!")
         }
     }
@@ -151,7 +151,6 @@ extension HighwayListViewController: UITableViewDelegate{
         } else {
             let cell = tableView.cellForRow(at: indexPath) as! CellWithImageView
             performSegue(withIdentifier: "ShowRestStopListMapView", sender: cell)
-            print(routes[indexPath.row])
         }
     }
 }

@@ -33,6 +33,7 @@ class YelpTableViewCell: UITableViewCell {
     }
     
     func setUp(for yelpBusiness: YLPBusiness){
+        backgroundColor = UIColor.clear
         businessRatingImageView.isHidden = false
         businessTitle.text = yelpBusiness.name
         businessCatAndDistance.text = yelpBusiness.categories.first!.name

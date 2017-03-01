@@ -16,10 +16,11 @@ import UIKit
 import CoreData
 import CoreLocation
 
-class RestStopListChildTableViewController: UITableViewController {
+class RestStopListChildTableViewController: UIViewController {
     
     
     weak var delegate: RestStopListChildTableViewControllerDelegate?
+    @IBOutlet weak var tableView: UITableView!
     var blurredBackgroundView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
     var restStopList: [USRestStop] = [USRestStop]()
     var chosenCell: UITableViewCell!
@@ -39,14 +40,14 @@ class RestStopListChildTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        for restStop in restStopList {
-            print(restStop.stopDescription)
-        }
+        
         getUserLocation()
         registerNibs()
         setUpTableView()
-        self.tableView.tableFooterView = UIView()
-        view.backgroundColor = UIColor.clear
+    }
+    
+    override func loadView() {
+        super.loadView()
     }
     
     
@@ -78,10 +79,9 @@ class RestStopListChildTableViewController: UITableViewController {
     }
     
     func setUpTableView(){
-        tableView.backgroundView?.layer.shadowColor = UIColor.black.cgColor
+        
         tableView.backgroundView = blurredBackgroundView
         tableView.separatorEffect = blurredBackgroundView.blurEffectView.effect
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     func selectFirstRow(){
@@ -144,7 +144,7 @@ class RestStopListChildTableViewController: UITableViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        tableView.addShadow(withCornerRadius: 15)
+        view.addShadow(withCornerRadius: 0)
     }
     
     deinit{
@@ -153,9 +153,9 @@ class RestStopListChildTableViewController: UITableViewController {
 }
 
 //MARK: - Tableview delegate and Datasource
-extension RestStopListChildTableViewController{
+extension RestStopListChildTableViewController: UITableViewDataSource, UITableViewDelegate{
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if restStopList.isEmpty {
             return 1
         } else {
@@ -164,7 +164,7 @@ extension RestStopListChildTableViewController{
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if restStopList.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell, for: indexPath) as! NoRestStopsCell
             if let gestureRecognizers = cell.gestureRecognizers{
@@ -209,7 +209,7 @@ extension RestStopListChildTableViewController{
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !restStopList.isEmpty{
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
             delegate?.restStopListTable(self, didPickRestStop: restStopList[indexPath.row])
@@ -226,7 +226,7 @@ extension RestStopListChildTableViewController{
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 74
     }
     
@@ -269,7 +269,6 @@ extension RestStopListChildTableViewController: CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last
-        print(newLocation)
         if let newLocation = newLocation{
             if newLocation.timestamp.timeIntervalSinceNow < -5 {
                 return
@@ -285,10 +284,8 @@ extension RestStopListChildTableViewController: CLLocationManagerDelegate{
                 itHasBeenTooLong(location: location, newLocation: newLocation)
                 lastLocationError = nil
                 if location.horizontalAccuracy <= locationManager.desiredAccuracy{
-                    print("*** We are done witl location manager!")
                     userCurrentLocation = location
                     getRestStopDistanceFromUser()
-                    print("The user current location is: \(userCurrentLocation)")
                     delegate?.restStopListTable(self, didFindUserLocation: userCurrentLocation)
                     stopLocationManager()
                     tableView.reloadData()
@@ -299,7 +296,6 @@ extension RestStopListChildTableViewController: CLLocationManagerDelegate{
     
     func itHasBeenTooLong(location: CLLocation, newLocation: CLLocation){
         let distance = newLocation.distance(from: location)
-        print("The distance between location and newLocation is: \(distance)")
         if distance < 1 {
             if newLocation.timestamp.timeIntervalSince(location.timestamp) > 10 {
                 stopLocationManager()
@@ -314,7 +310,6 @@ extension RestStopListChildTableViewController: CLLocationManagerDelegate{
             for restStop in restStopList{
                 let restStopLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
                 let distance: Int = Int(userCurrentLocation.distance(from: restStopLocation) / 1609.34)
-                print("*** \(distance)")
                 restStopDistanceFromUser.append(distance)
             }
         }

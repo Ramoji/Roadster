@@ -36,7 +36,7 @@ class NearByViewController: UIViewController {
     let concurrentQueue = DispatchQueue(label: "myQueue", attributes: .concurrent)
     var businessPickerView: UIPickerView =  UIPickerView()
     var client: YLPClient!
-    var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery"]
+    var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery", "Outdoor Apparel"]
     var childController: BusinessSearchResultTableViewController!
     var appWindow: UIWindow!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -234,7 +234,6 @@ class NearByViewController: UIViewController {
         guard let _ = sender.view else {return}
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
-        print("Y velocity is: \(yVelocity)")
         if topViewUpperConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
             totalYTransaction += yTransaction
             topViewUpperConstraint.constant = logConstraintValueForYPosition(totalYTransaction, verticalUpperLimit)
@@ -302,8 +301,7 @@ class NearByViewController: UIViewController {
     }
     
     func springDamping(yVelocity: CGFloat) -> CGFloat{
-        //print("Damping is: \(max(0.5, abs(log10(abs(yVelocity / 15000)))))")
-        //return max(0.5, abs(log10(abs(yVelocity / 15000))))
+
         let velocity = abs(yVelocity)
         if velocity <= 1000 && velocity >= 0{
             return 1.0
@@ -354,7 +352,6 @@ extension NearByViewController: CLLocationManagerDelegate{
                 location = newLocation
                 lastLocationError = nil
                 if location.horizontalAccuracy <= locationManger.desiredAccuracy{
-                    print("*** We are done with location manager!")
                     mapView.isHidden = false
                     userCurrentLocation = location.coordinate
                     userCurrentCLLocation = location

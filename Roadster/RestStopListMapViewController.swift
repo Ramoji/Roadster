@@ -61,7 +61,6 @@ class RestStopListMapViewController: UIViewController {
         setUpActivityIndicator()
         view.setNeedsLayout()
         mapView.delegate = self
-        calculateAvailableArea()
     }
 
 
@@ -233,10 +232,17 @@ class RestStopListMapViewController: UIViewController {
         childController = storyboard?.instantiateViewController(withIdentifier: "tableController") as! RestStopListChildTableViewController
         childController.fullStateName = fullStateName
         childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
-        childController.view.frame = CGRect(x: 0, y: view.bounds.size.height - ((self.tabBarController?.tabBar.frame.size.height)! + 222), width: view.bounds.size.width, height: 222)
-        childController.view.layer.cornerRadius = 10
         childController.view.clipsToBounds = true
         view.addSubview((childController.view)!)
+        
+        childController.view.translatesAutoresizingMaskIntoConstraints = false
+        let childControllerTopAnchor = childController.view.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -15)
+        let childControllerTrailingAnchor = childController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let childControllerLeadingAnchor = childController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let childControllerBottomAnchor = childController.view.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
+        
+        NSLayoutConstraint.activate([childControllerTopAnchor, childControllerTrailingAnchor, childControllerLeadingAnchor, childControllerBottomAnchor])
+        
         addChildViewController(childController)
         childController.didMove(toParentViewController: self)
         childController.delegate = self
@@ -255,41 +261,9 @@ class RestStopListMapViewController: UIViewController {
         }
     }
     
-    func calculateAvailableArea(){
-        let navigationBarHeight = navigationController?.navigationBar.bounds.size.height
-        let tabBarHeight = tabBarController?.tabBar.bounds.size.height
-        let childTableViewHeight = childController.tableView.frame.size.height
-        print("***The height of the navigationBar is: \(navigationBarHeight)")
-        let availableHeight = view.bounds.size.height - (navigationBarHeight! + tabBarHeight! + childTableViewHeight)
-        print("*** The height of the map must be: \(availableHeight)")
-    }
-    
-    
-    deinit {
-        print("***RestStopListMapViewController has deallocated!")
-        
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "showDetailDisclosurePage" {
-            let annotations = mapView.annotations as! [USRestStop]
-            let detailDisclosureViewController = segue.destination as! RestStopDetailDisclosureViewController
-            if !annotations.isEmpty{
-                detailDisclosureViewController.delegate = self
-                let restStop = annotations[0]
-                detailDisclosureViewController.restStop = restStop
-                detailDisclosureViewController.states = states
-                detailDisclosureViewController.fullStateName = fullStateName
-                setMapViewTo100KMRegion(for: restStop)
-                childControllerCurrentCenterPoint = childController.view.center
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.childController.view.center.y = self.childController.view.center.y * 1.5
-                })
-            } else {
-                return
-            }
-        }
     }
     
     func setMapViewTo100KMRegion(for restStop: USRestStop){
@@ -301,6 +275,15 @@ class RestStopListMapViewController: UIViewController {
         var region = mapView.region
         region.center = restStop.coordinate
         mapView.setRegion(region, animated: true)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+    }
+    
+    deinit {
+        print("***RestStopListMapViewController has deallocated!")
+        
     }
     
     
@@ -363,25 +346,7 @@ extension RestStopListMapViewController: MKMapViewDelegate{
     
 }
 
-extension RestStopListMapViewController: RestStopDetailDisclosureViewControllerDelegate{
-    func restStopDetailDisclosureDidClose(_ viewController: RestStopDetailDisclosureViewController) {
-        mapView.mapType = MKMapType.standard
-        UIView.animate(withDuration: 0.3, animations: {
-            self.childController.view.center.y = self.childControllerCurrentCenterPoint.y
-        })
-        let annotations = mapView.annotations
-        if annotations.count != 0 {
-            let restStop = annotations[0] as! USRestStop
-            setMapViewTo100KMRegion(for: restStop)
-        }
-    }
-    
-    func restStopDetailDisclosureDidPick(_ viewController: RestStopDetailDisclosureViewController, mapType type: MKMapType) {
-    
-        mapView.mapType = type
 
-    }
-}
 
 
 
