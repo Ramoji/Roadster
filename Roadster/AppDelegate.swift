@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let locationManager = CLLocationManager()
     lazy var managedObjectContext: NSManagedObjectContext = {
         //**********************Getting Data Model********************************
-        guard let dataModelURL = Bundle.main.url(forResource: "DataModel", withExtension: "mom") else {
+        guard let dataModelURL = Bundle.main.url(forResource: "USRestStop", withExtension: "momd") else {
             fatalError("Failed to get the damn URL again!")
         }
         guard let dataModel = NSManagedObjectModel(contentsOf: dataModelURL) else {
@@ -27,13 +27,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //**********************Getting persistence store*************************
         let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let dataStoreURL = documentsDirectoryURL.appendingPathComponent("DataStore.sqlite")
+        let dataStoreURL = documentsDirectoryURL.appendingPathComponent("datastore.sqlite")
         if !FileManager.default.fileExists(atPath: dataStoreURL.path){
-            let sourceSqliteURLs = [Bundle.main.url(forResource: "DataStore", withExtension: "sqlite"), Bundle.main.url(forResource: "DataStore", withExtension: "sqlite-shm"), Bundle.main.url(forResource: "DataStore", withExtension: "sqlite-wal")]
-            let destSqliteURLs = [documentsDirectoryURL.appendingPathComponent("DataStore.sqlite"), documentsDirectoryURL.appendingPathComponent("DataStore.sqlite-shm"), documentsDirectoryURL.appendingPathComponent("DataStore.sqlite-wal")]
+            let sourceSqliteURLs = [Bundle.main.url(forResource: "datastore", withExtension: "sqlite"), Bundle.main.url(forResource: "datastore", withExtension: "sqlite-shm"), Bundle.main.url(forResource: "datastore", withExtension: "sqlite-wal")]
+            let destSqliteURLs = [documentsDirectoryURL.appendingPathComponent("datastore.sqlite"), documentsDirectoryURL.appendingPathComponent("datastore.sqlite-shm"), documentsDirectoryURL.appendingPathComponent("datastore.sqlite-wal")]
             for (index, sourceURL) in sourceSqliteURLs.enumerated() {
                 do{ try FileManager.default.copyItem(at: sourceURL!, to: destSqliteURLs[index])
-                }catch{
+                }catch let error as NSError{
+                    print(error.debugDescription)
+                    print(error.userInfo)
                     fatalError("Error while copying data store files from main bundle to the documents directory!")
                 }
             }
@@ -63,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nearByViewController = navigationController2.topViewController as! NearByViewController
         nearByViewController.locationManger = self.locationManager
         nearByViewController.appWindow = window
+        POIProvider.managedObjectContext = managedObjectContext
         
         
         if CLLocationManager.authorizationStatus() == .notDetermined{
@@ -81,31 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        return true
     }
     
-    func editDatabase(){
-        let entityDescription = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
-        let request = NSFetchRequest<USRestStop>(entityName: "USRestStop")
-        let predicate1 = NSPredicate(format: "state == %@", "KY")
-        let predicate2 = NSPredicate(format: "routeName == %@", "I-24")
-        let predicate3 = NSPredicate(format: "bound == %@", "SB")
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3])
-        request.entity = entityDescription
-        request.predicate = compoundPredicate
-        
-        do{
-            let managedObjects = try managedObjectContext.fetch(request)
-            for object in managedObjects{
-                print("*** the objects found have the following route name: \(object.routeName)")
-                print("*** the bounds for rest stops are: \(object.bound)")
-            }
-            
-            correctBound(managedObjects)
-            
-        } catch let error as NSError {
-            print(error.userInfo)
-            print(error.debugDescription)
-            fatalError("Failed to fetch managedObjects!")
-        }
-    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -132,67 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func defineUserDefaults(){
         UserDefaults.standard.register(defaults: ["firstTimeRun": true])
     }
-    
-    
-    
-    
-    func correctBound(_ objects: [USRestStop]){
-        
-        for object in objects{
-        
-            let objectToInsert = USRestStop(context: managedObjectContext)
-            objectToInsert.routeName = object.routeName
-            objectToInsert.bound = "EB"
-            objectToInsert.closed = object.closed
-            objectToInsert.drinkingWater = object.drinkingWater
-            objectToInsert.foodRest = object.foodRest
-            objectToInsert.gas = object.gas
-            objectToInsert.handicappedFacilities = object.handicappedFacilities
-            objectToInsert.index = object.index
-            objectToInsert.latitude = object.latitude
-            objectToInsert.longitude = object.longitude
-            objectToInsert.noFacilities = object.noFacilities
-            objectToInsert.noTrucks = object.noTrucks
-            objectToInsert.petArea = object.petArea
-            objectToInsert.phone = object.phone
-            objectToInsert.picnicTables = object.picnicTables
-            objectToInsert.restRoom = object.restRoom
-            objectToInsert.rvDump = object.rvDump
-            objectToInsert.scenic = object.scenic
-            objectToInsert.state = object.state
-            objectToInsert.stopDescription = object.stopDescription
-            objectToInsert.stopName = object.stopName
-            objectToInsert.vMachine = object.vMachine
-            
-            managedObjectContext.insert(objectToInsert)
-            do{
-                try managedObjectContext.save()
-            } catch let error as NSError{
-                fatalError("failed to save CORRECTED BOUND to persistence store!")
-            }
-            
-            managedObjectContext.delete(object)
-            do{
-                try managedObjectContext.save()
-            }catch let error as NSError{
-                fatalError("failed to delete object from persistence store! 1")
-            }
-        }
-        
-    }
-    
-    
-    func deleteRestStop(_ restStops: [USRestStop]){
-        
-        for restStop in restStops{
-            managedObjectContext.delete(restStop)
-            do{
-                try managedObjectContext.save()
-            }catch let error as NSError{
-                print(error.debugDescription)
-                fatalError("Failed to delete rest stop from the database!")
-            }
-        }
-    }
+
 }
 

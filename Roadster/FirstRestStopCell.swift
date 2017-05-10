@@ -48,7 +48,7 @@ class FirstRestStopCell: UITableViewCell {
     
     func configureCell(with distanceFromUser: Int, restStop: USRestStop){
         prepViews()
-        restStopName.text = restStop.stopName
+        restStopName.text = restStop.mileMarker
         restStopName.sizeToFit()
         let facilites = getAvailableFacilities(from: restStop)
         for (index, facility) in facilites.enumerated(){
@@ -69,21 +69,21 @@ class FirstRestStopCell: UITableViewCell {
         
         var facilites: [String] = []
         
-        if restStop.drinkingWater {
+        if restStop.water {
             facilites.append("drinkingWater")
         }
-        if restStop.foodRest {
+        if restStop.restaurant {
             facilites.append("restaurant")
         }
         if restStop.gas {
             facilites.append("gas")
         }
         
-        if restStop.handicappedFacilities{
+        if restStop.disabledFacilities{
             facilites.append("handicappedFacilites")
         }
         
-        if !restStop.noTrucks {
+        if restStop.trucks {
             facilites.append("truck")
         }
         if restStop.petArea{
@@ -92,10 +92,10 @@ class FirstRestStopCell: UITableViewCell {
         if restStop.phone{
             facilites.append("phone")
         }
-        if restStop.picnicTables{
+        if restStop.tables{
             facilites.append("picnicTable")
         }
-        if restStop.restRoom{
+        if restStop.restroom{
             facilites.append("restroom")
         }
         if restStop.rvDump{
@@ -104,7 +104,7 @@ class FirstRestStopCell: UITableViewCell {
         if restStop.scenic{
             facilites.append("scenic")
         }
-        if restStop.vMachine{
+        if restStop.vendingMachine{
             facilites.append("vendingMachine")
         }
         

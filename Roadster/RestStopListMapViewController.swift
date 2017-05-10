@@ -11,27 +11,13 @@ import MapKit
 import CoreData
 
 
-enum RouteBound: String{
-    case NB = "NB"
-    case SB = "SB"
-    case EB = "EB"
-    case WB = "WB"
-    case NBandSB = "NB/SB"
-    case SBandNB = "SB/NB"
-    case EBandWB = "EB/WB"
-}
-
 class RestStopListMapViewController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var mapView: MKMapView!
-    var NBlistOfRestStops:[USRestStop] = [USRestStop]()
-    var SBlistOfRestStops:[USRestStop] = [USRestStop]()
-    var EBlistOfRestStops:[USRestStop] = [USRestStop]()
-    var WBlistOfRestStops:[USRestStop] = [USRestStop]()
-    var listOfRestStops:[USRestStop]!
-    var stateAbbreviation: String!
-    var routeName: String!
+    var state: String!
+    var route: String!
+    var routeClassification: String = ""
     var managedObjectContext: NSManagedObjectContext!
     var fullStateName:String!
     var childController: RestStopListChildTableViewController!
@@ -42,16 +28,13 @@ class RestStopListMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
     
     override func loadView() {
         super.loadView()
-        listOfRestStops = restStops(forContext: managedObjectContext)
-        sortRestStopBound()
-        NBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: NBlistOfRestStops, forBound: .NB)
-        SBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: SBlistOfRestStops, forBound: .SB)
-        EBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: EBlistOfRestStops, forBound: .EB)
-        WBlistOfRestStops = sortBasedOnLatitudeLongitude(forList: WBlistOfRestStops, forBound: .WB)
+        routeClassification = POIProvider.getRouteClassification(inState: state, onRoute: route)
         setUpSegmentedControl()
         setUpActivityIndicator()
         view.setNeedsLayout()
@@ -88,93 +71,12 @@ class RestStopListMapViewController: UIViewController {
         activityIndicator.removeFromSuperview()
     }
     
-    
-    func restStops(forContext context: NSManagedObjectContext) -> [USRestStop]{
-        var array = [USRestStop]()
-        let fetchRequest = NSFetchRequest<USRestStop>()
-        let predicate = NSCompoundPredicate(format: "state == %@ AND routeName == %@", stateAbbreviation, routeName)
-        fetchRequest.fetchBatchSize = 100
-        fetchRequest.entity = USRestStop.entity()
-        fetchRequest.predicate = predicate
-        do{
-            array = try managedObjectContext.fetch(fetchRequest)
-        }catch let error as NSError{
-            print(error.debugDescription)
-            fatalError("Failed to fetch rest stops from the data store!")
-        }
-        return array
-    }
-    
-    func sortRestStopBound(){
-        if let listOfRestStops = listOfRestStops{
-            for restStop in listOfRestStops{
-                switch restStop.bound {
-                case RouteBound.NB.rawValue:
-                    NBlistOfRestStops.append(restStop)
-                case RouteBound.SB.rawValue:
-                    SBlistOfRestStops.append(restStop)
-                case RouteBound.EB.rawValue:
-                    EBlistOfRestStops.append(restStop)
-                case RouteBound.WB.rawValue:
-                    WBlistOfRestStops.append(restStop)
-                case RouteBound.NBandSB.rawValue:
-                    NBlistOfRestStops.append(restStop)
-                    SBlistOfRestStops.append(restStop)
-                case RouteBound.SBandNB.rawValue:
-                    NBlistOfRestStops.append(restStop)
-                    SBlistOfRestStops.append(restStop)
-                case RouteBound.EBandWB.rawValue:
-                    EBlistOfRestStops.append(restStop)
-                    WBlistOfRestStops.append(restStop)
-                case "NB ONLY":
-                    NBlistOfRestStops.append(restStop)
-                case "SB ONLY":
-                    SBlistOfRestStops.append(restStop)
-                case "EB ONLY":
-                    EBlistOfRestStops.append(restStop)
-                case "WB ONLY":
-                    WBlistOfRestStops.append(restStop)
-                default:
-                    fatalError("Error sorting route bound in RestStopList2ViewController!")
-                }
-            }
-        }
-    }
-
-    func sortBasedOnLatitudeLongitude(forList list: [USRestStop], forBound bound: RouteBound) -> [USRestStop]{
-        var sortedList: [USRestStop] = [USRestStop]()
-        switch bound{
-        case .NB:
-            sortedList = list.sorted(by: { restStop1, restStop2 in
-                return restStop1.latitude < restStop2.latitude
-            })
-            
-        case .SB:
-            sortedList = list.sorted(by: { restStop1, restStop2 in
-                return restStop1.latitude > restStop2.latitude
-            })
-            
-        case .EB:
-            sortedList = list.sorted(by: { restStop1, restStop2 in
-                return restStop1.longitude < restStop2.longitude
-            })
-            
-        case .WB:
-            sortedList = list.sorted(by: { restStop1, restStop2 in
-                return restStop1.longitude > restStop2.longitude
-            })
-            
-        default:
-            print("Sorting rest stops based on latitude and longitude failed!")
-        }
-        return sortedList
-    }
-    
     func setUpSegmentedControl(){
-        if !NBlistOfRestStops.isEmpty || !SBlistOfRestStops.isEmpty {
+        
+        if routeClassification == PossibleDirections.northSouthRoute{
             segmentedControl.setTitle("North Bound", forSegmentAt: 0)
             segmentedControl.setTitle("South Bound", forSegmentAt: 1)
-        } else if !EBlistOfRestStops.isEmpty || !WBlistOfRestStops.isEmpty{
+        } else if routeClassification == PossibleDirections.eastWestRoute{
             segmentedControl.setTitle("East Bound", forSegmentAt: 0)
             segmentedControl.setTitle("West Bound", forSegmentAt: 1)
         }
@@ -186,26 +88,26 @@ class RestStopListMapViewController: UIViewController {
     
     func segmentedControlChangedValue(){
         
-        if !NBlistOfRestStops.isEmpty || !SBlistOfRestStops.isEmpty {
+        if routeClassification == PossibleDirections.northSouthRoute{
             if segmentedControl.selectedSegmentIndex == 0 {
-                childController.restStopList = NBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.northBound)
                 childController.getRestStopDistanceFromUser()
                 childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             } else {
-                childController.restStopList = SBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.southBound)
                 childController.getRestStopDistanceFromUser()
                 childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             }
-        } else if !EBlistOfRestStops.isEmpty || !WBlistOfRestStops.isEmpty{
+        } else if routeClassification == PossibleDirections.eastWestRoute{
             if segmentedControl.selectedSegmentIndex == 0 {
-                childController.restStopList = EBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.eastBound)
                 childController.getRestStopDistanceFromUser()
                 childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             } else {
-                childController.restStopList = WBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.westBound)
                 childController.getRestStopDistanceFromUser()
                 childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
@@ -215,7 +117,7 @@ class RestStopListMapViewController: UIViewController {
     }
     
     func addChildTableViewController(){
-        
+       
         childController = storyboard?.instantiateViewController(withIdentifier: "tableController") as! RestStopListChildTableViewController
         childController.fullStateName = fullStateName
         childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
@@ -233,18 +135,25 @@ class RestStopListMapViewController: UIViewController {
         addChildViewController(childController)
         childController.didMove(toParentViewController: self)
         childController.delegate = self
-        if !NBlistOfRestStops.isEmpty || !SBlistOfRestStops.isEmpty {
+        print("*\(routeClassification)")
+        print("$\(PossibleDirections.northSouthRoute)")
+        
+        switch routeClassification {
+        case PossibleDirections.northSouthRoute:
             if segmentedControl.selectedSegmentIndex == 0 {
-                childController.restStopList = NBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.northBound)
             } else {
-                childController.restStopList = SBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.southBound)
             }
-        } else if !EBlistOfRestStops.isEmpty || !WBlistOfRestStops.isEmpty{
+        case PossibleDirections.eastWestRoute:
             if segmentedControl.selectedSegmentIndex == 0 {
-                childController.restStopList = EBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.eastBound)
             } else {
-                childController.restStopList = WBlistOfRestStops
+                childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.westBound)
             }
+            
+        default:
+            print("*** Unsupported route classification!")
         }
     }
     
@@ -254,6 +163,7 @@ class RestStopListMapViewController: UIViewController {
     }
     
     func setMapViewTo100KMRegion(for restStop: USRestStop){
+        
         var region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, 100000, 100000)
         region.center = restStop.coordinate
         mapView.setRegion(region, animated: true)

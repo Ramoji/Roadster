@@ -140,7 +140,8 @@ extension StateListViewController{
             let stateName = cell.stateNameLabel.text
             let highwayListViewController = segue.destination as! HighwayListViewController
             highwayListViewController.managedObjectContext = self.managedObjectContext
-            highwayListViewController.stateName = stateName
+            highwayListViewController.state = stateName
+            highwayListViewController.stateAbbreviation = States.abbreviation(for: stateName!)
             highwayListViewController.appWindow = appWindow
             highwayListViewController.fullStateName = cell.stateNameLabel.text!
         }

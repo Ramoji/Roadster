@@ -45,7 +45,7 @@ class StaticDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSegmentedControl()
-        navigationItem.title = restStop.stopName
+        navigationItem.title = restStop.mileMarker
         setUpViewForRestStop()
         
     }
@@ -92,7 +92,7 @@ class StaticDetailTableViewController: UITableViewController {
             if restStop.rvDump{
                 trailer.image = UIImage(named: "rvDump")?.resizeImage(vehicleIconSize)
             }
-            if !restStop.noTrucks{
+            if restStop.trucks{
                 truck.image = UIImage(named: "truck")?.resizeImage(vehicleIconSize)
             }
             parkingImageView.image = UIImage(named: "parking")?.resizeImage(iconSize)
@@ -144,17 +144,17 @@ class StaticDetailTableViewController: UITableViewController {
         
         var facilites: [String] = []
         
-        if restStop.drinkingWater {
+        if restStop.water {
             facilites.append("drinkingWater")
         }
-        if restStop.foodRest {
+        if restStop.restaurant {
             facilites.append("restaurant")
         }
         if restStop.gas {
             facilites.append("gas")
         }
         
-        if restStop.handicappedFacilities{
+        if restStop.disabledFacilities{
             facilites.append("handicappedFacilites")
         }
         
@@ -164,13 +164,13 @@ class StaticDetailTableViewController: UITableViewController {
         if restStop.phone{
             facilites.append("phone")
         }
-        if restStop.picnicTables{
+        if restStop.tables{
             facilites.append("picnicTable")
         }
-        if restStop.restRoom{
+        if restStop.restroom{
             facilites.append("restroom")
         }
-        if restStop.vMachine{
+        if restStop.vendingMachine{
             facilites.append("vendingMachine")
         }
         

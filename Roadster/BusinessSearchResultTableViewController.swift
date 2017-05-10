@@ -247,7 +247,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
         if restStopResults.count != 0 {
-            cell.textLabel?.text = restStopResults[indexPath.row].stopName
+            cell.textLabel?.text = restStopResults[indexPath.row].mileMarker
         } else {
             cell.setUp(for: businessResults[indexPath.row])
         }

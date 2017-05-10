@@ -12,7 +12,7 @@ import CoreData
 class HighwayListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
-    var stateName: String!
+    var state: String!
     var stateAbbreviation: String!
     var routes: [String] = [String]()
     let blurredBackgroundView = BlurredBackgroundView(frame: .zero, addBackgroundPic: true)
@@ -25,7 +25,7 @@ class HighwayListViewController: UIViewController {
         super.viewDidLoad()
         
         registerNibs()
-        getUniqueRouteNames()
+        routes = POIProvider.getUniqueRouteNames(inState: stateAbbreviation)
         tableView.backgroundView = blurredBackgroundView
         navigationItem.title = fullStateName.capitalized
         
@@ -37,36 +37,7 @@ class HighwayListViewController: UIViewController {
         print("*** Receiving Memory Warning from HighwayListViewController!")
         
     }
-    
-    func getUniqueRouteNames(){
-        stateAbbreviation = States.abbreviation(for: stateName)
-        let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "USRestStop")
-        let predicate = NSPredicate(format: "state == %@", stateAbbreviation)
-        let sortDescriptor = NSSortDescriptor(key: "routeName", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.predicate = predicate
-        fetchRequest.entity = entity
-        fetchRequest.resultType = .dictionaryResultType
-        fetchRequest.returnsDistinctResults = true
-        fetchRequest.propertiesToFetch = ["routeName"]
-        
-        do{
-            let objects = try managedObjectContext.fetch(fetchRequest)
-            for element in objects{
-                let element2 = element as! [String: String]
-                routes.append(element2["routeName"]!)
-            }
-            routes.sort(by: {
-                return $0.localizedStandardCompare($1) == ComparisonResult.orderedAscending
-            })
-            
-            
-        } catch {
-            fatalError("The fetch failed")
-        }
-    }
-    
+
     
     func registerNibs(){
         var nib = UINib(nibName: CustomCellTypeIdentifiers.CellWithImageView, bundle: nil)
@@ -99,9 +70,9 @@ class HighwayListViewController: UIViewController {
             let cell = sender as! CellWithImageView
             let routeName = cell.stateNameLabel.text!
             let restStopListMapViewController = segue.destination as! RestStopListMapViewController
-            restStopListMapViewController.stateAbbreviation = self.stateAbbreviation
+            restStopListMapViewController.state = self.stateAbbreviation
             restStopListMapViewController.managedObjectContext = self.managedObjectContext
-            restStopListMapViewController.routeName = routeName
+            restStopListMapViewController.route = routeName
             restStopListMapViewController.appWindow = appWindow
             restStopListMapViewController.fullStateName = fullStateName
         }
@@ -110,7 +81,7 @@ class HighwayListViewController: UIViewController {
 
 extension HighwayListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if stateName == "Alaska" || stateName == "Hawaii" || stateName == "District of Columbia"{
+        if state == "Alaska" || state == "Hawaii" || state == "District of Columbia"{
             return 1
         } else {
             return routes.count
@@ -118,7 +89,7 @@ extension HighwayListViewController: UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if stateName == "Alaska" || stateName == "Hawaii" || stateName == "District of Columbia"{
+        if state == "Alaska" || state == "Hawaii" || state == "District of Columbia"{
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell, for: indexPath) as! NoRestStopsCell
             cell.backgroundColor = UIColor.clear
             return cell
