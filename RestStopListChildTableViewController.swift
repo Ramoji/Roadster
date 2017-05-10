@@ -81,14 +81,15 @@ class RestStopListChildTableViewController: UIViewController {
     func setUpTableView(){
         
         tableView.backgroundView = blurredBackgroundView
-        tableView.separatorEffect = blurredBackgroundView.blurEffectView.effect
+        tableView.separatorColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
+        
     }
     
     func selectFirstRow(){
         let indexPath = IndexPath(row: 0, section: 0)
         if !restStopList.isEmpty {
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
-                delegate?.restStopListTable(self, didPickRestStop: restStopList[0])
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .top)
+            delegate?.restStopListTable(self, didPickRestStop: restStopList[0])
             tableView.scrollToRow(at: indexPath, at: .top, animated: false)
             chosenCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         }
@@ -109,6 +110,8 @@ class RestStopListChildTableViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.FirstRestStopCell)
         nib = UINib(nibName: CustomCellTypeIdentifiers.EndRestStopCell, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.EndRestStopCell)
+        nib = UINib(nibName: CustomCellTypeIdentifiers.OnlyOneRestStopCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.OnlyOneRestStopCell)
     }
     
     func getTapGR() -> UITapGestureRecognizer{
@@ -147,6 +150,12 @@ class RestStopListChildTableViewController: UIViewController {
         view.addShadow(withCornerRadius: 0)
     }
     
+    func mapViewDidChangeBound(){
+        getUserLocation()
+        tableView.reloadData()
+        selectFirstRow()
+    }
+    
     deinit{
         print("RestStopListChildTableViewController got deallocated!")
     }
@@ -179,18 +188,28 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
             var cellToReturn = UITableViewCell(style: .default, reuseIdentifier: "cell")
             switch indexPath.row{
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.FirstRestStopCell, for: indexPath) as! FirstRestStopCell
-                if let _ = userCurrentLocation{
-                    cell.configureCell(with: restStopDistanceFromUser[indexPath.row])
-                    addDoubleTapGR(to: cell)
+                
+                if restStopList.count == 1 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.OnlyOneRestStopCell) as! OnlyOneRestStopCell
+                    if let _ = userCurrentLocation {
+                        cell.configureCell(with: restStopDistanceFromUser[indexPath.row], restStop: restStopList[indexPath.row])
+                        addDoubleTapGR(to: cell)
+                    }
+                    return cell
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.FirstRestStopCell, for: indexPath) as! FirstRestStopCell
+                    if let _ = userCurrentLocation {
+                        cell.configureCell(with: restStopDistanceFromUser[indexPath.row], restStop: restStopList[indexPath.row])
+                        addDoubleTapGR(to: cell)
+                    }
+                    cellToReturn = cell
                 }
-                cellToReturn = cell
                 
                 
             case restStopList.count - 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.EndRestStopCell, for: indexPath) as! EndRestStopCell
                 if let _ = userCurrentLocation{
-                    cell.configureCell(with: restStopDistanceFromUser[indexPath.row])
+                    cell.configureCell(with: restStopDistanceFromUser[indexPath.row], restStop: restStopList[indexPath.row])
                     addDoubleTapGR(to: cell)
                 }
                 cellToReturn = cell
@@ -198,7 +217,7 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.RestStopCell, for: indexPath) as! RestStopCell
                 if let _ = userCurrentLocation{
-                    cell.configureCell(with: restStopDistanceFromUser[indexPath.row])
+                    cell.configureCell(with: restStopDistanceFromUser[indexPath.row], restStop: restStopList[indexPath.row])
                     addDoubleTapGR(to: cell)
                 }
                 cellToReturn = cell
@@ -213,7 +232,9 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
         if !restStopList.isEmpty{
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
             delegate?.restStopListTable(self, didPickRestStop: restStopList[indexPath.row])
-            if indexPath.row == 0 {
+            if indexPath.row == 0 && tableView.numberOfRows(inSection: 0) == 1 {
+                chosenCell = tableView.cellForRow(at: indexPath) as! OnlyOneRestStopCell
+            } else if indexPath.row == 0 {
                 chosenCell = tableView.cellForRow(at: indexPath) as! FirstRestStopCell
             } else if indexPath.row == restStopList.count - 1{
                 chosenCell = tableView.cellForRow(at: indexPath) as! EndRestStopCell
@@ -230,11 +251,7 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
         return 74
     }
     
-    func mapViewDidChangeBound(){
-        getUserLocation()
-        tableView.reloadData()
-        selectFirstRow()
-    }
+    
 }
 
 

@@ -12,7 +12,6 @@ import CoreData
 class HighwayListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
-    var states: States!
     var stateName: String!
     var stateAbbreviation: String!
     var routes: [String] = [String]()
@@ -40,7 +39,7 @@ class HighwayListViewController: UIViewController {
     }
     
     func getUniqueRouteNames(){
-        stateAbbreviation = states.abbreviation(for: stateName)
+        stateAbbreviation = States.abbreviation(for: stateName)
         let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "USRestStop")
         let predicate = NSPredicate(format: "state == %@", stateAbbreviation)
@@ -102,7 +101,6 @@ class HighwayListViewController: UIViewController {
             let restStopListMapViewController = segue.destination as! RestStopListMapViewController
             restStopListMapViewController.stateAbbreviation = self.stateAbbreviation
             restStopListMapViewController.managedObjectContext = self.managedObjectContext
-            restStopListMapViewController.states = self.states
             restStopListMapViewController.routeName = routeName
             restStopListMapViewController.appWindow = appWindow
             restStopListMapViewController.fullStateName = fullStateName

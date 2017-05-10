@@ -57,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controllers = tabBarController.viewControllers
         let navigationController = controllers![0] as! UINavigationController
         let stateListViewController = navigationController.topViewController as! StateListViewController
-        stateListViewController.states = self.states
         stateListViewController.managedObjectContext = managedObjectContext
         stateListViewController.appWindow = window
         let navigationController2 = controllers![1] as! UINavigationController
@@ -78,7 +77,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //editDatabase()
         //*****************************************************
         
+        
        return true
+    }
+    
+    func editDatabase(){
+        let entityDescription = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
+        let request = NSFetchRequest<USRestStop>(entityName: "USRestStop")
+        let predicate1 = NSPredicate(format: "state == %@", "KY")
+        let predicate2 = NSPredicate(format: "routeName == %@", "I-24")
+        let predicate3 = NSPredicate(format: "bound == %@", "SB")
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate1, predicate2, predicate3])
+        request.entity = entityDescription
+        request.predicate = compoundPredicate
+        
+        do{
+            let managedObjects = try managedObjectContext.fetch(request)
+            for object in managedObjects{
+                print("*** the objects found have the following route name: \(object.routeName)")
+                print("*** the bounds for rest stops are: \(object.bound)")
+            }
+            
+            correctBound(managedObjects)
+            
+        } catch let error as NSError {
+            print(error.userInfo)
+            print(error.debugDescription)
+            fatalError("Failed to fetch managedObjects!")
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -108,31 +134,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func editDatabase(){
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "USRestStop")
-        let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
-        fetchRequest.entity = entity
-        let predicate1 = NSPredicate(format: "state = %@", "WY")
-        let predicate2 = NSPredicate(format: "routeName = %@", "SR-487")
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicate1, predicate2])
-        fetchRequest.predicate = compoundPredicate
-        do{
-            let objects = try managedObjectContext.fetch(fetchRequest) as! [USRestStop]
-            correctRouteName(objects)
-        }catch let error as NSError{
-            print(error.debugDescription)
-            fatalError("Failed to fetch rest stop for route name correction!")
-        }
-        
-    }
     
-    func correctRouteName(_ objects: [USRestStop]){
+    
+    func correctBound(_ objects: [USRestStop]){
         
         for object in objects{
         
             let objectToInsert = USRestStop(context: managedObjectContext)
-            objectToInsert.routeName = "Wyoming Highway 487"
-            objectToInsert.bound = object.bound
+            objectToInsert.routeName = object.routeName
+            objectToInsert.bound = "EB"
             objectToInsert.closed = object.closed
             objectToInsert.drinkingWater = object.drinkingWater
             objectToInsert.foodRest = object.foodRest
@@ -158,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do{
                 try managedObjectContext.save()
             } catch let error as NSError{
-                fatalError("failed to save to persistence store! 1")
+                fatalError("failed to save CORRECTED BOUND to persistence store!")
             }
             
             managedObjectContext.delete(object)
@@ -170,6 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
     }
+    
     
     func deleteRestStop(_ restStops: [USRestStop]){
         

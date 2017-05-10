@@ -11,10 +11,24 @@ import UIKit
 class RestStopCell: UITableViewCell {
     
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var imageViewOne: UIImageView!
+    @IBOutlet weak var imageViewTwo: UIImageView!
+    @IBOutlet weak var imageViewThree: UIImageView!
+    @IBOutlet weak var imageViewFour: UIImageView!
+    @IBOutlet weak var imageViewFive: UIImageView!
+    @IBOutlet weak var imageViewSix: UIImageView!
+    @IBOutlet weak var imageViewSeven: UIImageView!
+    @IBOutlet weak var imageViewEight: UIImageView!
+    @IBOutlet weak var imageViewNine: UIImageView!
+    @IBOutlet weak var imageViewTen: UIImageView!
+    @IBOutlet weak var imageViewEleven: UIImageView!
+    @IBOutlet weak var imageViewTwelve: UIImageView!
+    var imageViews: [UIImageView]!
+    @IBOutlet weak var restStopName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imageViews = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour, imageViewFive, imageViewSix, imageViewSeven, imageViewEight, imageViewNine, imageViewTen, imageViewEleven, imageViewTwelve]
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,11 +37,78 @@ class RestStopCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureCell(with distanceFromUser: Int){
+    private func prepViews(){
+        restStopName.text = ""
+        for imageView in imageViews{
+            imageView.isHidden = true
+            imageView.image = nil
+        }
+    }
+    
+    func configureCell(with distanceFromUser: Int, restStop: USRestStop){
+        prepViews()
+        restStopName.text = restStop.stopName
+        restStopName.sizeToFit()
+        let facilites = getAvailableFacilities(from: restStop)
+        for (index, facility) in facilites.enumerated(){
+            let imageSize = CGSize(width: 20.0, height: 20.0)
+            let facilityImageView = imageViews![index]
+            facilityImageView.isHidden = false
+            facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
+        }
+        
         self.distanceLabel.text = String(distanceFromUser) + " mi"
         self.distanceLabel.sizeToFit()
         self.backgroundColor = UIColor.clear
-        self.accessoryType = .none
+        self.accessoryType = .disclosureIndicator
+    
+    }
+    
+    private func getAvailableFacilities(from restStop: USRestStop) -> [String]{
+        
+        var facilites: [String] = []
+        
+        if restStop.drinkingWater {
+            facilites.append("drinkingWater")
+        }
+        if restStop.foodRest {
+            facilites.append("restaurant")
+        }
+        if restStop.gas {
+            facilites.append("gas")
+        }
+        
+        if restStop.handicappedFacilities{
+            facilites.append("handicappedFacilites")
+        }
+        
+        if !restStop.noTrucks {
+            facilites.append("truck")
+        }
+        if restStop.petArea{
+            facilites.append("petArea")
+        }
+        if restStop.phone{
+            facilites.append("phone")
+        }
+        if restStop.picnicTables{
+            facilites.append("picnicTable")
+        }
+        if restStop.restRoom{
+            facilites.append("restroom")
+        }
+        if restStop.rvDump{
+            facilites.append("rvDump")
+        }
+        if restStop.scenic{
+            facilites.append("scenic")
+        }
+        if restStop.vMachine{
+            facilites.append("vendingMachine")
+        }
+        
+        return facilites
     }
 
 }
+

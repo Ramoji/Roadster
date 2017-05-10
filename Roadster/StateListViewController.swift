@@ -16,13 +16,13 @@ struct CustomCellTypeIdentifiers {
     static let FirstRestStopCell = "FirstRestStopCell"
     static let EndRestStopCell = "EndRestStopCell"
     static let YelpTableViewCell = "YelpTableViewCell"
+    static let OnlyOneRestStopCell = "OnlyOneRestStopCell"
 }
 
 class StateListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
-    var states: States!
     var filteredStateList: [(String, String)]!
     var searchController: UISearchController!
     let blurredBackgroundView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
@@ -98,7 +98,7 @@ extension StateListViewController: UITableViewDataSource{
         if searchController.isActive && searchController.searchBar.text != ""{
             return filteredStateList.count
         } else {
-            return states.numberOfStates()
+            return States.numberOfStates()
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,7 +110,7 @@ extension StateListViewController: UITableViewDataSource{
             cell.backgroundColor = UIColor.clear
             
         } else {
-            let element = states.stateNamesAndNicknamesElement(forIndex: (indexPath as NSIndexPath).row)
+            let element = States.stateNamesAndNicknamesElement(forIndex: (indexPath as NSIndexPath).row)
             cell.configureCell(forState: element)
             cell.backgroundColor = UIColor.clear
         }
@@ -120,7 +120,7 @@ extension StateListViewController: UITableViewDataSource{
 
 extension StateListViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
-       let list = states.stateNamesAndNicknamesDictionary()
+       let list = States.stateNamesAndNicknamesDictionary()
         filteredStateList = list.filter({
             element in
             return element.0.contains(searchController.searchBar.text!)
@@ -140,7 +140,6 @@ extension StateListViewController{
             let stateName = cell.stateNameLabel.text
             let highwayListViewController = segue.destination as! HighwayListViewController
             highwayListViewController.managedObjectContext = self.managedObjectContext
-            highwayListViewController.states = self.states
             highwayListViewController.stateName = stateName
             highwayListViewController.appWindow = appWindow
             highwayListViewController.fullStateName = cell.stateNameLabel.text!

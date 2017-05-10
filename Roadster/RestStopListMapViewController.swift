@@ -29,20 +29,15 @@ class RestStopListMapViewController: UIViewController {
     var SBlistOfRestStops:[USRestStop] = [USRestStop]()
     var EBlistOfRestStops:[USRestStop] = [USRestStop]()
     var WBlistOfRestStops:[USRestStop] = [USRestStop]()
-    var NBPolyLineCoordinates = [CLLocationCoordinate2D]()
-    var SBPolyLineCoordinates = [CLLocationCoordinate2D]()
-    var EBPolyLineCoordinates = [CLLocationCoordinate2D]()
-    var WBPolyLineCoordinates = [CLLocationCoordinate2D]()
     var listOfRestStops:[USRestStop]!
     var stateAbbreviation: String!
     var routeName: String!
     var managedObjectContext: NSManagedObjectContext!
-    var states: States!
     var fullStateName:String!
     var childController: RestStopListChildTableViewController!
     var childControllerCurrentCenterPoint: CGPoint!
     var appWindow: UIWindow!
-    var isViewFirstLoad = 1
+    var isViewFirstLoad = true
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     override func viewDidLoad() {
@@ -153,30 +148,22 @@ class RestStopListMapViewController: UIViewController {
             sortedList = list.sorted(by: { restStop1, restStop2 in
                 return restStop1.latitude < restStop2.latitude
             })
-            for restStop in sortedList {
-                NBPolyLineCoordinates.append(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude))
-            }
+            
         case .SB:
             sortedList = list.sorted(by: { restStop1, restStop2 in
                 return restStop1.latitude > restStop2.latitude
             })
-            for restStop in sortedList {
-                SBPolyLineCoordinates.append(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude))
-            }
+            
         case .EB:
             sortedList = list.sorted(by: { restStop1, restStop2 in
                 return restStop1.longitude < restStop2.longitude
             })
-            for restStop in sortedList {
-                EBPolyLineCoordinates.append(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude))
-            }
+            
         case .WB:
             sortedList = list.sorted(by: { restStop1, restStop2 in
                 return restStop1.longitude > restStop2.longitude
             })
-            for restStop in sortedList {
-                WBPolyLineCoordinates.append(CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude))
-            }
+            
         default:
             print("Sorting rest stops based on latitude and longitude failed!")
         }
@@ -267,13 +254,19 @@ class RestStopListMapViewController: UIViewController {
     }
     
     func setMapViewTo100KMRegion(for restStop: USRestStop){
-        let region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, 100000, 100000)
+        var region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, 100000, 100000)
+        region.center = restStop.coordinate
         mapView.setRegion(region, animated: true)
     }
     
     func setMapViewRegionWithCurrentSpan(for restStop: USRestStop){
-        var region = mapView.region
-        region.center = restStop.coordinate
+        //Calculating span in meters because creating a region based on current span is affected by topography
+        let extremeLeftPoint = CLLocation(latitude: mapView.centerCoordinate.latitude - mapView.region.span.latitudeDelta * 0.5, longitude: mapView.centerCoordinate.longitude)
+        let extremeRightPoint = CLLocation(latitude: mapView.centerCoordinate.latitude + mapView.region.span.latitudeDelta * 0.5, longitude: mapView.centerCoordinate.longitude)
+        var distance = extremeLeftPoint.distance(from: extremeRightPoint)
+        let distanceInInt = Int(distance) // to truncate any numbers after the decimal
+        distance = CLLocationDistance(distanceInInt)
+        let region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, distance, distance)
         mapView.setRegion(region, animated: true)
     }
     
@@ -295,9 +288,9 @@ extension RestStopListMapViewController: RestStopListChildTableViewControllerDel
         mapView.removeAnnotations(annotations)
         mapView.addAnnotation(restStop)
         
-        if isViewFirstLoad == 1 {
+        if isViewFirstLoad{
             setMapViewTo100KMRegion(for: restStop)
-            isViewFirstLoad = 0
+            isViewFirstLoad = false
         } else {
             setMapViewRegionWithCurrentSpan(for: restStop)
         }
@@ -321,18 +314,14 @@ extension RestStopListMapViewController: RestStopListChildTableViewControllerDel
 extension RestStopListMapViewController: MKMapViewDelegate{
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationViewImageSize = CGSize(width: 30.0, height: 30.0)
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotation")
-        let rightButton = UIButton(type: UIButtonType.detailDisclosure)
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-            annotationView?.tintColor = UIColor.brown
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = rightButton
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
+            annotationView?.image = UIImage(named: "restStop")?.resizeImage(annotationViewImageSize)
         } else {
             annotationView?.annotation = annotation
-            annotationView?.tintColor = UIColor.brown
-            annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = rightButton
+            annotationView?.image = UIImage(named: "restStop")?.resizeImage(annotationViewImageSize)
         }
         return annotationView
     }

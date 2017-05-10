@@ -24,5 +24,11 @@ extension UIView{
     
 }
 
+extension Double {
+    func convertToString() -> String {
+        return String(self)
+    }
+}
+
 
 
