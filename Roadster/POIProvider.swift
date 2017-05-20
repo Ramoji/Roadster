@@ -4,7 +4,7 @@
 //
 //  Created by EA JA on 5/9/17.
 //  Copyright © 2017 A Ja. All rights reserved.
-//
+//  POI stands for Ponts of Interest
 
 import Foundation
 
@@ -96,14 +96,23 @@ class POIProvider{
         var direction: String?
         
         let restStops: [USRestStop] = getRestStops(inState: state, onRoute: routeName)
+
         var eastBoundRestStops: [USRestStop] = []
         var westBoundRestStops: [USRestStop] = []
         var northBoundRestStops: [USRestStop] = []
         var southBoundRestStops: [USRestStop] = []
         
         for restStop in restStops {
-            
-            if restStop.direction.contains(PossibleDirections.eastBound){
+            print(restStop)
+            if restStop.direction.contains("/"){
+                if restStop.direction.contains(PossibleDirections.eastBound){
+                    eastBoundRestStops.append(restStop)
+                    westBoundRestStops.append(restStop)
+                } else if restStop.direction.contains(PossibleDirections.northBound){
+                    northBoundRestStops.append(restStop)
+                    southBoundRestStops.append(restStop)
+                }
+            }else if restStop.direction.contains(PossibleDirections.eastBound){
                 eastBoundRestStops.append(restStop)
             } else if restStop.direction.contains(PossibleDirections.westBound){
                 westBoundRestStops.append(restStop)
@@ -111,6 +120,12 @@ class POIProvider{
                 northBoundRestStops.append(restStop)
             } else if restStop.direction.contains(PossibleDirections.southBound){
                 southBoundRestStops.append(restStop)
+            }
+            
+            if restStop.direction == PossibleDirections.northBound || restStop.direction == PossibleDirections.southBound{
+                direction = PossibleDirections.northSouthRoute
+            } else if restStop.direction == PossibleDirections.eastBound || restStop.direction == PossibleDirections.westBound{
+                direction = PossibleDirections.eastWestRoute
             }
         }
         
@@ -171,6 +186,52 @@ class POIProvider{
         }
         
         return restStops
+    }
+    
+    class func getFacilityList(forRestStop restStop: USRestStop) -> [String]{
+        
+        var facilites: [String] = []
+
+        if restStop.water {
+            facilites.append("water")
+        }
+        if restStop.restaurant {
+            facilites.append("restaurant")
+        }
+        if restStop.gas {
+            facilites.append("gas")
+        }
+        
+        if restStop.disabledFacilities{
+            facilites.append("disabledFacilities")
+        }
+        
+        if !restStop.trucks {
+            facilites.append("truck")
+        }
+        if restStop.petArea{
+            facilites.append("petArea")
+        }
+        if restStop.phone{
+            facilites.append("phone")
+        }
+        if restStop.tables{
+            facilites.append("tables")
+        }
+        if restStop.restroom{
+            facilites.append("restroom")
+        }
+        if restStop.rvDump{
+            facilites.append("rvDump")
+        }
+        if restStop.scenic{
+            facilites.append("scenic")
+        }
+        if restStop.vendingMachine{
+            facilites.append("vendingMachine")
+        }
+        
+        return facilites
     }
 }
 

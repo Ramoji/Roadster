@@ -35,10 +35,21 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var sedanCar: UIImageView!
     @IBOutlet weak var trailer: UIImageView!
     
+    
+    @IBOutlet weak var commentTextView: UITextView!
+    @IBOutlet weak var commnetButton: UIButton!
+    @IBOutlet weak var cancelComment: UIButton!
+    @IBOutlet weak var ratingStars: UIImageView!
+    
+    @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
+    
+    
     var restStop: USRestStop!
     var fullStateName: String!
     var bound = ""
     let blurredBackgroudView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
+    var comments: [Comment] = []
+
     
     
     
@@ -47,6 +58,13 @@ class StaticDetailTableViewController: UITableViewController {
         setUpSegmentedControl()
         navigationItem.title = restStop.mileMarker
         setUpViewForRestStop()
+        loadComments()
+        
+        ///////////
+        var nib = UINib(nibName: "CommentCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "CommentCell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 70
         
     }
     
@@ -96,9 +114,6 @@ class StaticDetailTableViewController: UITableViewController {
                 truck.image = UIImage(named: "truck")?.resizeImage(vehicleIconSize)
             }
             parkingImageView.image = UIImage(named: "parking")?.resizeImage(iconSize)
-            
-            
-            
         }
         setUpMapView()
         configureFacilityIcons()
@@ -122,8 +137,6 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     private func prepIconViews(){
-        //facilitiesLabel.backgroundColor = UIColor.clear
-        //facilitiesLabel.text = ""
         for imageView in imageViews{
             imageView.isHidden = true
             imageView.image = nil
@@ -131,7 +144,7 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     private func configureFacilityIcons(){
-        let facilites = getAvailableFacilities(from: restStop)
+        let facilites = POIProvider.getFacilityList(forRestStop: restStop)
         for (index, facility) in facilites.enumerated(){
             let imageSize = CGSize(width: 20.0, height: 20.0)
             let facilityImageView = imageViews![index]
@@ -139,45 +152,46 @@ class StaticDetailTableViewController: UITableViewController {
             facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
         }
     }
-    
-    private func getAvailableFacilities(from restStop: USRestStop) -> [String]{
-        
-        var facilites: [String] = []
-        
-        if restStop.water {
-            facilites.append("drinkingWater")
-        }
-        if restStop.restaurant {
-            facilites.append("restaurant")
-        }
-        if restStop.gas {
-            facilites.append("gas")
-        }
-        
-        if restStop.disabledFacilities{
-            facilites.append("handicappedFacilites")
-        }
-        
-        if restStop.petArea{
-            facilites.append("petArea")
-        }
-        if restStop.phone{
-            facilites.append("phone")
-        }
-        if restStop.tables{
-            facilites.append("picnicTable")
-        }
-        if restStop.restroom{
-            facilites.append("restroom")
-        }
-        if restStop.vendingMachine{
-            facilites.append("vendingMachine")
-        }
-        
-        return facilites
+    @IBAction func comment(_ sender: UIButton) {
+        hideCommentButtons()
     }
-
+    
+    @IBAction func cancelComment(_ sender: UIButton) {
+        hideCommentButtons()
+    }
+    
+    @IBAction func commentSectionTapped(_ sender: Any) {
+        hideCommentButtons()
+    }
+    
+    func hideCommentButtons(){
+        if commentTextView.isFirstResponder{
+            commentTextView.resignFirstResponder()
+            commentTextView.textColor = UIColor.lightGray
+            commentTextView.text = "Add a public comment..."
+            UIView.animate(withDuration: 0.5){
+                self.commnetButton.center.y = 50
+                self.commnetButton.alpha = 0.0
+                self.cancelComment.center.y = 50
+                self.cancelComment.alpha = 0.0
+                self.ratingStars.center.y = 50
+                self.ratingStars.alpha = 0.0
+                self.commentTextViewHeightConstraint.constant = 40
+                self.view.setNeedsLayout()
+                self.commnetButton.isEnabled = false
+                self.cancelComment.isEnabled = false
+            }
+        }
+    }
+    
+    func loadComments(){
+        HTTPHelper.getComments(restStop: restStop){ publicComments in
+            self.comments = publicComments
+            self.tableView.reloadData()
+        }
+    }
 }
+
 
 extension StaticDetailTableViewController: MKMapViewDelegate{
     
@@ -194,6 +208,103 @@ extension StaticDetailTableViewController: MKMapViewDelegate{
         return annotationView
     }
 }
+
+extension StaticDetailTableViewController: UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        
+        textView.text = ""
+        textView.textColor = UIColor.black
+        commnetButton.isHidden = false
+        cancelComment.isHidden = false
+        commnetButton.isEnabled = false
+        ratingStars.isHidden = false
+        commentTextView.translatesAutoresizingMaskIntoConstraints = false
+        commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
+        UIView.animate(withDuration: 0.5){
+            self.commnetButton.center.y = 77
+            self.commnetButton.alpha = 1.0
+            self.cancelComment.center.y = 77
+            self.cancelComment.alpha = 1.0
+            self.commentTextViewHeightConstraint.constant = 50
+            self.ratingStars.center.y = 77
+            self.ratingStars.alpha = 1.0
+            self.view.setNeedsLayout()
+            
+        }
+        
+        
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text != "" && textView.text != " "{
+            
+            commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 1.0)
+            commnetButton.isEnabled = true
+            
+        } else {
+            commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
+            commnetButton.isEnabled = false
+        }
+    }
+    
+}
+
+extension StaticDetailTableViewController{
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        } else {
+            return comments.count
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            return super.tableView(tableView, cellForRowAt: indexPath)
+        } else {
+            let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+            commentCell.commentLabel.text = comments[indexPath.row].comment
+            return commentCell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        var height: CGFloat = 0.0
+        if section == 0 {
+            height = super.tableView(tableView, heightForHeaderInSection: section)
+        }
+        return height
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        var height: CGFloat = 0.0
+        if section == 0 {
+            height = super.tableView(tableView, heightForFooterInSection: section)
+        }
+        return height
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        } else {
+            return UITableViewAutomaticDimension
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        var indentationLevel = 0;
+        if indexPath.section == 0 {
+            indentationLevel = super.tableView(tableView, indentationLevelForRowAt: indexPath)
+        }
+        return indentationLevel
+    }
+    
+    
+}
+
 
 
 

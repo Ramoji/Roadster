@@ -7,180 +7,313 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0430F9229AC8AF012547707526F6590C /* YLPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC4177B56196CB1A33AB3742B54F635 /* YLPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0697764D3438CEEE5E9ECB2AEB821DD4 /* YLPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A24D09059ED78B54D2AA5E490C829575 /* YLPClient.m */; };
-		0899851FD1C90C543B0AE46021CF7BE3 /* YLPSortType.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9C4EAA88440417020B34EEBF977AAB /* YLPSortType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BA8CB7B682298D9DEFC8EBFE67839C3 /* YLPReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CB61E5C0C447CE63BBCAA361A5D490 /* YLPReview.m */; };
-		0F9462B05308514B6BC4121BD9869E29 /* YLPClient+PhoneSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 43FF9B659529AD8DFDD97A993022854D /* YLPClient+PhoneSearch.m */; };
-		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99567BBD5F52B4D586FC669C6E3E3DE /* Timeline.swift */; };
-		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA2F6A809FD83365CB650B85DB16197 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C61811F922FC058CD1943E078DB5B48 /* YelpAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CBEA3B606EDFFEF4BA4C13FE0DF1907 /* YelpAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C73BC7AE2DF5E9E9DC58B065B0B59DD /* YLPReview.h in Headers */ = {isa = PBXBuildFile; fileRef = F214BC6C50A300C7BE6ED152D24A9235 /* YLPReview.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		20E2C2BBBF350EC0BA386C965C2683A5 /* Pods-Roadster-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 39711FFDA16D3275162DF91C094D3BD2 /* Pods-Roadster-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2748A867CF5D3142CA3EFB0A4955879B /* YLPBusiness.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F285CA22D5405E7EB2687AB3CBAC59A /* YLPBusiness.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2A49CC1AA76140E92A00E18509AB4707 /* YLPClient+PhoneSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F42A7FA2779D764175739D3045A949 /* YLPClient+PhoneSearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3626B94094672CB1C9DEA32B9F9502E1 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6EDCF60A5A1BD257282308DFD3A8F8 /* TaskDelegate.swift */; };
-		38A03A88F68C28D428BE96B2DE869E5B /* YLPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFC404AFB24B63C9C23E15A972E80D2 /* YLPUser.m */; };
-		44DBC361E5F9FD8BB9A9696587B79CF5 /* YLPBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = 240A4EA913C2A3EA0EE0CF8385CC0CAC /* YLPBusiness.m */; };
-		5387216E723A3C68E851CA15573CDD71 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3DC913A0DE48A57A8C86F551B8FA4F /* Request.swift */; };
-		54E00634737D4A5D51C3A1DEF52D10B9 /* YelpAPI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DCD4BCE69E8837038870A5F6004F45 /* YelpAPI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5EA11C1E92E446A5999D83B1CDC365C4 /* YLPClient+Search.h in Headers */ = {isa = PBXBuildFile; fileRef = AFD365340E20F4589A2F330E6CF890BF /* YLPClient+Search.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		61200D01A1855D7920CEF835C8BE00B0 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D98E3B65B0CA57FF6D53BA5F2698F7 /* DispatchQueue+Alamofire.swift */; };
-		62F65AD8DC4F0F9610F4B8B4738EC094 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3509C1A4A51F3AC7F878EEEDBC45F3 /* ServerTrustPolicy.swift */; };
-		637C10C19DA0F4EE4F08F62910621B6D /* YLPCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = B12F804B7A16775B7923C077F4D1F6EB /* YLPCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		77B7BEE1420109E98CF25A17067ADAA6 /* NSDictionary+YLPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 823E749D5E11ABA8F88D127F10C317AF /* NSDictionary+YLPUtils.m */; };
-		7B5FE28C7EA4122B0598738E54DBEBD8 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E63B084F93A902B136F39BB319331 /* SessionDelegate.swift */; };
-		7BFA3F16CBE377DE57E0CC33D7D0550C /* YLPSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = EFC85DD515FE045372237D751E480F49 /* YLPSearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7C49A140D7511CDC30ACB152E684FE0B /* YLPClient+Business.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5A6CAC3718C7AB5259F38937BF306C /* YLPClient+Business.m */; };
-		7D7D4CCFF095D0462FF2696EC9FBCDD5 /* YLPBusinessReviews.h in Headers */ = {isa = PBXBuildFile; fileRef = 58EDABE2E09398214E45E71451FBC4A6 /* YLPBusinessReviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7D8CC01E8C9EFFF9F4D65406CDE0AB66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1648DF523E7C7DB7D2EFB2BFA3618438 /* Result.swift */; };
-		800CBABE11F103549CA01C2BAA550C03 /* YLPBusinessReviews.m in Sources */ = {isa = PBXBuildFile; fileRef = AC439104C294B65FA3EEBAB02F634ACD /* YLPBusinessReviews.m */; };
-		8058A931FE813D31AEF51DE62A75713B /* YLPSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 881F373D873D7855B60110E23EE6FC8E /* YLPSearch.m */; };
-		81095CAAC691AF62042E16B384700C94 /* YLPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAC36414C8E5F1C20B9577BF8AD1C0DE /* YLPCoordinate.m */; };
-		8A0E17F502D9B6DCF4C766C72C825C64 /* YLPClient+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = E48A3C4421347A788E51804ED14E936E /* YLPClient+Search.m */; };
-		976DB1A294E9CA3205BE7DA7F256B18D /* YLPClient+Business.h in Headers */ = {isa = PBXBuildFile; fileRef = 14E778B79F4FF9248C10F8943EC9BD28 /* YLPClient+Business.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9ED2BB2981896E0A39EFA365503F58CE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFF2C52CAD42D56559567D17AB27FDA /* AFError.swift */; };
+		002583BC1C3E266B241DFF72837B7DB1 /* IntegerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10B2F8E79384F5A53E6A350C7D6CC0C /* IntegerConvertible.swift */; };
+		0104F8FBEEDABD001598A71661A97E25 /* YLPClientPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8768D89EF6AB371016EE09F2549AFB /* YLPClientPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		04B098BCE5CBCB6900852403457834C9 /* YLPUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A937D44DE596D456651DC3CB737570 /* YLPUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		059F4124DA7F345520A721361323F21C /* YLPBusiness.m in Sources */ = {isa = PBXBuildFile; fileRef = FA286639ABE97816142014E6EE8DCBE1 /* YLPBusiness.m */; };
+		0722631B8A27CA86C38EC986707E927A /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474D8F319058FCE2114B7171593F3251 /* OFB.swift */; };
+		0A09FDE133E395DCB2A16F7990C18A09 /* SecureBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104D1EDF78A8B50261D28D3FD11AC03 /* SecureBytes.swift */; };
+		0CE725310C54DAA2AB6DAF1FA0B57EBE /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EE5348F5EF988178C675ECFAFDCA65 /* RandomBytesSequence.swift */; };
+		0F4B5F1A93D665E7E9A0B8994EE40FE4 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3265D81EACE5096EED4A530137CF44BB /* Data+Extension.swift */; };
+		1049F6F67F08E56321DD2F804A869FD6 /* PBKDF1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1183E0828B06CCA4BAE8B03F4ADBBD /* PBKDF1.swift */; };
+		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B715900258DDD8786094274E6FDAD679 /* Timeline.swift */; };
+		115908466F681D5D15B9343018CA7B3B /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD0134F061F69C9B8234F4E482AA3 /* Digest.swift */; };
+		1249E54E8E77AAA65774BB72B9364514 /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E66B8C539DF6628EB8D8EECA0B0670 /* SHA3.swift */; };
+		15178CC13A504C1C847917F313EA4230 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F542121A8A4E9D6F51123633E5533FF3 /* CFB.swift */; };
+		1545999141978F143D09974A8BCCE4DF /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102687F6843CAE886F978E8D5D430B10 /* Checksum.swift */; };
+		158F274BED91DC003048B3CF10BA6100 /* YLPSortType.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B2241F9DD5061914A0E1DA3C32307DE /* YLPSortType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F47A635F3AF74F14282BF9CB909D2FDC /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C31CB0A2C554D426965C55ED6B409B1 /* YelpAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9897DEFDDF7A90B6971EE7F479DCEC3F /* YelpAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DD06BA0F64D88ABDDE4C775C02C2403 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424803BD3FD17C3B31B3289893D41A34 /* Utils.swift */; };
+		23633CC30EB51118AB1396D04F442F78 /* RandomAccessCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302351837C6E79E7C5150D0494261581 /* RandomAccessCryptor.swift */; };
+		243737C5FB7C80704B2DE24E9E10D18F /* Cryptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DEE9E627CF98C8C5146144291385EB /* Cryptors.swift */; };
+		255E5D12FA2A5578C34D8540388CD3D3 /* YLPQueryPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 44F40CA297980FC89B0C71DA9498B43E /* YLPQueryPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2AB4AF789EC61543E9B347408C8CD0CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		2AC27B1087A476D84A3B07C6103D0E45 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2D02D5B053840A74584F1B16C78CD9 /* RandomAccessBlockModeWorker.swift */; };
+		2F0CF5B6432A0E26DD1AE262E2611043 /* ZeroPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F456003534E3BACBD51748B3840346 /* ZeroPadding.swift */; };
+		3626B94094672CB1C9DEA32B9F9502E1 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B98F207D8F1A190277C32685A3D3B58 /* TaskDelegate.swift */; };
+		36F8A0EBEE24E1ED7DF70B54237C95C5 /* Rabbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42D3668A542633A21F47E574644F7B /* Rabbit.swift */; };
+		39E4A1E865DF0F1810C532437AC47625 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E2BA80CCE86E1566F69D40CE64089 /* Operators.swift */; };
+		3A110C8FDA5C94D652BEFC262E077A87 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		3A4B89184336752CE1B7C5D6AB9D8377 /* YLPSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD64E9B4E3FF3A4ED0E0A343C1F66AF /* YLPSearch.m */; };
+		3EBCE6FD273EF8947039B800832C02C1 /* YLPReview.h in Headers */ = {isa = PBXBuildFile; fileRef = B52B5D2769FF2F89C05E9F701C279118 /* YLPReview.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F11B5695833097D990E95D92CB5B0FD /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F5B7E6A9D0E494D59A464070C24076 /* Bit.swift */; };
+		4717DC682A89C0368C4E6C2D12B1D05D /* YLPClient+Business.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E48567EAFF9174B830B522A12A52CAA /* YLPClient+Business.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BFDCC68C463DB562F25CCEC5B595F0C /* YLPClient+Search.h in Headers */ = {isa = PBXBuildFile; fileRef = 084ECF6FBD2D3821D7875F465CB27FED /* YLPClient+Search.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		515D34702BC735902585A26CFBBE6DD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		5387216E723A3C68E851CA15573CDD71 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA77A5EFBA98F8534611D343357DD2E4 /* Request.swift */; };
+		56F73CC004006F4BC40E68DE3815CB1E /* YLPClient+PhoneSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF4355B633D025A0449961E0A007B14 /* YLPClient+PhoneSearch.m */; };
+		5808ECB2776BE21133283B61D37BDC9A /* YLPClient+Reviews.h in Headers */ = {isa = PBXBuildFile; fileRef = CFB60634117E5F680973642E5E6EE356 /* YLPClient+Reviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		586006835FA7049B90A8AA48CC9600F5 /* Blowfish+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299CCDBC8F62F284ECF7AE342DB62B4E /* Blowfish+Foundation.swift */; };
+		5A03DAF2DB011D6DDF96F88380A2E216 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B07D5A161CBC4D5A48EF1E04A618A5 /* HMAC.swift */; };
+		5B5C70C4A6FD0D486F43C83604B6DE1A /* Pods-Roadster-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 39711FFDA16D3275162DF91C094D3BD2 /* Pods-Roadster-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D798AA2FE47430AE368A2595E28842A /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827945931F617F2303411B6F47C6A6F6 /* PBKDF2.swift */; };
+		5F14E6CF84864E9A78FBA055D642B67D /* UInt16+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DB1D99CD7C5FF58D638106D6FE1CF0 /* UInt16+Extension.swift */; };
+		61200D01A1855D7920CEF835C8BE00B0 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F29AE11423D607C4959E02D01E151FD /* DispatchQueue+Alamofire.swift */; };
+		62F65AD8DC4F0F9610F4B8B4738EC094 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FF7A21983A9D1D5D0E30CA1435A59C /* ServerTrustPolicy.swift */; };
+		640A7963CC931FEF6614A5F6445DB78E /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCD28D5AF64B5B554BAC8D3C5480257 /* Generics.swift */; };
+		67D7F228DC874108E2DC4E3F98441D6E /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E98A1E2BBAC8FDD05364800EF514A /* SHA1.swift */; };
+		67DE5BACB678FBE43D8AEA5AA1A84022 /* CTR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDD7D2B0B1017F65DB120E7680B0BE7 /* CTR.swift */; };
+		6886A4A458FF9C7412C4F3836F3B64C0 /* Pods-Roadster-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2038915D89A0DF7496C5F0A1B4FD77 /* Pods-Roadster-dummy.m */; };
+		68B01E6BDCA39676E1F6EF4B9BD03834 /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8024FF3ED84B5C4DB22B4FF01EB1CAC /* UInt32+Extension.swift */; };
+		696B3876E52F3F94E1143277B04C6F2F /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477AD80417915BE96AE31DAA10B369B /* Utils+Foundation.swift */; };
+		6B5562E438ED90C0BFC2E4F8B857F2F1 /* YLPSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = B18054CD2E4F062B16A53992E03C0030 /* YLPSearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C7875B138509B5775B52FDED1A49DE6 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE05EA97C17DD235B0156483C36ADCA /* MD5.swift */; };
+		6CA826E9746EFCE4D951148EF037C186 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFEAD5AF4890177CB9B64422E3C5BEA /* PKCS7.swift */; };
+		6E7B4416C76B9BC6EC9E73C637F70B84 /* YLPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 433CC279D4B47DDE53F13086D96A835D /* YLPCategory.m */; };
+		781088765761CDED4FEBF362B533C9B0 /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD915EF9A0BD03722B7A96DDFB61987A /* Blowfish.swift */; };
+		796B70B577951B356DB1D2AF58674A93 /* YLPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 650DC1563F8B2F52837A61DF804DF6E6 /* YLPClient.m */; };
+		7B5FE28C7EA4122B0598738E54DBEBD8 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C916388239D88A965219FC19BB71298 /* SessionDelegate.swift */; };
+		7D8CC01E8C9EFFF9F4D65406CDE0AB66 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F8BF70417D2B1FB20568ADD92C1E6B /* Result.swift */; };
+		7DF7189B298926817FF310A48EDFD710 /* ChaCha20+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8089E96456598AF1F8486CDF3844F7 /* ChaCha20+Foundation.swift */; };
+		7DFA7EE7F5A231D1845A93FE03E3F6E9 /* YLPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D06224481BE0103DFF63411787E6 /* YLPLocation.m */; };
+		7EA840578B891D51E4BD10C31D80ABC2 /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC7B2544A6A384D0343CF8BB65D8CD4 /* SHA2.swift */; };
+		80C8666E8FDE3AA195DA42C19F9E37B0 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5223B9E81DA3D0231ED713D296FD7 /* CBC.swift */; };
+		83E872C2FD1F65580B6155EFCF311F15 /* HMAC+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5519B7D6E832AA216BCA493A3167FAAA /* HMAC+Foundation.swift */; };
+		8FBD53C8BBED7B75ED3A9281BE87DC3D /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2991554B739E367F0F10FEF85331DBF /* Authenticator.swift */; };
+		90BC96FFC0BB000C72BA848C6E0F6D21 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B85888F1A5ADCE5C866854F388B69FC /* Cipher.swift */; };
+		929B93DDD559F6A28A6C00D80BBD709E /* YLPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94872C3B2BC3E0671E385C0893E37831 /* YLPCoordinate.m */; };
+		94A8F3D8E190285048657C1C21EF224B /* YLPClient+Business.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C30C6E0C2E7B78659B514E0D222EB3 /* YLPClient+Business.m */; };
+		94B2942C0620376DDD122A87958F0177 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A899A717886257641ADA55A1B4C7BB /* Collection+Extension.swift */; };
+		9788CC579A4E3F5640699C2E6D106116 /* BatchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF2DF8761C696B55C1230DFF277013 /* BatchedCollection.swift */; };
+		9ED2BB2981896E0A39EFA365503F58CE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D7C2C12ED23B862DA0AB651174705 /* AFError.swift */; };
 		A04BFC558D69E7DBB68023C80A9CFE4E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		A2A6F71B727312BD45CC7A4AAD7B0AB7 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1C669A4A2931664B7FB68B21E67E00 /* NetworkReachabilityManager.swift */; };
-		A92251535DC3C1A424401D9484C9ED77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		A9EEEA7477981DEEBC72432DE9990A4B /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99797B2A365F0390028759A40912D098 /* Alamofire-dummy.m */; };
-		AB881263E2FE1683DD4A28447736DF30 /* YLPUser.h in Headers */ = {isa = PBXBuildFile; fileRef = E78FFECE7C53B7AE0B8BDDB01C404765 /* YLPUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE1EF48399533730D0066E04B22CA2D6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B753D1443991EB4CFE05511D16DD62B /* SessionManager.swift */; };
-		B167B2C9160DCE32F5ED19A35F70FF56 /* YLPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D0CAD5EA22F95E8F5CFD651714ED494 /* YLPCoordinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B2FC8C0E85C3A5BC5D37E050E3174A77 /* YLPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = A92A4E610A50313F25EA944805BB6C03 /* YLPLocation.m */; };
-		B65FCF589DA398C3EFE0128064E510EC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFC7748F13683C78902E967452F331B /* MultipartFormData.swift */; };
-		BB39D94C90D475DBE7756C89573C09F5 /* YLPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B22618F5770FB7FF54C5F753F7158142 /* YLPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BBEFE2F9CEB73DC7BD97FFA66A0D9D4F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE41C3C627B110325656DC481DB96E1 /* Validation.swift */; };
-		BE5C67A07E289FE1F9BE27335B159997 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE9435C9577E75D535222B0E08A037 /* ParameterEncoding.swift */; };
-		C1B42B7CFDA7EB962FC13A3E168570C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		C4EC9A203F96A9382DCA3EED3430B904 /* YLPResponsePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = C49E901669D49BB7311304FA3587CAE0 /* YLPResponsePrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C5B748EA9368BB5ED31BFCECC40AE416 /* YLPQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = D26815FB38049628B9F0F8464775DF69 /* YLPQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CB6D60925223897FFA2662667DF83E8A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = F858BBDBC8D26886C83E37973706DAEA /* Response.swift */; };
-		CE81245680292FFFB2823CB3A386B9DA /* YLPQueryPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B3F08CDE6B3B0215159E243342891D /* YLPQueryPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D5746C3938E9028E1ECF3958F844830B /* Pods-Roadster-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2038915D89A0DF7496C5F0A1B4FD77 /* Pods-Roadster-dummy.m */; };
-		DA5ED942A49AAA8443288E72882C656D /* YelpAPI-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF43C0148711F789B9CDEFB0E396625 /* YelpAPI-dummy.m */; };
-		DC7B0D2B291FFD80DCDE394161270838 /* YLPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 670DF39A5872913B444FB7B3097AF18A /* YLPCategory.m */; };
-		DFCB3D27CBDED24FC738130B009EFCD2 /* YLPClient+Reviews.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB2CFAF3AE8D0F87F565BB08A67E505 /* YLPClient+Reviews.m */; };
-		EFD264FC408EBF3BA2528E70B08DDD94 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5B3054F6704CAA209D82D20495E14A /* Notifications.swift */; };
-		F1EB31BAC8B6C167701BA63003BF8CE8 /* YLPQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8371E27B5D59A97E2FBE04BD9A9E505E /* YLPQuery.m */; };
-		F6BECD98B97CBFEBE2C96F0E9E72A6C0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3732F8D13EFF79843058BF5B8ECE282A /* ResponseSerialization.swift */; };
-		F8B3D3092ED0417E8CDF32033F6122F5 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D22F0DFD5DBFB342DF0752C4B0FE2 /* Alamofire.swift */; };
-		FA4D1274D1D8143F48DCDA0AA555FCC3 /* YLPClientPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = D81AFE62B1944D1F1E3E4083E7E2F1B8 /* YLPClientPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FA66CEF198EE7B4FD81DBEFB05FA2FA6 /* YLPClient+Reviews.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B1F864A12733C3B9DE2A7221797C20 /* YLPClient+Reviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1CDA47BEDEF48B5634E216B0FE771EE /* CSArrayType+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EEC4F86C0234AB81348F4A27C59AD /* CSArrayType+Foundation.swift */; };
+		A2A6F71B727312BD45CC7A4AAD7B0AB7 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB4F10CBF1F938B01C52C9D6B8A7C3D /* NetworkReachabilityManager.swift */; };
+		A479CFA5CA5DD8183A48646B5794D67E /* YLPResponsePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 370659688F1642175CF24F7F070F8844 /* YLPResponsePrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A5EE0360D84335DD969967753A86A62E /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE1E7A2408500561258E3B8330A5D7 /* BlockMode.swift */; };
+		A645E29D79C6313C84D474597DB09634 /* CryptoSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 387BA86940DF3E28EC5FCFD471D899F3 /* CryptoSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7FABD381197901F87BCD5CAA9B7C1F3 /* YLPQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CBC1A27D78AB06E49DC7937AE538340 /* YLPQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9EEEA7477981DEEBC72432DE9990A4B /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E834CA13C1061AE26601872C220E26FA /* Alamofire-dummy.m */; };
+		AB3BC2A27547C38CDCC831CDA8A9975B /* YelpAPI-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A516622C5FB9F69F096D55D86EFCA /* YelpAPI-dummy.m */; };
+		AD6EAF637CA5FAF70E0C9C630BDC40CC /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038C7AF20E825B180CCDAE96833E6404 /* PKCS5.swift */; };
+		AE1EF48399533730D0066E04B22CA2D6 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81057D1C2A99043C34F1AFE37F71FCA2 /* SessionManager.swift */; };
+		B14C7F0E94FB84FFA5EC9AFE2A780316 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E268A886D32064649ECB3DB4A234B /* Int+Extension.swift */; };
+		B327C11F8AF53F233A9F19391E0178A2 /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C60CE87D07B19B82FAF3A0B08900C5 /* CryptoSwift-dummy.m */; };
+		B65FCF589DA398C3EFE0128064E510EC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEFEBA072470C7A52C2781B2A3E2602 /* MultipartFormData.swift */; };
+		BA9EDF31EF3A9C6C91E85AEC4B07C3BF /* YLPClient+PhoneSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 603CFFCD634E82FD7C229B372F27AD64 /* YLPClient+PhoneSearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BBEFE2F9CEB73DC7BD97FFA66A0D9D4F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE9934F968480394A666791D80B128 /* Validation.swift */; };
+		BCAA812848776BEAF57F78240D781763 /* YelpAPI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E766B0F2D3AC778E200F589F89F5C788 /* YelpAPI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDEC4F9C7F0C9411EDD447EA09857017 /* PCBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7585A719D504DFA93A67C57FD5C72A /* PCBC.swift */; };
+		BE5C67A07E289FE1F9BE27335B159997 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4548895A5AD45F43037A3851BF5FF7 /* ParameterEncoding.swift */; };
+		C07F2DD732863463A4FC27351C007085 /* YLPReview.m in Sources */ = {isa = PBXBuildFile; fileRef = C82E89CB5063045A2F112AFAAB68F896 /* YLPReview.m */; };
+		C31FA7EC6A2DDD8AB4EE3C6693F8F764 /* YLPBusinessReviews.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E5E449D9D07B762A1A86D9E1EC5D8C1 /* YLPBusinessReviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C44584AA3F100F2680ADFFAFB5EA9768 /* YLPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFDB564B0A953B62A3FFB154D8E7D69 /* YLPUser.m */; };
+		C92F54CF0BE7A4EA0594286520E636DD /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7D321133D5E0A0A16C909BCD9F4821 /* UInt64+Extension.swift */; };
+		CB28D743C2031FCC8ED7EFC14D853504 /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7688E4A267A00AABD8B25C8B4C6DCB5 /* BlockModeWorker.swift */; };
+		CB6D60925223897FFA2662667DF83E8A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7EE9B4AECA4F9AC6C1CB664C394898A /* Response.swift */; };
+		CC23BE036D89D7C267972D6DC9FAAC92 /* YLPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = 62820C600367F1446F129F78200ED26C /* YLPCoordinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D12591536E8DDB9C4FA10DFECB31B0B7 /* YLPClient+Reviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF34EF102F9418134D2B165927BA6F3 /* YLPClient+Reviews.m */; };
+		D97F4D9EDDB2AB619E77B72257CDC1E7 /* ECB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A59054C5817A23B01EEA72FE9B6916 /* ECB.swift */; };
+		DBA60E90DFFB006CC41283258F53B894 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7C0CDE80E5EF0E237A221BE60FDB85 /* Updatable.swift */; };
+		DD99B910D8DEE87FED065E778D38D708 /* YLPCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D9922A882720AE166DA3D9743EEB90 /* YLPCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE3C2A88128F9D1E0058D4081D4AB2DF /* YLPClient+Search.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FCDFF786151A7604DBB4C379740841 /* YLPClient+Search.m */; };
+		DE7D8E74AF9285815D84DFD2D3377F44 /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389A0EFF105D0EA0A90352D841F4B407 /* ChaCha20.swift */; };
+		DFC9D4A8C46758B7DD9149529082FB0C /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600A069D268EBF90EF6132F493EB99B8 /* Poly1305.swift */; };
+		E0382AFF7B50E826EF8725AD4F1C77E3 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9252CD3B39A1D501FD47FA30F05DF15D /* Padding.swift */; };
+		E05C3E752768179927F0DC6890B39530 /* YLPBusinessReviews.m in Sources */ = {isa = PBXBuildFile; fileRef = E8C14CB9B877EF3BCAF94C78ED9BD9F5 /* YLPBusinessReviews.m */; };
+		E1178BC544EB8F0A9D2526C92A8F885C /* YLPBusiness.h in Headers */ = {isa = PBXBuildFile; fileRef = BFA345546448C98FF1AAE4E51B515599 /* YLPBusiness.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E28CCD4E05FF0CA245ECCB01421BFBAB /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D03CDD2E185EAFF1DAD2FDE28339268 /* Rabbit+Foundation.swift */; };
+		E5441970D4C76B797E24D292CC0EB6F6 /* AES+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E15981F89AA693A1A66FD7AF3EED70 /* AES+Foundation.swift */; };
+		E5F1558B5BE3FBC586158D48DA0D5416 /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B9D90270C7B5952A1299F1849468A2 /* BlockModeOptions.swift */; };
+		E8B910E3B704E2A54613B39342EE6473 /* CSArrayType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58532D212C13830A82FE615D8174A95A /* CSArrayType+Extensions.swift */; };
+		E9989A77F5626EB16915E97EFA567B70 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF20D4417F5648F5E297957DD311D47 /* Array+Extension.swift */; };
+		EFD264FC408EBF3BA2528E70B08DDD94 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCC4FB6B7202E0980DD6C63D3B511F8 /* Notifications.swift */; };
+		F07BCF5CD99B2DC91CECD5DACD9949AF /* YLPQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F18C044BFC5E82240078C6C595ED45E /* YLPQuery.m */; };
+		F5AC4DD6EF0B19ABAF7E05D10B9B4C8B /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C1B4F55A49B2E5D91932BFBD2F63E2 /* UInt8+Extension.swift */; };
+		F5BB8AFBDA7DCB99DD3EA2E8F41D1BFD /* YLPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 47BB0268B81749F8B15FCD4AFB63374D /* YLPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F670E22400A2690708C1D0922B000759 /* DigestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F0208FD0EF6B645A4106F8E1FF059C /* DigestType.swift */; };
+		F6BECD98B97CBFEBE2C96F0E9E72A6C0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEF5F16B1732B4F0CE6AC178612073F /* ResponseSerialization.swift */; };
+		F7E1991DFFCE919F5D75D773104B701B /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DC7061294421A8C23E3877283EB78D /* AES.swift */; };
+		F8B3D3092ED0417E8CDF32033F6122F5 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1679AC5ED559EBE6516177AFBCCEC7CC /* Alamofire.swift */; };
+		FACE87AFB6A8202A8BEB048F64ADF398 /* YLPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F786E495C2F510AB53CB390858ED73BF /* YLPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FADDCBE4D27D93924C165C297FB19AAB /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3112DAD174E8E75FF856291D5841338 /* NoPadding.swift */; };
+		FAEABCE1E6B28982264E828922580C2D /* BlockCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4116F6FE6D02026801EB35469315E3F /* BlockCipher.swift */; };
+		FB783F6F97FD796CF7B52F1331F6EA3E /* String+FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC195CD7EBABE0606C06017C91C4BA2 /* String+FoundationExtension.swift */; };
+		FDA70680D8037BB3C04614CCDB06C03F /* NSDictionary+YLPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = AC79A86886FBAA56A31276FFDCB563B4 /* NSDictionary+YLPUtils.m */; };
+		FE9F3F30678CE487A35DBEA2AA2408AC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E23DAA93E10405B404F9FB356BBC24 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3A42D693DAC2002D52A69CF10F348FEF /* PBXContainerItemProxy */ = {
+		677F8AEC5DD93016D56544458E6E87AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 88E9EC28B8B46C3631E6B242B50F4442;
 			remoteInfo = Alamofire;
 		};
-		6C59E53D64B588961EFF32A673FAB433 /* PBXContainerItemProxy */ = {
+		ACEB44B811FD1FBBB7C625F99DB8D6B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 527B96347B850BDD0848676027F10ACC;
+			remoteGlobalIDString = 784B90E7191B5D49698A0C1FD402EEA9;
 			remoteInfo = YelpAPI;
+		};
+		DFDD60E0B53E7A2B30568EA092333348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6BB1C1403B2419F911818DA8413FDA07;
+			remoteInfo = CryptoSwift;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		016A516622C5FB9F69F096D55D86EFCA /* YelpAPI-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YelpAPI-dummy.m"; sourceTree = "<group>"; };
+		01C30C6E0C2E7B78659B514E0D222EB3 /* YLPClient+Business.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Business.m"; path = "Classes/Client/YLPClient+Business.m"; sourceTree = "<group>"; };
+		02FCDFF786151A7604DBB4C379740841 /* YLPClient+Search.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Search.m"; path = "Classes/Client/YLPClient+Search.m"; sourceTree = "<group>"; };
 		0348F74D10AD26CE4DB1203C676AAC9C /* Pods-Roadster-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Roadster-frameworks.sh"; sourceTree = "<group>"; };
-		0DFC7748F13683C78902E967452F331B /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
-		14E778B79F4FF9248C10F8943EC9BD28 /* YLPClient+Business.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Business.h"; path = "Classes/Client/YLPClient+Business.h"; sourceTree = "<group>"; };
-		1648DF523E7C7DB7D2EFB2BFA3618438 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
-		1B3509C1A4A51F3AC7F878EEEDBC45F3 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		1CBEA3B606EDFFEF4BA4C13FE0DF1907 /* YelpAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YelpAPI.h; path = Classes/YelpAPI.h; sourceTree = "<group>"; };
-		1FD2777C95CE1D4B367D6591BC561029 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		240A4EA913C2A3EA0EE0CF8385CC0CAC /* YLPBusiness.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPBusiness.m; path = Classes/Response/YLPBusiness.m; sourceTree = "<group>"; };
-		31D98E3B65B0CA57FF6D53BA5F2698F7 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
-		32D7B73284667DEE75D5623B81A60233 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		32F232917AD607173151D08C6DCB09AF /* YelpAPI-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YelpAPI-prefix.pch"; sourceTree = "<group>"; };
-		35DCD4BCE69E8837038870A5F6004F45 /* YelpAPI-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YelpAPI-umbrella.h"; sourceTree = "<group>"; };
-		3732F8D13EFF79843058BF5B8ECE282A /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		038C7AF20E825B180CCDAE96833E6404 /* PKCS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS5.swift; path = Sources/CryptoSwift/PKCS5/PKCS5.swift; sourceTree = "<group>"; };
+		084ECF6FBD2D3821D7875F465CB27FED /* YLPClient+Search.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Search.h"; path = "Classes/Client/YLPClient+Search.h"; sourceTree = "<group>"; };
+		0D03CDD2E185EAFF1DAD2FDE28339268 /* Rabbit+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Rabbit+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Rabbit+Foundation.swift"; sourceTree = "<group>"; };
+		0E42D3668A542633A21F47E574644F7B /* Rabbit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rabbit.swift; path = Sources/CryptoSwift/Rabbit.swift; sourceTree = "<group>"; };
+		102687F6843CAE886F978E8D5D430B10 /* Checksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Checksum.swift; path = Sources/CryptoSwift/Checksum.swift; sourceTree = "<group>"; };
+		14B35E1941980A99AB64DF6087AE1726 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1679AC5ED559EBE6516177AFBCCEC7CC /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		17EE5348F5EF988178C675ECFAFDCA65 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytesSequence.swift; path = Sources/CryptoSwift/RandomBytesSequence.swift; sourceTree = "<group>"; };
+		191D0A6203D0D850513F5454B19DAFDC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A7585A719D504DFA93A67C57FD5C72A /* PCBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBC.swift; path = Sources/CryptoSwift/BlockMode/PCBC.swift; sourceTree = "<group>"; };
+		1CCD28D5AF64B5B554BAC8D3C5480257 /* Generics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generics.swift; path = Sources/CryptoSwift/Generics.swift; sourceTree = "<group>"; };
+		1E5E449D9D07B762A1A86D9E1EC5D8C1 /* YLPBusinessReviews.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPBusinessReviews.h; path = Classes/Response/YLPBusinessReviews.h; sourceTree = "<group>"; };
+		1F8B838BA4DA5F9181B27A66FF2AEE34 /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
+		20E66B8C539DF6628EB8D8EECA0B0670 /* SHA3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA3.swift; path = Sources/CryptoSwift/SHA3.swift; sourceTree = "<group>"; };
+		299CCDBC8F62F284ECF7AE342DB62B4E /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Blowfish+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Blowfish+Foundation.swift"; sourceTree = "<group>"; };
+		29D0ABC8FE45C54CC79DA908C6C67C7B /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		2A8768D89EF6AB371016EE09F2549AFB /* YLPClientPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPClientPrivate.h; path = Classes/Client/YLPClientPrivate.h; sourceTree = "<group>"; };
+		2D16DB5322E1086D801F1423B5FAEC4F /* Pods_Roadster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Roadster.framework; path = "Pods-Roadster.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		302351837C6E79E7C5150D0494261581 /* RandomAccessCryptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomAccessCryptor.swift; path = Sources/CryptoSwift/RandomAccessCryptor.swift; sourceTree = "<group>"; };
+		30548A1175F6497AFFCEC0E95B404130 /* YelpAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YelpAPI.framework; path = YelpAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3104D1EDF78A8B50261D28D3FD11AC03 /* SecureBytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureBytes.swift; path = Sources/CryptoSwift/SecureBytes.swift; sourceTree = "<group>"; };
+		31B9D90270C7B5952A1299F1849468A2 /* BlockModeOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeOptions.swift; path = Sources/CryptoSwift/BlockMode/BlockModeOptions.swift; sourceTree = "<group>"; };
+		31BFF7F0A08441D4674FE19F1E222A53 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CryptoSwift.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3265D81EACE5096EED4A530137CF44BB /* Data+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extension.swift"; path = "Sources/CryptoSwift/Foundation/Data+Extension.swift"; sourceTree = "<group>"; };
+		33B07D5A161CBC4D5A48EF1E04A618A5 /* HMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HMAC.swift; path = Sources/CryptoSwift/HMAC.swift; sourceTree = "<group>"; };
+		370659688F1642175CF24F7F070F8844 /* YLPResponsePrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPResponsePrivate.h; path = Classes/Response/YLPResponsePrivate.h; sourceTree = "<group>"; };
+		387BA86940DF3E28EC5FCFD471D899F3 /* CryptoSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-umbrella.h"; sourceTree = "<group>"; };
+		389A0EFF105D0EA0A90352D841F4B407 /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
 		39711FFDA16D3275162DF91C094D3BD2 /* Pods-Roadster-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Roadster-umbrella.h"; sourceTree = "<group>"; };
-		3BA2F6A809FD83365CB650B85DB16197 /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		3DFC404AFB24B63C9C23E15A972E80D2 /* YLPUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPUser.m; path = Classes/Response/YLPUser.m; sourceTree = "<group>"; };
-		3F285CA22D5405E7EB2687AB3CBAC59A /* YLPBusiness.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPBusiness.h; path = Classes/Response/YLPBusiness.h; sourceTree = "<group>"; };
-		42F42A7FA2779D764175739D3045A949 /* YLPClient+PhoneSearch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+PhoneSearch.h"; path = "Classes/Client/YLPClient+PhoneSearch.h"; sourceTree = "<group>"; };
-		43CB61E5C0C447CE63BBCAA361A5D490 /* YLPReview.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPReview.m; path = Classes/Response/YLPReview.m; sourceTree = "<group>"; };
-		43FF9B659529AD8DFDD97A993022854D /* YLPClient+PhoneSearch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+PhoneSearch.m"; path = "Classes/Client/YLPClient+PhoneSearch.m"; sourceTree = "<group>"; };
-		45B1F864A12733C3B9DE2A7221797C20 /* YLPClient+Reviews.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Reviews.h"; path = "Classes/Client/YLPClient+Reviews.h"; sourceTree = "<group>"; };
-		493D22F0DFD5DBFB342DF0752C4B0FE2 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		3B2241F9DD5061914A0E1DA3C32307DE /* YLPSortType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPSortType.h; path = Classes/Request/YLPSortType.h; sourceTree = "<group>"; };
+		3FD64E9B4E3FF3A4ED0E0A343C1F66AF /* YLPSearch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPSearch.m; path = Classes/Response/YLPSearch.m; sourceTree = "<group>"; };
+		41FF7A21983A9D1D5D0E30CA1435A59C /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		424803BD3FD17C3B31B3289893D41A34 /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/CryptoSwift/Utils.swift; sourceTree = "<group>"; };
+		433CC279D4B47DDE53F13086D96A835D /* YLPCategory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPCategory.m; path = Classes/Response/YLPCategory.m; sourceTree = "<group>"; };
+		43A937D44DE596D456651DC3CB737570 /* YLPUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPUser.h; path = Classes/Response/YLPUser.h; sourceTree = "<group>"; };
+		43F0208FD0EF6B645A4106F8E1FF059C /* DigestType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DigestType.swift; path = Sources/CryptoSwift/DigestType.swift; sourceTree = "<group>"; };
+		44A899A717886257641ADA55A1B4C7BB /* Collection+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Extension.swift"; path = "Sources/CryptoSwift/Collection+Extension.swift"; sourceTree = "<group>"; };
+		44F40CA297980FC89B0C71DA9498B43E /* YLPQueryPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPQueryPrivate.h; path = Classes/Request/YLPQueryPrivate.h; sourceTree = "<group>"; };
+		45D9922A882720AE166DA3D9743EEB90 /* YLPCategory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPCategory.h; path = Classes/Response/YLPCategory.h; sourceTree = "<group>"; };
+		474D8F319058FCE2114B7171593F3251 /* OFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OFB.swift; path = Sources/CryptoSwift/BlockMode/OFB.swift; sourceTree = "<group>"; };
+		47BB0268B81749F8B15FCD4AFB63374D /* YLPLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPLocation.h; path = Classes/Response/YLPLocation.h; sourceTree = "<group>"; };
 		4B52CC31ADF75BB6E2A493040BA0E0DB /* Pods-Roadster-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Roadster-acknowledgements.plist"; sourceTree = "<group>"; };
+		4B85888F1A5ADCE5C866854F388B69FC /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = Sources/CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
+		4BD5223B9E81DA3D0231ED713D296FD7 /* CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBC.swift; path = Sources/CryptoSwift/BlockMode/CBC.swift; sourceTree = "<group>"; };
+		4BF20D4417F5648F5E297957DD311D47 /* Array+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Extension.swift"; path = "Sources/CryptoSwift/Array+Extension.swift"; sourceTree = "<group>"; };
+		4D7C0CDE80E5EF0E237A221BE60FDB85 /* Updatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Updatable.swift; path = Sources/CryptoSwift/Updatable.swift; sourceTree = "<group>"; };
 		50376BF23776D9D5EFF08930C058B580 /* Pods-Roadster-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Roadster-acknowledgements.markdown"; sourceTree = "<group>"; };
-		579E63B084F93A902B136F39BB319331 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
-		58BE9435C9577E75D535222B0E08A037 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
-		58EDABE2E09398214E45E71451FBC4A6 /* YLPBusinessReviews.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPBusinessReviews.h; path = Classes/Response/YLPBusinessReviews.h; sourceTree = "<group>"; };
+		528C85649BCF14254389834CC794CF3C /* CryptoSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CryptoSwift.modulemap; sourceTree = "<group>"; };
+		5519B7D6E832AA216BCA493A3167FAAA /* HMAC+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "HMAC+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/HMAC+Foundation.swift"; sourceTree = "<group>"; };
+		58532D212C13830A82FE615D8174A95A /* CSArrayType+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CSArrayType+Extensions.swift"; path = "Sources/CryptoSwift/CSArrayType+Extensions.swift"; sourceTree = "<group>"; };
 		59DD963EF4D83A8437C029AE0D1D73A2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5AB9E0CDA594C12E757D0882A1072A2B /* YelpAPI.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YelpAPI.xcconfig; sourceTree = "<group>"; };
-		66D5E66D827915424DAE8D24E6F8E1F2 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
-		670DF39A5872913B444FB7B3097AF18A /* YLPCategory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPCategory.m; path = Classes/Response/YLPCategory.m; sourceTree = "<group>"; };
-		69B3F08CDE6B3B0215159E243342891D /* YLPQueryPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPQueryPrivate.h; path = Classes/Request/YLPQueryPrivate.h; sourceTree = "<group>"; };
-		6B753D1443991EB4CFE05511D16DD62B /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
-		6C3DC913A0DE48A57A8C86F551B8FA4F /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
-		6C5A6CAC3718C7AB5259F38937BF306C /* YLPClient+Business.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Business.m"; path = "Classes/Client/YLPClient+Business.m"; sourceTree = "<group>"; };
-		6CC4177B56196CB1A33AB3742B54F635 /* YLPLocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPLocation.h; path = Classes/Response/YLPLocation.h; sourceTree = "<group>"; };
-		6EF43C0148711F789B9CDEFB0E396625 /* YelpAPI-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "YelpAPI-dummy.m"; sourceTree = "<group>"; };
-		726A02AF17660AAB46F078CA2735F6CD /* YelpAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = YelpAPI.framework; path = YelpAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F9C4EAA88440417020B34EEBF977AAB /* YLPSortType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPSortType.h; path = Classes/Request/YLPSortType.h; sourceTree = "<group>"; };
-		823E749D5E11ABA8F88D127F10C317AF /* NSDictionary+YLPUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+YLPUtils.m"; path = "Classes/Response/NSDictionary+YLPUtils.m"; sourceTree = "<group>"; };
-		8371E27B5D59A97E2FBE04BD9A9E505E /* YLPQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPQuery.m; path = Classes/Request/YLPQuery.m; sourceTree = "<group>"; };
-		881F373D873D7855B60110E23EE6FC8E /* YLPSearch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPSearch.m; path = Classes/Response/YLPSearch.m; sourceTree = "<group>"; };
-		897DFB0CAF7905F0017074DDBD185363 /* Pods_Roadster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Roadster.framework; path = "Pods-Roadster.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A6EDCF60A5A1BD257282308DFD3A8F8 /* TaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskDelegate.swift; path = Source/TaskDelegate.swift; sourceTree = "<group>"; };
-		8D5B3054F6704CAA209D82D20495E14A /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
+		5AEF5F16B1732B4F0CE6AC178612073F /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		5B2D02D5B053840A74584F1B16C78CD9 /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomAccessBlockModeWorker.swift; path = Sources/CryptoSwift/BlockMode/RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
+		5CCC4FB6B7202E0980DD6C63D3B511F8 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
+		600A069D268EBF90EF6132F493EB99B8 /* Poly1305.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Poly1305.swift; path = Sources/CryptoSwift/Poly1305.swift; sourceTree = "<group>"; };
+		603CFFCD634E82FD7C229B372F27AD64 /* YLPClient+PhoneSearch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+PhoneSearch.h"; path = "Classes/Client/YLPClient+PhoneSearch.h"; sourceTree = "<group>"; };
+		62820C600367F1446F129F78200ED26C /* YLPCoordinate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPCoordinate.h; path = Classes/Common/YLPCoordinate.h; sourceTree = "<group>"; };
+		650DC1563F8B2F52837A61DF804DF6E6 /* YLPClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPClient.m; path = Classes/Client/YLPClient.m; sourceTree = "<group>"; };
+		679EDD62B91186BB23E6047792C9BDCA /* CryptoSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CryptoSwift.xcconfig; sourceTree = "<group>"; };
+		68F456003534E3BACBD51748B3840346 /* ZeroPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroPadding.swift; path = Sources/CryptoSwift/ZeroPadding.swift; sourceTree = "<group>"; };
+		6B98F207D8F1A190277C32685A3D3B58 /* TaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TaskDelegate.swift; path = Source/TaskDelegate.swift; sourceTree = "<group>"; };
+		6CDD7D2B0B1017F65DB120E7680B0BE7 /* CTR.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CTR.swift; path = Sources/CryptoSwift/BlockMode/CTR.swift; sourceTree = "<group>"; };
+		6E48567EAFF9174B830B522A12A52CAA /* YLPClient+Business.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Business.h"; path = "Classes/Client/YLPClient+Business.h"; sourceTree = "<group>"; };
+		6F5E98A1E2BBAC8FDD05364800EF514A /* SHA1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = Sources/CryptoSwift/SHA1.swift; sourceTree = "<group>"; };
+		71DEE9E627CF98C8C5146144291385EB /* Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cryptors.swift; path = Sources/CryptoSwift/Cryptors.swift; sourceTree = "<group>"; };
+		74C2419B72C76B25F1017B356166D919 /* YelpAPI.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = YelpAPI.modulemap; sourceTree = "<group>"; };
+		75C60CE87D07B19B82FAF3A0B08900C5 /* CryptoSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CryptoSwift-dummy.m"; sourceTree = "<group>"; };
+		798EEC4F86C0234AB81348F4A27C59AD /* CSArrayType+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CSArrayType+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/CSArrayType+Foundation.swift"; sourceTree = "<group>"; };
+		7C916388239D88A965219FC19BB71298 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
+		7F18C044BFC5E82240078C6C595ED45E /* YLPQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPQuery.m; path = Classes/Request/YLPQuery.m; sourceTree = "<group>"; };
+		81057D1C2A99043C34F1AFE37F71FCA2 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
+		827945931F617F2303411B6F47C6A6F6 /* PBKDF2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF2.swift; path = Sources/CryptoSwift/PKCS5/PBKDF2.swift; sourceTree = "<group>"; };
+		86E2D06224481BE0103DFF63411787E6 /* YLPLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPLocation.m; path = Classes/Response/YLPLocation.m; sourceTree = "<group>"; };
+		88DC7061294421A8C23E3877283EB78D /* AES.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.swift; path = Sources/CryptoSwift/AES.swift; sourceTree = "<group>"; };
+		8AF34EF102F9418134D2B165927BA6F3 /* YLPClient+Reviews.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Reviews.m"; path = "Classes/Client/YLPClient+Reviews.m"; sourceTree = "<group>"; };
+		8CBC1A27D78AB06E49DC7937AE538340 /* YLPQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPQuery.h; path = Classes/Request/YLPQuery.h; sourceTree = "<group>"; };
+		8DDE1E7A2408500561258E3B8330A5D7 /* BlockMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockMode.swift; path = Sources/CryptoSwift/BlockMode/BlockMode.swift; sourceTree = "<group>"; };
+		8DFEAD5AF4890177CB9B64422E3C5BEA /* PKCS7.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7.swift; path = Sources/CryptoSwift/PKCS7.swift; sourceTree = "<group>"; };
+		8E4548895A5AD45F43037A3851BF5FF7 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		8F1183E0828B06CCA4BAE8B03F4ADBBD /* PBKDF1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF1.swift; path = Sources/CryptoSwift/PKCS5/PBKDF1.swift; sourceTree = "<group>"; };
+		8F29AE11423D607C4959E02D01E151FD /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DispatchQueue+Alamofire.swift"; path = "Source/DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		906A6E13084BDEB52E4B85AACEF0915C /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
+		90FE9934F968480394A666791D80B128 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		9252CD3B39A1D501FD47FA30F05DF15D /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
+		934D7C2C12ED23B862DA0AB651174705 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93C1B4F55A49B2E5D91932BFBD2F63E2 /* UInt8+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt8+Extension.swift"; path = "Sources/CryptoSwift/UInt8+Extension.swift"; sourceTree = "<group>"; };
 		93D7C90C65813DD92E53BEEAB2282F94 /* Pods-Roadster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Roadster.release.xcconfig"; sourceTree = "<group>"; };
-		99797B2A365F0390028759A40912D098 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
-		9CE41C3C627B110325656DC481DB96E1 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
-		9D0CAD5EA22F95E8F5CFD651714ED494 /* YLPCoordinate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPCoordinate.h; path = Classes/Common/YLPCoordinate.h; sourceTree = "<group>"; };
-		A24D09059ED78B54D2AA5E490C829575 /* YLPClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPClient.m; path = Classes/Client/YLPClient.m; sourceTree = "<group>"; };
+		94872C3B2BC3E0671E385C0893E37831 /* YLPCoordinate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPCoordinate.m; path = Classes/Common/YLPCoordinate.m; sourceTree = "<group>"; };
+		96F2168CFB31C4656AB78FAF4FF214A5 /* YelpAPI-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YelpAPI-prefix.pch"; sourceTree = "<group>"; };
+		97F5B7E6A9D0E494D59A464070C24076 /* Bit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bit.swift; path = Sources/CryptoSwift/Bit.swift; sourceTree = "<group>"; };
+		986EEE90C8A2F265084961DA18DF9B0D /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		9897DEFDDF7A90B6971EE7F479DCEC3F /* YelpAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YelpAPI.h; path = Classes/YelpAPI.h; sourceTree = "<group>"; };
+		9DEFEBA072470C7A52C2781B2A3E2602 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		9F4BD0134F061F69C9B8234F4E482AA3 /* Digest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Digest.swift; path = Sources/CryptoSwift/Digest.swift; sourceTree = "<group>"; };
 		A3BA4CCD691AB35624DF5FC3D87E2E59 /* Pods-Roadster-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Roadster-resources.sh"; sourceTree = "<group>"; };
-		A92A4E610A50313F25EA944805BB6C03 /* YLPLocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPLocation.m; path = Classes/Response/YLPLocation.m; sourceTree = "<group>"; };
-		A99567BBD5F52B4D586FC669C6E3E3DE /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
-		AC439104C294B65FA3EEBAB02F634ACD /* YLPBusinessReviews.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPBusinessReviews.m; path = Classes/Response/YLPBusinessReviews.m; sourceTree = "<group>"; };
-		AFD365340E20F4589A2F330E6CF890BF /* YLPClient+Search.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Search.h"; path = "Classes/Client/YLPClient+Search.h"; sourceTree = "<group>"; };
-		B12F804B7A16775B7923C077F4D1F6EB /* YLPCategory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPCategory.h; path = Classes/Response/YLPCategory.h; sourceTree = "<group>"; };
-		B22618F5770FB7FF54C5F753F7158142 /* YLPClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPClient.h; path = Classes/Client/YLPClient.h; sourceTree = "<group>"; };
-		BC1C669A4A2931664B7FB68B21E67E00 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		C49E901669D49BB7311304FA3587CAE0 /* YLPResponsePrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPResponsePrivate.h; path = Classes/Response/YLPResponsePrivate.h; sourceTree = "<group>"; };
-		C6C439FD0729DFA9D202E63D4B857325 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
+		A7EE9B4AECA4F9AC6C1CB664C394898A /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
+		AB4E2BA80CCE86E1566F69D40CE64089 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/CryptoSwift/Operators.swift; sourceTree = "<group>"; };
+		AC79A86886FBAA56A31276FFDCB563B4 /* NSDictionary+YLPUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+YLPUtils.m"; path = "Classes/Response/NSDictionary+YLPUtils.m"; sourceTree = "<group>"; };
+		B10B2F8E79384F5A53E6A350C7D6CC0C /* IntegerConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IntegerConvertible.swift; path = Sources/CryptoSwift/IntegerConvertible.swift; sourceTree = "<group>"; };
+		B18054CD2E4F062B16A53992E03C0030 /* YLPSearch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPSearch.h; path = Classes/Response/YLPSearch.h; sourceTree = "<group>"; };
+		B52B5D2769FF2F89C05E9F701C279118 /* YLPReview.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPReview.h; path = Classes/Response/YLPReview.h; sourceTree = "<group>"; };
+		B715900258DDD8786094274E6FDAD679 /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
+		B8024FF3ED84B5C4DB22B4FF01EB1CAC /* UInt32+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt32+Extension.swift"; path = "Sources/CryptoSwift/UInt32+Extension.swift"; sourceTree = "<group>"; };
+		BBB4F10CBF1F938B01C52C9D6B8A7C3D /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		BBFDB564B0A953B62A3FFB154D8E7D69 /* YLPUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPUser.m; path = Classes/Response/YLPUser.m; sourceTree = "<group>"; };
+		BDF4355B633D025A0449961E0A007B14 /* YLPClient+PhoneSearch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+PhoneSearch.m"; path = "Classes/Client/YLPClient+PhoneSearch.m"; sourceTree = "<group>"; };
+		BFA345546448C98FF1AAE4E51B515599 /* YLPBusiness.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPBusiness.h; path = Classes/Response/YLPBusiness.h; sourceTree = "<group>"; };
+		C2991554B739E367F0F10FEF85331DBF /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = Sources/CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
+		C2E15981F89AA693A1A66FD7AF3EED70 /* AES+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AES+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/AES+Foundation.swift"; sourceTree = "<group>"; };
+		C3DB1D99CD7C5FF58D638106D6FE1CF0 /* UInt16+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt16+Extension.swift"; path = "Sources/CryptoSwift/UInt16+Extension.swift"; sourceTree = "<group>"; };
+		C477AD80417915BE96AE31DAA10B369B /* Utils+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Utils+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Utils+Foundation.swift"; sourceTree = "<group>"; };
+		C4A59054C5817A23B01EEA72FE9B6916 /* ECB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ECB.swift; path = Sources/CryptoSwift/BlockMode/ECB.swift; sourceTree = "<group>"; };
+		C7688E4A267A00AABD8B25C8B4C6DCB5 /* BlockModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeWorker.swift; path = Sources/CryptoSwift/BlockMode/BlockModeWorker.swift; sourceTree = "<group>"; };
+		C82E89CB5063045A2F112AFAAB68F896 /* YLPReview.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPReview.m; path = Classes/Response/YLPReview.m; sourceTree = "<group>"; };
 		C8D5B82E4DAEF830D601C7FCAE93C312 /* Pods-Roadster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Roadster.debug.xcconfig"; sourceTree = "<group>"; };
-		CAC36414C8E5F1C20B9577BF8AD1C0DE /* YLPCoordinate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPCoordinate.m; path = Classes/Common/YLPCoordinate.m; sourceTree = "<group>"; };
 		CAC8E149E723F89AD52A3276E620BE12 /* Pods-Roadster.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Roadster.modulemap"; sourceTree = "<group>"; };
-		CAFF2C52CAD42D56559567D17AB27FDA /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
+		CB62C5948946D81AE3DD61927329B3A6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CE7D321133D5E0A0A16C909BCD9F4821 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		CF2038915D89A0DF7496C5F0A1B4FD77 /* Pods-Roadster-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Roadster-dummy.m"; sourceTree = "<group>"; };
-		CFC0596D192F9C11CAC1CBCB62FAA5CD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D26815FB38049628B9F0F8464775DF69 /* YLPQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPQuery.h; path = Classes/Request/YLPQuery.h; sourceTree = "<group>"; };
-		D81AFE62B1944D1F1E3E4083E7E2F1B8 /* YLPClientPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPClientPrivate.h; path = Classes/Client/YLPClientPrivate.h; sourceTree = "<group>"; };
-		DFE67BD8B07485E595822B7E21235F24 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
-		E48A3C4421347A788E51804ED14E936E /* YLPClient+Search.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Search.m"; path = "Classes/Client/YLPClient+Search.m"; sourceTree = "<group>"; };
-		E78FFECE7C53B7AE0B8BDDB01C404765 /* YLPUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPUser.h; path = Classes/Response/YLPUser.h; sourceTree = "<group>"; };
-		E917899823BA0E72C178F45BF683D256 /* YelpAPI.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = YelpAPI.modulemap; sourceTree = "<group>"; };
-		EFC85DD515FE045372237D751E480F49 /* YLPSearch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPSearch.h; path = Classes/Response/YLPSearch.h; sourceTree = "<group>"; };
-		F214BC6C50A300C7BE6ED152D24A9235 /* YLPReview.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPReview.h; path = Classes/Response/YLPReview.h; sourceTree = "<group>"; };
-		F858BBDBC8D26886C83E37973706DAEA /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
-		FEB2CFAF3AE8D0F87F565BB08A67E505 /* YLPClient+Reviews.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "YLPClient+Reviews.m"; path = "Classes/Client/YLPClient+Reviews.m"; sourceTree = "<group>"; };
+		CFB60634117E5F680973642E5E6EE356 /* YLPClient+Reviews.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "YLPClient+Reviews.h"; path = "Classes/Client/YLPClient+Reviews.h"; sourceTree = "<group>"; };
+		CFC195CD7EBABE0606C06017C91C4BA2 /* String+FoundationExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+FoundationExtension.swift"; path = "Sources/CryptoSwift/Foundation/String+FoundationExtension.swift"; sourceTree = "<group>"; };
+		D3112DAD174E8E75FF856291D5841338 /* NoPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NoPadding.swift; path = Sources/CryptoSwift/NoPadding.swift; sourceTree = "<group>"; };
+		D4116F6FE6D02026801EB35469315E3F /* BlockCipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockCipher.swift; path = Sources/CryptoSwift/BlockCipher.swift; sourceTree = "<group>"; };
+		D81E268A886D32064649ECB3DB4A234B /* Int+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+Extension.swift"; path = "Sources/CryptoSwift/Int+Extension.swift"; sourceTree = "<group>"; };
+		DA77A5EFBA98F8534611D343357DD2E4 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		DCC2ADA42BE237577E33224CFBC0EC08 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD915EF9A0BD03722B7A96DDFB61987A /* Blowfish.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blowfish.swift; path = Sources/CryptoSwift/Blowfish.swift; sourceTree = "<group>"; };
+		E766B0F2D3AC778E200F589F89F5C788 /* YelpAPI-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "YelpAPI-umbrella.h"; sourceTree = "<group>"; };
+		E834CA13C1061AE26601872C220E26FA /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		E8C14CB9B877EF3BCAF94C78ED9BD9F5 /* YLPBusinessReviews.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPBusinessReviews.m; path = Classes/Response/YLPBusinessReviews.m; sourceTree = "<group>"; };
+		E8F8BF70417D2B1FB20568ADD92C1E6B /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
+		EDE05EA97C17DD235B0156483C36ADCA /* MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = Sources/CryptoSwift/MD5.swift; sourceTree = "<group>"; };
+		F47A635F3AF74F14282BF9CB909D2FDC /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		F51E1F0054DBD9D05368170A8AE47FD0 /* YelpAPI.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = YelpAPI.xcconfig; sourceTree = "<group>"; };
+		F542121A8A4E9D6F51123633E5533FF3 /* CFB.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CFB.swift; path = Sources/CryptoSwift/BlockMode/CFB.swift; sourceTree = "<group>"; };
+		F786E495C2F510AB53CB390858ED73BF /* YLPClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YLPClient.h; path = Classes/Client/YLPClient.h; sourceTree = "<group>"; };
+		F7E23DAA93E10405B404F9FB356BBC24 /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
+		FA286639ABE97816142014E6EE8DCBE1 /* YLPBusiness.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YLPBusiness.m; path = Classes/Response/YLPBusiness.m; sourceTree = "<group>"; };
+		FBBF2DF8761C696B55C1230DFF277013 /* BatchedCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BatchedCollection.swift; path = Sources/CryptoSwift/BatchedCollection.swift; sourceTree = "<group>"; };
+		FD8089E96456598AF1F8486CDF3844F7 /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ChaCha20+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
+		FEC7B2544A6A384D0343CF8BB65D8CD4 /* SHA2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA2.swift; path = Sources/CryptoSwift/SHA2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1AB520FC7B3F2363E245FEE810D78A26 /* Frameworks */ = {
+		84E940953A282A7F02E3FB957768CA84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1B42B7CFDA7EB962FC13A3E168570C8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		399B8891D7898F5B1CE15561EC07EE36 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A92251535DC3C1A424401D9484C9ED77 /* Foundation.framework in Frameworks */,
+				515D34702BC735902585A26CFBBE6DD7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,9 +325,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D06808E7550BBA13922344ED95D42FA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A110C8FDA5C94D652BEFC262E077A87 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F11EB9CB4B4DF9C0BE708A48508AC968 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AB4AF789EC61543E9B347408C8CD0CF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CED6BA5621251C398D1757CAAD60B70 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				528C85649BCF14254389834CC794CF3C /* CryptoSwift.modulemap */,
+				679EDD62B91186BB23E6047792C9BDCA /* CryptoSwift.xcconfig */,
+				75C60CE87D07B19B82FAF3A0B08900C5 /* CryptoSwift-dummy.m */,
+				1F8B838BA4DA5F9181B27A66FF2AEE34 /* CryptoSwift-prefix.pch */,
+				387BA86940DF3E28EC5FCFD471D899F3 /* CryptoSwift-umbrella.h */,
+				CB62C5948946D81AE3DD61927329B3A6 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CryptoSwift";
+			sourceTree = "<group>";
+		};
+		0DFFE432BEB8DD6E4DD2A4039F6C1986 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				934D7C2C12ED23B862DA0AB651174705 /* AFError.swift */,
+				1679AC5ED559EBE6516177AFBCCEC7CC /* Alamofire.swift */,
+				8F29AE11423D607C4959E02D01E151FD /* DispatchQueue+Alamofire.swift */,
+				9DEFEBA072470C7A52C2781B2A3E2602 /* MultipartFormData.swift */,
+				BBB4F10CBF1F938B01C52C9D6B8A7C3D /* NetworkReachabilityManager.swift */,
+				5CCC4FB6B7202E0980DD6C63D3B511F8 /* Notifications.swift */,
+				8E4548895A5AD45F43037A3851BF5FF7 /* ParameterEncoding.swift */,
+				DA77A5EFBA98F8534611D343357DD2E4 /* Request.swift */,
+				A7EE9B4AECA4F9AC6C1CB664C394898A /* Response.swift */,
+				5AEF5F16B1732B4F0CE6AC178612073F /* ResponseSerialization.swift */,
+				E8F8BF70417D2B1FB20568ADD92C1E6B /* Result.swift */,
+				41FF7A21983A9D1D5D0E30CA1435A59C /* ServerTrustPolicy.swift */,
+				7C916388239D88A965219FC19BB71298 /* SessionDelegate.swift */,
+				81057D1C2A99043C34F1AFE37F71FCA2 /* SessionManager.swift */,
+				6B98F207D8F1A190277C32685A3D3B58 /* TaskDelegate.swift */,
+				B715900258DDD8786094274E6FDAD679 /* Timeline.swift */,
+				90FE9934F968480394A666791D80B128 /* Validation.swift */,
+				526C72773335A9B3C673C5F0B74FE31D /* Support Files */,
+			);
+			name = Alamofire;
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
 		3D802D07B65902C15BDD97425E90D06C /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,51 +392,15 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		42E3BFDC9EC048B1B0814E1B8AFC9CD0 /* Alamofire */ = {
+		526C72773335A9B3C673C5F0B74FE31D /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				CAFF2C52CAD42D56559567D17AB27FDA /* AFError.swift */,
-				493D22F0DFD5DBFB342DF0752C4B0FE2 /* Alamofire.swift */,
-				31D98E3B65B0CA57FF6D53BA5F2698F7 /* DispatchQueue+Alamofire.swift */,
-				0DFC7748F13683C78902E967452F331B /* MultipartFormData.swift */,
-				BC1C669A4A2931664B7FB68B21E67E00 /* NetworkReachabilityManager.swift */,
-				8D5B3054F6704CAA209D82D20495E14A /* Notifications.swift */,
-				58BE9435C9577E75D535222B0E08A037 /* ParameterEncoding.swift */,
-				6C3DC913A0DE48A57A8C86F551B8FA4F /* Request.swift */,
-				F858BBDBC8D26886C83E37973706DAEA /* Response.swift */,
-				3732F8D13EFF79843058BF5B8ECE282A /* ResponseSerialization.swift */,
-				1648DF523E7C7DB7D2EFB2BFA3618438 /* Result.swift */,
-				1B3509C1A4A51F3AC7F878EEEDBC45F3 /* ServerTrustPolicy.swift */,
-				579E63B084F93A902B136F39BB319331 /* SessionDelegate.swift */,
-				6B753D1443991EB4CFE05511D16DD62B /* SessionManager.swift */,
-				8A6EDCF60A5A1BD257282308DFD3A8F8 /* TaskDelegate.swift */,
-				A99567BBD5F52B4D586FC669C6E3E3DE /* Timeline.swift */,
-				9CE41C3C627B110325656DC481DB96E1 /* Validation.swift */,
-				72AD745C365D00B17DB01B3E20694111 /* Support Files */,
-			);
-			name = Alamofire;
-			path = Alamofire;
-			sourceTree = "<group>";
-		};
-		5633B9F8CD6C248991D712F596573E00 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				32D7B73284667DEE75D5623B81A60233 /* Alamofire.framework */,
-				897DFB0CAF7905F0017074DDBD185363 /* Pods_Roadster.framework */,
-				726A02AF17660AAB46F078CA2735F6CD /* YelpAPI.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		72AD745C365D00B17DB01B3E20694111 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DFE67BD8B07485E595822B7E21235F24 /* Alamofire.modulemap */,
-				C6C439FD0729DFA9D202E63D4B857325 /* Alamofire.xcconfig */,
-				99797B2A365F0390028759A40912D098 /* Alamofire-dummy.m */,
-				66D5E66D827915424DAE8D24E6F8E1F2 /* Alamofire-prefix.pch */,
-				3BA2F6A809FD83365CB650B85DB16197 /* Alamofire-umbrella.h */,
-				CFC0596D192F9C11CAC1CBCB62FAA5CD /* Info.plist */,
+				986EEE90C8A2F265084961DA18DF9B0D /* Alamofire.modulemap */,
+				906A6E13084BDEB52E4B85AACEF0915C /* Alamofire.xcconfig */,
+				E834CA13C1061AE26601872C220E26FA /* Alamofire-dummy.m */,
+				29D0ABC8FE45C54CC79DA908C6C67C7B /* Alamofire-prefix.pch */,
+				F47A635F3AF74F14282BF9CB909D2FDC /* Alamofire-umbrella.h */,
+				DCC2ADA42BE237577E33224CFBC0EC08 /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Alamofire";
@@ -261,29 +414,26 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		7B5DFF929B48190A55BA4B44C6B28232 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14B35E1941980A99AB64DF6087AE1726 /* Alamofire.framework */,
+				31BFF7F0A08441D4674FE19F1E222A53 /* CryptoSwift.framework */,
+				2D16DB5322E1086D801F1423B5FAEC4F /* Pods_Roadster.framework */,
+				30548A1175F6497AFFCEC0E95B404130 /* YelpAPI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				A75ACAFD31D2EEB35A5A0BA1AFCC91B2 /* Pods */,
-				5633B9F8CD6C248991D712F596573E00 /* Products */,
+				CD9ECEE7BE72A2A0ACCDEA89906EEAE5 /* Pods */,
+				7B5DFF929B48190A55BA4B44C6B28232 /* Products */,
 				3D802D07B65902C15BDD97425E90D06C /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		8604213FF2FC4893DFB294651EBD3A0F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				1FD2777C95CE1D4B367D6591BC561029 /* Info.plist */,
-				E917899823BA0E72C178F45BF683D256 /* YelpAPI.modulemap */,
-				5AB9E0CDA594C12E757D0882A1072A2B /* YelpAPI.xcconfig */,
-				6EF43C0148711F789B9CDEFB0E396625 /* YelpAPI-dummy.m */,
-				32F232917AD607173151D08C6DCB09AF /* YelpAPI-prefix.pch */,
-				35DCD4BCE69E8837038870A5F6004F45 /* YelpAPI-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/YelpAPI";
 			sourceTree = "<group>";
 		};
 		89AA4CA85CD95A88B0AC65686123AB4A /* Pods-Roadster */ = {
@@ -304,13 +454,89 @@
 			path = "Target Support Files/Pods-Roadster";
 			sourceTree = "<group>";
 		};
-		A75ACAFD31D2EEB35A5A0BA1AFCC91B2 /* Pods */ = {
+		A4A6CEC20125A32738BAD35FCFC7635B /* CryptoSwift */ = {
 			isa = PBXGroup;
 			children = (
-				42E3BFDC9EC048B1B0814E1B8AFC9CD0 /* Alamofire */,
-				E13F1EAEF3C40211A82D17C280DF3DBD /* YelpAPI */,
+				88DC7061294421A8C23E3877283EB78D /* AES.swift */,
+				C2E15981F89AA693A1A66FD7AF3EED70 /* AES+Foundation.swift */,
+				4BF20D4417F5648F5E297957DD311D47 /* Array+Extension.swift */,
+				C2991554B739E367F0F10FEF85331DBF /* Authenticator.swift */,
+				FBBF2DF8761C696B55C1230DFF277013 /* BatchedCollection.swift */,
+				97F5B7E6A9D0E494D59A464070C24076 /* Bit.swift */,
+				D4116F6FE6D02026801EB35469315E3F /* BlockCipher.swift */,
+				8DDE1E7A2408500561258E3B8330A5D7 /* BlockMode.swift */,
+				31B9D90270C7B5952A1299F1849468A2 /* BlockModeOptions.swift */,
+				C7688E4A267A00AABD8B25C8B4C6DCB5 /* BlockModeWorker.swift */,
+				DD915EF9A0BD03722B7A96DDFB61987A /* Blowfish.swift */,
+				299CCDBC8F62F284ECF7AE342DB62B4E /* Blowfish+Foundation.swift */,
+				4BD5223B9E81DA3D0231ED713D296FD7 /* CBC.swift */,
+				F542121A8A4E9D6F51123633E5533FF3 /* CFB.swift */,
+				389A0EFF105D0EA0A90352D841F4B407 /* ChaCha20.swift */,
+				FD8089E96456598AF1F8486CDF3844F7 /* ChaCha20+Foundation.swift */,
+				102687F6843CAE886F978E8D5D430B10 /* Checksum.swift */,
+				4B85888F1A5ADCE5C866854F388B69FC /* Cipher.swift */,
+				44A899A717886257641ADA55A1B4C7BB /* Collection+Extension.swift */,
+				71DEE9E627CF98C8C5146144291385EB /* Cryptors.swift */,
+				58532D212C13830A82FE615D8174A95A /* CSArrayType+Extensions.swift */,
+				798EEC4F86C0234AB81348F4A27C59AD /* CSArrayType+Foundation.swift */,
+				6CDD7D2B0B1017F65DB120E7680B0BE7 /* CTR.swift */,
+				3265D81EACE5096EED4A530137CF44BB /* Data+Extension.swift */,
+				9F4BD0134F061F69C9B8234F4E482AA3 /* Digest.swift */,
+				43F0208FD0EF6B645A4106F8E1FF059C /* DigestType.swift */,
+				C4A59054C5817A23B01EEA72FE9B6916 /* ECB.swift */,
+				1CCD28D5AF64B5B554BAC8D3C5480257 /* Generics.swift */,
+				33B07D5A161CBC4D5A48EF1E04A618A5 /* HMAC.swift */,
+				5519B7D6E832AA216BCA493A3167FAAA /* HMAC+Foundation.swift */,
+				D81E268A886D32064649ECB3DB4A234B /* Int+Extension.swift */,
+				B10B2F8E79384F5A53E6A350C7D6CC0C /* IntegerConvertible.swift */,
+				EDE05EA97C17DD235B0156483C36ADCA /* MD5.swift */,
+				D3112DAD174E8E75FF856291D5841338 /* NoPadding.swift */,
+				474D8F319058FCE2114B7171593F3251 /* OFB.swift */,
+				AB4E2BA80CCE86E1566F69D40CE64089 /* Operators.swift */,
+				9252CD3B39A1D501FD47FA30F05DF15D /* Padding.swift */,
+				8F1183E0828B06CCA4BAE8B03F4ADBBD /* PBKDF1.swift */,
+				827945931F617F2303411B6F47C6A6F6 /* PBKDF2.swift */,
+				1A7585A719D504DFA93A67C57FD5C72A /* PCBC.swift */,
+				038C7AF20E825B180CCDAE96833E6404 /* PKCS5.swift */,
+				8DFEAD5AF4890177CB9B64422E3C5BEA /* PKCS7.swift */,
+				600A069D268EBF90EF6132F493EB99B8 /* Poly1305.swift */,
+				0E42D3668A542633A21F47E574644F7B /* Rabbit.swift */,
+				0D03CDD2E185EAFF1DAD2FDE28339268 /* Rabbit+Foundation.swift */,
+				5B2D02D5B053840A74584F1B16C78CD9 /* RandomAccessBlockModeWorker.swift */,
+				302351837C6E79E7C5150D0494261581 /* RandomAccessCryptor.swift */,
+				17EE5348F5EF988178C675ECFAFDCA65 /* RandomBytesSequence.swift */,
+				3104D1EDF78A8B50261D28D3FD11AC03 /* SecureBytes.swift */,
+				6F5E98A1E2BBAC8FDD05364800EF514A /* SHA1.swift */,
+				FEC7B2544A6A384D0343CF8BB65D8CD4 /* SHA2.swift */,
+				20E66B8C539DF6628EB8D8EECA0B0670 /* SHA3.swift */,
+				F7E23DAA93E10405B404F9FB356BBC24 /* String+Extension.swift */,
+				CFC195CD7EBABE0606C06017C91C4BA2 /* String+FoundationExtension.swift */,
+				C3DB1D99CD7C5FF58D638106D6FE1CF0 /* UInt16+Extension.swift */,
+				B8024FF3ED84B5C4DB22B4FF01EB1CAC /* UInt32+Extension.swift */,
+				CE7D321133D5E0A0A16C909BCD9F4821 /* UInt64+Extension.swift */,
+				93C1B4F55A49B2E5D91932BFBD2F63E2 /* UInt8+Extension.swift */,
+				4D7C0CDE80E5EF0E237A221BE60FDB85 /* Updatable.swift */,
+				424803BD3FD17C3B31B3289893D41A34 /* Utils.swift */,
+				C477AD80417915BE96AE31DAA10B369B /* Utils+Foundation.swift */,
+				68F456003534E3BACBD51748B3840346 /* ZeroPadding.swift */,
+				0CED6BA5621251C398D1757CAAD60B70 /* Support Files */,
 			);
-			name = Pods;
+			name = CryptoSwift;
+			path = CryptoSwift;
+			sourceTree = "<group>";
+		};
+		AAA9EAC0AFE7C0119B32F2D38CDA1007 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				191D0A6203D0D850513F5454B19DAFDC /* Info.plist */,
+				74C2419B72C76B25F1017B356166D919 /* YelpAPI.modulemap */,
+				F51E1F0054DBD9D05368170A8AE47FD0 /* YelpAPI.xcconfig */,
+				016A516622C5FB9F69F096D55D86EFCA /* YelpAPI-dummy.m */,
+				96F2168CFB31C4656AB78FAF4FF214A5 /* YelpAPI-prefix.pch */,
+				E766B0F2D3AC778E200F589F89F5C788 /* YelpAPI-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/YelpAPI";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -321,44 +547,54 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E13F1EAEF3C40211A82D17C280DF3DBD /* YelpAPI */ = {
+		CD9ECEE7BE72A2A0ACCDEA89906EEAE5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				823E749D5E11ABA8F88D127F10C317AF /* NSDictionary+YLPUtils.m */,
-				1CBEA3B606EDFFEF4BA4C13FE0DF1907 /* YelpAPI.h */,
-				3F285CA22D5405E7EB2687AB3CBAC59A /* YLPBusiness.h */,
-				240A4EA913C2A3EA0EE0CF8385CC0CAC /* YLPBusiness.m */,
-				58EDABE2E09398214E45E71451FBC4A6 /* YLPBusinessReviews.h */,
-				AC439104C294B65FA3EEBAB02F634ACD /* YLPBusinessReviews.m */,
-				B12F804B7A16775B7923C077F4D1F6EB /* YLPCategory.h */,
-				670DF39A5872913B444FB7B3097AF18A /* YLPCategory.m */,
-				B22618F5770FB7FF54C5F753F7158142 /* YLPClient.h */,
-				A24D09059ED78B54D2AA5E490C829575 /* YLPClient.m */,
-				14E778B79F4FF9248C10F8943EC9BD28 /* YLPClient+Business.h */,
-				6C5A6CAC3718C7AB5259F38937BF306C /* YLPClient+Business.m */,
-				42F42A7FA2779D764175739D3045A949 /* YLPClient+PhoneSearch.h */,
-				43FF9B659529AD8DFDD97A993022854D /* YLPClient+PhoneSearch.m */,
-				45B1F864A12733C3B9DE2A7221797C20 /* YLPClient+Reviews.h */,
-				FEB2CFAF3AE8D0F87F565BB08A67E505 /* YLPClient+Reviews.m */,
-				AFD365340E20F4589A2F330E6CF890BF /* YLPClient+Search.h */,
-				E48A3C4421347A788E51804ED14E936E /* YLPClient+Search.m */,
-				D81AFE62B1944D1F1E3E4083E7E2F1B8 /* YLPClientPrivate.h */,
-				9D0CAD5EA22F95E8F5CFD651714ED494 /* YLPCoordinate.h */,
-				CAC36414C8E5F1C20B9577BF8AD1C0DE /* YLPCoordinate.m */,
-				6CC4177B56196CB1A33AB3742B54F635 /* YLPLocation.h */,
-				A92A4E610A50313F25EA944805BB6C03 /* YLPLocation.m */,
-				D26815FB38049628B9F0F8464775DF69 /* YLPQuery.h */,
-				8371E27B5D59A97E2FBE04BD9A9E505E /* YLPQuery.m */,
-				69B3F08CDE6B3B0215159E243342891D /* YLPQueryPrivate.h */,
-				C49E901669D49BB7311304FA3587CAE0 /* YLPResponsePrivate.h */,
-				F214BC6C50A300C7BE6ED152D24A9235 /* YLPReview.h */,
-				43CB61E5C0C447CE63BBCAA361A5D490 /* YLPReview.m */,
-				EFC85DD515FE045372237D751E480F49 /* YLPSearch.h */,
-				881F373D873D7855B60110E23EE6FC8E /* YLPSearch.m */,
-				7F9C4EAA88440417020B34EEBF977AAB /* YLPSortType.h */,
-				E78FFECE7C53B7AE0B8BDDB01C404765 /* YLPUser.h */,
-				3DFC404AFB24B63C9C23E15A972E80D2 /* YLPUser.m */,
-				8604213FF2FC4893DFB294651EBD3A0F /* Support Files */,
+				0DFFE432BEB8DD6E4DD2A4039F6C1986 /* Alamofire */,
+				A4A6CEC20125A32738BAD35FCFC7635B /* CryptoSwift */,
+				D73913EB36F1AC9FD8B6A5BA0818DD56 /* YelpAPI */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D73913EB36F1AC9FD8B6A5BA0818DD56 /* YelpAPI */ = {
+			isa = PBXGroup;
+			children = (
+				AC79A86886FBAA56A31276FFDCB563B4 /* NSDictionary+YLPUtils.m */,
+				9897DEFDDF7A90B6971EE7F479DCEC3F /* YelpAPI.h */,
+				BFA345546448C98FF1AAE4E51B515599 /* YLPBusiness.h */,
+				FA286639ABE97816142014E6EE8DCBE1 /* YLPBusiness.m */,
+				1E5E449D9D07B762A1A86D9E1EC5D8C1 /* YLPBusinessReviews.h */,
+				E8C14CB9B877EF3BCAF94C78ED9BD9F5 /* YLPBusinessReviews.m */,
+				45D9922A882720AE166DA3D9743EEB90 /* YLPCategory.h */,
+				433CC279D4B47DDE53F13086D96A835D /* YLPCategory.m */,
+				F786E495C2F510AB53CB390858ED73BF /* YLPClient.h */,
+				650DC1563F8B2F52837A61DF804DF6E6 /* YLPClient.m */,
+				6E48567EAFF9174B830B522A12A52CAA /* YLPClient+Business.h */,
+				01C30C6E0C2E7B78659B514E0D222EB3 /* YLPClient+Business.m */,
+				603CFFCD634E82FD7C229B372F27AD64 /* YLPClient+PhoneSearch.h */,
+				BDF4355B633D025A0449961E0A007B14 /* YLPClient+PhoneSearch.m */,
+				CFB60634117E5F680973642E5E6EE356 /* YLPClient+Reviews.h */,
+				8AF34EF102F9418134D2B165927BA6F3 /* YLPClient+Reviews.m */,
+				084ECF6FBD2D3821D7875F465CB27FED /* YLPClient+Search.h */,
+				02FCDFF786151A7604DBB4C379740841 /* YLPClient+Search.m */,
+				2A8768D89EF6AB371016EE09F2549AFB /* YLPClientPrivate.h */,
+				62820C600367F1446F129F78200ED26C /* YLPCoordinate.h */,
+				94872C3B2BC3E0671E385C0893E37831 /* YLPCoordinate.m */,
+				47BB0268B81749F8B15FCD4AFB63374D /* YLPLocation.h */,
+				86E2D06224481BE0103DFF63411787E6 /* YLPLocation.m */,
+				8CBC1A27D78AB06E49DC7937AE538340 /* YLPQuery.h */,
+				7F18C044BFC5E82240078C6C595ED45E /* YLPQuery.m */,
+				44F40CA297980FC89B0C71DA9498B43E /* YLPQueryPrivate.h */,
+				370659688F1642175CF24F7F070F8844 /* YLPResponsePrivate.h */,
+				B52B5D2769FF2F89C05E9F701C279118 /* YLPReview.h */,
+				C82E89CB5063045A2F112AFAAB68F896 /* YLPReview.m */,
+				B18054CD2E4F062B16A53992E03C0030 /* YLPSearch.h */,
+				3FD64E9B4E3FF3A4ED0E0A343C1F66AF /* YLPSearch.m */,
+				3B2241F9DD5061914A0E1DA3C32307DE /* YLPSortType.h */,
+				43A937D44DE596D456651DC3CB737570 /* YLPUser.h */,
+				BBFDB564B0A953B62A3FFB154D8E7D69 /* YLPUser.m */,
+				AAA9EAC0AFE7C0119B32F2D38CDA1007 /* Support Files */,
 			);
 			name = YelpAPI;
 			path = YelpAPI;
@@ -367,38 +603,38 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		50BFD9E95E3A3C2CF9B9F85F36B000A6 /* Headers */ = {
+		668532CFE34BE0AE837F6F7C862497DF /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54E00634737D4A5D51C3A1DEF52D10B9 /* YelpAPI-umbrella.h in Headers */,
-				1C61811F922FC058CD1943E078DB5B48 /* YelpAPI.h in Headers */,
-				2748A867CF5D3142CA3EFB0A4955879B /* YLPBusiness.h in Headers */,
-				7D7D4CCFF095D0462FF2696EC9FBCDD5 /* YLPBusinessReviews.h in Headers */,
-				637C10C19DA0F4EE4F08F62910621B6D /* YLPCategory.h in Headers */,
-				976DB1A294E9CA3205BE7DA7F256B18D /* YLPClient+Business.h in Headers */,
-				2A49CC1AA76140E92A00E18509AB4707 /* YLPClient+PhoneSearch.h in Headers */,
-				FA66CEF198EE7B4FD81DBEFB05FA2FA6 /* YLPClient+Reviews.h in Headers */,
-				5EA11C1E92E446A5999D83B1CDC365C4 /* YLPClient+Search.h in Headers */,
-				BB39D94C90D475DBE7756C89573C09F5 /* YLPClient.h in Headers */,
-				FA4D1274D1D8143F48DCDA0AA555FCC3 /* YLPClientPrivate.h in Headers */,
-				B167B2C9160DCE32F5ED19A35F70FF56 /* YLPCoordinate.h in Headers */,
-				0430F9229AC8AF012547707526F6590C /* YLPLocation.h in Headers */,
-				C5B748EA9368BB5ED31BFCECC40AE416 /* YLPQuery.h in Headers */,
-				CE81245680292FFFB2823CB3A386B9DA /* YLPQueryPrivate.h in Headers */,
-				C4EC9A203F96A9382DCA3EED3430B904 /* YLPResponsePrivate.h in Headers */,
-				1C73BC7AE2DF5E9E9DC58B065B0B59DD /* YLPReview.h in Headers */,
-				7BFA3F16CBE377DE57E0CC33D7D0550C /* YLPSearch.h in Headers */,
-				0899851FD1C90C543B0AE46021CF7BE3 /* YLPSortType.h in Headers */,
-				AB881263E2FE1683DD4A28447736DF30 /* YLPUser.h in Headers */,
+				BCAA812848776BEAF57F78240D781763 /* YelpAPI-umbrella.h in Headers */,
+				1C31CB0A2C554D426965C55ED6B409B1 /* YelpAPI.h in Headers */,
+				E1178BC544EB8F0A9D2526C92A8F885C /* YLPBusiness.h in Headers */,
+				C31FA7EC6A2DDD8AB4EE3C6693F8F764 /* YLPBusinessReviews.h in Headers */,
+				DD99B910D8DEE87FED065E778D38D708 /* YLPCategory.h in Headers */,
+				4717DC682A89C0368C4E6C2D12B1D05D /* YLPClient+Business.h in Headers */,
+				BA9EDF31EF3A9C6C91E85AEC4B07C3BF /* YLPClient+PhoneSearch.h in Headers */,
+				5808ECB2776BE21133283B61D37BDC9A /* YLPClient+Reviews.h in Headers */,
+				4BFDCC68C463DB562F25CCEC5B595F0C /* YLPClient+Search.h in Headers */,
+				FACE87AFB6A8202A8BEB048F64ADF398 /* YLPClient.h in Headers */,
+				0104F8FBEEDABD001598A71661A97E25 /* YLPClientPrivate.h in Headers */,
+				CC23BE036D89D7C267972D6DC9FAAC92 /* YLPCoordinate.h in Headers */,
+				F5BB8AFBDA7DCB99DD3EA2E8F41D1BFD /* YLPLocation.h in Headers */,
+				A7FABD381197901F87BCD5CAA9B7C1F3 /* YLPQuery.h in Headers */,
+				255E5D12FA2A5578C34D8540388CD3D3 /* YLPQueryPrivate.h in Headers */,
+				A479CFA5CA5DD8183A48646B5794D67E /* YLPResponsePrivate.h in Headers */,
+				3EBCE6FD273EF8947039B800832C02C1 /* YLPReview.h in Headers */,
+				6B5562E438ED90C0BFC2E4F8B857F2F1 /* YLPSearch.h in Headers */,
+				158F274BED91DC003048B3CF10BA6100 /* YLPSortType.h in Headers */,
+				04B098BCE5CBCB6900852403457834C9 /* YLPUser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8254976627C12DBB13D02D48BAEEF0E0 /* Headers */ = {
+		A722CFDE31706CDC941CD06C771CEA1E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20E2C2BBBF350EC0BA386C965C2683A5 /* Pods-Roadster-umbrella.h in Headers */,
+				5B5C70C4A6FD0D486F43C83604B6DE1A /* Pods-Roadster-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,16 +646,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D09AEE95D06541370627F0981BE61FB1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A645E29D79C6313C84D474597DB09634 /* CryptoSwift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		527B96347B850BDD0848676027F10ACC /* YelpAPI */ = {
+		6BB1C1403B2419F911818DA8413FDA07 /* CryptoSwift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAE7ADA4CC4AF21AB4B0A6722F21E6A5 /* Build configuration list for PBXNativeTarget "YelpAPI" */;
+			buildConfigurationList = 4F2D4DEFD9716C954D1E8ADC5D5601A5 /* Build configuration list for PBXNativeTarget "CryptoSwift" */;
 			buildPhases = (
-				8ECC3FD6AF876366E2B80F9DF9CB735F /* Sources */,
-				1AB520FC7B3F2363E245FEE810D78A26 /* Frameworks */,
-				50BFD9E95E3A3C2CF9B9F85F36B000A6 /* Headers */,
+				C805E3F75FFCDA25AEFC97641EE9032C /* Sources */,
+				D06808E7550BBA13922344ED95D42FA3 /* Frameworks */,
+				D09AEE95D06541370627F0981BE61FB1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CryptoSwift;
+			productName = CryptoSwift;
+			productReference = 31BFF7F0A08441D4674FE19F1E222A53 /* CryptoSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		784B90E7191B5D49698A0C1FD402EEA9 /* YelpAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E741C754277B5B856E04309C523C78A3 /* Build configuration list for PBXNativeTarget "YelpAPI" */;
+			buildPhases = (
+				D2AA984EDC6B16B91C03BAF3E70B9796 /* Sources */,
+				F11EB9CB4B4DF9C0BE708A48508AC968 /* Frameworks */,
+				668532CFE34BE0AE837F6F7C862497DF /* Headers */,
 			);
 			buildRules = (
 			);
@@ -427,7 +688,7 @@
 			);
 			name = YelpAPI;
 			productName = YelpAPI;
-			productReference = 726A02AF17660AAB46F078CA2735F6CD /* YelpAPI.framework */;
+			productReference = 30548A1175F6497AFFCEC0E95B404130 /* YelpAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */ = {
@@ -444,26 +705,27 @@
 			);
 			name = Alamofire;
 			productName = Alamofire;
-			productReference = 32D7B73284667DEE75D5623B81A60233 /* Alamofire.framework */;
+			productReference = 14B35E1941980A99AB64DF6087AE1726 /* Alamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DE6ACE0EDA681A0B598DB19E111B9670 /* Pods-Roadster */ = {
+		DFAF7A9E7B90A48E4B7F32F348A3E075 /* Pods-Roadster */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3C808BF560CF7009F98CA08B016DE3F4 /* Build configuration list for PBXNativeTarget "Pods-Roadster" */;
+			buildConfigurationList = 231A4161F65DF3C70BE792A5E1C7C16F /* Build configuration list for PBXNativeTarget "Pods-Roadster" */;
 			buildPhases = (
-				BD2C0FEEDAF61969AE46CD729DB5EEE2 /* Sources */,
-				399B8891D7898F5B1CE15561EC07EE36 /* Frameworks */,
-				8254976627C12DBB13D02D48BAEEF0E0 /* Headers */,
+				4750C0960E83ABE2DB2C3D1F4D72CCF0 /* Sources */,
+				84E940953A282A7F02E3FB957768CA84 /* Frameworks */,
+				A722CFDE31706CDC941CD06C771CEA1E /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2C1434B25AA1520A07FB33721669AEAD /* PBXTargetDependency */,
-				EB43A79075C51D80153621959555A1CF /* PBXTargetDependency */,
+				445FFF74AA88FA79D206E211C896C1EF /* PBXTargetDependency */,
+				C895A0A30E1200F9DF53D27066AE8D06 /* PBXTargetDependency */,
+				8C9DB1E34510907C396288FA3F883260 /* PBXTargetDependency */,
 			);
 			name = "Pods-Roadster";
 			productName = "Pods-Roadster";
-			productReference = 897DFB0CAF7905F0017074DDBD185363 /* Pods_Roadster.framework */;
+			productReference = 2D16DB5322E1086D801F1423B5FAEC4F /* Pods_Roadster.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -483,13 +745,14 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 5633B9F8CD6C248991D712F596573E00 /* Products */;
+			productRefGroup = 7B5DFF929B48190A55BA4B44C6B28232 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */,
-				DE6ACE0EDA681A0B598DB19E111B9670 /* Pods-Roadster */,
-				527B96347B850BDD0848676027F10ACC /* YelpAPI */,
+				6BB1C1403B2419F911818DA8413FDA07 /* CryptoSwift */,
+				DFAF7A9E7B90A48E4B7F32F348A3E075 /* Pods-Roadster */,
+				784B90E7191B5D49698A0C1FD402EEA9 /* YelpAPI */,
 			);
 		};
 /* End PBXProject section */
@@ -520,58 +783,134 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8ECC3FD6AF876366E2B80F9DF9CB735F /* Sources */ = {
+		4750C0960E83ABE2DB2C3D1F4D72CCF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77B7BEE1420109E98CF25A17067ADAA6 /* NSDictionary+YLPUtils.m in Sources */,
-				DA5ED942A49AAA8443288E72882C656D /* YelpAPI-dummy.m in Sources */,
-				44DBC361E5F9FD8BB9A9696587B79CF5 /* YLPBusiness.m in Sources */,
-				800CBABE11F103549CA01C2BAA550C03 /* YLPBusinessReviews.m in Sources */,
-				DC7B0D2B291FFD80DCDE394161270838 /* YLPCategory.m in Sources */,
-				7C49A140D7511CDC30ACB152E684FE0B /* YLPClient+Business.m in Sources */,
-				0F9462B05308514B6BC4121BD9869E29 /* YLPClient+PhoneSearch.m in Sources */,
-				DFCB3D27CBDED24FC738130B009EFCD2 /* YLPClient+Reviews.m in Sources */,
-				8A0E17F502D9B6DCF4C766C72C825C64 /* YLPClient+Search.m in Sources */,
-				0697764D3438CEEE5E9ECB2AEB821DD4 /* YLPClient.m in Sources */,
-				81095CAAC691AF62042E16B384700C94 /* YLPCoordinate.m in Sources */,
-				B2FC8C0E85C3A5BC5D37E050E3174A77 /* YLPLocation.m in Sources */,
-				F1EB31BAC8B6C167701BA63003BF8CE8 /* YLPQuery.m in Sources */,
-				0BA8CB7B682298D9DEFC8EBFE67839C3 /* YLPReview.m in Sources */,
-				8058A931FE813D31AEF51DE62A75713B /* YLPSearch.m in Sources */,
-				38A03A88F68C28D428BE96B2DE869E5B /* YLPUser.m in Sources */,
+				6886A4A458FF9C7412C4F3836F3B64C0 /* Pods-Roadster-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BD2C0FEEDAF61969AE46CD729DB5EEE2 /* Sources */ = {
+		C805E3F75FFCDA25AEFC97641EE9032C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5746C3938E9028E1ECF3958F844830B /* Pods-Roadster-dummy.m in Sources */,
+				E5441970D4C76B797E24D292CC0EB6F6 /* AES+Foundation.swift in Sources */,
+				F7E1991DFFCE919F5D75D773104B701B /* AES.swift in Sources */,
+				E9989A77F5626EB16915E97EFA567B70 /* Array+Extension.swift in Sources */,
+				8FBD53C8BBED7B75ED3A9281BE87DC3D /* Authenticator.swift in Sources */,
+				9788CC579A4E3F5640699C2E6D106116 /* BatchedCollection.swift in Sources */,
+				3F11B5695833097D990E95D92CB5B0FD /* Bit.swift in Sources */,
+				FAEABCE1E6B28982264E828922580C2D /* BlockCipher.swift in Sources */,
+				A5EE0360D84335DD969967753A86A62E /* BlockMode.swift in Sources */,
+				E5F1558B5BE3FBC586158D48DA0D5416 /* BlockModeOptions.swift in Sources */,
+				CB28D743C2031FCC8ED7EFC14D853504 /* BlockModeWorker.swift in Sources */,
+				586006835FA7049B90A8AA48CC9600F5 /* Blowfish+Foundation.swift in Sources */,
+				781088765761CDED4FEBF362B533C9B0 /* Blowfish.swift in Sources */,
+				80C8666E8FDE3AA195DA42C19F9E37B0 /* CBC.swift in Sources */,
+				15178CC13A504C1C847917F313EA4230 /* CFB.swift in Sources */,
+				7DF7189B298926817FF310A48EDFD710 /* ChaCha20+Foundation.swift in Sources */,
+				DE7D8E74AF9285815D84DFD2D3377F44 /* ChaCha20.swift in Sources */,
+				1545999141978F143D09974A8BCCE4DF /* Checksum.swift in Sources */,
+				90BC96FFC0BB000C72BA848C6E0F6D21 /* Cipher.swift in Sources */,
+				94B2942C0620376DDD122A87958F0177 /* Collection+Extension.swift in Sources */,
+				243737C5FB7C80704B2DE24E9E10D18F /* Cryptors.swift in Sources */,
+				B327C11F8AF53F233A9F19391E0178A2 /* CryptoSwift-dummy.m in Sources */,
+				E8B910E3B704E2A54613B39342EE6473 /* CSArrayType+Extensions.swift in Sources */,
+				A1CDA47BEDEF48B5634E216B0FE771EE /* CSArrayType+Foundation.swift in Sources */,
+				67DE5BACB678FBE43D8AEA5AA1A84022 /* CTR.swift in Sources */,
+				0F4B5F1A93D665E7E9A0B8994EE40FE4 /* Data+Extension.swift in Sources */,
+				115908466F681D5D15B9343018CA7B3B /* Digest.swift in Sources */,
+				F670E22400A2690708C1D0922B000759 /* DigestType.swift in Sources */,
+				D97F4D9EDDB2AB619E77B72257CDC1E7 /* ECB.swift in Sources */,
+				640A7963CC931FEF6614A5F6445DB78E /* Generics.swift in Sources */,
+				83E872C2FD1F65580B6155EFCF311F15 /* HMAC+Foundation.swift in Sources */,
+				5A03DAF2DB011D6DDF96F88380A2E216 /* HMAC.swift in Sources */,
+				B14C7F0E94FB84FFA5EC9AFE2A780316 /* Int+Extension.swift in Sources */,
+				002583BC1C3E266B241DFF72837B7DB1 /* IntegerConvertible.swift in Sources */,
+				6C7875B138509B5775B52FDED1A49DE6 /* MD5.swift in Sources */,
+				FADDCBE4D27D93924C165C297FB19AAB /* NoPadding.swift in Sources */,
+				0722631B8A27CA86C38EC986707E927A /* OFB.swift in Sources */,
+				39E4A1E865DF0F1810C532437AC47625 /* Operators.swift in Sources */,
+				E0382AFF7B50E826EF8725AD4F1C77E3 /* Padding.swift in Sources */,
+				1049F6F67F08E56321DD2F804A869FD6 /* PBKDF1.swift in Sources */,
+				5D798AA2FE47430AE368A2595E28842A /* PBKDF2.swift in Sources */,
+				BDEC4F9C7F0C9411EDD447EA09857017 /* PCBC.swift in Sources */,
+				AD6EAF637CA5FAF70E0C9C630BDC40CC /* PKCS5.swift in Sources */,
+				6CA826E9746EFCE4D951148EF037C186 /* PKCS7.swift in Sources */,
+				DFC9D4A8C46758B7DD9149529082FB0C /* Poly1305.swift in Sources */,
+				E28CCD4E05FF0CA245ECCB01421BFBAB /* Rabbit+Foundation.swift in Sources */,
+				36F8A0EBEE24E1ED7DF70B54237C95C5 /* Rabbit.swift in Sources */,
+				2AC27B1087A476D84A3B07C6103D0E45 /* RandomAccessBlockModeWorker.swift in Sources */,
+				23633CC30EB51118AB1396D04F442F78 /* RandomAccessCryptor.swift in Sources */,
+				0CE725310C54DAA2AB6DAF1FA0B57EBE /* RandomBytesSequence.swift in Sources */,
+				0A09FDE133E395DCB2A16F7990C18A09 /* SecureBytes.swift in Sources */,
+				67D7F228DC874108E2DC4E3F98441D6E /* SHA1.swift in Sources */,
+				7EA840578B891D51E4BD10C31D80ABC2 /* SHA2.swift in Sources */,
+				1249E54E8E77AAA65774BB72B9364514 /* SHA3.swift in Sources */,
+				FE9F3F30678CE487A35DBEA2AA2408AC /* String+Extension.swift in Sources */,
+				FB783F6F97FD796CF7B52F1331F6EA3E /* String+FoundationExtension.swift in Sources */,
+				5F14E6CF84864E9A78FBA055D642B67D /* UInt16+Extension.swift in Sources */,
+				68B01E6BDCA39676E1F6EF4B9BD03834 /* UInt32+Extension.swift in Sources */,
+				C92F54CF0BE7A4EA0594286520E636DD /* UInt64+Extension.swift in Sources */,
+				F5AC4DD6EF0B19ABAF7E05D10B9B4C8B /* UInt8+Extension.swift in Sources */,
+				DBA60E90DFFB006CC41283258F53B894 /* Updatable.swift in Sources */,
+				696B3876E52F3F94E1143277B04C6F2F /* Utils+Foundation.swift in Sources */,
+				1DD06BA0F64D88ABDDE4C775C02C2403 /* Utils.swift in Sources */,
+				2F0CF5B6432A0E26DD1AE262E2611043 /* ZeroPadding.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2AA984EDC6B16B91C03BAF3E70B9796 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDA70680D8037BB3C04614CCDB06C03F /* NSDictionary+YLPUtils.m in Sources */,
+				AB3BC2A27547C38CDCC831CDA8A9975B /* YelpAPI-dummy.m in Sources */,
+				059F4124DA7F345520A721361323F21C /* YLPBusiness.m in Sources */,
+				E05C3E752768179927F0DC6890B39530 /* YLPBusinessReviews.m in Sources */,
+				6E7B4416C76B9BC6EC9E73C637F70B84 /* YLPCategory.m in Sources */,
+				94A8F3D8E190285048657C1C21EF224B /* YLPClient+Business.m in Sources */,
+				56F73CC004006F4BC40E68DE3815CB1E /* YLPClient+PhoneSearch.m in Sources */,
+				D12591536E8DDB9C4FA10DFECB31B0B7 /* YLPClient+Reviews.m in Sources */,
+				DE3C2A88128F9D1E0058D4081D4AB2DF /* YLPClient+Search.m in Sources */,
+				796B70B577951B356DB1D2AF58674A93 /* YLPClient.m in Sources */,
+				929B93DDD559F6A28A6C00D80BBD709E /* YLPCoordinate.m in Sources */,
+				7DFA7EE7F5A231D1845A93FE03E3F6E9 /* YLPLocation.m in Sources */,
+				F07BCF5CD99B2DC91CECD5DACD9949AF /* YLPQuery.m in Sources */,
+				C07F2DD732863463A4FC27351C007085 /* YLPReview.m in Sources */,
+				3A4B89184336752CE1B7C5D6AB9D8377 /* YLPSearch.m in Sources */,
+				C44584AA3F100F2680ADFFAFB5EA9768 /* YLPUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2C1434B25AA1520A07FB33721669AEAD /* PBXTargetDependency */ = {
+		445FFF74AA88FA79D206E211C896C1EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Alamofire;
 			target = 88E9EC28B8B46C3631E6B242B50F4442 /* Alamofire */;
-			targetProxy = 3A42D693DAC2002D52A69CF10F348FEF /* PBXContainerItemProxy */;
+			targetProxy = 677F8AEC5DD93016D56544458E6E87AA /* PBXContainerItemProxy */;
 		};
-		EB43A79075C51D80153621959555A1CF /* PBXTargetDependency */ = {
+		8C9DB1E34510907C396288FA3F883260 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = YelpAPI;
-			target = 527B96347B850BDD0848676027F10ACC /* YelpAPI */;
-			targetProxy = 6C59E53D64B588961EFF32A673FAB433 /* PBXContainerItemProxy */;
+			target = 784B90E7191B5D49698A0C1FD402EEA9 /* YelpAPI */;
+			targetProxy = ACEB44B811FD1FBBB7C625F99DB8D6B6 /* PBXContainerItemProxy */;
+		};
+		C895A0A30E1200F9DF53D27066AE8D06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			target = 6BB1C1403B2419F911818DA8413FDA07 /* CryptoSwift */;
+			targetProxy = DFDD60E0B53E7A2B30568EA092333348 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0A29B6F510198AF64EFD762EF6FA97A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6C439FD0729DFA9D202E63D4B857325 /* Alamofire.xcconfig */;
+			baseConfigurationReference = 906A6E13084BDEB52E4B85AACEF0915C /* Alamofire.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -601,9 +940,41 @@
 			};
 			name = Release;
 		};
-		1719469DAAE148C7ED177811E29887C2 /* Debug */ = {
+		41804D3227C02A5B71DBBAFD8E97F2A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AB9E0CDA594C12E757D0882A1072A2B /* YelpAPI.xcconfig */;
+			baseConfigurationReference = F51E1F0054DBD9D05368170A8AE47FD0 /* YelpAPI.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/YelpAPI/YelpAPI-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/YelpAPI/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/YelpAPI/YelpAPI.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = YelpAPI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		41B23D7342621EC85FB72F65FA8E4E7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F51E1F0054DBD9D05368170A8AE47FD0 /* YelpAPI.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -633,7 +1004,7 @@
 			};
 			name = Debug;
 		};
-		2ADF5A9D28A7CF57448184F2D3FEBEB7 /* Release */ = {
+		781ADD0997F00FA8F0632AD93849376B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 93D7C90C65813DD92E53BEEAB2282F94 /* Pods-Roadster.release.xcconfig */;
 			buildSettings = {
@@ -668,7 +1039,7 @@
 			};
 			name = Release;
 		};
-		7CC0BF722D7C19DD8D88FCB11C341F87 /* Debug */ = {
+		8D975EE301D29ACCB7C85590596935F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C8D5B82E4DAEF830D601C7FCAE93C312 /* Pods-Roadster.debug.xcconfig */;
 			buildSettings = {
@@ -704,37 +1075,38 @@
 			};
 			name = Debug;
 		};
-		A867AF6C88A69C345ED6F68E184B9474 /* Release */ = {
+		985ECDF2D363AE1F0D594D506E6189B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AB9E0CDA594C12E757D0882A1072A2B /* YelpAPI.xcconfig */;
+			baseConfigurationReference = 679EDD62B91186BB23E6047792C9BDCA /* CryptoSwift.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/YelpAPI/YelpAPI-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/YelpAPI/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift/CryptoSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CryptoSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/YelpAPI/YelpAPI.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = YelpAPI;
+				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CryptoSwift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		CACE7C8415F53E79F07C6BBE57F0F61D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -780,6 +1152,38 @@
 			};
 			name = Debug;
 		};
+		E294984C6A245FCFE82C5C116835DED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 679EDD62B91186BB23E6047792C9BDCA /* CryptoSwift.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift/CryptoSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CryptoSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CryptoSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		ED4FC68AB2A4E06C718CFF338F6F156B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -822,7 +1226,7 @@
 		};
 		F383079BFBF927813EA3613CFB679FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6C439FD0729DFA9D202E63D4B857325 /* Alamofire.xcconfig */;
+			baseConfigurationReference = 906A6E13084BDEB52E4B85AACEF0915C /* Alamofire.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -856,20 +1260,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		231A4161F65DF3C70BE792A5E1C7C16F /* Build configuration list for PBXNativeTarget "Pods-Roadster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D975EE301D29ACCB7C85590596935F9 /* Debug */,
+				781ADD0997F00FA8F0632AD93849376B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CACE7C8415F53E79F07C6BBE57F0F61D /* Debug */,
 				ED4FC68AB2A4E06C718CFF338F6F156B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3C808BF560CF7009F98CA08B016DE3F4 /* Build configuration list for PBXNativeTarget "Pods-Roadster" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7CC0BF722D7C19DD8D88FCB11C341F87 /* Debug */,
-				2ADF5A9D28A7CF57448184F2D3FEBEB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -883,11 +1287,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAE7ADA4CC4AF21AB4B0A6722F21E6A5 /* Build configuration list for PBXNativeTarget "YelpAPI" */ = {
+		4F2D4DEFD9716C954D1E8ADC5D5601A5 /* Build configuration list for PBXNativeTarget "CryptoSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1719469DAAE148C7ED177811E29887C2 /* Debug */,
-				A867AF6C88A69C345ED6F68E184B9474 /* Release */,
+				985ECDF2D363AE1F0D594D506E6189B8 /* Debug */,
+				E294984C6A245FCFE82C5C116835DED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E741C754277B5B856E04309C523C78A3 /* Build configuration list for PBXNativeTarget "YelpAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B23D7342621EC85FB72F65FA8E4E7C /* Debug */,
+				41804D3227C02A5B71DBBAFD8E97F2A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

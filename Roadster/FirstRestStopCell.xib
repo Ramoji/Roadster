@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mtZ-fj-jDU" id="5gQ-FB-Jm1">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLZ-Av-5Fy">
@@ -158,6 +158,26 @@
                             <constraint firstAttribute="height" constant="20" id="ljh-U8-vrk"/>
                         </constraints>
                     </imageView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Facilities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aw2-wc-gsv">
+                        <rect key="frame" x="65" y="27" width="69" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="69" id="2kX-oO-h2y"/>
+                            <constraint firstAttribute="height" constant="15" id="Phi-ww-hdR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B32-lU-t71">
+                        <rect key="frame" x="322" y="8" width="45" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="UFi-1u-XnW"/>
+                            <constraint firstAttribute="height" constant="17" id="sAl-kj-K9v"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="0.093322322279999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="lwf-S3-YeA" firstAttribute="leading" secondItem="jI9-O8-Z5y" secondAttribute="trailing" constant="5" id="1Ud-cK-2JE"/>
@@ -168,6 +188,7 @@
                     <constraint firstItem="WAj-Ie-06n" firstAttribute="top" secondItem="p41-uG-Xta" secondAttribute="bottom" constant="4" id="3iB-be-Yh2"/>
                     <constraint firstItem="FAr-9q-ffs" firstAttribute="leading" secondItem="fLZ-Av-5Fy" secondAttribute="trailing" constant="20" id="4wo-4v-uGh"/>
                     <constraint firstItem="FAr-9q-ffs" firstAttribute="top" secondItem="p41-uG-Xta" secondAttribute="bottom" constant="4" id="7AI-xS-Ylx"/>
+                    <constraint firstItem="aw2-wc-gsv" firstAttribute="top" secondItem="p41-uG-Xta" secondAttribute="bottom" constant="4" id="8Zv-w9-71J"/>
                     <constraint firstItem="XXF-td-R6T" firstAttribute="top" secondItem="p41-uG-Xta" secondAttribute="bottom" constant="4" id="EHG-Yg-2ou"/>
                     <constraint firstItem="EWS-jp-6du" firstAttribute="leading" secondItem="7nn-Yn-M8B" secondAttribute="trailing" constant="3" id="Fhs-W6-trG"/>
                     <constraint firstItem="Sdb-Yg-WyR" firstAttribute="leading" secondItem="wlZ-d9-xeU" secondAttribute="trailing" constant="36" id="Fkk-1H-ULt"/>
@@ -190,17 +211,21 @@
                     <constraint firstItem="mKB-FD-nR3" firstAttribute="top" secondItem="6d6-bs-zM3" secondAttribute="bottom" constant="2" id="hXJ-xz-ZID"/>
                     <constraint firstItem="WAj-Ie-06n" firstAttribute="leading" secondItem="KTt-Pf-p4Q" secondAttribute="trailing" constant="5" id="odX-Rf-ogg"/>
                     <constraint firstItem="lwf-S3-YeA" firstAttribute="top" secondItem="WAj-Ie-06n" secondAttribute="bottom" constant="2" id="ozd-iu-4E8"/>
+                    <constraint firstItem="aw2-wc-gsv" firstAttribute="leading" secondItem="fLZ-Av-5Fy" secondAttribute="trailing" constant="21" id="pT4-r6-pLQ"/>
                     <constraint firstItem="6d6-bs-zM3" firstAttribute="top" secondItem="5gQ-FB-Jm1" secondAttribute="top" constant="27" id="r16-Lh-kK0"/>
+                    <constraint firstItem="B32-lU-t71" firstAttribute="top" secondItem="5gQ-FB-Jm1" secondAttribute="top" constant="8" id="rp6-DL-Qbr"/>
                     <constraint firstItem="0ag-N7-Xag" firstAttribute="leading" secondItem="Sdb-Yg-WyR" secondAttribute="trailing" constant="5" id="sll-tw-xrw"/>
                     <constraint firstItem="wlZ-d9-xeU" firstAttribute="top" secondItem="fLZ-Av-5Fy" secondAttribute="bottom" constant="1" id="t3T-AI-zJZ"/>
                     <constraint firstItem="wlZ-d9-xeU" firstAttribute="leading" secondItem="5gQ-FB-Jm1" secondAttribute="leading" constant="24" id="t6Y-gz-mWK"/>
                     <constraint firstItem="EWS-jp-6du" firstAttribute="top" secondItem="5gQ-FB-Jm1" secondAttribute="top" constant="5" id="tla-Zb-ahd"/>
+                    <constraint firstAttribute="trailing" secondItem="B32-lU-t71" secondAttribute="trailing" constant="8" id="uES-wX-gLX"/>
                     <constraint firstItem="0ag-N7-Xag" firstAttribute="top" secondItem="XXF-td-R6T" secondAttribute="bottom" constant="2" id="wVy-iV-tD5"/>
                     <constraint firstItem="KTt-Pf-p4Q" firstAttribute="leading" secondItem="XXF-td-R6T" secondAttribute="trailing" constant="5" id="xc4-va-TdP"/>
                     <constraint firstItem="7nn-Yn-M8B" firstAttribute="leading" secondItem="Ffc-Je-TAE" secondAttribute="trailing" id="ybP-68-Ndf"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="closedLabel" destination="B32-lU-t71" id="yXS-AY-Hc7"/>
                 <outlet property="distanceLabel" destination="fLZ-Av-5Fy" id="3Nt-GF-Ijr"/>
                 <outlet property="imageViewEight" destination="0ag-N7-Xag" id="KL6-S5-tUD"/>
                 <outlet property="imageViewEleven" destination="sAD-xa-t2M" id="NpO-OH-flS"/>
@@ -214,6 +239,7 @@
                 <outlet property="imageViewThree" destination="KTt-Pf-p4Q" id="8t4-Qh-kq1"/>
                 <outlet property="imageViewTwelve" destination="mKB-FD-nR3" id="8a4-Vq-SAR"/>
                 <outlet property="imageViewTwo" destination="XXF-td-R6T" id="eS4-nw-Fdq"/>
+                <outlet property="noFacilitiesLabel" destination="aw2-wc-gsv" id="2PE-z9-rQ7"/>
                 <outlet property="restStopName" destination="p41-uG-Xta" id="5Nx-r3-LGA"/>
             </connections>
             <point key="canvasLocation" x="39.5" y="15"/>

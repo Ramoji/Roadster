@@ -43,7 +43,8 @@
 		21EFCCAD1DD0712D0051D224 /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EFCCAC1DD0712D0051D224 /* DismissAnimator.swift */; };
 		21F6281F1DE29A530033BFCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F6281E1DE29A530033BFCA /* AppDelegate.swift */; };
 		733849BA18A217A02AF741A9 /* Pods_Roadster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20200D534A1EE184F279B42 /* Pods_Roadster.framework */; };
-		8C7066951E6BA4F200BBCAFD /* FacilitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7066941E6BA4F200BBCAFD /* FacilitiesView.swift */; };
+		8C58E4AE1ECE427C00D25659 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C58E4AD1ECE427C00D25659 /* CommentCell.xib */; };
+		8C58E4B01ECE437400D25659 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C58E4AF1ECE437400D25659 /* CommentCell.swift */; };
 		8C880BB61E661710009FA631 /* RoundCornorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C880BB51E661710009FA631 /* RoundCornorTableView.swift */; };
 		8C894BCE1EC2975600601C16 /* USRestStop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BCC1EC2975600601C16 /* USRestStop.xcdatamodeld */; };
 		8C894BD01EC298AC00601C16 /* POIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BCF1EC298AC00601C16 /* POIProvider.swift */; };
@@ -52,6 +53,10 @@
 		8C894BDC1EC2BD0500601C16 /* datastore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 8C894BD91EC2BD0500601C16 /* datastore.sqlite */; };
 		8C894BDD1EC2BD0500601C16 /* datastore.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 8C894BDA1EC2BD0500601C16 /* datastore.sqlite-shm */; };
 		8C894BDE1EC2BD0500601C16 /* datastore.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 8C894BDB1EC2BD0500601C16 /* datastore.sqlite-wal */; };
+		8C894BE01EC6D0CA00601C16 /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BDF1EC6D0CA00601C16 /* CustomUITextView.swift */; };
+		8C894BE41EC7897A00601C16 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BE31EC7897A00601C16 /* CustomButton.swift */; };
+		8C894BE61EC7F55300601C16 /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BE51EC7F55300601C16 /* HTTPHelper.swift */; };
+		8C894E471ECA2AA500601C16 /* CypherHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894E461ECA2AA500601C16 /* CypherHelper.swift */; };
 		8CB12E021E6FC518008AD7B7 /* OnlyOneRestStopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */; };
 		8CB12E041E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */; };
 /* End PBXBuildFile section */
@@ -96,7 +101,8 @@
 		21EFCCAC1DD0712D0051D224 /* DismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissAnimator.swift; sourceTree = "<group>"; };
 		21F6281E1DE29A530033BFCA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5688100F4BF6B56B1C166BFB /* Pods-Roadster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roadster.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roadster/Pods-Roadster.debug.xcconfig"; sourceTree = "<group>"; };
-		8C7066941E6BA4F200BBCAFD /* FacilitiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacilitiesView.swift; sourceTree = "<group>"; };
+		8C58E4AD1ECE427C00D25659 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		8C58E4AF1ECE437400D25659 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		8C880BB51E661710009FA631 /* RoundCornorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundCornorTableView.swift; sourceTree = "<group>"; };
 		8C894BCD1EC2975600601C16 /* USRestStop.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = USRestStop.xcdatamodel; sourceTree = "<group>"; };
 		8C894BCF1EC298AC00601C16 /* POIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIProvider.swift; sourceTree = "<group>"; };
@@ -105,6 +111,10 @@
 		8C894BD91EC2BD0500601C16 /* datastore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = datastore.sqlite; sourceTree = "<group>"; };
 		8C894BDA1EC2BD0500601C16 /* datastore.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "datastore.sqlite-shm"; sourceTree = "<group>"; };
 		8C894BDB1EC2BD0500601C16 /* datastore.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "datastore.sqlite-wal"; sourceTree = "<group>"; };
+		8C894BDF1EC6D0CA00601C16 /* CustomUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
+		8C894BE31EC7897A00601C16 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		8C894BE51EC7F55300601C16 /* HTTPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
+		8C894E461ECA2AA500601C16 /* CypherHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypherHelper.swift; sourceTree = "<group>"; };
 		8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnlyOneRestStopCell.xib; sourceTree = "<group>"; };
 		8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlyOneRestStopCell.swift; sourceTree = "<group>"; };
 		F20200D534A1EE184F279B42 /* Pods_Roadster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roadster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +169,7 @@
 				21E9BDF91DEF790900127C7C /* EndRestStopCell.xib */,
 				21CBA7E71E213A8E000E1015 /* YelpTableViewCell.xib */,
 				8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */,
+				8C58E4AD1ECE427C00D25659 /* CommentCell.xib */,
 			);
 			name = "xib files";
 			sourceTree = "<group>";
@@ -182,6 +193,7 @@
 				21E9BDFF1DEF85F200127C7C /* EndRestStopCell.swift */,
 				21CBA7E91E218997000E1015 /* YelpTableViewCell.swift */,
 				8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */,
+				8C58E4AF1ECE437400D25659 /* CommentCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -192,6 +204,8 @@
 				8C894BD51EC2995B00601C16 /* USRestStop+CoreDataClass.swift */,
 				8C894BD61EC2995B00601C16 /* USRestStop+CoreDataProperties.swift */,
 				21C8E61F1D7FD44A007F67E2 /* Roadster */,
+				8C894BE21EC788EC00601C16 /* HelperTypes */,
+				8C894BE11EC7889E00601C16 /* Custom Views */,
 				21C8E61E1D7FD44A007F67E2 /* Products */,
 				3E5067D8529685AE46DA68F0 /* Pods */,
 				E53BC86A1E88C66CFC262E5E /* Frameworks */,
@@ -213,7 +227,6 @@
 				21F6281E1DE29A530033BFCA /* AppDelegate.swift */,
 				21C8E6291D7FD44A007F67E2 /* Assets.xcassets */,
 				21C37AEE1DBC7A3D00203B68 /* BlurredBackgroundView.swift */,
-				216D18741DEDDD6C00FCA922 /* Cells */,
 				213391371DE45CD20053A2BD /* CoreData */,
 				2121E9A51DC6F2650057F4B0 /* CustomUIPresentationController.swift */,
 				21C8E62E1D7FD44A007F67E2 /* Info.plist */,
@@ -224,12 +237,9 @@
 				2121E9A31DC6D0DB0057F4B0 /* UIImage+Resize.swift */,
 				216A2BA81DEAAC280097DC83 /* UILabel+Modify.swift */,
 				213391361DE45C850053A2BD /* ViewControllers */,
+				216D18741DEDDD6C00FCA922 /* Cells */,
 				213391381DE45CF60053A2BD /* xib files */,
-				21CB896D1E07A98C006C7B3D /* NoCursorTextField.swift */,
-				8C7066941E6BA4F200BBCAFD /* FacilitiesView.swift */,
 				211258E41E0FCE1E00BAF093 /* Extensions.swift */,
-				8C880BB51E661710009FA631 /* RoundCornorTableView.swift */,
-				8C894BCF1EC298AC00601C16 /* POIProvider.swift */,
 			);
 			path = Roadster;
 			sourceTree = "<group>";
@@ -241,6 +251,29 @@
 				19ECEE6FC44FE74531381AF8 /* Pods-Roadster.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8C894BE11EC7889E00601C16 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				8C894BDF1EC6D0CA00601C16 /* CustomUITextView.swift */,
+				8C880BB51E661710009FA631 /* RoundCornorTableView.swift */,
+				21CB896D1E07A98C006C7B3D /* NoCursorTextField.swift */,
+				8C894BE31EC7897A00601C16 /* CustomButton.swift */,
+			);
+			name = "Custom Views";
+			path = Roadster;
+			sourceTree = "<group>";
+		};
+		8C894BE21EC788EC00601C16 /* HelperTypes */ = {
+			isa = PBXGroup;
+			children = (
+				8C894BCF1EC298AC00601C16 /* POIProvider.swift */,
+				8C894BE51EC7F55300601C16 /* HTTPHelper.swift */,
+				8C894E461ECA2AA500601C16 /* CypherHelper.swift */,
+			);
+			name = HelperTypes;
+			path = Roadster;
 			sourceTree = "<group>";
 		};
 		E53BC86A1E88C66CFC262E5E /* Frameworks */ = {
@@ -327,6 +360,7 @@
 				21E9BDFA1DEF790900127C7C /* EndRestStopCell.xib in Resources */,
 				21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */,
 				216D18731DED0D1D00FCA922 /* RestStopCell.xib in Resources */,
+				8C58E4AE1ECE427C00D25659 /* CommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,15 +423,18 @@
 				8C894BD01EC298AC00601C16 /* POIProvider.swift in Sources */,
 				8C894BCE1EC2975600601C16 /* USRestStop.xcdatamodeld in Sources */,
 				216D18761DEDDDB600FCA922 /* RestStopCell.swift in Sources */,
+				8C894E471ECA2AA500601C16 /* CypherHelper.swift in Sources */,
 				2123159B1DADD7A10068F190 /* NoRestStopsCell.swift in Sources */,
 				21F6281F1DE29A530033BFCA /* AppDelegate.swift in Sources */,
 				21C37AEF1DBC7A3E00203B68 /* BlurredBackgroundView.swift in Sources */,
+				8C58E4B01ECE437400D25659 /* CommentCell.swift in Sources */,
 				21C8E6351D80644C007F67E2 /* States.swift in Sources */,
 				2187664C1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift in Sources */,
 				8C894BD71EC2995B00601C16 /* USRestStop+CoreDataClass.swift in Sources */,
 				2133913A1DE45D610053A2BD /* PinViewController.swift in Sources */,
 				2121E9A61DC6F2650057F4B0 /* CustomUIPresentationController.swift in Sources */,
 				21E9BDFE1DEF85BB00127C7C /* FirstRestStopCell.swift in Sources */,
+				8C894BE01EC6D0CA00601C16 /* CustomUITextView.swift in Sources */,
 				212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */,
 				8C894BD81EC2995B00601C16 /* USRestStop+CoreDataProperties.swift in Sources */,
 				218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */,
@@ -406,15 +443,16 @@
 				216A2BAD1DEB15BC0097DC83 /* StaticDetailTableViewController.swift in Sources */,
 				21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */,
 				21EFCCAB1DCF27D70051D224 /* PresentationAnimator.swift in Sources */,
+				8C894BE61EC7F55300601C16 /* HTTPHelper.swift in Sources */,
 				216A2BA51DE8A5FA0097DC83 /* PinRestStopAnnotation.swift in Sources */,
 				21CB896E1E07A98C006C7B3D /* NoCursorTextField.swift in Sources */,
 				211258E51E0FCE1E00BAF093 /* Extensions.swift in Sources */,
 				21EFCCAD1DD0712D0051D224 /* DismissAnimator.swift in Sources */,
 				21A337F01E08C375003EAC1F /* BusinessSearchResultTableViewController.swift in Sources */,
-				8C7066951E6BA4F200BBCAFD /* FacilitiesView.swift in Sources */,
 				8C880BB61E661710009FA631 /* RoundCornorTableView.swift in Sources */,
 				2121E9A41DC6D0DB0057F4B0 /* UIImage+Resize.swift in Sources */,
 				8CB12E041E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift in Sources */,
+				8C894BE41EC7897A00601C16 /* CustomButton.swift in Sources */,
 				21E9BE001DEF85F200127C7C /* EndRestStopCell.swift in Sources */,
 				21C8E6231D7FD44A007F67E2 /* StateListViewController.swift in Sources */,
 				21C8E63D1D8073A2007F67E2 /* CellWithImageView.swift in Sources */,

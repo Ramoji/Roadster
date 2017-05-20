@@ -23,6 +23,8 @@ class RestStopCell: UITableViewCell {
     @IBOutlet weak var imageViewTen: UIImageView!
     @IBOutlet weak var imageViewEleven: UIImageView!
     @IBOutlet weak var imageViewTwelve: UIImageView!
+    @IBOutlet weak var noFacilitiesLabel: UILabel!
+    @IBOutlet weak var closedLabel: UILabel!
     var imageViews: [UIImageView]!
     @IBOutlet weak var restStopName: UILabel!
     
@@ -39,6 +41,8 @@ class RestStopCell: UITableViewCell {
     
     private func prepViews(){
         restStopName.text = ""
+        noFacilitiesLabel.isHidden = true
+        closedLabel.isHidden = true
         for imageView in imageViews{
             imageView.isHidden = true
             imageView.image = nil
@@ -49,12 +53,21 @@ class RestStopCell: UITableViewCell {
         prepViews()
         restStopName.text = restStop.mileMarker
         restStopName.sizeToFit()
-        let facilites = getAvailableFacilities(from: restStop)
-        for (index, facility) in facilites.enumerated(){
-            let imageSize = CGSize(width: 20.0, height: 20.0)
-            let facilityImageView = imageViews![index]
-            facilityImageView.isHidden = false
-            facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
+        
+        if restStop.facilities{
+            let facilites = POIProvider.getFacilityList(forRestStop: restStop)
+            for (index, facility) in facilites.enumerated(){
+                let imageSize = CGSize(width: 20.0, height: 20.0)
+                let facilityImageView = imageViews![index]
+                facilityImageView.isHidden = false
+                facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
+            }
+        } else {
+            noFacilitiesLabel.isHidden = false
+        }
+        
+        if restStop.closed{
+            closedLabel.isHidden = false
         }
         
         self.distanceLabel.text = String(distanceFromUser) + " mi"
@@ -64,52 +77,6 @@ class RestStopCell: UITableViewCell {
     
     }
     
-    private func getAvailableFacilities(from restStop: USRestStop) -> [String]{
-        
-        var facilites: [String] = []
-        
-        if restStop.water {
-            facilites.append("drinkingWater")
-        }
-        if restStop.restaurant {
-            facilites.append("restaurant")
-        }
-        if restStop.gas {
-            facilites.append("gas")
-        }
-        
-        if restStop.disabledFacilities{
-            facilites.append("handicappedFacilites")
-        }
-        
-        if restStop.trucks {
-            facilites.append("truck")
-        }
-        if restStop.petArea{
-            facilites.append("petArea")
-        }
-        if restStop.phone{
-            facilites.append("phone")
-        }
-        if restStop.tables{
-            facilites.append("picnicTable")
-        }
-        if restStop.restroom
-        {
-            facilites.append("restroom")
-        }
-        if restStop.rvDump{
-            facilites.append("rvDump")
-        }
-        if restStop.scenic{
-            facilites.append("scenic")
-        }
-        if restStop.vendingMachine{
-            facilites.append("vendingMachine")
-        }
-        
-        return facilites
-    }
-
+    
 }
 
