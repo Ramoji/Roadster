@@ -35,8 +35,7 @@ class NearByViewController: UIViewController {
     var fetchRequest: NSFetchRequest<NSFetchRequestResult>!
     let concurrentQueue = DispatchQueue(label: "myQueue", attributes: .concurrent)
     var businessPickerView: UIPickerView =  UIPickerView()
-    var client: YLPClient!
-    var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery", "Outdoor Apparel"]
+    var businesses = ["Rest Stops", "Hospitals", "Gas Stations", "Restaurants", "Grocery"]
     var childController: BusinessSearchResultTableViewController!
     var appWindow: UIWindow!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

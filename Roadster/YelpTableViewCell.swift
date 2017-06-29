@@ -33,6 +33,7 @@ class YelpTableViewCell: UITableViewCell {
     }
     
     func setUp(for yelpBusiness: YLPBusiness){
+        prepareCell()
         backgroundColor = UIColor.clear
         businessRatingImageView.isHidden = false
         businessTitle.text = yelpBusiness.name
@@ -90,5 +91,14 @@ class YelpTableViewCell: UITableViewCell {
                 }
             }
         }
+    }
+    
+    public func prepareCell(){
+        businessTitle.text = ""
+        businessCatAndDistance.text = ""
+        businessRatingLabel.text = ""
+        businessRatingImageView.image = nil
+        businessImageView.image = nil
+
     }
 }

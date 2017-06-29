@@ -22,7 +22,6 @@ class BusinessSearchResultTableViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     var panGestureRecognizer: UIPanGestureRecognizer!
     var delegate: BusinessSearchResultTableViewControllerDelegate?
-    var ylpClient: YLPClient!
     var businessResults: [YLPBusiness] = []
     var restStopResults: [USRestStop] = []
     var managedObjectContext: NSManagedObjectContext!
@@ -149,9 +148,7 @@ class BusinessSearchResultTableViewController: UIViewController{
         globalQueue.async {
             YLPClient.authorize(withAppId: "F9jmXf_AL6xCSqDUA0qrJA", secret: "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"){
                 client, error in
-                
-                self.ylpClient = client
-                
+        
                 client?.search(with: ylpCoordinate, term: term, limit: 20, offset: 0, sort: .distance){
                     search, error in
                     
@@ -247,6 +244,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
         if restStopResults.count != 0 {
+            cell.prepareCell()
             cell.textLabel?.text = restStopResults[indexPath.row].mileMarker
         } else {
             cell.setUp(for: businessResults[indexPath.row])

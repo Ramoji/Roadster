@@ -8,6 +8,7 @@
 
 import Foundation
 import CryptoSwift
+import SwiftKeychainWrapper
 
 struct APICredentials {
     static let API_KEY = "H#4hfgsy4783dget"
@@ -17,10 +18,21 @@ struct APICredentials {
     static let API_IV = "rerekooBrerekooB" // Used in conjunction with API_KEY to encode
 }
 
+struct DefaultKeys {
+    static let signedIn = "signedIn"
+    static let currentUserEmail = "currentUserEmail"
+}
+
+struct KeychainKeys {
+    static let expiryDate = "expiryDate"
+    static let currentUserToken = "currentUserToken"
+}
+
 class CypherHelper{
     
 
     let aesCypher: AES
+    static let defaults = UserDefaults.standard
     
     init(){
         do {
@@ -38,6 +50,22 @@ class CypherHelper{
             fatalError("Failed to encrypt string in CypherHelper")
         }
         return encryptedString!
+    }
+    
+    class func saveAccessToken(forUserEmail userEmail: String, andToken token: String, withExpiryDate expiryDate: String){
+        KeychainWrapper.standard.set(token, forKey: KeychainKeys.currentUserToken)
+        KeychainWrapper.standard.set(expiryDate, forKey: KeychainKeys.expiryDate)
+        defaults.set(true, forKey: DefaultKeys.signedIn)
+        defaults.set(userEmail, forKey: DefaultKeys.currentUserEmail)
+        defaults.synchronize()
+    }
+    
+    class func deleteAccessToken(){
+        KeychainWrapper.standard.removeObject(forKey: KeychainKeys.currentUserToken)
+        KeychainWrapper.standard.removeObject(forKey: KeychainKeys.expiryDate)
+        defaults.set(false, forKey: DefaultKeys.signedIn)
+        defaults.removeObject(forKey: DefaultKeys.currentUserEmail)
+        defaults.synchronize()
     }
 
 }

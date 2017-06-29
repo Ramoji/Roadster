@@ -2,7 +2,7 @@
 //  USRestStop+CoreDataProperties.swift
 //  
 //
-//  Created by EA JA on 5/9/17.
+//  Created by EA JA on 6/16/17.
 //
 //
 
@@ -20,6 +20,8 @@ extension USRestStop {
     @NSManaged public var direction: String
     @NSManaged public var disabledFacilities: Bool
     @NSManaged public var facilities: Bool
+    @NSManaged public var favorite: Bool
+    @NSManaged public var frequent: Bool
     @NSManaged public var gas: Bool
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double

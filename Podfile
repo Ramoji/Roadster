@@ -4,4 +4,5 @@ target "Roadster" do
 pod 'YelpAPI', '~> 2.0.0'
 pod 'Alamofire', '~> 4.2.0'
 pod 'CryptoSwift', '~> 0.6.8'
+pod 'SwiftKeychainWrapper', '~> 3.0.1'
 end

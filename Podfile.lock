@@ -1,18 +1,21 @@
 PODS:
   - Alamofire (4.2.0)
   - CryptoSwift (0.6.8)
+  - SwiftKeychainWrapper (3.0.1)
   - YelpAPI (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.2.0)
   - CryptoSwift (~> 0.6.8)
+  - SwiftKeychainWrapper (~> 3.0.1)
   - YelpAPI (~> 2.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   CryptoSwift: f21ea03ed3a94e79d241648ce26652cd4810508a
+  SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   YelpAPI: a0475cf4a7b6f9fe81f1bb7b8a8492770f21e3c7
 
-PODFILE CHECKSUM: b533a0a3e655173541ddcb021bb23ad1131758cb
+PODFILE CHECKSUM: a40abac1ef73d92ff9d3a67c5a6857f654eda43a
 
 COCOAPODS: 1.2.0

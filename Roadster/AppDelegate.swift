@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let locationManager = CLLocationManager()
     lazy var managedObjectContext: NSManagedObjectContext = {
         //**********************Getting Data Model********************************
-        guard let dataModelURL = Bundle.main.url(forResource: "USRestStop", withExtension: "momd") else {
+        guard let dataModelURL = Bundle.main.url(forResource: "USRestStop", withExtension: "mom") else {
             fatalError("Failed to get the damn URL again!")
         }
         guard let dataModel = NSManagedObjectModel(contentsOf: dataModelURL) else {
@@ -52,10 +52,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             fatalError("Error initiating managed object context!")
         }
     }()
-
+    
+    lazy var userSavedStopsManagedObjectContext: NSManagedObjectContext = {
+        guard let dataModelURL = Bundle.main.url(forResource: "UserSavedStops", withExtension: "momd") else {
+            fatalError("*** Failed to get UserSavedStops data model URL from the main bundle!")
+        }
+        
+        guard let dataModel = NSManagedObjectModel(contentsOf: dataModelURL) else {
+            fatalError("*** Failed to initiate data model from data model URL.")
+        }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let dataStoreURL = documentsDirectory.appendingPathComponent("UserSavedStops.sqlite")
+        
+        do{
+            let persistentStoreCoordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: dataModel)
+            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dataStoreURL, options: nil)
+            let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            context.persistentStoreCoordinator = persistentStoreCoordinator
+            return context
+        } catch {
+            fatalError("*** Failed to initiate managed object context for UserSavedStops!")
+        }
+        
+    }()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool{
-        
-        
         
         let tabBarController = window?.rootViewController as! UITabBarController
         let controllers = tabBarController.viewControllers
@@ -68,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nearByViewController.locationManger = self.locationManager
         nearByViewController.appWindow = window
         POIProvider.managedObjectContext = managedObjectContext
-        
+        CoreDataHelper.shared.userSavedStopsManagedObjectContext = userSavedStopsManagedObjectContext
         
         if CLLocationManager.authorizationStatus() == .notDetermined{
             locationManager.requestWhenInUseAuthorization()

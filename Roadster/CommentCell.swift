@@ -17,6 +17,7 @@ class CommentCell: UITableViewCell{
     @IBOutlet weak var commentLabel: UILabel!
     
     func configureCell(with comment: Comment){
+        self.backgroundColor = UIColor.clear
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         

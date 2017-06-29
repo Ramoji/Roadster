@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class StaticDetailTableViewController: UITableViewController {
     
@@ -43,6 +44,14 @@ class StaticDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var reportInfoButton: UIButton!
+    @IBOutlet weak var navigateButton: UIButton!
+    @IBOutlet weak var frequentButton: UIButton!
+    
+    
+    
+    
     
     var restStop: USRestStop!
     var fullStateName: String!
@@ -61,7 +70,7 @@ class StaticDetailTableViewController: UITableViewController {
         loadComments()
         
         ///////////
-        var nib = UINib(nibName: "CommentCell", bundle: nil)
+        let nib = UINib(nibName: "CommentCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "CommentCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70
@@ -117,6 +126,38 @@ class StaticDetailTableViewController: UITableViewController {
         }
         setUpMapView()
         configureFacilityIcons()
+        
+        if restStop.favorite{
+            favoriteButton.imageView?.contentMode = .scaleAspectFit
+            favoriteButton.setTitle("", for: .normal)
+            favoriteButton.setImage(UIImage(named: "favoriteOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        } else {
+            
+            favoriteButton.imageView?.contentMode = .scaleAspectFit
+            favoriteButton.setTitle("", for: .normal)
+            favoriteButton.setImage(UIImage(named: "favoriteOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        reportInfoButton.imageView?.contentMode = .scaleAspectFit
+        reportInfoButton.setTitle("", for: .normal)
+        reportInfoButton.setImage(UIImage(named: "reportInfo")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: UIControlState.normal)
+        
+        navigateButton.imageView?.contentMode = .scaleAspectFit
+        navigateButton.setTitle("", for: .normal)
+        navigateButton.setImage(UIImage(named: "navigate")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: UIControlState.normal)
+        
+        if restStop.frequent{
+            frequentButton.imageView?.contentMode = .scaleAspectFit
+            frequentButton.setTitle("", for: .normal)
+            frequentButton.setImage(UIImage(named: "frequentOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        } else {
+            frequentButton.imageView?.contentMode = .scaleAspectFit
+            frequentButton.setTitle("", for: .normal)
+            frequentButton.setImage(UIImage(named: "frequentOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        view.setNeedsLayout()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,6 +195,10 @@ class StaticDetailTableViewController: UITableViewController {
     }
     @IBAction func comment(_ sender: UIButton) {
         hideCommentButtons()
+        
+        let commentText = commentTextView.text!
+        
+       
     }
     
     @IBAction func cancelComment(_ sender: UIButton) {
@@ -190,7 +235,91 @@ class StaticDetailTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
+    
+    @IBAction func saveFavorite(_ sender: UIButton){
+        let managedObjectContext = restStop.managedObjectContext!
+        if restStop.favorite{
+            //change rest stop favotire status and re-save (unfavorite)
+            favoriteButton.setImage(UIImage(named: "favoriteOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+            restStop.favorite = false
+            do{
+                try managedObjectContext.save()
+                print("*** Deleted favorite!")
+            }catch{
+                fatalError("*** Failed to update rest stop favorite status.")
+            }
+            //remove favorite from core data
+            print("*** latitude: \(restStop.latitude), longitude: \(restStop.longitude)")
+            CoreDataHelper.shared.deleteFavorite(restStop: restStop)
+        } else {
+            //change rest stop favotire status and re-save (favorite)
+            favoriteButton.setImage(UIImage(named: "favoriteOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+            restStop.favorite = true
+            do{
+                try managedObjectContext.save()
+                print("*** Saved favorite!")
+            }catch{
+                fatalError("*** Failed to update rest stop favorite status.")
+            }
+            //save favorite to core data
+            CoreDataHelper.shared.saveFavorite(restStop: restStop)
+        }
+    }
+    
+    @IBAction func saveFrequent(_ sender: UIButton){
+        let managedObjectContext = restStop.managedObjectContext!
+        if restStop.frequent{
+            //change rest stop frequent status and re-save (unfrequent)
+            frequentButton.setImage(UIImage(named: "frequentOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+            restStop.frequent = false
+            do {
+                try managedObjectContext.save()
+                print("*** Deleted frequent!")
+            } catch {
+                fatalError("*** Failed to update rest stop frequent status.")
+            }
+            //remove favorite from core data
+            CoreDataHelper.shared.deleteFrequent(latitude: restStop.latitude, longitude: restStop.longitude)
+        } else {
+            //change rest stop frequent status and re-save (frequent)
+            frequentButton.setImage(UIImage(named: "frequentOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+            restStop.frequent = true
+            do {
+                try managedObjectContext.save()
+                print("*** Saved frequent!")
+            } catch {
+                fatalError("*** Failed to update rest stop frequent status.")
+            }
+            //save favorite to core data
+            CoreDataHelper.shared.saveFrequent(restStop: restStop)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "reportInfo"{
+            let reportInfoTableViewController = segue.destination as! ReportInfoTableViewController
+            reportInfoTableViewController.restStop = restStop
+        }
+    }
+    
+    @IBAction func navigate(){
+        
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(restStop.latitude, restStop.longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = "Start"
+        mapItem.openInMaps(launchOptions: options)
+        
+    }
 }
+
 
 
 extension StaticDetailTableViewController: MKMapViewDelegate{
@@ -211,6 +340,12 @@ extension StaticDetailTableViewController: MKMapViewDelegate{
 
 extension StaticDetailTableViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        guard UserDefaults.standard.bool(forKey: DefaultKeys.signedIn) else {
+            
+            performSegue(withIdentifier: "signup", sender: self)
+            return
+        }
         
         
         textView.text = ""
@@ -246,6 +381,10 @@ extension StaticDetailTableViewController: UITextViewDelegate{
             commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
             commnetButton.isEnabled = false
         }
+    }
+    
+    @IBAction func unwindToStaticDetailTableViewController(_ sender: UIStoryboardSegue){
+        
     }
     
 }
