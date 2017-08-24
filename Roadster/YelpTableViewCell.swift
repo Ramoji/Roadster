@@ -14,16 +14,15 @@ import Dispatch
 class YelpTableViewCell: UITableViewCell {
     
     @IBOutlet weak var businessTitle: UILabel!
-    @IBOutlet weak var businessCatAndDistance: UILabel!
+    @IBOutlet weak var businessAddress: UILabel!
     @IBOutlet weak var businessRatingLabel: UILabel!
     @IBOutlet weak var businessRatingImageView: UIImageView!
-    @IBOutlet weak var businessImageView: UIImageView!
     
    
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        businessImageView.contentMode = .scaleAspectFit
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,12 +35,30 @@ class YelpTableViewCell: UITableViewCell {
         prepareCell()
         backgroundColor = UIColor.clear
         businessRatingImageView.isHidden = false
-        businessTitle.text = yelpBusiness.name
-        businessCatAndDistance.text = yelpBusiness.categories.first!.name
+        let businessTitleText = yelpBusiness.name.appending(" (\(yelpBusiness.categories[0].name))") as NSString
+        let categoryRange = businessTitleText.range(of: " (\(yelpBusiness.categories[0].name))", options: .caseInsensitive)
+        let categoryMutableString = NSMutableAttributedString(string: businessTitleText as String, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)])
+        categoryMutableString.removeAttribute(NSFontAttributeName, range: categoryRange)
+        categoryMutableString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 13)], range: categoryRange)
+        businessTitle.attributedText = categoryMutableString
+        
+        if !yelpBusiness.location.address.isEmpty{
+            var addressText: NSString = yelpBusiness.location.address[0] as NSString
+            if yelpBusiness.isClosed{
+                addressText = addressText.appending(" · Closed now") as NSString
+                let redColorRange = addressText.range(of: "Closed now", options: .caseInsensitive)
+                let mutableString  = NSMutableAttributedString(string: addressText as String, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14.0)])
+                mutableString.addAttributes([NSStrokeColorAttributeName: UIColor.red], range: redColorRange)
+                businessAddress.attributedText = mutableString
+            } else{
+                businessAddress.text = addressText as String
+                
+            }
+        }
+        
         businessRatingImageView.contentMode = .scaleAspectFit
         businessRatingImageView.image = getRatingImage(for: yelpBusiness.rating).resizeImage(CGSize(width: 60.0, height: 15.0))
         businessRatingLabel.text = getRatingString(for: yelpBusiness)
-        businessImageView.image = nil
         setYelpBusinessImage(yelpBusiness)
     }
     
@@ -60,45 +77,45 @@ class YelpTableViewCell: UITableViewCell {
         if yelpBusiness.reviewCount == 0{
             return "No Reviews"
         } else {
-            ratingString = "(\(String(yelpBusiness.reviewCount))) on Yelp"
+            ratingString = "(\(String(yelpBusiness.reviewCount))) on Yelp ·" //add dollar sign price range.
             return ratingString
         }
     }
     
     private func setYelpBusinessImage(_ business: YLPBusiness){
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        let destination: DownloadRequest.DownloadFileDestination = {_, _ in
-            let documentsURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)[0]
-            let imageDestination = documentsURL.appendingPathComponent("yelpBusinessImage.png")
-            
-            return (imageDestination, [DownloadRequest.DownloadOptions.removePreviousFile, DownloadRequest.DownloadOptions.createIntermediateDirectories])
-            
-            }
         
-        queue.async {
-            
-            if let imageURL = business.imageURL{
-                Alamofire.download(imageURL, to: destination).responseData { response in
-                    if let path = response.destinationURL?.path{
-                        DispatchQueue.main.async {
-                            self.businessImageView.image = UIImage(contentsOfFile: path)
-                        }
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.businessImageView.image = UIImage(named: "NoImage")
-                }
-            }
-        }
     }
     
     public func prepareCell(){
         businessTitle.text = ""
-        businessCatAndDistance.text = ""
+        businessAddress.text = ""
         businessRatingLabel.text = ""
         businessRatingImageView.image = nil
-        businessImageView.image = nil
-
+    }
+    
+    func setUpHistoryCell(for business: HistoryYelpBusiness){
+        prepareCell()
+        backgroundColor = UIColor.clear
+        let businessTitleText = business.name.appending(" (\(business.category))") as NSString
+        let categoryRange = businessTitleText.range(of: " (\(business.category))", options: .caseInsensitive)
+        let categoryMutableString = NSMutableAttributedString(string: businessTitleText as String, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)])
+        categoryMutableString.removeAttribute(NSFontAttributeName, range: categoryRange)
+        categoryMutableString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 13)], range: categoryRange)
+        businessTitle.attributedText = categoryMutableString
+        businessAddress.text = business.businessAddress
+        
+        businessRatingImageView.contentMode = .scaleAspectFit
+        businessRatingImageView.image = getRatingImage(for: business.rating).resizeImage(CGSize(width: 60.0, height: 15.0))
+        
+        var ratingString = ""
+        
+        if business.reviewCount == 0 {
+            ratingString = "No reviews"
+        } else {
+            ratingString = "(\(String(business.reviewCount))) on Yelp ·" //add dollar sign price range.
+        }
+        
+        businessRatingLabel.text = ratingString
+        
     }
 }

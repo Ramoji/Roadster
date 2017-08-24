@@ -188,47 +188,93 @@ class POIProvider{
         return restStops
     }
     
-    class func getFacilityList(forRestStop restStop: USRestStop) -> [String]{
+    class func getFacilityList(forRestStop restStop: AnyObject) -> [String]{
         
-        var facilites: [String] = []
-
-        if restStop.water {
-            facilites.append("water")
-        }
-        if restStop.restaurant {
-            facilites.append("restaurant")
-        }
-        if restStop.gas {
-            facilites.append("gas")
-        }
+         var facilites: [String] = []
         
-        if restStop.disabledFacilities{
-            facilites.append("disabledFacilities")
-        }
-        
-        if !restStop.trucks {
-            facilites.append("truck")
-        }
-        if restStop.petArea{
-            facilites.append("petArea")
-        }
-        if restStop.phone{
-            facilites.append("phone")
-        }
-        if restStop.tables{
-            facilites.append("tables")
-        }
-        if restStop.restroom{
-            facilites.append("restroom")
-        }
-        if restStop.rvDump{
-            facilites.append("rvDump")
-        }
-        if restStop.scenic{
-            facilites.append("scenic")
-        }
-        if restStop.vendingMachine{
-            facilites.append("vendingMachine")
+        if restStop is USRestStop{
+            let stop = restStop as! USRestStop
+            
+            if stop.water {
+                facilites.append("water")
+            }
+            if stop.restaurant {
+                facilites.append("restaurant")
+            }
+            if stop.gas {
+                facilites.append("gas")
+            }
+            
+            if stop.disabledFacilities{
+                facilites.append("disabledFacilities")
+            }
+            
+            if stop.trucks {
+                facilites.append("truck")
+            }
+            if stop.petArea{
+                facilites.append("petArea")
+            }
+            if stop.phone{
+                facilites.append("phone")
+            }
+            if stop.tables{
+                facilites.append("tables")
+            }
+            if stop.restroom{
+                facilites.append("restroom")
+            }
+            if stop.rvDump{
+                facilites.append("rvDump")
+            }
+            if stop.scenic{
+                facilites.append("scenic")
+            }
+            if stop.vendingMachine{
+                facilites.append("vendingMachine")
+            }
+            
+        } else {
+            let stop = restStop as! HistoryUSRestStop
+            
+            if stop.water {
+                facilites.append("water")
+            }
+            if stop.restaurant {
+                facilites.append("restaurant")
+            }
+            if stop.gas {
+                facilites.append("gas")
+            }
+            
+            if stop.disabledFacilities{
+                facilites.append("disabledFacilities")
+            }
+            
+            if stop.trucks {
+                facilites.append("truck")
+            }
+            if stop.petArea{
+                facilites.append("petArea")
+            }
+            if stop.phone{
+                facilites.append("phone")
+            }
+            if stop.tables{
+                facilites.append("tables")
+            }
+            if stop.restroom{
+                facilites.append("restroom")
+            }
+            if stop.rvDump{
+                facilites.append("rvDump")
+            }
+            if stop.scenic{
+                facilites.append("scenic")
+            }
+            if stop.vendingMachine{
+                facilites.append("vendingMachine")
+            }
         }
         
         return facilites

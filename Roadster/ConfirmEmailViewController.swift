@@ -141,7 +141,7 @@ class ConfirmEmailViewController: UIViewController {
             })
         }, completion: nil)
     }
-   
+
 
 }
 

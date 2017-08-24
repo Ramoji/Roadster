@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -55,30 +55,20 @@
                         <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sZ7-Te-OWD">
-                        <rect key="frame" x="310" y="12" width="60" height="60"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="60" id="6Ii-EI-ofd"/>
-                            <constraint firstAttribute="height" constant="60" id="Mdz-P7-DYG"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BiN-sX-8B0" firstAttribute="top" secondItem="HrX-Cp-l2f" secondAttribute="top" constant="10" id="30M-sf-SI7"/>
                     <constraint firstItem="5MU-7x-M33" firstAttribute="leading" secondItem="HrX-Cp-l2f" secondAttribute="leading" constant="15" id="BBZ-oi-SnF"/>
-                    <constraint firstAttribute="trailing" secondItem="sZ7-Te-OWD" secondAttribute="trailing" constant="5" id="Ggb-Ta-Ak4"/>
                     <constraint firstItem="VtP-wo-vfH" firstAttribute="leading" secondItem="HrX-Cp-l2f" secondAttribute="leading" constant="15" id="JMT-9s-hnX"/>
                     <constraint firstItem="5MU-7x-M33" firstAttribute="top" secondItem="VtP-wo-vfH" secondAttribute="bottom" constant="3" id="JiA-VV-Aiq"/>
                     <constraint firstItem="VtP-wo-vfH" firstAttribute="top" secondItem="BiN-sX-8B0" secondAttribute="bottom" id="TMY-Wh-4H7"/>
                     <constraint firstItem="BiN-sX-8B0" firstAttribute="leading" secondItem="HrX-Cp-l2f" secondAttribute="leading" constant="15" id="UrC-U6-BLL"/>
                     <constraint firstItem="wgf-Uj-YO0" firstAttribute="leading" secondItem="5MU-7x-M33" secondAttribute="trailing" constant="5" id="WPh-ie-zEM"/>
                     <constraint firstAttribute="bottom" secondItem="wgf-Uj-YO0" secondAttribute="bottom" constant="11" id="ZUy-q7-Udl"/>
-                    <constraint firstItem="sZ7-Te-OWD" firstAttribute="centerY" secondItem="HrX-Cp-l2f" secondAttribute="centerY" id="gyG-n7-9OW"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="businessCatAndDistance" destination="VtP-wo-vfH" id="b5C-bl-tB1"/>
-                <outlet property="businessImageView" destination="sZ7-Te-OWD" id="SZI-d7-C4l"/>
+                <outlet property="businessAddress" destination="VtP-wo-vfH" id="Lug-gT-6tB"/>
                 <outlet property="businessRatingImageView" destination="5MU-7x-M33" id="IYl-YL-U5C"/>
                 <outlet property="businessRatingLabel" destination="wgf-Uj-YO0" id="YEq-Pm-Ryf"/>
                 <outlet property="businessTitle" destination="BiN-sX-8B0" id="yEA-Ef-tgd"/>

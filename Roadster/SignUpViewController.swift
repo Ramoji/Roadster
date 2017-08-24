@@ -23,6 +23,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordLengthRequirementAlertLabel: UILabel!
     @IBOutlet weak var usernameTakenAlertLable: UILabel!
     
+    
 
     
     var labelArray: [UITextField]!
@@ -35,6 +36,13 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +101,9 @@ class SignUpViewController: UIViewController {
             }
         }
     }
+    
+
+    
     @IBAction func cancel(_ sender: UIButton) {
         requiredFieldsAlertLabel.isHidden = true
         passwordLengthRequirementAlertLabel.isHidden = true

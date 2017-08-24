@@ -12,7 +12,7 @@ import CoreLocation
 
 class StaticDetailTableViewController: UITableViewController {
     
-    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var parkingImageView: UIImageView!
     @IBOutlet weak var imageViewOne: UIImageView!
     @IBOutlet weak var imageViewTwo: UIImageView!
     @IBOutlet weak var imageViewThree: UIImageView!
@@ -31,7 +31,6 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var parkingImageView: UIImageView!
     @IBOutlet weak var truck: UIImageView!
     @IBOutlet weak var sedanCar: UIImageView!
     @IBOutlet weak var trailer: UIImageView!
@@ -55,7 +54,6 @@ class StaticDetailTableViewController: UITableViewController {
     
     var restStop: USRestStop!
     var fullStateName: String!
-    var bound = ""
     let blurredBackgroudView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
     var comments: [Comment] = []
 
@@ -197,7 +195,7 @@ class StaticDetailTableViewController: UITableViewController {
         hideCommentButtons()
         
         let commentText = commentTextView.text!
-        
+        print(commentText)
        
     }
     
@@ -342,8 +340,8 @@ extension StaticDetailTableViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         guard UserDefaults.standard.bool(forKey: DefaultKeys.signedIn) else {
-            
-            performSegue(withIdentifier: "signup", sender: self)
+            let signUpViewController = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+                present(signUpViewController, animated: true, completion: nil)
             return
         }
         

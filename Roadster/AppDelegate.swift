@@ -87,8 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         stateListViewController.appWindow = window
         let navigationController2 = controllers![1] as! UINavigationController
         let nearByViewController = navigationController2.topViewController as! NearByViewController
-        nearByViewController.locationManger = self.locationManager
-        nearByViewController.appWindow = window
         POIProvider.managedObjectContext = managedObjectContext
         CoreDataHelper.shared.userSavedStopsManagedObjectContext = userSavedStopsManagedObjectContext
         

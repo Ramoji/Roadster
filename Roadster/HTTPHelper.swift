@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import CryptoSwift
 import Dispatch
+import SwiftyJSON
+import AlamofireImage
 
 struct APIURLs {
     
@@ -260,5 +262,91 @@ class HTTPHelper{
         Alamofire.request(APIURLs.logout, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers).response{response in
         }
         CypherHelper.deleteAccessToken()
+    }
+    
+    class func getYelpComments(for businessID: String, completionHandlers: @escaping (_ data: Data) -> ()){
+        
+        checkYelpAccessTokenValidityAndExecute{ yelpToken in
+            
+            let commentURL = "https://api.yelp.com/v3/businesses/\(businessID)/reviews"
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(yelpToken)"]
+            Alamofire.request(commentURL, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON{ response in
+                
+                if response.response?.statusCode == 200{
+                    if let data = response.data{
+                    
+                        completionHandlers(data)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    class func checkYelpAccessTokenValidityAndExecute(block: @escaping (_ yelpToken: String) -> ()){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        
+        
+        if let dateString = UserDefaults.standard.string(forKey: DefaultKeys.yelpAccessTokenExpiryDate) {
+            
+            let tokenExpiryDate = dateFormatter.date(from: dateString)!
+            
+            if tokenExpiryDate.timeIntervalSinceNow < -15552000{
+                
+                let parameters: Parameters = ["grant_type": "client_credentials", "client_id": APICredentials.yelpAPI_ID, "client_secret": APICredentials.yelpAPI_secret]
+                
+                Alamofire.request("https://api.yelp.com/oauth2/token", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON{ response in
+                    
+                    
+                    do{
+                        let jsonObj = try JSONSerialization.jsonObject(with: response.data!, options: .allowFragments) as! [String: AnyObject]
+                        UserDefaults.standard.set(jsonObj["access_token"] as! String, forKey: DefaultKeys.yelpAccessToken)
+                        UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: DefaultKeys.yelpAccessTokenExpiryDate)
+                    } catch let error as NSError{
+                        print(error.debugDescription)
+                        print(error.localizedDescription)
+                    }
+                    
+                    block(UserDefaults.standard.object(forKey: DefaultKeys.yelpAccessToken)! as! String)
+                }
+                
+            } else {
+                
+                    block(UserDefaults.standard.object(forKey: DefaultKeys.yelpAccessToken)! as! String)
+                
+            }
+            
+            
+        } else {
+            
+            let parameters: Parameters = ["grant_type": "client_credentials", "client_id": APICredentials.yelpAPI_ID, "client_secret": APICredentials.yelpAPI_secret]
+            
+            Alamofire.request("https://api.yelp.com/oauth2/token", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON{ response in
+                
+                
+                do{
+                    let jsonObj = try JSONSerialization.jsonObject(with: response.data!, options: .allowFragments) as! [String: AnyObject]
+                    UserDefaults.standard.set(jsonObj["access_token"] as! String, forKey: DefaultKeys.yelpAccessToken)
+                    UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: DefaultKeys.yelpAccessTokenExpiryDate)
+                } catch let error as NSError{
+                    print(error.debugDescription)
+                    print(error.localizedDescription)
+                }
+                
+                
+                block(UserDefaults.standard.object(forKey: DefaultKeys.yelpAccessToken)! as! String)
+            }
+        }
+    }
+    
+    class func getImage(from url: String, completionHandler: @escaping (_ image: UIImage) -> ()){
+        var downloadedImage: UIImage = #imageLiteral(resourceName: "NoImage")
+        Alamofire.request(url).responseImage{response in
+            if let image = response.result.value{
+                downloadedImage = image
+                completionHandler(downloadedImage)
+            }
+        }
     }
 }

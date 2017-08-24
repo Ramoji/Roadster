@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>YelpAPI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,12 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0CAE7ADD70227A3B991B8AC6678F1EDC</key>
+		<key>16DC4576A5653C2A8D13EA474452A939</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>580B1C404E4790215438755CB7D622FD</key>
+		<key>4A141F0BEEB743594874022C9ADEDB31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F13B1BF49ACFDECD4DC14C8435F031A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>76B0547CA90F0D3132E3E2E0EF3AE9AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9B56C1A846D43838BC484710DAF5DC5</key>
+		<key>9EFE4C70245EE2857D336B8B9FA4E825</key>
 		<dict>
 			<key>primary</key>
 			<true/>

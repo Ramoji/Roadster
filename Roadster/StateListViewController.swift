@@ -17,6 +17,9 @@ struct CustomCellTypeIdentifiers {
     static let EndRestStopCell = "EndRestStopCell"
     static let YelpTableViewCell = "YelpTableViewCell"
     static let OnlyOneRestStopCell = "OnlyOneRestStopCell"
+    static let UnorderedRestStopCell = "UnorderedRestStopCell"
+    static let BusinessSearchResultFirstCell = "BusinessSearchResultFirstCell"
+    static let YelpCommentCell = "YelpCommentCell"
 }
 
 class StateListViewController: UIViewController {
@@ -52,7 +55,6 @@ class StateListViewController: UIViewController {
         searchController.searchBar.backgroundColor = UIColor.clear
         searchController.searchResultsUpdater = self
         searchController.delegate = self
-        searchController.dimsBackgroundDuringPresentation = true
         searchController.dimsBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)

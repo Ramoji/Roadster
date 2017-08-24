@@ -16,11 +16,15 @@ struct APICredentials {
     static let API_USERNAME = "bOOKERtHEcORGI" //Username to access the API through basic auth!
     static let encryptedAPI_USERNAME = "ced5e1548ab8332b2919aa4228e2b1a8"
     static let API_IV = "rerekooBrerekooB" // Used in conjunction with API_KEY to encode
+    static let yelpAPI_ID = "F9jmXf_AL6xCSqDUA0qrJA"
+    static let yelpAPI_secret = "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"
 }
 
 struct DefaultKeys {
     static let signedIn = "signedIn"
     static let currentUserEmail = "currentUserEmail"
+    static let yelpAccessToken = "yelpAccessToken"
+    static let yelpAccessTokenExpiryDate = "yelpAccessTokenExpireyDate"
 }
 
 struct KeychainKeys {

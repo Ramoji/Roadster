@@ -8,8 +8,7 @@
 
 import UIKit
 
-@IBDesignable
-class CustomButton: UIButton{
+@IBDesignable class CustomButton: UIButton{
     
     @IBInspectable var cornerRadius: CGFloat{
         

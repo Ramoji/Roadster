@@ -142,7 +142,6 @@ class RestStopListChildTableViewController: UIViewController {
             let staticDetailTableViewController = segue.destination as! StaticDetailTableViewController
             staticDetailTableViewController.restStop = chosenRestStop
             staticDetailTableViewController.fullStateName = fullStateName
-            staticDetailTableViewController.bound = bound
         }
     }
     

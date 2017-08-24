@@ -23,7 +23,7 @@
 		218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */; };
 		2187664C1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */; };
 		21A337F01E08C375003EAC1F /* BusinessSearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A337EF1E08C375003EAC1F /* BusinessSearchResultTableViewController.swift */; };
-		21A337F21E08C423003EAC1F /* BusinessDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A337F11E08C423003EAC1F /* BusinessDetailTableViewController.swift */; };
+		21A337F21E08C423003EAC1F /* BusinessDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A337F11E08C423003EAC1F /* BusinessDetailViewController.swift */; };
 		21C37AEF1DBC7A3E00203B68 /* BlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C37AEE1DBC7A3D00203B68 /* BlurredBackgroundView.swift */; };
 		21C8E6231D7FD44A007F67E2 /* StateListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */; };
 		21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C8E6261D7FD44A007F67E2 /* Main.storyboard */; };
@@ -56,21 +56,34 @@
 		8C0A03491EF3DCB1003B805A /* Frequent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0A03451EF3DCB1003B805A /* Frequent+CoreDataProperties.swift */; };
 		8C0A03721EF7CB73003B805A /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0A03711EF7CB73003B805A /* CoreDataHelper.swift */; };
 		8C0A03761EF8D821003B805A /* ReportInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0A03751EF8D821003B805A /* ReportInfoTableViewController.swift */; };
+		8C0AFD311F499B0A00B4103F /* YelpCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C0AFD301F499B0A00B4103F /* YelpCommentCell.xib */; };
+		8C0AFD331F49BE2200B4103F /* YelpCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0AFD321F49BE2200B4103F /* YelpCommentCell.swift */; };
+		8C226DF21F188C9A000B2ADF /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C226DF11F188C9A000B2ADF /* CustomUIView.swift */; };
 		8C2C7A6F1ED692540033CED3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */; };
 		8C2C7A711ED77D8A0033CED3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */; };
 		8C2C7C8A1ED874B30033CED3 /* PasswordRecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */; };
+		8C49BA011F28902900F425DD /* BusinessSearchResultFirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C49BA001F28902900F425DD /* BusinessSearchResultFirstCell.xib */; };
+		8C49BA051F28D8A500F425DD /* BusinessSearchResultFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49BA041F28D8A500F425DD /* BusinessSearchResultFirstCell.swift */; };
 		8C58E4AE1ECE427C00D25659 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C58E4AD1ECE427C00D25659 /* CommentCell.xib */; };
 		8C58E4B01ECE437400D25659 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C58E4AF1ECE437400D25659 /* CommentCell.swift */; };
 		8C58F14E1ED2E72300D25659 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C58F14D1ED2E72300D25659 /* SignUpViewController.swift */; };
+		8C6B10851F4238E000275E7F /* NearRestStopChildDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B10841F4238E000275E7F /* NearRestStopChildDetailTableViewController.swift */; };
+		8C6B10871F426FFA00275E7F /* NearStaticRestStopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B10861F426FFA00275E7F /* NearStaticRestStopDetailViewController.swift */; };
+		8C82E3DB1F338BEB00B399EB /* HistoryUSRestStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E3DA1F338BEB00B399EB /* HistoryUSRestStop.swift */; };
+		8C82E3DD1F33C6E200B399EB /* HistoryYelpBusiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C82E3DC1F33C6E200B399EB /* HistoryYelpBusiness.swift */; };
 		8C880BB61E661710009FA631 /* RoundCornorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C880BB51E661710009FA631 /* RoundCornorTableView.swift */; };
 		8C894BD01EC298AC00601C16 /* POIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BCF1EC298AC00601C16 /* POIProvider.swift */; };
 		8C894BE01EC6D0CA00601C16 /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BDF1EC6D0CA00601C16 /* CustomUITextView.swift */; };
 		8C894BE41EC7897A00601C16 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BE31EC7897A00601C16 /* CustomButton.swift */; };
 		8C894BE61EC7F55300601C16 /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894BE51EC7F55300601C16 /* HTTPHelper.swift */; };
 		8C894E471ECA2AA500601C16 /* CypherHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C894E461ECA2AA500601C16 /* CypherHelper.swift */; };
+		8C9DD2C31F0A976600A123E4 /* YelpBusinessAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9DD2C21F0A976600A123E4 /* YelpBusinessAnnotation.swift */; };
 		8C9F74351ED3D93500B81DC4 /* ConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9F74341ED3D93500B81DC4 /* ConfirmEmailViewController.swift */; };
 		8CB12E021E6FC518008AD7B7 /* OnlyOneRestStopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */; };
 		8CB12E041E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */; };
+		8CCA319B1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCA319A1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift */; };
+		8CFEA3ED1F0CE87F0067AE01 /* UnorderedRestStopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CFEA3EC1F0CE87F0067AE01 /* UnorderedRestStopCell.xib */; };
+		8CFEA3EF1F0CE9330067AE01 /* UnorderedRestStopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFEA3EE1F0CE9330067AE01 /* UnorderedRestStopCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,7 +104,7 @@
 		218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestStopListMapViewController.swift; sourceTree = "<group>"; };
 		2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestStopListChildTableViewController.swift; path = ../RestStopListChildTableViewController.swift; sourceTree = "<group>"; };
 		21A337EF1E08C375003EAC1F /* BusinessSearchResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessSearchResultTableViewController.swift; sourceTree = "<group>"; };
-		21A337F11E08C423003EAC1F /* BusinessDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailTableViewController.swift; sourceTree = "<group>"; };
+		21A337F11E08C423003EAC1F /* BusinessDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailViewController.swift; sourceTree = "<group>"; };
 		21C37AEE1DBC7A3D00203B68 /* BlurredBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackgroundView.swift; sourceTree = "<group>"; };
 		21C8E61D1D7FD44A007F67E2 /* Roadster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roadster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateListViewController.swift; sourceTree = "<group>"; };
@@ -126,21 +139,34 @@
 		8C0A03451EF3DCB1003B805A /* Frequent+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Frequent+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8C0A03711EF7CB73003B805A /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		8C0A03751EF8D821003B805A /* ReportInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportInfoTableViewController.swift; sourceTree = "<group>"; };
+		8C0AFD301F499B0A00B4103F /* YelpCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YelpCommentCell.xib; sourceTree = "<group>"; };
+		8C0AFD321F49BE2200B4103F /* YelpCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpCommentCell.swift; sourceTree = "<group>"; };
+		8C226DF11F188C9A000B2ADF /* CustomUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
 		8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryViewController.swift; sourceTree = "<group>"; };
+		8C49BA001F28902900F425DD /* BusinessSearchResultFirstCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessSearchResultFirstCell.xib; sourceTree = "<group>"; };
+		8C49BA041F28D8A500F425DD /* BusinessSearchResultFirstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessSearchResultFirstCell.swift; sourceTree = "<group>"; };
 		8C58E4AD1ECE427C00D25659 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		8C58E4AF1ECE437400D25659 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		8C58F14D1ED2E72300D25659 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		8C6B10841F4238E000275E7F /* NearRestStopChildDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearRestStopChildDetailTableViewController.swift; sourceTree = "<group>"; };
+		8C6B10861F426FFA00275E7F /* NearStaticRestStopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearStaticRestStopDetailViewController.swift; sourceTree = "<group>"; };
+		8C82E3DA1F338BEB00B399EB /* HistoryUSRestStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryUSRestStop.swift; sourceTree = "<group>"; };
+		8C82E3DC1F33C6E200B399EB /* HistoryYelpBusiness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryYelpBusiness.swift; sourceTree = "<group>"; };
 		8C880BB51E661710009FA631 /* RoundCornorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundCornorTableView.swift; sourceTree = "<group>"; };
 		8C894BCF1EC298AC00601C16 /* POIProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIProvider.swift; sourceTree = "<group>"; };
 		8C894BDF1EC6D0CA00601C16 /* CustomUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
 		8C894BE31EC7897A00601C16 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C894BE51EC7F55300601C16 /* HTTPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
 		8C894E461ECA2AA500601C16 /* CypherHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CypherHelper.swift; sourceTree = "<group>"; };
+		8C9DD2C21F0A976600A123E4 /* YelpBusinessAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpBusinessAnnotation.swift; sourceTree = "<group>"; };
 		8C9F74341ED3D93500B81DC4 /* ConfirmEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnlyOneRestStopCell.xib; sourceTree = "<group>"; };
 		8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlyOneRestStopCell.swift; sourceTree = "<group>"; };
+		8CCA319A1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailChildTableViewController.swift; sourceTree = "<group>"; };
+		8CFEA3EC1F0CE87F0067AE01 /* UnorderedRestStopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnorderedRestStopCell.xib; sourceTree = "<group>"; };
+		8CFEA3EE1F0CE9330067AE01 /* UnorderedRestStopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnorderedRestStopCell.swift; sourceTree = "<group>"; };
 		F20200D534A1EE184F279B42 /* Pods_Roadster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roadster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,21 +185,24 @@
 		213391361DE45C850053A2BD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				21A337F11E08C423003EAC1F /* BusinessDetailTableViewController.swift */,
+				8CCA319A1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift */,
+				21A337F11E08C423003EAC1F /* BusinessDetailViewController.swift */,
 				21A337EF1E08C375003EAC1F /* BusinessSearchResultTableViewController.swift */,
+				8C9F74341ED3D93500B81DC4 /* ConfirmEmailViewController.swift */,
 				21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */,
+				8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */,
 				212315A61DB1C1560068F190 /* NearByViewController.swift */,
+				8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */,
 				213391391DE45D610053A2BD /* PinViewController.swift */,
+				8C0A03751EF8D821003B805A /* ReportInfoTableViewController.swift */,
 				2187664B1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift */,
 				218766471DB3483200DF8E81 /* RestStopListMapViewController.swift */,
+				8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */,
+				8C58F14D1ED2E72300D25659 /* SignUpViewController.swift */,
 				21C8E6221D7FD44A007F67E2 /* StateListViewController.swift */,
 				216A2BAC1DEB15BC0097DC83 /* StaticDetailTableViewController.swift */,
-				8C58F14D1ED2E72300D25659 /* SignUpViewController.swift */,
-				8C9F74341ED3D93500B81DC4 /* ConfirmEmailViewController.swift */,
-				8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */,
-				8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */,
-				8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */,
-				8C0A03751EF8D821003B805A /* ReportInfoTableViewController.swift */,
+				8C6B10841F4238E000275E7F /* NearRestStopChildDetailTableViewController.swift */,
+				8C6B10861F426FFA00275E7F /* NearStaticRestStopDetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -189,6 +218,9 @@
 				21CBA7E71E213A8E000E1015 /* YelpTableViewCell.xib */,
 				8CB12E011E6FC518008AD7B7 /* OnlyOneRestStopCell.xib */,
 				8C58E4AD1ECE427C00D25659 /* CommentCell.xib */,
+				8CFEA3EC1F0CE87F0067AE01 /* UnorderedRestStopCell.xib */,
+				8C49BA001F28902900F425DD /* BusinessSearchResultFirstCell.xib */,
+				8C0AFD301F499B0A00B4103F /* YelpCommentCell.xib */,
 			);
 			name = "xib files";
 			sourceTree = "<group>";
@@ -213,6 +245,9 @@
 				21CBA7E91E218997000E1015 /* YelpTableViewCell.swift */,
 				8CB12E031E6FD4AE008AD7B7 /* OnlyOneRestStopCell.swift */,
 				8C58E4AF1ECE437400D25659 /* CommentCell.swift */,
+				8CFEA3EE1F0CE9330067AE01 /* UnorderedRestStopCell.swift */,
+				8C49BA041F28D8A500F425DD /* BusinessSearchResultFirstCell.swift */,
+				8C0AFD321F49BE2200B4103F /* YelpCommentCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -295,6 +330,7 @@
 				8C880BB51E661710009FA631 /* RoundCornorTableView.swift */,
 				21CB896D1E07A98C006C7B3D /* NoCursorTextField.swift */,
 				8C894BE31EC7897A00601C16 /* CustomButton.swift */,
+				8C226DF11F188C9A000B2ADF /* CustomUIView.swift */,
 			);
 			name = "Custom Views";
 			path = Roadster;
@@ -307,6 +343,9 @@
 				8C894E461ECA2AA500601C16 /* CypherHelper.swift */,
 				8C894BE51EC7F55300601C16 /* HTTPHelper.swift */,
 				8C894BCF1EC298AC00601C16 /* POIProvider.swift */,
+				8C9DD2C21F0A976600A123E4 /* YelpBusinessAnnotation.swift */,
+				8C82E3DA1F338BEB00B399EB /* HistoryUSRestStop.swift */,
+				8C82E3DC1F33C6E200B399EB /* HistoryYelpBusiness.swift */,
 			);
 			name = HelperTypes;
 			path = Roadster;
@@ -384,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212315991DADD4260068F190 /* NoRestStopsCell.xib in Resources */,
+				8C49BA011F28902900F425DD /* BusinessSearchResultFirstCell.xib in Resources */,
 				21E9BDF81DEF78FA00127C7C /* FirstRestStopCell.xib in Resources */,
 				21C8E63B1D806838007F67E2 /* CellWithImageView.xib in Resources */,
 				8C0A033A1EF3BFEC003B805A /* datastore.sqlite in Resources */,
@@ -393,7 +433,9 @@
 				21CBA7E81E213A8E000E1015 /* YelpTableViewCell.xib in Resources */,
 				8C0A033B1EF3BFEC003B805A /* datastore.sqlite-shm in Resources */,
 				21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */,
+				8CFEA3ED1F0CE87F0067AE01 /* UnorderedRestStopCell.xib in Resources */,
 				21E9BDFA1DEF790900127C7C /* EndRestStopCell.xib in Resources */,
+				8C0AFD311F499B0A00B4103F /* YelpCommentCell.xib in Resources */,
 				21C8E6281D7FD44A007F67E2 /* Main.storyboard in Resources */,
 				216D18731DED0D1D00FCA922 /* RestStopCell.xib in Resources */,
 				8C58E4AE1ECE427C00D25659 /* CommentCell.xib in Resources */,
@@ -460,6 +502,7 @@
 				8C2C7C8A1ED874B30033CED3 /* PasswordRecoveryViewController.swift in Sources */,
 				8C894BD01EC298AC00601C16 /* POIProvider.swift in Sources */,
 				8C0A03491EF3DCB1003B805A /* Frequent+CoreDataProperties.swift in Sources */,
+				8C6B10871F426FFA00275E7F /* NearStaticRestStopDetailViewController.swift in Sources */,
 				216D18761DEDDDB600FCA922 /* RestStopCell.swift in Sources */,
 				8C894E471ECA2AA500601C16 /* CypherHelper.swift in Sources */,
 				8C0A032B1EF326DC003B805A /* UserSavedStops.xcdatamodeld in Sources */,
@@ -468,10 +511,13 @@
 				8C0A03481EF3DCB1003B805A /* Frequent+CoreDataClass.swift in Sources */,
 				21C37AEF1DBC7A3E00203B68 /* BlurredBackgroundView.swift in Sources */,
 				8C58E4B01ECE437400D25659 /* CommentCell.swift in Sources */,
+				8CFEA3EF1F0CE9330067AE01 /* UnorderedRestStopCell.swift in Sources */,
 				21C8E6351D80644C007F67E2 /* States.swift in Sources */,
 				2187664C1DB3598C00DF8E81 /* RestStopListChildTableViewController.swift in Sources */,
 				2133913A1DE45D610053A2BD /* PinViewController.swift in Sources */,
 				2121E9A61DC6F2650057F4B0 /* CustomUIPresentationController.swift in Sources */,
+				8C6B10851F4238E000275E7F /* NearRestStopChildDetailTableViewController.swift in Sources */,
+				8C82E3DB1F338BEB00B399EB /* HistoryUSRestStop.swift in Sources */,
 				8C0A03461EF3DCB1003B805A /* Favorite+CoreDataClass.swift in Sources */,
 				8C0A03721EF7CB73003B805A /* CoreDataHelper.swift in Sources */,
 				21E9BDFE1DEF85BB00127C7C /* FirstRestStopCell.swift in Sources */,
@@ -480,7 +526,8 @@
 				212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */,
 				218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */,
 				21CBA7EA1E218997000E1015 /* YelpTableViewCell.swift in Sources */,
-				21A337F21E08C423003EAC1F /* BusinessDetailTableViewController.swift in Sources */,
+				8C9DD2C31F0A976600A123E4 /* YelpBusinessAnnotation.swift in Sources */,
+				21A337F21E08C423003EAC1F /* BusinessDetailViewController.swift in Sources */,
 				216A2BAD1DEB15BC0097DC83 /* StaticDetailTableViewController.swift in Sources */,
 				21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */,
 				8C9F74351ED3D93500B81DC4 /* ConfirmEmailViewController.swift in Sources */,
@@ -492,8 +539,10 @@
 				8C2C7A711ED77D8A0033CED3 /* MoreViewController.swift in Sources */,
 				8C58F14E1ED2E72300D25659 /* SignUpViewController.swift in Sources */,
 				8C2C7A6F1ED692540033CED3 /* SignInViewController.swift in Sources */,
+				8C49BA051F28D8A500F425DD /* BusinessSearchResultFirstCell.swift in Sources */,
 				21EFCCAD1DD0712D0051D224 /* DismissAnimator.swift in Sources */,
 				21A337F01E08C375003EAC1F /* BusinessSearchResultTableViewController.swift in Sources */,
+				8CCA319B1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift in Sources */,
 				8C880BB61E661710009FA631 /* RoundCornorTableView.swift in Sources */,
 				8C0A03761EF8D821003B805A /* ReportInfoTableViewController.swift in Sources */,
 				2121E9A41DC6D0DB0057F4B0 /* UIImage+Resize.swift in Sources */,
@@ -502,6 +551,9 @@
 				8C894BE41EC7897A00601C16 /* CustomButton.swift in Sources */,
 				8C0A03471EF3DCB1003B805A /* Favorite+CoreDataProperties.swift in Sources */,
 				21E9BE001DEF85F200127C7C /* EndRestStopCell.swift in Sources */,
+				8C82E3DD1F33C6E200B399EB /* HistoryYelpBusiness.swift in Sources */,
+				8C0AFD331F49BE2200B4103F /* YelpCommentCell.swift in Sources */,
+				8C226DF21F188C9A000B2ADF /* CustomUIView.swift in Sources */,
 				21C8E6231D7FD44A007F67E2 /* StateListViewController.swift in Sources */,
 				21C8E63D1D8073A2007F67E2 /* CellWithImageView.swift in Sources */,
 			);
