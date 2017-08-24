@@ -51,7 +51,6 @@ class BusinessSearchResultTableViewController: UIViewController{
     
     var searchHistory: [AnyObject] = []
 
-    var shouldAddServiceCell = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,32 +106,14 @@ class BusinessSearchResultTableViewController: UIViewController{
         archiveSearchHistory()
     }
     
-    func addTableViewFirstServiceRow(){
-        
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.beginUpdates()
-        tableView.insertRows(at: [indexPath], with: .bottom)
-        tableView.endUpdates()
-        tableView.reloadData()
-        
-        
-    }
+   
     
     func loadSearchHistory(){
         tableViewDataSourceList = searchHistory
         tableView.reloadData()
     }
     
-    func deleteTableViewFirstServiceRow(){
-        
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .bottom)
-        tableView.endUpdates()
-        tableView.reloadData()
-        
-        
-    }
+
     
     //MARK: - SetUps
     func setUpHeaderView(){
@@ -335,6 +316,25 @@ class BusinessSearchResultTableViewController: UIViewController{
         }
     }
     
+    func addServiceCellToTableView(){
+        for element in tableViewDataSourceList{
+            if element is BusinessSearchResultFirstCell{return}
+        }
+        let serviceCell = BusinessSearchResultFirstCell(style: .default, reuseIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell)
+        tableViewDataSourceList.insert(serviceCell, at: 0)
+        tableView.reloadData()
+    }
+    
+    func removeServiceCellFromTableView(){
+        guard !tableViewDataSourceList.isEmpty else {return}
+        for (index, element) in tableViewDataSourceList.enumerated(){
+            if element is BusinessSearchResultFirstCell{
+                tableViewDataSourceList.remove(at: index)
+            }
+        }
+        tableView.reloadData()
+    }
+    
     deinit {
         
         print("*** BusinessSearchResultTableViewController deinitialized!")
@@ -351,59 +351,46 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if shouldAddServiceCell{
-            return tableViewDataSourceList.count + 1
-        } else {
-            return tableViewDataSourceList.count
-        }
+        return tableViewDataSourceList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
         
+        let element = tableViewDataSourceList[indexPath.row]
         
-        if indexPath.row == 0 && shouldAddServiceCell {
-            let firstCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, for: indexPath) as! BusinessSearchResultFirstCell
-            firstCell.delegate = self
-            cell = firstCell
-        } else {
+        
+        
+        if element is USRestStop{
+            let restStop = element as! USRestStop
+            let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
+            let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
+            let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
+            restStopCell.configureCell(with: Int(distanceFromUser), restStop: restStop)
+            cell = restStopCell
             
-            let dataSourceElementForRow: AnyObject = {
-                if shouldAddServiceCell{
-                    return tableViewDataSourceList[indexPath.row - 1]
-                } else {
-                    return tableViewDataSourceList[indexPath.row]
-                }
-            }()
+        } else if element is YLPBusiness{
+            let business = element as! YLPBusiness
+            let yelpTableViewCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
+            yelpTableViewCell.setUp(for: business)
+            cell = yelpTableViewCell
             
-            if dataSourceElementForRow is USRestStop{
-                let restStop = dataSourceElementForRow as! USRestStop
-                let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
-                let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
-                let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
-                restStopCell.configureCell(with: Int(distanceFromUser), restStop: restStop)
-                cell = restStopCell
-                
-            } else if dataSourceElementForRow is YLPBusiness{
-                let business = dataSourceElementForRow as! YLPBusiness
-                let yelpTableViewCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
-                yelpTableViewCell.setUp(for: business)
-                cell = yelpTableViewCell
-                
-            } else if dataSourceElementForRow is HistoryUSRestStop{
-                let restStop = dataSourceElementForRow as! HistoryUSRestStop
-                let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
-                let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
-                let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
-                restStopCell.configureHistoryCell(with: Int(distanceFromUser), restStop: restStop)
-                cell = restStopCell
-            } else if dataSourceElementForRow is HistoryYelpBusiness{
-                let business = dataSourceElementForRow as! HistoryYelpBusiness
-                let yelpTableViewCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
-                yelpTableViewCell.setUpHistoryCell(for: business)
-                cell = yelpTableViewCell
-            }
-            
+        } else if element is HistoryUSRestStop{
+            let restStop = element as! HistoryUSRestStop
+            let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
+            let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
+            let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
+            restStopCell.configureHistoryCell(with: Int(distanceFromUser), restStop: restStop)
+            cell = restStopCell
+        } else if element is HistoryYelpBusiness{
+            let business = element as! HistoryYelpBusiness
+            let yelpTableViewCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
+            yelpTableViewCell.setUpHistoryCell(for: business)
+            cell = yelpTableViewCell
+        } else if element is BusinessSearchResultFirstCell{
+            let serviceCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, for: indexPath) as! BusinessSearchResultFirstCell
+            serviceCell.delegate = self
+            cell = serviceCell
         }
         
         return cell
@@ -413,7 +400,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
 
 extension BusinessSearchResultTableViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 && shouldAddServiceCell{
+        if indexPath.row == 0 && tableViewDataSourceList[indexPath.row] is BusinessSearchResultFirstCell{
             return 164
         } else {
             return 84
@@ -425,11 +412,7 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedElement: AnyObject = {
-            if shouldAddServiceCell{
-                return tableViewDataSourceList[indexPath.row - 1]
-            } else {
-                return tableViewDataSourceList[indexPath.row]
-            }
+            tableViewDataSourceList[indexPath.row]
         }()
         
         
@@ -448,7 +431,7 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if shouldAddServiceCell && indexPath.row == 0 {
+        if indexPath.row == 0 && tableViewDataSourceList[indexPath.row] is BusinessSearchResultFirstCell{
             return nil
         } else {return indexPath}
     }
@@ -464,17 +447,12 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        let firstCellIndexPath = IndexPath(row: 0, section: 0)
-        let firstCell = tableView.cellForRow(at: firstCellIndexPath)
-    
         if searchBar.text == "" {
-            shouldAddServiceCell = true
-            addTableViewFirstServiceRow()
+            addServiceCellToTableView()
             loadSearchHistory()
             return
-        } else if searchBar.text != "" && firstCell is BusinessSearchResultFirstCell{
-            shouldAddServiceCell = false
-            deleteTableViewFirstServiceRow()
+        } else if searchBar.text != "" {
+            removeServiceCellFromTableView()
         }
         
         
@@ -490,10 +468,7 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         
-        if !shouldAddServiceCell{
-            shouldAddServiceCell = true
-            addTableViewFirstServiceRow()
-        }
+        addServiceCellToTableView()
         
         
         
@@ -510,16 +485,8 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
-    
-        let firstCellIndexPath = IndexPath(row: 0, section: 0)
-        let firstCell = tableView.cellForRow(at: firstCellIndexPath)
-    
         
-        if !(firstCell is BusinessSearchResultFirstCell) && !shouldAddServiceCell {
-
-            shouldAddServiceCell = true
-            addTableViewFirstServiceRow()
-        }
+        addServiceCellToTableView()
         
         loadSearchHistory()
     }
