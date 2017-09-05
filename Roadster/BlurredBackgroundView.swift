@@ -20,7 +20,7 @@ class BlurredBackgroundView: UIView{
         super.init(frame: frame)
     }
     convenience init(frame: CGRect, addBackgroundPic: Bool) {
-        self.init(frame: CGRect.zero)
+        self.init(frame: frame)
         
         if addBackgroundPic{
             addSubview(imageView)
@@ -34,4 +34,5 @@ class BlurredBackgroundView: UIView{
         imageView.frame = self.bounds
         blurEffectView.frame = self.bounds
     }
+    
 }

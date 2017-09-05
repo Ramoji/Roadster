@@ -349,4 +349,23 @@ class HTTPHelper{
             }
         }
     }
+    
+    class func sendEmail(recepient: String, sender: String, subject: String, emailBody: String){
+        
+        let basicAuthentication = Request.authorizationHeader(user: "api", password: "key-619c0bfe2549ae5067cfc4b3db6a2bcd")
+        
+        let headers: HTTPHeaders = [(basicAuthentication?.key)!: (basicAuthentication?.value)!]
+        let parameters: Parameters? = ["from": "Heather Larson<mailgun@sandbox590f92129f0449539d99dda52ed1f197.mailgun.org>",
+                                       "to": recepient,
+                                       "subject": subject,
+                                       "text": emailBody]
+        
+        
+        Alamofire.request("https://api.mailgun.net/v3/sandbox590f92129f0449539d99dda52ed1f197.mailgun.org/messages", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON{ response in
+            
+            print(response)
+            
+        }
+    
+    }
 }

@@ -73,6 +73,7 @@ class BusinessDetailChildTableViewController: UITableViewController {
         imageViews = [imageView1, imageView2, imageView3]
         sectionOneHeaderViewContainer = getSectionOneHeaderView()
         registerNibs()
+        tableView.backgroundColor = UIColor.clear
     }
 
     func loadYelpComments(){
@@ -496,9 +497,12 @@ extension BusinessDetailChildTableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            return super.tableView(tableView, cellForRowAt: indexPath)
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            cell.backgroundColor = UIColor.clear
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpCommentCell) as! YelpCommentCell
+            cell.backgroundColor = UIColor.clear
             if indexPath.row < comments.count{ // Checking if number of static cells are in synic with number of comments in comments array
                 cell.configureCell(with: comments[indexPath.row])
             }

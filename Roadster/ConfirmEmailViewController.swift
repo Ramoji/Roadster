@@ -9,6 +9,10 @@
 import UIKit
 import Dispatch
 
+protocol ConfirmEmailViewControllerDelegate: class {
+    func confirmEmailViewControllerWillDeallocate(_ confirmEmailViewController: ConfirmEmailViewController)
+}
+
 class ConfirmEmailViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -16,6 +20,8 @@ class ConfirmEmailViewController: UIViewController {
     @IBOutlet weak var emailAddressesDoNotMatchAlertLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var anErrorOccuredTryAgainAlertLabel: UILabel!
+    
+    var originalPresenter: AnyObject!
 
     
     override var prefersStatusBarHidden: Bool{
@@ -88,18 +94,17 @@ class ConfirmEmailViewController: UIViewController {
                     }
                 } else {
                     
-                    let uiTabBarController = self.presentingViewController!.presentingViewController! as! UITabBarController
-                    let navigationController = uiTabBarController.selectedViewController as! UINavigationController
-                    let destination = navigationController.topViewController!
-                    switch destination {
-                    case is StaticDetailTableViewController:
+                    if let _ = self.originalPresenter as? StaticDetailTableViewController{
+                        
                         self.performSegue(withIdentifier: "unwindToStaticDetailTableViewController", sender: self)
-                        break
-                    default:
-                        break
+                        
+                    } else if let _ = self.originalPresenter as? AddressTableViewController{
+                        
+                        self.performSegue(withIdentifier: "unwindToAddressTableViewController", sender: self)
                     }
+                    
                 }
-        }
+            }
     }
     
     @IBAction func back(_ sender: UIButton){

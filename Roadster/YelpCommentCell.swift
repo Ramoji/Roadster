@@ -34,6 +34,7 @@ class YelpCommentCell: UITableViewCell {
     
     func configureCell(with comment: YelpComment){
         
+        commentTextView.backgroundColor = UIColor.clear
         if let comment = comment.comment{
             commentTextView.text = comment
         }

@@ -20,6 +20,7 @@ struct CustomCellTypeIdentifiers {
     static let UnorderedRestStopCell = "UnorderedRestStopCell"
     static let BusinessSearchResultFirstCell = "BusinessSearchResultFirstCell"
     static let YelpCommentCell = "YelpCommentCell"
+    static let addressMapItemCell = "AddressMapItemCell"
 }
 
 class StateListViewController: UIViewController {

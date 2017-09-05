@@ -50,6 +50,8 @@ class BusinessSearchResultTableViewController: UIViewController{
     let searchCompleter = MKLocalSearchCompleter()
     
     var searchHistory: [AnyObject] = []
+    
+    var addressDetector: NSDataDetector!
 
     
     override func viewDidLoad() {
@@ -57,6 +59,7 @@ class BusinessSearchResultTableViewController: UIViewController{
         
         let blurredBackgroundView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
         tableView.backgroundView = blurredBackgroundView
+        initiateAddressDestector()
         registerNibs()
         setUpSearchBar()
         setUpHeaderView()
@@ -104,6 +107,19 @@ class BusinessSearchResultTableViewController: UIViewController{
         }
         
         archiveSearchHistory()
+    }
+    
+    func initiateAddressDestector(){
+        
+        let types: NSTextCheckingResult.CheckingType = [.address]
+        
+        do{
+            addressDetector = try NSDataDetector(types: types.rawValue)
+        } catch {
+            print("*** error is: \(error.localizedDescription)")
+            fatalError()
+        }
+        
     }
     
    
@@ -184,6 +200,8 @@ class BusinessSearchResultTableViewController: UIViewController{
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell)
         nib = UINib(nibName: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell)
+        nib = UINib(nibName: CustomCellTypeIdentifiers.addressMapItemCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.addressMapItemCell)
     }
     
     func setUpView(){
@@ -335,6 +353,26 @@ class BusinessSearchResultTableViewController: UIViewController{
         tableView.reloadData()
     }
     
+    func searchAddress(for string: String){
+        
+        let localSearchRequest = MKLocalSearchRequest()
+        localSearchRequest.naturalLanguageQuery = string
+        localSearchRequest.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
+        
+        let localSearch = MKLocalSearch(request: localSearchRequest)
+        localSearch.start(completionHandler: {searchResponse, error in
+            guard error == nil else {
+                print(error.debugDescription)
+                return
+            }
+            
+            guard let mapItems = searchResponse?.mapItems else {return}
+            
+            self.tableViewDataSourceList = mapItems
+            self.tableView.reloadData()
+        })
+    }
+    
     deinit {
         
         print("*** BusinessSearchResultTableViewController deinitialized!")
@@ -391,6 +429,11 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             let serviceCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, for: indexPath) as! BusinessSearchResultFirstCell
             serviceCell.delegate = self
             cell = serviceCell
+        } else if element is MKMapItem{
+            
+            let addressCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.addressMapItemCell, for: indexPath) as! AddressMapItemCell
+            addressCell.configureCell(for: element as! MKMapItem)
+            cell = addressCell
         }
         
         return cell
@@ -402,10 +445,11 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 && tableViewDataSourceList[indexPath.row] is BusinessSearchResultFirstCell{
             return 164
+        } else if tableViewDataSourceList[indexPath.row] is MKMapItem{
+            return 62
         } else {
             return 84
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -500,10 +544,19 @@ extension BusinessSearchResultTableViewController: MKLocalSearchCompleterDelegat
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter){
         guard completer.results.count != 0 else {return}
         
-        print(completer.results[0].title)
-        searchTerm = completer.results[0].title
+        var searchTerm: String = completer.results.first!.title
+        if completer.results.first!.subtitle != "" {
+            searchTerm += ", " + completer.results.first!.subtitle
+        }
+        
+        
+        if let _ = addressDetector.firstMatch(in: searchTerm, options: [], range: NSMakeRange(0, searchTerm.utf8.count)){
+            searchAddress(for: searchTerm)
+        } else {
+            getBusinesses(withSearchTerm: searchTerm, userCoordinates: currentUserLocation.coordinate)
+        }
     
-        getBusinesses(withSearchTerm: completer.results[0].title, userCoordinates: currentUserLocation.coordinate)
+        
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error){

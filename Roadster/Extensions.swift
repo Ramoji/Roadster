@@ -20,6 +20,7 @@ extension UIView{
         self.layer.shadowOffset = CGSize(width: 0.2, height: 0)
         self.layer.shadowOpacity = 0.3
         self.layer.shadowRadius = 2.0
+        
     }
     
 }
@@ -27,6 +28,16 @@ extension UIView{
 extension Double {
     func convertToString() -> String {
         return String(self)
+    }
+}
+
+extension NSLayoutConstraint{
+    func hasExceeded(verticalUpperLimit:  CGFloat) -> Bool{
+        return self.constant < verticalUpperLimit
+    }
+    
+    func hasExceeded(middleLimit: CGFloat) -> Bool{
+        return self.constant < middleLimit
     }
 }
 

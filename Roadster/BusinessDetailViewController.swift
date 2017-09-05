@@ -1,10 +1,3 @@
-//
-//  BusinessDetailTableViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 12/19/16.
-//  Copyright © 2016 A Ja. All rights reserved.
-//
 
 import UIKit
 import YelpAPI
@@ -91,15 +84,22 @@ class BusinessDetailViewController: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let blurredBackgroundView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
-       //tableView.backgroundView = blurredBackgroundView
-        
+    
         constraintContainerView()
         setUpView()
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         getBusinessFromYelpAPI()
         setUpLocationManager()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let blurView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
+        blurView.layer.masksToBounds = true
+        blurView.layer.cornerRadius = 15.0
+        view.addSubview(blurView)
+        view.sendSubview(toBack: blurView)
     }
     
     func configureBusinessDetailViewController(){
@@ -342,9 +342,9 @@ class BusinessDetailViewController: UIViewController{
         let topConstraint = containerView.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 5.0)
         let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let widthConstraint = containerView.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
-        let heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 435.0)
+        let heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 405.0)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, widthConstraint, heightConstraint])
-        //tableView.backgroundColor = UIColor.clear
+        
     }
     
     func setUpView(){

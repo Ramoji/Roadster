@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class SignUpViewController: UIViewController {
     
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -22,6 +24,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var validEmailAddressAlertLabel: UILabel!
     @IBOutlet weak var passwordLengthRequirementAlertLabel: UILabel!
     @IBOutlet weak var usernameTakenAlertLable: UILabel!
+    
+    var originalPresenter: AnyObject!
     
     
 
@@ -125,6 +129,7 @@ class SignUpViewController: UIViewController {
             confirmEmailViewController.username = usernameTextField.text!
             confirmEmailViewController.email = emailTextField.text!
             confirmEmailViewController.password = passwordTextField.text!
+            confirmEmailViewController.originalPresenter = self.originalPresenter
         }
     }
     
@@ -149,5 +154,9 @@ class SignUpViewController: UIViewController {
     @IBAction func signIn(_ sender: UIButton) {
         let signInViewController = storyboard?.instantiateViewController(withIdentifier: "signInViewController")
         present(signInViewController!, animated: true, completion: nil)
+    }
+    
+    deinit {
+        print("*** sign up view controller will deallocate!")
     }
 }

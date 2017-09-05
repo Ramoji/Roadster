@@ -18,9 +18,12 @@ struct ChildControllersUpperConstraints {
     static let businessSearchResultControllerTopConstraintIdentifier = "businessSearchResultControllerTopConstraintIdentifier"
     static let businessDetailViewControllerTopConstraintIdentifier = "businessDetailControllerTopConstraintIdentifier"
     static let nearStaticRestStopDetailViewControllerTopConstraint = "nearStaticRestStopDetailViewController"
+    static let addressViewControllerTopConstraint = "addressViewControllerTopConstraint"
 }
 
 class NearByViewController: UIViewController {
+    
+    //The height for the tab bar is 49 points.
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -31,16 +34,18 @@ class NearByViewController: UIViewController {
     var businessSearchResultTableController: BusinessSearchResultTableViewController!
     var businessDetailViewController: BusinessDetailViewController!
     var nearStaticRestStopDetailViewController: NearStaticRestStopDetailViewController!
+    var addressViewController: AddressViewController!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     
     let verticalUpperLimit: CGFloat = -500
-    var totalYTransaction: CGFloat = -500 //Exceeding limit y transation (change name)
+    var totalExceedingUpperLimit: CGFloat = -500 //Exceeding limit y transation (change name)
     let verticalLowerLimit: CGFloat = -55
     let verticalHidingLimit: CGFloat = 100
     var verticalMiddleLimit: CGFloat = -250
+    var totalExceedingMiddleLimit: CGFloat = -250
     
     var shouldAddSearchTableView = true
     
@@ -59,6 +64,8 @@ class NearByViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
         
     }
     
@@ -252,8 +259,8 @@ class NearByViewController: UIViewController {
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
         if businessSearchResultControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
-            totalYTransaction += yTransaction
-            businessSearchResultControllerTopConstraint.constant = logConstraintValueForYPosition(totalYTransaction, verticalUpperLimit)
+            totalExceedingUpperLimit += yTransaction
+            businessSearchResultControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
             if sender.state == .ended {
                 
                 
@@ -299,8 +306,8 @@ class NearByViewController: UIViewController {
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
         if businessDetailViewControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
-            totalYTransaction += yTransaction
-            businessDetailViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalYTransaction, verticalUpperLimit)
+            totalExceedingUpperLimit += yTransaction
+            businessDetailViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
             if sender.state == .ended {
                 
                 
@@ -352,7 +359,7 @@ class NearByViewController: UIViewController {
             addDimView()
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
                 self.view.layoutIfNeeded()
-                self.totalYTransaction = self.verticalUpperLimit
+                self.totalExceedingUpperLimit = self.verticalUpperLimit
             }, completion: nil)
             
             break
@@ -364,7 +371,7 @@ class NearByViewController: UIViewController {
             addDimView()
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
                 self.view.layoutIfNeeded()
-                self.totalYTransaction = self.verticalUpperLimit
+                self.totalExceedingUpperLimit = self.verticalUpperLimit
             }, completion: nil)
             
             break
@@ -377,7 +384,22 @@ class NearByViewController: UIViewController {
             addDimView()
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
                 self.view.layoutIfNeeded()
-                self.totalYTransaction = self.verticalUpperLimit
+                self.totalExceedingUpperLimit = self.verticalUpperLimit
+            }, completion: nil)
+            
+            break
+            
+        case ChildControllersUpperConstraints.addressViewControllerTopConstraint:
+            topConstraint.constant = verticalUpperLimit
+            if let table = addressViewController.addressTableViewController.tableView{
+                table.isScrollEnabled = true
+            }
+            
+            addDimView()
+            
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
+                self.view.layoutIfNeeded()
+                self.totalExceedingUpperLimit = self.verticalUpperLimit
             }, completion: nil)
             
             break
@@ -432,6 +454,17 @@ class NearByViewController: UIViewController {
             }, completion: nil)
             break
             
+        case ChildControllersUpperConstraints.addressViewControllerTopConstraint:
+            topConstraint.constant = verticalMiddleLimit
+            if let table = addressViewController.addressTableViewController.tableView{
+                table.isScrollEnabled = false
+            }
+            self.removeDimView()
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            break
+            
         default:
             print("In Default!")
         }
@@ -477,6 +510,18 @@ class NearByViewController: UIViewController {
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
                 self.view.layoutIfNeeded()
             }, completion: nil)
+            break
+            
+        case ChildControllersUpperConstraints.addressViewControllerTopConstraint:
+            topConstraint.constant = verticalLowerLimit
+            if let table = addressViewController.addressTableViewController.tableView{
+                table.isScrollEnabled = false
+            }
+            removeDimView()
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: springDamping(yVelocity: yVelocity), initialSpringVelocity: 10, options: .allowUserInteraction, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
             break
             
         default:
@@ -541,12 +586,12 @@ class NearByViewController: UIViewController {
         businessDetailViewController.view.translatesAutoresizingMaskIntoConstraints = false
         let heightConstraint = businessDetailViewController.view.heightAnchor.constraint(equalToConstant: 800.0)
         let leadingConstraint = businessDetailViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
-        let trailingConstraint = businessDetailViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        let widthConstraint = businessDetailViewController.view.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
         let topConstraint = businessDetailViewController.view.topAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: -55)
         
         topConstraint.identifier = ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier
         
-        let constraints: [NSLayoutConstraint] = [heightConstraint, leadingConstraint, trailingConstraint, topConstraint]
+        let constraints: [NSLayoutConstraint] = [heightConstraint, leadingConstraint, widthConstraint, topConstraint]
         NSLayoutConstraint.activate(constraints)
         
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(businessDetailViewControllerDidPan(_:)))
@@ -611,8 +656,8 @@ class NearByViewController: UIViewController {
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
         if nearStaticRestStopDetailViewControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
-            totalYTransaction += yTransaction
-            nearStaticRestStopDetailViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalYTransaction, verticalUpperLimit)
+            totalExceedingUpperLimit += yTransaction
+            nearStaticRestStopDetailViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
             if sender.state == .ended {
                 
                 
@@ -650,19 +695,93 @@ class NearByViewController: UIViewController {
         sender.setTranslation(CGPoint.zero, in: self.view)
 
     }
+    
+    
+    func addAddressViewController(with mapItem: MKMapItem, and currentLocation: CLLocation){
+        addressViewController = storyboard?.instantiateViewController(withIdentifier: "AddressViewController") as! AddressViewController
+        addressViewController.mapItem = mapItem
+        addressViewController.currentUserLocation = currentLocation
+        addressViewController.delegate = self
+        
+        view.addSubview(addressViewController.view)
+        addChildViewController(addressViewController)
+        addressViewController.didMove(toParentViewController: self)
+        
+        addressViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let topConstraint = addressViewController.view.topAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -55.0)
+        topConstraint.identifier = ChildControllersUpperConstraints.addressViewControllerTopConstraint
+        
+        let leadingConstraint = addressViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let widthConstraint = addressViewController.view.widthAnchor.constraint(equalToConstant: view.bounds.width)
+        let heightConstraint = addressViewController.view.heightAnchor.constraint(equalToConstant: 800.0)
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, widthConstraint, heightConstraint])
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(addressViewControllerDidPan(_:)))
+        
+        addressViewController.view.addGestureRecognizer(panGesture)
+       
+    }
+    
+    func addressViewControllerDidPan(_ sender: UIPanGestureRecognizer){
+        
+        guard let _ = sender.view else {return}
+        guard let addressViewControllerTopConstraint = self.view.findConstraint(for: ChildControllersUpperConstraints.addressViewControllerTopConstraint) else {return}
+        let yVelocity = sender.velocity(in: self.view).y
+        
+        print(addressViewControllerTopConstraint.constant)
+        
+        let transaction = sender.translation(in: self.view)
+        if addressViewControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
+            
+            totalExceedingUpperLimit += transaction.y
+            addressViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
+            if sender.state == .ended{
+                animateToUpperLimit(yVelocity: 500, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+            }
+        } else {
+            
+            addressViewControllerTopConstraint.constant += transaction.y
+            
+            
+            if sender.state == .ended {
+                if (addressViewControllerTopConstraint.constant > -500 && addressViewControllerTopConstraint.constant < -300  && yVelocity > 0){
+                    
+                    animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                    
+                } else if (addressViewControllerTopConstraint.constant > -500 && addressViewControllerTopConstraint.constant < -300 && yVelocity < 0){
+                    
+                    animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                    
+                } else if ((addressViewControllerTopConstraint.constant > -300 && addressViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
+                    
+                    animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                    
+                } else if ((addressViewControllerTopConstraint.constant > -300 && addressViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
+                    
+                    animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                    
+                } else if addressViewControllerTopConstraint.constant > -55 {
+                    animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        sender.setTranslation(CGPoint.zero, in: self.view)
+        
+    }
    
     
     
     
 }
 
-extension NSLayoutConstraint{
-    func hasExceeded(verticalUpperLimit:  CGFloat) -> Bool{
-        
-        return self.constant < verticalUpperLimit
-        
-    }
-}
+
 
 
 
@@ -775,6 +894,19 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             longitude = yelpBusiness.location.coordinate?.longitude
             addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
+        } else if poi is MKMapItem{
+            let mapItem = poi as! MKMapItem
+            if let location = mapItem.placemark.location{
+                latitude = location.coordinate.latitude
+                longitude = location.coordinate.longitude
+                addAddressViewController(with: mapItem, and: currentLocation)
+            }
+            
+            animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+        } else if poi is HistoryUSRestStop{
+            
+        } else if poi is HistoryYelpBusiness{
+            
         }
         
         mapView.deselectAnnotations(mapView.annotations)
@@ -893,6 +1025,24 @@ extension NearByViewController: NearStaticRestStopDetailViewControllerDelegate{
     
     func nearStaticRestStopDetailViewControllerDidRequestUpdate(_ narStaticRestStopDetailViewControllerwith: NearStaticRestStopDetailViewController, restStop: USRestStop) {
         
+    }
+}
+
+extension NearByViewController: AddressViewControllerDelegate{
+    func addressViewControllerDidTapCloseButton(_ addressViewController: AddressViewController) {
+        print("*** In address view controller delegate!")
+        animateToHidingLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint){isComplete in
+            if isComplete{
+                self.addressViewController.willMove(toParentViewController: nil)
+                self.addressViewController.removeFromParentViewController()
+                self.addressViewController.view.removeFromSuperview()
+                self.addressViewController = nil
+                self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+                if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
+                    self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
+            }
+        }
     }
 }
 
