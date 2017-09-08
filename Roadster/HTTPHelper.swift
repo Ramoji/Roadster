@@ -12,6 +12,8 @@ import CryptoSwift
 import Dispatch
 import SwiftyJSON
 import AlamofireImage
+import CoreLocation
+import SwiftKeychainWrapper
 
 struct APIURLs {
     
@@ -24,8 +26,8 @@ struct APIURLs {
 }
 
 struct Comment {
-    var latitude: Double
-    var longitude: Double
+    var latitude: String
+    var longitude: String
     var email: String
     var username: String
     var comment: String
@@ -45,11 +47,12 @@ struct APIErrorMessages {
 class HTTPHelper{
     
     
-    static let cypherHelper = CypherHelper()
+    let cypherHelper = CypherHelper()
+    static let shared: HTTPHelper = HTTPHelper()
 
     
     
-    class func registerUser(name: String, lastname: String, username: String, email: String, password: String, apiCallCompleted: @escaping (_ complete: Bool, _ errorMessage: String?)->()){
+    func registerUser(name: String, lastname: String, username: String, email: String, password: String, apiCallCompleted: @escaping (_ complete: Bool, _ errorMessage: String?)->()){
         let encryptedPassword = cypherHelper.encrypt(string: password)
         let parameters: Parameters = [
             "name": name.lowercased(),
@@ -81,7 +84,7 @@ class HTTPHelper{
                 }
                 
                 if let _ = responseDictionary["error"] {
-                    
+                    print("*** responseDictionary error message is :\(responseDictionary["message"]!)")
                     switch responseDictionary["message"]! as! String{
                     case APIErrorMessages.emailExists:
                         apiCallCompleted(true, APIErrorMessages.emailExists)
@@ -90,12 +93,13 @@ class HTTPHelper{
                         apiCallCompleted(true, APIErrorMessages.userExists)
                         break
                     default:
-                        apiCallCompleted(true, APIErrorMessages.invalidCredentials)
+                        print("*** In register user default case.")
+                        //apiCallCompleted(true, APIErrorMessages.invalidCredentials)
                     }
                 } else {
                     apiCallCompleted(true, nil)
                     CypherHelper.saveAccessToken(
-                        forUserEmail: responseDictionary["email"]! as! String,
+                        forUserEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String,
                         andToken: responseDictionary["accessToken"]! as! String,
                         withExpiryDate: responseDictionary["expiryDate"]! as! String)
                 }
@@ -107,7 +111,7 @@ class HTTPHelper{
         }
     }
     
-    class func signinUser(email: String, password: String, requestComplete: @escaping (_ completed: Bool, _ httpErrorMessage: String?) -> ()){
+    func signinUser(email: String, password: String, requestComplete: @escaping (_ completed: Bool, _ httpErrorMessage: String?) -> ()){
         
         var headers: HTTPHeaders = [:]
         let encryptedPassword = cypherHelper.encrypt(string: password)
@@ -138,7 +142,7 @@ class HTTPHelper{
                     }
                 } else {
                     requestComplete(true, nil)
-                    CypherHelper.saveAccessToken(forUserEmail: responseDictionary["email"]! as! String, andToken: responseDictionary["accessToken"]! as! String, withExpiryDate: responseDictionary["expiryDate"]! as! String)
+                    CypherHelper.saveAccessToken(forUserEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String, andToken: responseDictionary["accessToken"]! as! String, withExpiryDate: responseDictionary["expiryDate"]! as! String)
                 }
                 
                 break
@@ -149,11 +153,11 @@ class HTTPHelper{
         }
     }
     
-    class func getComments(restStop: USRestStop, reloadTableViewClosure: @escaping (_ comments: [Comment])->()){
+    func getComments(restStop: USRestStop, reloadTableViewClosure: @escaping (_ comments: [Comment], _ rating: Double)->()){
         
         var commentArray: [Comment] = []
         
-        let parameters: Parameters = ["latitude": "-88.393032", "longitude": "30.477238"]
+        let parameters: Parameters = ["latitude": "\(restStop.coordinate.latitude)", "longitude": "\(restStop.coordinate.longitude)"]
         var headers: HTTPHeaders = [:]
         
         if let authorizationHeader = Request.authorizationHeader(user: APICredentials.encryptedAPI_USERNAME, password: APICredentials.encryptedAPI_KEY){
@@ -169,8 +173,8 @@ class HTTPHelper{
                     print(jsonObject)
                     let publicComment = jsonObject as! [String: AnyObject]
                     let comment = Comment(
-                                          latitude: publicComment["latitude"]! as! Double,
-                                          longitude: publicComment["longitude"]! as! Double,
+                                          latitude: publicComment["latitude"]! as! String,
+                                          longitude: publicComment["longitude"]! as! String,
                                           email: publicComment["email"]! as! String,
                                           username: publicComment["username"]! as! String,
                                           comment: publicComment["comment"]! as! String,
@@ -178,7 +182,7 @@ class HTTPHelper{
                                           rating: publicComment["rating"]! as! Double)
                     commentArray.append(comment)
                 }
-                reloadTableViewClosure(commentArray)
+                reloadTableViewClosure(commentArray, self.calculateRating(comments: commentArray))
             }catch{
                 print("Failed to parse comment json response!")
             }
@@ -186,7 +190,7 @@ class HTTPHelper{
         
     }
     
-    class func postComment(comment: Comment, userEmail: String, accessToken: String){
+    func postComment(comment: Comment, userEmail: String, completionHandler: @escaping (_ completed: Bool) -> ()){
         let parameters: Parameters = [
             "latitude": String(comment.latitude),
             "longitude": String(comment.longitude),
@@ -194,8 +198,10 @@ class HTTPHelper{
             "username": comment.username,
             "comment": comment.comment,
             "date": comment.date,
-            "rating": String(comment.rating)
+            "rating": comment.rating
         ]
+        
+        let accessToken = KeychainWrapper.standard.string(forKey: KeychainKeys.currentUserToken)!
         
         var headers: HTTPHeaders = [:]
         
@@ -205,13 +211,15 @@ class HTTPHelper{
         
         Alamofire.request(APIURLs.postCommentURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).response{ response in
             if response.error != nil{
-                print("There was an error posting comment")
+                completionHandler(false)
+            } else {
+                completionHandler(true)
             }
         }
         
     }
     
-    class func checkUsernameUniqueness(username: String, completedCheck:@escaping (_ completed: Bool,_ httpErrorMessage:String?)->()){
+    func checkUsernameUniqueness(username: String, completedCheck:@escaping (_ completed: Bool,_ httpErrorMessage:String?)->()){
         
         var headers: HTTPHeaders = [:]
         
@@ -251,7 +259,7 @@ class HTTPHelper{
         }
     }
     
-    class func logout(){
+    func logout(){
         var headers: HTTPHeaders = [:]
         if let authorizationHeader = Request.authorizationHeader(user: APICredentials.encryptedAPI_USERNAME, password: APICredentials.encryptedAPI_KEY){
             headers[authorizationHeader.key] = authorizationHeader.value
@@ -264,7 +272,7 @@ class HTTPHelper{
         CypherHelper.deleteAccessToken()
     }
     
-    class func getYelpComments(for businessID: String, completionHandlers: @escaping (_ data: Data) -> ()){
+    func getYelpComments(for businessID: String, completionHandlers: @escaping (_ data: Data) -> ()){
         
         checkYelpAccessTokenValidityAndExecute{ yelpToken in
             
@@ -283,7 +291,7 @@ class HTTPHelper{
         }
     }
     
-    class func checkYelpAccessTokenValidityAndExecute(block: @escaping (_ yelpToken: String) -> ()){
+    func checkYelpAccessTokenValidityAndExecute(block: @escaping (_ yelpToken: String) -> ()){
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         
@@ -340,7 +348,7 @@ class HTTPHelper{
         }
     }
     
-    class func getImage(from url: String, completionHandler: @escaping (_ image: UIImage) -> ()){
+    func getImage(from url: String, completionHandler: @escaping (_ image: UIImage) -> ()){
         var downloadedImage: UIImage = #imageLiteral(resourceName: "NoImage")
         Alamofire.request(url).responseImage{response in
             if let image = response.result.value{
@@ -350,7 +358,7 @@ class HTTPHelper{
         }
     }
     
-    class func sendEmail(recepient: String, sender: String, subject: String, emailBody: String){
+    func sendEmail(recepient: String, sender: String, subject: String, emailBody: String){
         
         let basicAuthentication = Request.authorizationHeader(user: "api", password: "key-619c0bfe2549ae5067cfc4b3db6a2bcd")
         
@@ -368,4 +376,23 @@ class HTTPHelper{
         }
     
     }
+    
+    private func calculateRating(comments: [Comment]) -> Double{
+        
+        guard comments.count != 0 else {return 0.0}
+        
+        let averageRating: Double = {
+            var ratingSum: Double = 0.0
+            for comment in comments{
+                ratingSum += comment.rating
+            }
+            let averageRating: Double = ratingSum / Double(comments.count)
+            return averageRating
+        }()
+        
+        return averageRating.roundToNearestHalf()
+    }
+    
+    
+    
 }

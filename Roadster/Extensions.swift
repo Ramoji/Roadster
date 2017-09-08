@@ -29,6 +29,10 @@ extension Double {
     func convertToString() -> String {
         return String(self)
     }
+    
+    func roundToNearestHalf() -> Double{
+        return (self * 2).rounded() / 2
+    }
 }
 
 extension NSLayoutConstraint{
@@ -40,6 +44,10 @@ extension NSLayoutConstraint{
         return self.constant < middleLimit
     }
 }
+
+
+
+
 
 
 

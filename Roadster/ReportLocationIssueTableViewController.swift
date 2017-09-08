@@ -36,7 +36,7 @@ class ReportLocationIssueTableViewController: UITableViewController {
 
     @IBAction func send(_ sender: UIBarButtonItem){
         
-        HTTPHelper.sendEmail(recepient: "wzk014@gmail.com", sender: "", subject: "TEST", emailBody: "SENT FROM WITHIN ROADSTER!")
+        HTTPHelper.shared.sendEmail(recepient: "wzk014@gmail.com", sender: "", subject: "TEST", emailBody: "SENT FROM WITHIN ROADSTER!")
         
         if let navigationController = navigationController{
             let hudView = HUDView.createHUD(inView: navigationController.view, animated: true)

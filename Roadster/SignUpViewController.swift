@@ -86,7 +86,7 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        HTTPHelper.checkUsernameUniqueness(username: usernameTextField.text!){
+        HTTPHelper.shared.checkUsernameUniqueness(username: usernameTextField.text!){
             completed, error in
             guard completed else {
                 let alert = UIAlertController(title: "Network Error", message: "There was a network error while processing your request. Please try again later.", preferredStyle: .alert)

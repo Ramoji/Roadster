@@ -41,7 +41,7 @@ class YelpCommentCell: UITableViewCell {
         
         if let imageURL = comment.userImageURL{
             
-            HTTPHelper.getImage(from: imageURL){image in
+            HTTPHelper.shared.getImage(from: imageURL){image in
                 let imageWithNewSize = image.resizeImage(CGSize(width: 40.0, height: 40.0)).withRenderingMode(.alwaysOriginal)
                 self.userImageView.image = imageWithNewSize
             }

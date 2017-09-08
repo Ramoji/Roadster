@@ -35,7 +35,7 @@ class SignInViewController: UIViewController {
     
     @IBAction func signIn(_ sender: UIButton){
         
-        HTTPHelper.signinUser(email: emailTextField.text!, password: passwordTextField.text!){completed, error in
+        HTTPHelper.shared.signinUser(email: emailTextField.text!, password: passwordTextField.text!){completed, error in
             
             guard completed else {
                 let alert = UIAlertController(title: "Network Error", message: "There was a network error while processing your request. Please try again later.", preferredStyle: .alert)
@@ -67,7 +67,7 @@ class SignInViewController: UIViewController {
     }
     
     func textFieldsDidChangeText() {
-        print("In target method!")
+        
         if emailTextField.text != "" && passwordTextField.text != ""{
             toggleSignInButton(isEnabled: true)
         } else {

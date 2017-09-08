@@ -23,6 +23,7 @@ struct APICredentials {
 struct DefaultKeys {
     static let signedIn = "signedIn"
     static let currentUserEmail = "currentUserEmail"
+    static let currentUsername = "currentUsername"
     static let yelpAccessToken = "yelpAccessToken"
     static let yelpAccessTokenExpiryDate = "yelpAccessTokenExpireyDate"
 }
@@ -56,11 +57,12 @@ class CypherHelper{
         return encryptedString!
     }
     
-    class func saveAccessToken(forUserEmail userEmail: String, andToken token: String, withExpiryDate expiryDate: String){
+    class func saveAccessToken(forUserEmail userEmail: String, username: String, andToken token: String, withExpiryDate expiryDate: String){
         KeychainWrapper.standard.set(token, forKey: KeychainKeys.currentUserToken)
         KeychainWrapper.standard.set(expiryDate, forKey: KeychainKeys.expiryDate)
         defaults.set(true, forKey: DefaultKeys.signedIn)
         defaults.set(userEmail, forKey: DefaultKeys.currentUserEmail)
+        defaults.set(username, forKey: DefaultKeys.currentUsername)
         defaults.synchronize()
     }
     

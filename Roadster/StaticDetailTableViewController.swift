@@ -39,7 +39,8 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var commnetButton: UIButton!
     @IBOutlet weak var cancelComment: UIButton!
-    @IBOutlet weak var ratingStars: UIImageView!
+    @IBOutlet weak var commentRatingImageView: UIImageView!
+    @IBOutlet weak var ratingImageView: UIImageView!
     
     @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
     
@@ -56,6 +57,8 @@ class StaticDetailTableViewController: UITableViewController {
     var fullStateName: String!
     let blurredBackgroudView = BlurredBackgroundView(frame: CGRect.zero, addBackgroundPic: true)
     var comments: [Comment] = []
+    var averageRating: Double = 0.0
+    var commentRating: Double = 0
 
     
     
@@ -67,6 +70,7 @@ class StaticDetailTableViewController: UITableViewController {
         setUpViewForRestStop()
         loadComments()
         
+        commentRatingImageView.isUserInteractionEnabled = true
         ///////////
         let nib = UINib(nibName: "CommentCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "CommentCell")
@@ -89,6 +93,8 @@ class StaticDetailTableViewController: UITableViewController {
     
     func setUpTableView(){
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 88
     }
     
     func setUpSegmentedControl(){
@@ -104,7 +110,14 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     func setUpViewForRestStop(){
+        
+        
         let iconSize = CGSize(width: 25.0, height: 25.0)
+        
+        if let ratingImage = UIImage(named: "\(averageRating)stars"){
+            ratingImageView.image = ratingImage.resizeImage(CGSize(width: ratingImageView.bounds.width, height:ratingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+        }
+        
         let vehicleIconSize = CGSize(width: 25.0, height: 25.0)
         prepIconViews()
         if let restStop = restStop, let fullStateName = fullStateName{
@@ -163,9 +176,7 @@ class StaticDetailTableViewController: UITableViewController {
         print("***Receiving Memory Warning from StaticDetailTableViewController!")
     }
 
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
-    }
+    
     
     func setUpMapView(){
         if let restStop = restStop{
@@ -192,23 +203,84 @@ class StaticDetailTableViewController: UITableViewController {
         }
     }
     @IBAction func comment(_ sender: UIButton) {
-        hideCommentButtons()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        
         
         let commentText = commentTextView.text!
-        print(commentText)
-       
+        
+        
+        
+        let email = UserDefaults.standard.object(forKey: DefaultKeys.currentUserEmail) as! String
+        let username = UserDefaults.standard.object(forKey: DefaultKeys.currentUsername) as! String
+        let dateString = dateFormatter.string(from: Date())
+        
+        let comment = Comment(latitude: restStop.coordinate.latitude.convertToString(), longitude: restStop.coordinate.longitude.convertToString(), email: email, username: username, comment: commentText, date: dateString, rating: commentRating)
+        
+    
+        HTTPHelper.shared.postComment(comment: comment, userEmail: email){
+            completed in
+            
+            if completed{
+                self.loadComments()
+            } else {
+                let couldNotPostCommentAlert = UIAlertController(title: "Network Error", message: "Could not post comment due to a network error. Please try again in a few moments", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+                couldNotPostCommentAlert.addAction(action)
+                self.present(couldNotPostCommentAlert, animated: true, completion: nil)
+            }
+        }
+        
+        
+        hideCommentButtons()
+    
+    }
+    
+    @IBAction func commentRatingImageViewDidTap(_ sender: UITapGestureRecognizer){
+        let tapLocation = sender.location(in: commentRatingImageView)
+        if tapLocation.x <= 10{
+            commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 0
+        } else if tapLocation.x > 10 && tapLocation.x <= 20 {
+            commentRatingImageView.image = #imageLiteral(resourceName: "1.0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 1
+        } else if tapLocation.x > 20 && tapLocation.x <= 30{
+            commentRatingImageView.image = #imageLiteral(resourceName: "1.5stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 1.5
+        } else if tapLocation.x > 30 && tapLocation.x <= 40{
+            commentRatingImageView.image = #imageLiteral(resourceName: "2.0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 2.0
+        } else if tapLocation.x > 40 && tapLocation.x <= 50{
+            commentRatingImageView.image = #imageLiteral(resourceName: "2.5stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 2.5
+        } else if tapLocation.x > 50 && tapLocation.x <= 60{
+            commentRatingImageView.image = #imageLiteral(resourceName: "3.0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 3.0
+        } else if tapLocation.x > 60 && tapLocation.x <= 70{
+            commentRatingImageView.image = #imageLiteral(resourceName: "3.5stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 3.5
+        } else if tapLocation.x > 70 && tapLocation.x <= 80{
+            commentRatingImageView.image = #imageLiteral(resourceName: "4.0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 4.0
+        } else if tapLocation.x > 80 && tapLocation.x <= 90{
+            commentRatingImageView.image = #imageLiteral(resourceName: "4.5stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 4.5
+        } else if tapLocation.x > 90 && tapLocation.x <= 100{
+            commentRatingImageView.image = #imageLiteral(resourceName: "5.0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+            commentRating = 5.0
+        }
     }
     
     @IBAction func cancelComment(_ sender: UIButton) {
         hideCommentButtons()
     }
     
-    @IBAction func commentSectionTapped(_ sender: Any) {
-        hideCommentButtons()
-    }
     
     func hideCommentButtons(){
         if commentTextView.isFirstResponder{
+            resetCommentRatingImageView()
+            commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
             commentTextView.resignFirstResponder()
             commentTextView.textColor = UIColor.lightGray
             commentTextView.text = "Add a public comment..."
@@ -217,8 +289,8 @@ class StaticDetailTableViewController: UITableViewController {
                 self.commnetButton.alpha = 0.0
                 self.cancelComment.center.y = 50
                 self.cancelComment.alpha = 0.0
-                self.ratingStars.center.y = 50
-                self.ratingStars.alpha = 0.0
+                self.commentRatingImageView.center.y = 50
+                self.commentRatingImageView.alpha = 0.0
                 self.commentTextViewHeightConstraint.constant = 40
                 self.view.setNeedsLayout()
                 self.commnetButton.isEnabled = false
@@ -227,10 +299,17 @@ class StaticDetailTableViewController: UITableViewController {
         }
     }
     
+    private func resetCommentRatingImageView(){
+        commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
+        commentRating = 0
+    }
+    
     func loadComments(){
-        HTTPHelper.getComments(restStop: restStop){ publicComments in
+        HTTPHelper.shared.getComments(restStop: restStop){ publicComments, averageRating in
             self.comments = publicComments
+            self.averageRating = averageRating
             self.tableView.reloadData()
+            self.setUpViewForRestStop()
         }
     }
     
@@ -351,7 +430,7 @@ extension StaticDetailTableViewController: UITextViewDelegate{
         commnetButton.isHidden = false
         cancelComment.isHidden = false
         commnetButton.isEnabled = false
-        ratingStars.isHidden = false
+        commentRatingImageView.isHidden = false
         commentTextView.translatesAutoresizingMaskIntoConstraints = false
         commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
         UIView.animate(withDuration: 0.5){
@@ -360,8 +439,8 @@ extension StaticDetailTableViewController: UITextViewDelegate{
             self.cancelComment.center.y = 77
             self.cancelComment.alpha = 1.0
             self.commentTextViewHeightConstraint.constant = 50
-            self.ratingStars.center.y = 77
-            self.ratingStars.alpha = 1.0
+            self.commentRatingImageView.center.y = 77
+            self.commentRatingImageView.alpha = 1.0
             self.view.setNeedsLayout()
             
         }
@@ -385,6 +464,8 @@ extension StaticDetailTableViewController: UITextViewDelegate{
         
     }
     
+    
+    
 }
 
 extension StaticDetailTableViewController{
@@ -401,8 +482,9 @@ extension StaticDetailTableViewController{
         if indexPath.section == 0 {
             return super.tableView(tableView, cellForRowAt: indexPath)
         } else {
-            let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
-            commentCell.commentLabel.text = comments[indexPath.row].comment
+            var commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+            
+            commentCell.configureCell(with: comments[indexPath.row])
             return commentCell
         }
     }
@@ -439,6 +521,9 @@ extension StaticDetailTableViewController{
         return indentationLevel
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
     
 }
 

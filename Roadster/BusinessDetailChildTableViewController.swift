@@ -83,7 +83,7 @@ class BusinessDetailChildTableViewController: UITableViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         
-        HTTPHelper.getYelpComments(for: businessID, completionHandlers: { data in
+        HTTPHelper.shared.getYelpComments(for: businessID, completionHandlers: { data in
             let json = JSON(data)
             let reviews = json["reviews"].arrayValue.map({return $0.dictionaryValue})
             var commentDate: Date?

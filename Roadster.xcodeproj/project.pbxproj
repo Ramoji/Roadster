@@ -198,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				8CCA319A1F162EA4009B26EF /* BusinessDetailChildTableViewController.swift */,
-				21A337F11E08C423003EAC1F /* BusinessDetailViewController.swift */,
 				21A337EF1E08C375003EAC1F /* BusinessSearchResultTableViewController.swift */,
 				8C9F74341ED3D93500B81DC4 /* ConfirmEmailViewController.swift */,
 				21852DEF1D966B7D00FE2A53 /* HighwayListViewController.swift */,
@@ -310,6 +309,7 @@
 				21C8E62B1D7FD44A007F67E2 /* LaunchScreen.storyboard */,
 				21C8E6261D7FD44A007F67E2 /* Main.storyboard */,
 				216A2BA41DE8A5FA0097DC83 /* PinRestStopAnnotation.swift */,
+				21A337F11E08C423003EAC1F /* BusinessDetailViewController.swift */,
 				21C8E6341D80644C007F67E2 /* States.swift */,
 				2121E9A31DC6D0DB0057F4B0 /* UIImage+Resize.swift */,
 				216A2BA81DEAAC280097DC83 /* UILabel+Modify.swift */,

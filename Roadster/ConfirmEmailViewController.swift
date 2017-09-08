@@ -54,7 +54,7 @@ class ConfirmEmailViewController: UIViewController {
         }
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        HTTPHelper.registerUser(
+        HTTPHelper.shared.registerUser(
             name: firstName.lowercased(),
             lastname: lastname.lowercased(),
             username: username.lowercased(),
@@ -89,8 +89,12 @@ class ConfirmEmailViewController: UIViewController {
                     case APIErrorMessages.userExists:
                         //Already handled in the previous view
                         break
+                    case APIErrorMessages.invalidCredentials:
+                        print("*** API Credentials for signing up is not valid.")
+                        break
                     default:
                         self.animate(alertBanner: self.anErrorOccuredTryAgainAlertLabel)
+                        print(error)
                     }
                 } else {
                     

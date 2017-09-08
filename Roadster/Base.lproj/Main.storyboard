@@ -882,14 +882,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AuT-np-fAo">
+                                                    <rect key="frame" x="256" y="65" width="100" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="27" id="C7o-vk-rDo"/>
+                                                        <constraint firstAttribute="width" constant="100" id="qoU-Lr-TfB"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Gmv-RW-wxZ" secondAttribute="bottom" constant="12" id="57k-Xa-q5w"/>
                                                 <constraint firstAttribute="bottom" secondItem="Lso-n3-IsI" secondAttribute="bottom" constant="8" id="7uj-tB-v3V"/>
                                                 <constraint firstItem="Gmv-RW-wxZ" firstAttribute="top" secondItem="oTe-3f-l8l" secondAttribute="bottom" constant="4" id="86d-7s-vcc"/>
                                                 <constraint firstItem="Gmv-RW-wxZ" firstAttribute="leading" secondItem="sfM-vD-yDw" secondAttribute="leading" constant="8" id="HA5-MN-sMA"/>
+                                                <constraint firstAttribute="trailing" secondItem="AuT-np-fAo" secondAttribute="trailing" constant="19" id="HHu-eC-RP9"/>
                                                 <constraint firstItem="Lso-n3-IsI" firstAttribute="leading" secondItem="Gmv-RW-wxZ" secondAttribute="trailing" constant="10" id="KgY-aH-RQe"/>
                                                 <constraint firstItem="7VO-3G-VTb" firstAttribute="top" secondItem="sfM-vD-yDw" secondAttribute="topMargin" id="OSw-QA-D3r"/>
+                                                <constraint firstAttribute="bottom" secondItem="AuT-np-fAo" secondAttribute="bottom" constant="8" id="Qjd-QQ-vue"/>
                                                 <constraint firstItem="oTe-3f-l8l" firstAttribute="leading" secondItem="sfM-vD-yDw" secondAttribute="leading" constant="8" id="bg0-Ll-MwJ"/>
                                                 <constraint firstItem="4Pe-5I-cZG" firstAttribute="top" secondItem="sfM-vD-yDw" secondAttribute="topMargin" id="dTb-ct-fmY"/>
                                                 <constraint firstAttribute="bottom" secondItem="ocz-CW-E2R" secondAttribute="bottom" constant="28" id="fxM-df-1IP"/>
@@ -1174,7 +1183,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="Xft-5R-cAt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="Xft-5R-cAt">
                                         <rect key="frame" x="0.0" y="501" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xft-5R-cAt" id="LlD-Sd-qt7">
@@ -1252,6 +1261,10 @@
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0stars" translatesAutoresizingMaskIntoConstraints="NO" id="E7Z-tb-5iA">
                                                     <rect key="frame" x="26" y="50" width="100" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <gestureRecognizers/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="S7h-lL-pFS" appends="YES" id="b3A-kq-hXP"/>
+                                                    </connections>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -1262,9 +1275,6 @@
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <inset key="separatorInset" minX="375" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="sAR-5i-N7K" appends="YES" id="5nS-lr-MxO"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1289,6 +1299,7 @@
                     </tableView>
                     <connections>
                         <outlet property="cancelComment" destination="sBq-Wx-ElJ" id="2mS-O2-yQz"/>
+                        <outlet property="commentRatingImageView" destination="E7Z-tb-5iA" id="KGW-UV-tnb"/>
                         <outlet property="commentTextView" destination="gTa-tN-z8A" id="gqr-xn-NvK"/>
                         <outlet property="commentTextViewHeightConstraint" destination="lB6-Md-2U5" id="TcZ-uH-ahe"/>
                         <outlet property="commnetButton" destination="RPR-yz-R4q" id="TRb-rd-M2e"/>
@@ -1310,7 +1321,7 @@
                         <outlet property="mapView" destination="V92-Vm-wIb" id="PUs-Xr-Syu"/>
                         <outlet property="navigateButton" destination="HvX-aq-v3b" id="aoV-PU-w28"/>
                         <outlet property="parkingImageView" destination="epT-Bs-4j8" id="T77-bQ-Siw"/>
-                        <outlet property="ratingStars" destination="E7Z-tb-5iA" id="Sue-Pu-I9l"/>
+                        <outlet property="ratingImageView" destination="AuT-np-fAo" id="TCQ-e2-ODS"/>
                         <outlet property="reportInfoButton" destination="lGS-r2-mQJ" id="xf9-oO-82p"/>
                         <outlet property="sedanCar" destination="1ad-kk-mgu" id="ugc-2B-D2w"/>
                         <outlet property="segmentedControl" destination="4Pe-5I-cZG" id="VZL-VE-Wbd"/>
@@ -1320,9 +1331,9 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EWA-EK-l03" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="sAR-5i-N7K">
+                <tapGestureRecognizer id="S7h-lL-pFS">
                     <connections>
-                        <action selector="commentSectionTapped:" destination="nH8-3U-MS4" id="aUQ-gO-v0M"/>
+                        <action selector="commentRatingImageViewDidTap:" destination="nH8-3U-MS4" id="tOZ-xx-TMh"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1579,7 +1590,7 @@
                                         <rect key="frame" x="0.0" y="694" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ttK-Vr-bKp" id="gkw-Ws-iEw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Car Parking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtx-mr-gnx">
@@ -1600,7 +1611,7 @@
                                         <rect key="frame" x="0.0" y="744" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uDI-Nb-N54" id="hT5-Zx-Tkd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0S3-vm-2PK" customClass="CustomButton" customModule="Roadster" customModuleProvider="target">
