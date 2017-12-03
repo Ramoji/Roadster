@@ -35,11 +35,23 @@ class YelpTableViewCell: UITableViewCell {
         prepareCell()
         backgroundColor = UIColor.clear
         businessRatingImageView.isHidden = false
-        let businessTitleText = yelpBusiness.name.appending(" (\(yelpBusiness.categories[0].name))") as NSString
-        let categoryRange = businessTitleText.range(of: " (\(yelpBusiness.categories[0].name))", options: .caseInsensitive)
-        let categoryMutableString = NSMutableAttributedString(string: businessTitleText as String, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)])
-        categoryMutableString.removeAttribute(NSFontAttributeName, range: categoryRange)
-        categoryMutableString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 13)], range: categoryRange)
+        
+        let categoryMutableString: NSMutableAttributedString = {
+            var businessTitleText: NSString = yelpBusiness.name as NSString
+            var categoryMutableString: NSMutableAttributedString!
+            if yelpBusiness.categories.isEmpty{
+
+                categoryMutableString = NSMutableAttributedString(string: businessTitleText as String)
+            } else {
+
+                businessTitleText = businessTitleText.appending(" (\(yelpBusiness.categories[0].name))") as NSString
+                let categoryRange = businessTitleText.range(of: " (\(yelpBusiness.categories[0].name))", options: .caseInsensitive)
+                categoryMutableString = NSMutableAttributedString(string: businessTitleText as String, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15)])
+                categoryMutableString.removeAttribute(NSFontAttributeName, range: categoryRange)
+                categoryMutableString.addAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 13)], range: categoryRange)
+            }
+            return categoryMutableString
+        }()
         businessTitle.attributedText = categoryMutableString
         
         if !yelpBusiness.location.address.isEmpty{

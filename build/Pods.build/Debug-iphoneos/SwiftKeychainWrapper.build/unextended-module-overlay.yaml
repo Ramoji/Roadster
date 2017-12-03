@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/me/Documents/SeriousDesign/Roadster/build/Debug-iphoneos/SwiftKeychainWrapper/SwiftKeychainWrapper.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/me/Documents/SeriousDesign/Roadster/build/Pods.build/Debug-iphoneos/SwiftKeychainWrapper.build/unextended-module.modulemap',
+    }]
+  }]
+}

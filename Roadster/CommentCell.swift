@@ -19,12 +19,16 @@ class CommentCell: UITableViewCell{
     
     
     func configureCell(with comment: Comment){
+        
+        let firstName = comment.firstname.capitalized
+        let firstLetterOfLastname = comment.lastname.capitalized.characters.first!
+        
         ratingImageView.contentMode = .scaleAspectFit
         self.backgroundColor = UIColor.clear
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         
-        userLabel.text = comment.username
+        userLabel.text = firstName + " " + String(firstLetterOfLastname) + "."
         if let image = UIImage(named: "\(comment.rating)stars"){
             ratingImageView.image = image.resizeImage(CGSize(width: ratingImageView.bounds.width, height: ratingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
         } else {

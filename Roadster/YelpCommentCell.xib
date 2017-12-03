@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JbY-h8-15S" id="pDe-Fl-ahF">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="111"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="110.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Uk-a9-RvC">
@@ -59,6 +59,7 @@
                     <constraint firstItem="9Uk-a9-RvC" firstAttribute="leading" secondItem="pDe-Fl-ahF" secondAttribute="leading" constant="13" id="FBn-A9-ssH"/>
                     <constraint firstAttribute="bottom" secondItem="eYA-hh-TZT" secondAttribute="bottom" constant="9.5" id="GJ8-ah-KRF"/>
                     <constraint firstAttribute="bottom" secondItem="hzZ-2o-BkK" secondAttribute="bottom" constant="12.5" id="IkS-nP-aCQ"/>
+                    <constraint firstItem="qbH-fD-474" firstAttribute="leading" secondItem="9Uk-a9-RvC" secondAttribute="trailing" constant="12" id="jHI-P5-rgc"/>
                     <constraint firstItem="hzZ-2o-BkK" firstAttribute="leading" secondItem="pDe-Fl-ahF" secondAttribute="leading" constant="17" id="jy6-97-fbt"/>
                     <constraint firstAttribute="trailing" secondItem="qbH-fD-474" secondAttribute="trailing" constant="8" id="lKs-aL-0Ai"/>
                     <constraint firstItem="eYA-hh-TZT" firstAttribute="leading" secondItem="hzZ-2o-BkK" secondAttribute="trailing" constant="13" id="tsm-po-Nhg"/>

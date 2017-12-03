@@ -157,6 +157,7 @@ class SignUpViewController: UIViewController {
     }
     
     deinit {
+        
         print("*** sign up view controller will deallocate!")
     }
 }

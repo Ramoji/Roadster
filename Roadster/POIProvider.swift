@@ -235,7 +235,7 @@ class POIProvider{
                 facilites.append("vendingMachine")
             }
             
-        } else {
+        } else if restStop is HistoryUSRestStop{
             let stop = restStop as! HistoryUSRestStop
             
             if stop.water {
@@ -276,6 +276,49 @@ class POIProvider{
             if stop.vendingMachine{
                 facilites.append("vendingMachine")
             }
+        } else if restStop is Favorite{
+            
+            let stop = restStop as! Favorite
+            
+            if stop.water {
+                facilites.append("water")
+            }
+            if stop.restaurant {
+                facilites.append("restaurant")
+            }
+            if stop.gas {
+                facilites.append("gas")
+            }
+            
+            if stop.disabledFacilities{
+                facilites.append("disabledFacilities")
+            }
+            
+            if stop.trucks {
+                facilites.append("truck")
+            }
+            if stop.petArea{
+                facilites.append("petArea")
+            }
+            if stop.phone{
+                facilites.append("phone")
+            }
+            if stop.tables{
+                facilites.append("tables")
+            }
+            if stop.restroom{
+                facilites.append("restroom")
+            }
+            if stop.rvDump{
+                facilites.append("rvDump")
+            }
+            if stop.scenic{
+                facilites.append("scenic")
+            }
+            if stop.vendingMachine{
+                facilites.append("vendingMachine")
+            }
+            
         }
         
         return facilites

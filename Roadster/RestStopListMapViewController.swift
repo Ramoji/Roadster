@@ -29,7 +29,9 @@ class RestStopListMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        if let route = route {
+            navigationItem.title = route
+        }
     }
     
     override func loadView() {

@@ -13,10 +13,21 @@ class CoreDataHelper{
     static let shared = CoreDataHelper()
     
     var userSavedStopsManagedObjectContext: NSManagedObjectContext!
+    var restStopDatabaseManagedObjectContext: NSManagedObjectContext!
     
     func saveFavorite(restStop: USRestStop){
         let favorite = Favorite(context: userSavedStopsManagedObjectContext)
         favorite.loadFavoriteStop(restStop: restStop)
+        userSavedStopsManagedObjectContext.insert(favorite)
+        do{
+            try userSavedStopsManagedObjectContext.save()
+        }catch let error as NSError{
+            print(error.debugDescription)
+            fatalError("*** Failed to save a favorite rest stop to core data!")
+        }
+    }
+    
+    func saveFavorite(favorite: Favorite){
         userSavedStopsManagedObjectContext.insert(favorite)
         do{
             try userSavedStopsManagedObjectContext.save()
@@ -38,44 +49,105 @@ class CoreDataHelper{
         }
     }
     
-    func deleteFavorite(restStop: USRestStop){
+    func saveFrequent(frequent: Frequent){
+        userSavedStopsManagedObjectContext.insert(frequent)
+        do{
+            try userSavedStopsManagedObjectContext.save()
+        }catch let error as NSError{
+            print(error.debugDescription)
+            fatalError("*** Failed to save a frequent rest stop to core data!")
+        }
+    }
+    
+    func deleteFavorite(latitude: Double, longitude: Double){
         var managedObjects: [NSManagedObject] = []
         let fetchRequest: NSFetchRequest<Favorite> = NSFetchRequest()
-        fetchRequest.entity = Favorite.entity()
-        let latPredicate = NSPredicate(format: "latitude = %f", restStop.latitude)
         
-        let longPredicate = NSPredicate(format: "longitude = %f", restStop.longitude)
-        let andCompoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [latPredicate,longPredicate])
-        fetchRequest.predicate = andCompoundPredicate
+        fetchRequest.entity = Favorite.entity()
+        
         do{
             managedObjects = try userSavedStopsManagedObjectContext.fetch(fetchRequest)
+            
             for managedObject in managedObjects{
-                userSavedStopsManagedObjectContext.delete(managedObject)
+                
+                let favorite = managedObject as! Favorite
+                if favorite.latitude == latitude && favorite.longitude == longitude{
+                    userSavedStopsManagedObjectContext.delete(managedObject)
+                }
+                
             }
             try userSavedStopsManagedObjectContext.save()
+            
+            
+        
         } catch {
             fatalError("*** Encountered error while trying to delete a Favorite object.")
         }
+        
+        
+        let updateFavoriteStatusFetchRequest: NSFetchRequest<USRestStop> = NSFetchRequest()
+        updateFavoriteStatusFetchRequest.entity = USRestStop.entity()
+        
+        do{
+            let managedObjects = try restStopDatabaseManagedObjectContext.fetch(updateFavoriteStatusFetchRequest)
+            for managedObject in managedObjects{
+                if managedObject.latitude == latitude && managedObject.longitude == longitude{
+                    if managedObject.favorite {
+                        managedObject.favorite = false
+                    }
+                }
+            }
+            
+            try restStopDatabaseManagedObjectContext.save()
+            
+        }catch{
+            fatalError("*** Failed to update favorite stop status!")
+        }
+        
     }
     
     func deleteFrequent(latitude: Double, longitude: Double){
         var managedObjects: [NSManagedObject] = []
         let fetchRequest: NSFetchRequest<Frequent> = NSFetchRequest()
         fetchRequest.entity = Frequent.entity()
-        let latPredicate = NSPredicate(format: "latitude=%f", latitude)
-        let longPredicate = NSPredicate(format: "longitude=%f", longitude)
-        let andCompoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [latPredicate,longPredicate])
-        fetchRequest.predicate = andCompoundPredicate
+        
         do{
             managedObjects = try userSavedStopsManagedObjectContext.fetch(fetchRequest)
+            
             for managedObject in managedObjects{
-                userSavedStopsManagedObjectContext.delete(managedObject)
+                
+                let frequent = managedObject as! Frequent
+                if frequent.latitude == latitude && frequent.longitude == longitude{
+                  userSavedStopsManagedObjectContext.delete(managedObject)
+                }
+                
             }
             try userSavedStopsManagedObjectContext.save()
         } catch {
             fatalError("*** Encountered error while trying to delete a Frequent object.")
         }
+        
+        let updateFavoriteStatusFetchRequest: NSFetchRequest<USRestStop> = NSFetchRequest()
+        updateFavoriteStatusFetchRequest.entity = USRestStop.entity()
+        
+        do{
+            let managedObjects = try restStopDatabaseManagedObjectContext.fetch(updateFavoriteStatusFetchRequest)
+            for managedObject in managedObjects{
+                if managedObject.latitude == latitude && managedObject.longitude == longitude{
+                    if managedObject.frequent {
+                        managedObject.frequent = false
+                    }
+                }
+            }
+            
+            try restStopDatabaseManagedObjectContext.save()
+            
+        }catch{
+            fatalError("*** Failed to update favorite stop status!")
+        }
     }
+    
+    
     
     func getFavorites() -> [Favorite]{
         var managedObjects: [Favorite] = []

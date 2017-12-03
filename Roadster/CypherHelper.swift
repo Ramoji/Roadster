@@ -22,6 +22,8 @@ struct APICredentials {
 
 struct DefaultKeys {
     static let signedIn = "signedIn"
+    static let firstName = "firstname"
+    static let lastName = "lastname"
     static let currentUserEmail = "currentUserEmail"
     static let currentUsername = "currentUsername"
     static let yelpAccessToken = "yelpAccessToken"
@@ -31,6 +33,11 @@ struct DefaultKeys {
 struct KeychainKeys {
     static let expiryDate = "expiryDate"
     static let currentUserToken = "currentUserToken"
+}
+
+struct KeyedArchiverKeys {
+    static let favoriteBusinessesListKey: String = "favoriteBusinesses"
+    static let favoriteLocationsListKey: String = "favoriteLocations"
 }
 
 class CypherHelper{
@@ -57,10 +64,12 @@ class CypherHelper{
         return encryptedString!
     }
     
-    class func saveAccessToken(forUserEmail userEmail: String, username: String, andToken token: String, withExpiryDate expiryDate: String){
+    class func saveAccessToken(forFirstName firstName: String, lastName: String, userEmail: String, username: String, andToken token: String, withExpiryDate expiryDate: String){
         KeychainWrapper.standard.set(token, forKey: KeychainKeys.currentUserToken)
         KeychainWrapper.standard.set(expiryDate, forKey: KeychainKeys.expiryDate)
         defaults.set(true, forKey: DefaultKeys.signedIn)
+        defaults.set(firstName, forKey: DefaultKeys.firstName)
+        defaults.set(lastName, forKey: DefaultKeys.lastName)
         defaults.set(userEmail, forKey: DefaultKeys.currentUserEmail)
         defaults.set(username, forKey: DefaultKeys.currentUsername)
         defaults.synchronize()
@@ -71,6 +80,9 @@ class CypherHelper{
         KeychainWrapper.standard.removeObject(forKey: KeychainKeys.expiryDate)
         defaults.set(false, forKey: DefaultKeys.signedIn)
         defaults.removeObject(forKey: DefaultKeys.currentUserEmail)
+        defaults.removeObject(forKey: DefaultKeys.currentUsername)
+        defaults.removeObject(forKey: DefaultKeys.lastName)
+        defaults.removeObject(forKey: DefaultKeys.firstName)
         defaults.synchronize()
     }
 

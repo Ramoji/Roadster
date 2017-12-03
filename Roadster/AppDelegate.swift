@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  Roadster
@@ -89,18 +90,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nearByViewController = navigationController2.topViewController as! NearByViewController
         POIProvider.managedObjectContext = managedObjectContext
         CoreDataHelper.shared.userSavedStopsManagedObjectContext = userSavedStopsManagedObjectContext
+        CoreDataHelper.shared.restStopDatabaseManagedObjectContext = managedObjectContext
         
         if CLLocationManager.authorizationStatus() == .notDetermined{
             locationManager.requestWhenInUseAuthorization()
         }
         nearByViewController.managedObjectContext = managedObjectContext
-        let navigationController3 = controllers![2] as! UINavigationController
-        let pinViewController = navigationController3.topViewController as! PinViewController
-        pinViewController.managedObjectContext = managedObjectContext
+
         window?.tintColor = UIColor(red: 67/255, green: 129/255, blue: 244/255, alpha: 1)
-        //**********DANGER ZONE PROCEED WITH CAUTION***********
-        //editDatabase()
-        //*****************************************************
+        
         
         
        return true

@@ -10,91 +10,190 @@ import UIKit
 
 class UnorderedRestStopCell: UITableViewCell {
 
+    @IBOutlet weak var highwayNameLabel: UILabel!
+    @IBOutlet weak var mileMarkerLabel: UILabel!
+    @IBOutlet weak var ratingImageView: UIImageView!
+    @IBOutlet weak var noRatingLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var imageViewOne: UIImageView!
-    @IBOutlet weak var imageViewTwo: UIImageView!
-    @IBOutlet weak var imageViewThree: UIImageView!
-    @IBOutlet weak var imageViewFour: UIImageView!
-    @IBOutlet weak var imageViewFive: UIImageView!
-    @IBOutlet weak var imageViewSix: UIImageView!
-    @IBOutlet weak var imageViewSeven: UIImageView!
-    @IBOutlet weak var imageViewEight: UIImageView!
-    @IBOutlet weak var imageViewNine: UIImageView!
-    @IBOutlet weak var imageViewTen: UIImageView!
-    @IBOutlet weak var imageViewEleven: UIImageView!
-    @IBOutlet weak var imageViewTwelve: UIImageView!
-    var imageViews: [UIImageView]!
-    @IBOutlet weak var restStopName: UILabel!
-    @IBOutlet weak var noFacilitiesLabel: UILabel!
-    @IBOutlet weak var restStopImageView: UIImageView!
     
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        imageViews = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour, imageViewFive, imageViewSix, imageViewSeven, imageViewEight, imageViewNine, imageViewTen, imageViewEleven, imageViewTwelve]
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
-    private func prepViews(){
-    
-        restStopName.text = ""
-        noFacilitiesLabel.isHidden = true
-        restStopImageView.image = #imageLiteral(resourceName: "restStop").resizeImage(CGSize(width: 60.0, height: 60.0))
-        
-        for imageView in imageViews{
-            imageView.isHidden = true
-            imageView.image = nil
-        }
-    }
-    
-    func configureCell(with distanceFromUser: Int, restStop: USRestStop){
-        prepViews()
-        restStopName.text = restStop.mileMarker
-        restStopName.sizeToFit()
-        if restStop.facilities{
-            let facilites = POIProvider.getFacilityList(forRestStop: restStop)
-            for (index, facility) in facilites.enumerated(){
-                let imageSize = CGSize(width: 20.0, height: 20.0)
-                let facilityImageView = imageViews![index]
-                facilityImageView.isHidden = false
-                facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
-            }
-        } else {
-            noFacilitiesLabel.isHidden = false
-        }
-        
-        self.distanceLabel.text = String(distanceFromUser) + " mi"
-        self.distanceLabel.sizeToFit()
+    func configureCell(with restStop: USRestStop, distanceFromUser: Int){
+        prepSubviews()
         self.backgroundColor = UIColor.clear
-        self.accessoryType = .disclosureIndicator
+        distanceLabel.text = "\(String(distanceFromUser)) miles"
+        
+        ratingImageView.contentMode = .scaleAspectFit
+        
+        let highwayString = "Rest stop on \(restStop.routeName)"
+        
+        highwayNameLabel.text = highwayString
+        
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: {
+            comments, rating in
+            print("*** rating is: \(rating)")
+            var image: UIImage {
+                if rating == 0 {
+                    
+                    self.noRatingLabel.text = "No ratings"
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                guard let image = UIImage(named: String(rating) + "stars") else {
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                
+                return image
+            }
+            
+            self.ratingImageView.image = image.resizeImage(CGSize(width: 60.0, height: 15.0)).withRenderingMode(.alwaysOriginal)
+        })
+        
+        var mileMarkerString: String {
+            
+            if restStop.mileMarker.isEmpty{
+                return "No mile marker information"
+            } else {
+                return restStop.mileMarker
+            }
+        }
+        
+        mileMarkerLabel.text = mileMarkerString
         
     }
     
-    func configureHistoryCell(with distanceFromUser: Int, restStop: HistoryUSRestStop){
-        prepViews()
-        restStopName.text = restStop.mileMarker
-        restStopName.sizeToFit()
-        if restStop.facilities{
-            let facilites = POIProvider.getFacilityList(forRestStop: restStop)
-            for (index, facility) in facilites.enumerated(){
-                let imageSize = CGSize(width: 20.0, height: 20.0)
-                let facilityImageView = imageViews![index]
-                facilityImageView.isHidden = false
-                facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
+    func configureHistoryCell(with restStop: HistoryUSRestStop, distanceFromUser: Int){
+        
+        prepSubviews()
+        distanceLabel.text = "\(String(distanceFromUser)) miles"
+        ratingImageView.contentMode = .scaleAspectFit
+        
+        self.backgroundColor = UIColor.clear
+        
+        let highwayString = "Rest stop on \(restStop.routeName)"
+        
+        highwayNameLabel.text = highwayString
+        
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: {
+            comments, rating in
+            var image: UIImage {
+                if rating == 0 {self.noRatingLabel.text = "No ratings"}
+                guard let image = UIImage(named: String(rating)) else {
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                return image
             }
-        } else {
-            noFacilitiesLabel.isHidden = false
+            
+            self.ratingImageView.image = image.resizeImage(CGSize(width: 60.0, height: 15.0)).withRenderingMode(.alwaysOriginal)
+        })
+        
+        var mileMarkerString: String {
+            
+            if restStop.mileMarker != "" || restStop.mileMarker != " "{
+                return restStop.mileMarker
+            } else {
+                return "No mile marker information"
+            }
         }
         
-        self.distanceLabel.text = String(distanceFromUser) + " mi"
-        self.distanceLabel.sizeToFit()
-        self.backgroundColor = UIColor.clear
-        self.accessoryType = .disclosureIndicator
+        mileMarkerLabel.text = mileMarkerString
+        
     }
+    
+    func configureCell(with favorite: Favorite){
+        let distanceFromUser = 0
+        prepSubviews()
+        self.backgroundColor = UIColor.clear
+        distanceLabel.text = "\(String(distanceFromUser)) miles"
+        
+        ratingImageView.contentMode = .scaleAspectFit
+        
+        let highwayString = "Rest stop on \(favorite.routeName)"
+        
+        highwayNameLabel.text = highwayString
+        
+        HTTPHelper.shared.getComments(latitude: favorite.latitude, longitude: favorite.longitude, reloadTableViewClosure: {
+            comments, rating in
+            print("*** rating is: \(rating)")
+            var image: UIImage {
+                if rating == 0 {
+                    
+                    self.noRatingLabel.text = "No ratings"
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                guard let image = UIImage(named: String(rating) + "stars") else {
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                
+                return image
+            }
+            
+            self.ratingImageView.image = image.resizeImage(CGSize(width: 60.0, height: 15.0)).withRenderingMode(.alwaysOriginal)
+        })
+        
+        var mileMarkerString: String {
+            
+            if favorite.mileMaker.isEmpty{
+                return "No mile marker information"
+            } else {
+                return favorite.mileMaker
+            }
+        }
+        
+        mileMarkerLabel.text = mileMarkerString
+        
+    }
+    
+    
+    func configureFrequentCell(with frequent: Frequent){
+        
+        let distanceFromUser = 0
+        prepSubviews()
+        self.backgroundColor = UIColor.clear
+        distanceLabel.text = "\(String(distanceFromUser)) miles"
+        
+        ratingImageView.contentMode = .scaleAspectFit
+        
+        let highwayString = "Rest stop on \(frequent.routeName)"
+        
+        highwayNameLabel.text = highwayString
+        
+        HTTPHelper.shared.getComments(latitude: frequent.latitude, longitude: frequent.longitude, reloadTableViewClosure: {
+            comments, rating in
+            print("*** rating is: \(rating)")
+            var image: UIImage {
+                if rating == 0 {
+                    
+                    self.noRatingLabel.text = "No ratings"
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                guard let image = UIImage(named: String(rating) + "stars") else {
+                    return #imageLiteral(resourceName: "0stars")
+                }
+                
+                return image
+            }
+            
+            self.ratingImageView.image = image.resizeImage(CGSize(width: 60.0, height: 15.0)).withRenderingMode(.alwaysOriginal)
+        })
+        
+        var mileMarkerString: String {
+            
+            if frequent.mileMaker.isEmpty{
+                return "No mile marker information"
+            } else {
+                return frequent.mileMaker
+            }
+        }
+        
+        mileMarkerLabel.text = mileMarkerString
+    }
+    
+    func prepSubviews(){
+        highwayNameLabel.text = ""
+        mileMarkerLabel.text = ""
+        ratingImageView.image = nil
+        noRatingLabel.text = ""
+    }
+    
+    
+    
 }

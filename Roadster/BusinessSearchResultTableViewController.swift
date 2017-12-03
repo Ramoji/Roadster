@@ -91,10 +91,28 @@ class BusinessSearchResultTableViewController: UIViewController{
         }
         
         for (index, historyElement) in searchHistory.enumerated() {
-            if element === historyElement{
-                print("*** Found identical items!")
-                searchHistory.insert(element, at: 0)
-                searchHistory.remove(at: index)
+            
+            if element is USRestStop && historyElement is HistoryUSRestStop{
+                let castedElement = element as! USRestStop
+                let castedHistoryElement = historyElement as! HistoryUSRestStop
+                if castedElement.latitude == castedHistoryElement.latitude && castedElement.longitude == castedHistoryElement.longitude{
+                    searchHistory.remove(at: index)
+                    searchHistory.insert(historyElement, at: 0)
+                    archiveSearchHistory()
+                    return
+                }
+            }
+            
+            if element is YLPBusiness && historyElement is HistoryYelpBusiness{
+                let castedElement = element as! YLPBusiness
+                let castedHistoryElement = historyElement as! HistoryYelpBusiness
+                if castedElement.identifier == castedHistoryElement.businessIdentifier{
+                    searchHistory.remove(at: index)
+                    searchHistory.insert(historyElement, at: 0)
+                    archiveSearchHistory()
+                    return
+                }
+                
             }
         }
         
@@ -126,6 +144,8 @@ class BusinessSearchResultTableViewController: UIViewController{
     
     func loadSearchHistory(){
         tableViewDataSourceList = searchHistory
+        let businessSearchResultFirstCell = BusinessSearchResultFirstCell()
+        tableViewDataSourceList.insert(businessSearchResultFirstCell, at: 0)
         tableView.reloadData()
     }
     
@@ -247,6 +267,7 @@ class BusinessSearchResultTableViewController: UIViewController{
                                 print("*** TableView will update!")
                                 self.tableViewDataSourceList = self.POIList
                                 self.tableView.reloadData()
+                                self.delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: self.tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: self.currentUserLocation.coordinate.latitude, longitude: self.currentUserLocation.coordinate.longitude))
                             }
                         }
                     }
@@ -277,6 +298,7 @@ class BusinessSearchResultTableViewController: UIViewController{
             if POIList.count != 0 && shouldUpdateTableView{
                 tableViewDataSourceList = POIList
                 tableView.reloadData()
+                delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude))
             }
             
         }catch let error as NSError{
@@ -370,6 +392,7 @@ class BusinessSearchResultTableViewController: UIViewController{
             
             self.tableViewDataSourceList = mapItems
             self.tableView.reloadData()
+            self.delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: self.tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: self.currentUserLocation.coordinate.latitude, longitude: self.currentUserLocation.coordinate.longitude))
         })
     }
     
@@ -404,7 +427,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
             let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
             let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
-            restStopCell.configureCell(with: Int(distanceFromUser), restStop: restStop)
+            restStopCell.configureCell(with: restStop, distanceFromUser: distanceFromUser)
             cell = restStopCell
             
         } else if element is YLPBusiness{
@@ -418,7 +441,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
             let distanceFromUser = Int(restStopCLLocation.distance(from: currentUserLocation) / 1609.34)
             let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
-            restStopCell.configureHistoryCell(with: Int(distanceFromUser), restStop: restStop)
+            restStopCell.configureHistoryCell(with: restStop, distanceFromUser: distanceFromUser)
             cell = restStopCell
         } else if element is HistoryYelpBusiness{
             let business = element as! HistoryYelpBusiness
@@ -514,11 +537,7 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
         
         addServiceCellToTableView()
         
-        
-        
-        if !tableViewDataSourceList.isEmpty{
-            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        }
+        loadSearchHistory()
         delegate?.businessSearchResultTableViewControllerSearchBarDidBeginEditing(self)
         
     }

@@ -1,10 +1,4 @@
-//
-//  StaticDetailTableViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 11/27/16.
-//  Copyright © 2016 A Ja. All rights reserved.
-//
+
 
 import UIKit
 import MapKit
@@ -49,6 +43,8 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var frequentButton: UIButton!
     
+    var sectionOneHeaderViewContainerView: UIView!
+    
     
     
     
@@ -65,11 +61,13 @@ class StaticDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sectionOneHeaderViewContainerView = getSectionOneHeaderView()
         setUpSegmentedControl()
         navigationItem.title = restStop.mileMarker
         setUpViewForRestStop()
         loadComments()
         
+        ratingImageView.contentMode = .scaleAspectFit
         commentRatingImageView.isUserInteractionEnabled = true
         ///////////
         let nib = UINib(nibName: "CommentCell", bundle: nil)
@@ -78,6 +76,16 @@ class StaticDetailTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 70
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if commentTextView.isFirstResponder{
+            commentTextView.resignFirstResponder()
+            hideCommentButtons()
+        }
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -214,9 +222,12 @@ class StaticDetailTableViewController: UITableViewController {
         
         let email = UserDefaults.standard.object(forKey: DefaultKeys.currentUserEmail) as! String
         let username = UserDefaults.standard.object(forKey: DefaultKeys.currentUsername) as! String
+        let firstname = UserDefaults.standard.object(forKey: DefaultKeys.firstName) as! String
+        let lastname = UserDefaults.standard.object(forKey: DefaultKeys.lastName) as! String
+        
         let dateString = dateFormatter.string(from: Date())
         
-        let comment = Comment(latitude: restStop.coordinate.latitude.convertToString(), longitude: restStop.coordinate.longitude.convertToString(), email: email, username: username, comment: commentText, date: dateString, rating: commentRating)
+        let comment = Comment(latitude: restStop.coordinate.latitude.convertToString(), longitude: restStop.coordinate.longitude.convertToString(), firstname: firstname, lastname: lastname, email: email, username: username, comment: commentText, date: dateString, rating: commentRating)
         
     
         HTTPHelper.shared.postComment(comment: comment, userEmail: email){
@@ -273,12 +284,13 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     @IBAction func cancelComment(_ sender: UIButton) {
+        print("*** In cancel button!")
         hideCommentButtons()
     }
     
     
     func hideCommentButtons(){
-        if commentTextView.isFirstResponder{
+        //if commentTextView.isFirstResponder{
             resetCommentRatingImageView()
             commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
             commentTextView.resignFirstResponder()
@@ -296,7 +308,7 @@ class StaticDetailTableViewController: UITableViewController {
                 self.commnetButton.isEnabled = false
                 self.cancelComment.isEnabled = false
             }
-        }
+       // }
     }
     
     private func resetCommentRatingImageView(){
@@ -305,7 +317,7 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     func loadComments(){
-        HTTPHelper.shared.getComments(restStop: restStop){ publicComments, averageRating in
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude){ publicComments, averageRating in
             self.comments = publicComments
             self.averageRating = averageRating
             self.tableView.reloadData()
@@ -327,7 +339,7 @@ class StaticDetailTableViewController: UITableViewController {
             }
             //remove favorite from core data
             print("*** latitude: \(restStop.latitude), longitude: \(restStop.longitude)")
-            CoreDataHelper.shared.deleteFavorite(restStop: restStop)
+            CoreDataHelper.shared.deleteFavorite(latitude: restStop.latitude, longitude: restStop.longitude)
         } else {
             //change rest stop favotire status and re-save (favorite)
             favoriteButton.setImage(UIImage(named: "favoriteOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
@@ -395,6 +407,38 @@ class StaticDetailTableViewController: UITableViewController {
         mapItem.openInMaps(launchOptions: options)
         
     }
+    
+    func getSectionOneHeaderView() -> UIView{
+        let sectionOneHeaderView = UILabel()
+        let headerAttributedString = NSAttributedString(string: "WHAT PEOPLE SAY", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.lightGray])
+        sectionOneHeaderView.attributedText = headerAttributedString
+        sectionOneHeaderView.sizeToFit()
+        let headerViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: sectionOneHeaderView.bounds.height + 10))
+        sectionOneHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        headerViewContainer.addSubview(sectionOneHeaderView)
+        let headerViewTopConstraint = sectionOneHeaderView.topAnchor.constraint(equalTo: headerViewContainer.topAnchor)
+        let headerViewLeadingConstraint = sectionOneHeaderView.leadingAnchor.constraint(equalTo: headerViewContainer.leadingAnchor, constant: 18.0)
+        let headerViewWidthConstraint = sectionOneHeaderView.widthAnchor.constraint(equalToConstant: sectionOneHeaderView.bounds.width)
+        let headerViewHeightConstraint = sectionOneHeaderView.heightAnchor.constraint(equalToConstant: sectionOneHeaderView.bounds.height)
+        NSLayoutConstraint.activate([headerViewTopConstraint, headerViewLeadingConstraint, headerViewWidthConstraint, headerViewHeightConstraint])
+        
+        let seperator = UIView()
+        seperator.backgroundColor = UIColor.lightGray
+        headerViewContainer.addSubview(seperator)
+        seperator.translatesAutoresizingMaskIntoConstraints = false
+        let seperatorBottomConstraint = seperator.bottomAnchor.constraint(equalTo: headerViewContainer.bottomAnchor)
+        let seperatorLeadingConstraint = seperator.leadingAnchor.constraint(equalTo: headerViewContainer.leadingAnchor, constant: 15.0)
+        let seperatorHeightConstraint = seperator.heightAnchor.constraint(equalToConstant: 0.5)
+        let seperatorWidthConstraint = seperator.widthAnchor.constraint(equalToConstant: headerViewContainer.bounds.width - 15.0)
+        
+        NSLayoutConstraint.activate([seperatorBottomConstraint, seperatorLeadingConstraint, seperatorHeightConstraint, seperatorWidthConstraint])
+        
+        return headerViewContainer
+    }
+    
+    @IBAction func unwindToStaticDetailTableViewController(_ sender: UIStoryboardSegue){
+        
+    }
 }
 
 
@@ -420,6 +464,7 @@ extension StaticDetailTableViewController: UITextViewDelegate{
         
         guard UserDefaults.standard.bool(forKey: DefaultKeys.signedIn) else {
             let signUpViewController = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+            signUpViewController.originalPresenter = self
                 present(signUpViewController, animated: true, completion: nil)
             return
         }
@@ -428,8 +473,9 @@ extension StaticDetailTableViewController: UITextViewDelegate{
         textView.text = ""
         textView.textColor = UIColor.black
         commnetButton.isHidden = false
-        cancelComment.isHidden = false
         commnetButton.isEnabled = false
+        cancelComment.isHidden = false
+        cancelComment.isEnabled = true
         commentRatingImageView.isHidden = false
         commentTextView.translatesAutoresizingMaskIntoConstraints = false
         commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
@@ -454,15 +500,32 @@ extension StaticDetailTableViewController: UITextViewDelegate{
             commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 1.0)
             commnetButton.isEnabled = true
             
+            
+            
         } else {
             commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
             commnetButton.isEnabled = false
         }
-    }
+        
+        let wordLimit = 100
     
-    @IBAction func unwindToStaticDetailTableViewController(_ sender: UIStoryboardSegue){
+        print("The numeber of remaining words are: \(wordLimit - (textView.text.characters.count / 5))")
         
     }
+    
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if range.length == 1{
+            return true
+        }else if (100 - textView.text.characters.count / 5) <= 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    
+    
     
     
     
@@ -482,7 +545,7 @@ extension StaticDetailTableViewController{
         if indexPath.section == 0 {
             return super.tableView(tableView, cellForRowAt: indexPath)
         } else {
-            var commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
+            let commentCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.commentCell, for: indexPath) as! CommentCell
             
             commentCell.configureCell(with: comments[indexPath.row])
             return commentCell
@@ -490,11 +553,16 @@ extension StaticDetailTableViewController{
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
+        
         if section == 0 {
-            height = super.tableView(tableView, heightForHeaderInSection: section)
+            return super.tableView(tableView, heightForHeaderInSection: section)
+        } else {
+            if let sectionOneHeaderViewContainerView = sectionOneHeaderViewContainerView{
+                return sectionOneHeaderViewContainerView.bounds.height
+            } else {
+                return 0.0
+            }
         }
-        return height
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -524,6 +592,20 @@ extension StaticDetailTableViewController{
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return super.tableView(tableView, viewForHeaderInSection: section)
+        } else {
+            if let sectionOneHeaderViewContainerView = sectionOneHeaderViewContainerView{
+                return sectionOneHeaderViewContainerView
+            } else {
+                return nil
+            }
+        }
+    }
+    
+   
     
 }
 

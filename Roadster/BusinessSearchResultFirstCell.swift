@@ -38,13 +38,39 @@ class BusinessSearchResultFirstCell: UITableViewCell{
     
     func prepareButtons(){
         
+        bankButton.imageView?.contentMode = .scaleAspectFit
+        bankButton.backgroundColor = UIColor.clear
+        
+        gasButton.imageView?.contentMode = .scaleAspectFit
+        gasButton.backgroundColor = UIColor.clear
+        
+        restStopButton.imageView?.contentMode = .scaleAspectFit
+        restStopButton.backgroundColor = UIColor.clear
+        
+        foodButton.imageView?.contentMode = .scaleAspectFit
+        foodButton.backgroundColor = UIColor.clear
+        
+        coffeeButton.imageView?.contentMode = .scaleAspectFit
+        coffeeButton.backgroundColor = UIColor.clear
+        
+        groceryButton.imageView?.contentMode = .scaleAspectFit
+        groceryButton.backgroundColor = UIColor.clear
+        
+        hospitalButton.imageView?.contentMode = .scaleAspectFit
+        hospitalButton.backgroundColor = UIColor.clear
+        
+        postButton.imageView?.contentMode = .scaleAspectFit
+        postButton.backgroundColor = UIColor.clear
+        
+        
+        
         bankButton.setImage(UIImage(named: "bank")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         bankButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         coffeeButton.setImage(UIImage(named: "coffee")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         coffeeButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         foodButton.setImage(UIImage(named: "food")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         foodButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        gasButton.setImage(UIImage(named: "gas")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        gasButton.setImage(UIImage(named: "gasIcon")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         gasButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         groceryButton.setImage(UIImage(named: "grocery")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         groceryButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
@@ -54,6 +80,11 @@ class BusinessSearchResultFirstCell: UITableViewCell{
         postButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         restStopButton.setImage(UIImage(named: "restStop")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         restStopButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        
+       
+        
+        
+            
         backgroundColor = UIColor.clear
     }
     

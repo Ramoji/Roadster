@@ -266,7 +266,7 @@ class AddressTableViewController: UITableViewController {
     
     func saveFavoriteLocationsList(){
         guard let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
-        let favoriteLocationsPath = documentsDir.appendingPathComponent("favoriteLocationsPath").path
+        let favoriteLocationsPath = documentsDir.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
         if NSKeyedArchiver.archiveRootObject(favoriteLocations, toFile: favoriteLocationsPath){
             print("Saved favorited list successfully!")
         } else {

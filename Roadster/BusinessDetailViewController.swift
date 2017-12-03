@@ -499,6 +499,7 @@ extension BusinessDetailViewController: CLLocationManagerDelegate{
         if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy{
             currentUserLocation = newLocation
             stopLocationManager()
+            print("*** Stopped loction manager!")
             addDistanceToCategoryLabel()
             delegates.invokeDelegates{
                 $0.businessDetailViewControllerDidUpdateUserLocation(self, newUserLocation: currentUserLocation)

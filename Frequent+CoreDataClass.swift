@@ -8,9 +8,18 @@
 
 import Foundation
 import CoreData
+import MapKit
+import CoreLocation
 
 @objc(Frequent)
-public class Frequent: NSManagedObject {
+public class Frequent: NSManagedObject, MKAnnotation {
+    
+    public var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    
+    override public init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+        coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
 
     func loadFrequentStop(restStop: USRestStop){
         
@@ -37,6 +46,7 @@ public class Frequent: NSManagedObject {
         self.trucks = restStop.trucks
         self.vendingMachine = restStop.vendingMachine
         self.water = restStop.water
+        self.coordinate = CLLocationCoordinate2D(latitude: restStop.latitude, longitude: restStop.longitude)
         
     }
 }

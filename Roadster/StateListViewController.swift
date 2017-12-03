@@ -21,6 +21,11 @@ struct CustomCellTypeIdentifiers {
     static let BusinessSearchResultFirstCell = "BusinessSearchResultFirstCell"
     static let YelpCommentCell = "YelpCommentCell"
     static let addressMapItemCell = "AddressMapItemCell"
+    static let commentCell = "CommentCell"
+    static let LocationsRestStopCell = "LocationsRestStopCell"
+    static let LocationsBusinessCell = "LocationsBusinessCell"
+    static let LocationsAddressCell = "LocationsAddressCell"
+    static let moreTableViewControllerCell = "moreTableViewControllerCell"
 }
 
 class StateListViewController: UIViewController {

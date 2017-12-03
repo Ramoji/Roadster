@@ -17,7 +17,7 @@ class HUDView: UIView {
     class func createHUD(inView view: UIView, animated: Bool) -> HUDView{
         let hudView = HUDView(frame: view.bounds)
         hudView.isOpaque = false
-        
+        hudView.tag = 1000
         view.addSubview(hudView)
         view.isUserInteractionEnabled = false
         hudView.show(animated: animated)

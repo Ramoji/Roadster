@@ -28,6 +28,8 @@ struct APIURLs {
 struct Comment {
     var latitude: String
     var longitude: String
+    var firstname: String
+    var lastname: String
     var email: String
     var username: String
     var comment: String
@@ -99,9 +101,9 @@ class HTTPHelper{
                 } else {
                     apiCallCompleted(true, nil)
                     CypherHelper.saveAccessToken(
-                        forUserEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String,
-                        andToken: responseDictionary["accessToken"]! as! String,
-                        withExpiryDate: responseDictionary["expiryDate"]! as! String)
+                        forFirstName: name, lastName: lastname, userEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String,
+                        andToken: responseDictionary["access_token"]! as! String,
+                        withExpiryDate: responseDictionary["expiry_date"]! as! String)
                 }
                 break
             case .failure:
@@ -131,9 +133,13 @@ class HTTPHelper{
                 } catch let error as NSError {
                     print("Failed to parse JSON response: \(error.debugDescription)")
                 }
-                
+                //
+                for element in responseDictionary{
+                    print(element)
+                }
+                //
                 if let _ = responseDictionary["error"]{
-                    switch responseDictionary["message"]! as! String{
+                    switch responseDictionary["identifier"]! as! String{
                     case APIErrorMessages.userNotFound:
                         requestComplete(true, APIErrorMessages.userNotFound)
                         break
@@ -142,7 +148,7 @@ class HTTPHelper{
                     }
                 } else {
                     requestComplete(true, nil)
-                    CypherHelper.saveAccessToken(forUserEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String, andToken: responseDictionary["accessToken"]! as! String, withExpiryDate: responseDictionary["expiryDate"]! as! String)
+                    CypherHelper.saveAccessToken(forFirstName: responseDictionary["firstname"]! as! String, lastName: responseDictionary["lastname"]! as! String, userEmail: responseDictionary["email"]! as! String, username: responseDictionary["username"]! as! String, andToken: responseDictionary["access_token"]! as! String, withExpiryDate: responseDictionary["expiry_date"]! as! String)
                 }
                 
                 break
@@ -153,11 +159,11 @@ class HTTPHelper{
         }
     }
     
-    func getComments(restStop: USRestStop, reloadTableViewClosure: @escaping (_ comments: [Comment], _ rating: Double)->()){
-        
+    func getComments(latitude: Double, longitude: Double, reloadTableViewClosure: @escaping (_ comments: [Comment], _ rating: Double)->()){
+            
         var commentArray: [Comment] = []
         
-        let parameters: Parameters = ["latitude": "\(restStop.coordinate.latitude)", "longitude": "\(restStop.coordinate.longitude)"]
+        let parameters: Parameters = ["latitude": "\(latitude)", "longitude": "\(longitude)"]
         var headers: HTTPHeaders = [:]
         
         if let authorizationHeader = Request.authorizationHeader(user: APICredentials.encryptedAPI_USERNAME, password: APICredentials.encryptedAPI_KEY){
@@ -175,6 +181,8 @@ class HTTPHelper{
                     let comment = Comment(
                                           latitude: publicComment["latitude"]! as! String,
                                           longitude: publicComment["longitude"]! as! String,
+                                          firstname: publicComment["firstname"]! as! String,
+                                          lastname: publicComment["lastname"]! as! String,
                                           email: publicComment["email"]! as! String,
                                           username: publicComment["username"]! as! String,
                                           comment: publicComment["comment"]! as! String,
@@ -194,6 +202,8 @@ class HTTPHelper{
         let parameters: Parameters = [
             "latitude": String(comment.latitude),
             "longitude": String(comment.longitude),
+            "firstname": comment.firstname,
+            "lastname": comment.lastname,
             "email": comment.email,
             "username": comment.username,
             "comment": comment.comment,
@@ -259,7 +269,7 @@ class HTTPHelper{
         }
     }
     
-    func logout(){
+    func logout(_ completionHandler: @escaping () -> ()){
         var headers: HTTPHeaders = [:]
         if let authorizationHeader = Request.authorizationHeader(user: APICredentials.encryptedAPI_USERNAME, password: APICredentials.encryptedAPI_KEY){
             headers[authorizationHeader.key] = authorizationHeader.value
@@ -267,8 +277,15 @@ class HTTPHelper{
         
         headers["email"] = UserDefaults.standard.object(forKey: DefaultKeys.currentUserEmail) as? String
         
-        Alamofire.request(APIURLs.logout, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers).response{response in
+        Alamofire.request(APIURLs.logout, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers).response{ response in
+            
+            if response.response?.statusCode == 200 {
+                completionHandler()
+            } else {
+                completionHandler()
+            }
         }
+        
         CypherHelper.deleteAccessToken()
     }
     
@@ -375,6 +392,17 @@ class HTTPHelper{
             
         }
     
+    }
+    
+    func reportNewRestStopToDeveloper(with restStopParameters: [String: Bool]){
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: restStopParameters, options: JSONSerialization.WritingOptions.prettyPrinted)
+            guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {return}
+            sendEmail(recepient: "wzk014@gmail.com", sender: "", subject: "New rest stop report from Roadster", emailBody: jsonString)
+        } catch let error as NSError{
+            print(error.localizedDescription)
+            print(error.debugDescription)
+        }
     }
     
     private func calculateRating(comments: [Comment]) -> Double{

@@ -16,12 +16,15 @@ import SwiftyJSON
 import Dispatch
 import Contacts
 
+
+
 struct BusinessDetailChildTableViewControllerCellIdentifiers {
     static let imagesCell = "imagesCell"
     static let yelpWebPageCell = "yelpWebPageCell"
     static let phoneCell = "phoneCell"
     static let addressCell = "addressCell"
     static let hoursCell = "hoursCell"
+    static let addToFavoritesCell = "addToFavoritesCell"
 }
 
 struct YelpComment{
@@ -56,6 +59,9 @@ class BusinessDetailChildTableViewController: UITableViewController {
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var exportButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
+    
     var business: Business!
     let geocoder: CLGeocoder = CLGeocoder()
     var activityViewController: UIActivityViewController!
@@ -66,6 +72,8 @@ class BusinessDetailChildTableViewController: UITableViewController {
     var sectionOneHeaderViewContainer: UIView!
     
     var comments: [YelpComment] = []
+    var favoriteBusinesses: [HistoryYelpBusiness] = []
+    
     
 
     override func viewDidLoad() {
@@ -74,6 +82,20 @@ class BusinessDetailChildTableViewController: UITableViewController {
         sectionOneHeaderViewContainer = getSectionOneHeaderView()
         registerNibs()
         tableView.backgroundColor = UIColor.clear
+        loadFavoriteBusinessesList()
+        if let business = self.business{
+            updateTableView(with: business)
+        }
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadFavoriteBusinessesList()
+        if let business = self.business{
+            updateTableView(with: business)
+        }
     }
 
     func loadYelpComments(){
@@ -264,6 +286,9 @@ class BusinessDetailChildTableViewController: UITableViewController {
             }
         }
         
+        self.tableView.reloadData()
+       
+        
         exportButton.setImage(#imageLiteral(resourceName: "export").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         phoneButton.setImage(#imageLiteral(resourceName: "yelpPhone").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         websiteButton.setImage(#imageLiteral(resourceName: "website").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
@@ -427,6 +452,124 @@ class BusinessDetailChildTableViewController: UITableViewController {
             present(directionNotAvailableAlert, animated: true, completion: nil)
         }
     }
+    
+    func addToFavorite(){
+        
+        
+        var businessID: String {
+            if let id = business.id{
+                return id
+            } else {
+                return ""
+            }
+        }
+        
+        var businessName: String {
+            if let name = business.name{
+                return name
+            } else {
+                return ""
+            }
+        }
+        
+        var rating: Double{
+            if let rating = business.rating{
+                return rating
+            } else {
+                return 0.0
+            }
+        }
+        
+        var reviewCount: UInt{
+            if let reviewCount = business.review_count{
+                return UInt(reviewCount)
+            } else {
+                return 0
+            }
+        }
+        
+        var category: String{
+            guard let categories = business.categories else { return ""}
+            if let name = categories["name"]{
+                return name
+            } else {
+                return ""
+            }
+        }
+        
+        var businessAddress: String{
+            if let address = business.address{
+                return address
+            } else {
+                return ""
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        let  favoriteBusiness: HistoryYelpBusiness = HistoryYelpBusiness(businessIdentifier: businessID, name: businessName, rating: rating, reviewCount: reviewCount, category: category, businessAddress: businessAddress, latitude: business.latitude, longitude: business.longitude)
+        
+        favoriteBusinesses.append(favoriteBusiness)
+        
+        self.saveFavoriteBusinessesList()
+        
+    
+        
+    }
+    
+    func doesBusinessExistInBusinessFavoriteList() -> Bool {
+        for element in favoriteBusinesses{
+            if element.businessIdentifier == business.id{
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    func removeBusinessFromFavoriteList(){
+        for (index, element) in favoriteBusinesses.enumerated(){
+            if element.businessIdentifier == business.id{
+                favoriteBusinesses.remove(at: index)
+            }
+        }
+        saveFavoriteBusinessesList()
+        print("*** Favorite list count is: \(favoriteBusinesses.count)")
+    }
+    
+    func saveFavoriteBusinessesList(){
+        
+        guard let documentsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let businessFavoriteListPath = documentsDirURL.appendingPathComponent(KeyedArchiverKeys.favoriteBusinessesListKey).path
+        
+        if NSKeyedArchiver.archiveRootObject(favoriteBusinesses, toFile: businessFavoriteListPath){
+            print("*** Archived favorite business list!")
+            print("*** Favorite list couns is: \(favoriteBusinesses.count)")
+        } else {
+            print("*** Failed at archiving favorite business list!")
+        }
+        
+        loadFavoriteBusinessesList()
+    }
+    
+    func loadFavoriteBusinessesList(){
+        guard let documentsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let favoriteBusinessesListPath = documentsDirURL.appendingPathComponent(KeyedArchiverKeys.favoriteBusinessesListKey).path
+        
+        guard FileManager.default.fileExists(atPath: favoriteBusinessesListPath) else {return}
+        
+        favoriteBusinesses = NSKeyedUnarchiver.unarchiveObject(withFile: favoriteBusinessesListPath) as! [HistoryYelpBusiness]
+    }
 }
 
 extension BusinessDetailChildTableViewController: BusinessDetailViewControllerDelegate{
@@ -451,12 +594,13 @@ extension BusinessDetailChildTableViewController: BusinessDetailViewControllerDe
 extension BusinessDetailChildTableViewController{
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let cell = tableView.cellForRow(at: indexPath)
-        if cell?.reuseIdentifier == "phoneCell"{
+        
+        if cell?.reuseIdentifier == BusinessDetailChildTableViewControllerCellIdentifiers.phoneCell{
             if let phoneNumber = business.phone, let phoneURL = URL(string: "tel://" + phoneNumber){
                 UIApplication.shared.open(phoneURL)
             }
             return indexPath
-        } else if cell?.reuseIdentifier == "addressCell"{
+        } else if cell?.reuseIdentifier == BusinessDetailChildTableViewControllerCellIdentifiers.addressCell{
             
             var addressString = ""
             if let address = addressLabel.text{
@@ -479,6 +623,20 @@ extension BusinessDetailChildTableViewController{
             }
             
             return indexPath
+        } else if cell?.reuseIdentifier == BusinessDetailChildTableViewControllerCellIdentifiers.yelpWebPageCell{
+            if let urlString = business.url{
+                guard let url = URL(string: urlString) else {return nil}
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                return indexPath
+            }
+        } else if cell?.reuseIdentifier == BusinessDetailChildTableViewControllerCellIdentifiers.addToFavoritesCell{
+            if doesBusinessExistInBusinessFavoriteList() {
+                removeBusinessFromFavoriteList()
+            } else {
+                addToFavorite()
+            }
+            
+            tableView.reloadData()
         }
         
         
@@ -491,7 +649,9 @@ extension BusinessDetailChildTableViewController{
         }
     }
     
-   
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -499,6 +659,19 @@ extension BusinessDetailChildTableViewController{
         if indexPath.section == 0 {
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             cell.backgroundColor = UIColor.clear
+            
+            if cell.reuseIdentifier == "addToFavoritesCell"{
+                for favorite in favoriteBusinesses{
+                    if let business = business, let id = business.id{
+                        if id == favorite.businessIdentifier{
+                            favoriteButton.setImage(#imageLiteral(resourceName: "Checkmark").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+                        }
+                    }
+                    favoriteButton.setImage(nil, for: .normal)
+                }
+                
+            }
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpCommentCell) as! YelpCommentCell
@@ -579,7 +752,12 @@ extension BusinessDetailChildTableViewController{
     }
 
     
-    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let sectionOneRows = tableView.numberOfRows(inSection: 1)
+        if indexPath.row == sectionOneRows - 1 && indexPath.section == 1{ //Determine if the table view has finished loading.
+            tableView.reloadData()
+        }
+    }
 }
 
 

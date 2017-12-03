@@ -53,10 +53,12 @@ class SignInViewController: UIViewController {
                     self.animate(alertBanner: self.invalidEmailPasswordAlert)
                     break
                 default:
-                    print("Invalid credentials.")
+                    self.animate(alertBanner: self.invalidEmailPasswordAlert)
                 }
             } else {
+                
                 self.dismiss(animated: true, completion: nil)
+                self.presentingViewController?.dismiss(animated: false, completion: nil)
             }
         }
         
@@ -64,6 +66,7 @@ class SignInViewController: UIViewController {
     
     @IBAction func cancel(_ sender: UIButton){
         dismiss(animated: true, completion: nil)
+        
     }
     
     func textFieldsDidChangeText() {

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol NearStaticRestStopDetailViewControllerDelegate: class {
-    func nearStaticRestStopDetailViewControllerDidRequestUpdate(_ narStaticRestStopDetailViewControllerwith: NearStaticRestStopDetailViewController, restStop: USRestStop)
+    func nearStaticRestStopDetailViewControllerDidRequestUpdate(_ nearStaticRestStopDetailViewControllerwith: NearStaticRestStopDetailViewController, restStop: USRestStop)
     func nearStaticRestStopDetailViewControllerDidTapCloseButton(_ nearStaticRestStopDetailViewController: NearStaticRestStopDetailViewController)
 }
 
@@ -23,12 +23,17 @@ class NearStaticRestStopDetailViewController: UIViewController {
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var restStopDescriptionLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var ratingImageView: UIImageView!
     
     var nearRestStopChildDetailTableViewController: NearRestStopChildDetailTableViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         constraintContainerView()
+        
+        
+        
+        
 
         latitudeLabel.text =  restStop.latitude.convertToString()
         longitudeLabel.text = restStop.longitude.convertToString()
@@ -37,7 +42,20 @@ class NearStaticRestStopDetailViewController: UIViewController {
             restStopDescriptionLabel.text = "Rest Stop on \((restStop.routeName as NSString)) in \(fullStateName.capitalized)"
         }
         
+        ratingImageView.contentMode = .scaleAspectFit
+        
         closeButton.setImage(#imageLiteral(resourceName: "closeButton").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: { comments, rating in
+            
+            guard let image = UIImage(named: "\(rating)stars") else {
+                self.ratingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: 100.0, height: 27.0)).withRenderingMode(.alwaysOriginal)
+                return
+            }
+            
+            self.ratingImageView.image = image.resizeImage(CGSize(width: 100.0, height: 27.0)).withRenderingMode(.alwaysOriginal)
+            
+        })
         
         
     }

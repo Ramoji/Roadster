@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 extension UIView{
     
@@ -44,6 +45,11 @@ extension NSLayoutConstraint{
         return self.constant < middleLimit
     }
 }
+
+extension String{
+   
+}
+
 
 
 

@@ -41,13 +41,34 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var frequentButton: UIButton!
     
+    var comments: [Comment] = []
+    
     var imageViews: [UIImageView]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColor.clear
+        let blurView = BlurredBackgroundView(frame: tableView.bounds, addBackgroundPic: true)
+        tableView.backgroundView = blurView
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 300, right: 0)
+        
+        registerNibs()
         imageViews = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour, imageViewFive, imageViewSix, imageViewSeven, imageViewEight, imageViewNine, imageViewTen]
         mapView.isScrollEnabled = false
         setUpViewForRestStop()
+        mapView.mapType = .hybrid
+        
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: { comments, rating in
+            
+            self.comments = comments
+            self.tableView.reloadData()
+        })
+    }
+    
+    func registerNibs(){
+        var nib = UINib(nibName: CustomCellTypeIdentifiers.commentCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.commentCell)
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +95,29 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
         if section == 0 {
             return super.tableView(tableView, numberOfRowsInSection: section)
         } else {
-            return 1
+            return comments.count
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0 {
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            cell.backgroundColor = UIColor.clear
+             return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.commentCell, for: indexPath) as! CommentCell
+            cell.configureCell(with: comments[indexPath.row])
+            cell.backgroundColor = UIColor.clear
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        } else {
+            return 88.0
         }
     }
     
@@ -156,60 +199,8 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     }
 
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+   
     
     @IBAction func saveFrequent(_ sender: UIButton){
         let managedObjectContext = restStop.managedObjectContext!
@@ -254,7 +245,7 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
             }
             //remove favorite from core data
             print("*** latitude: \(restStop.latitude), longitude: \(restStop.longitude)")
-            CoreDataHelper.shared.deleteFavorite(restStop: restStop)
+            CoreDataHelper.shared.deleteFavorite(latitude: restStop.latitude, longitude: restStop.longitude)
         } else {
             //change rest stop favotire status and re-save (favorite)
             favoriteButton.setImage(UIImage(named: "favoriteOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)

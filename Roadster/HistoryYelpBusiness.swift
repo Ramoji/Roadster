@@ -16,6 +16,8 @@ class HistoryYelpBusiness: NSObject, NSCoding{
     var reviewCount: UInt
     var category: String
     var businessAddress: String
+    var latitude: Double?
+    var longitude: Double?
     
     init(business: YLPBusiness) {
         businessIdentifier = business.identifier
@@ -28,21 +30,25 @@ class HistoryYelpBusiness: NSObject, NSCoding{
         } else {
             category = ""
         }
-        
         if !business.location.address.isEmpty{
             businessAddress = business.location.address[0]
         } else {
             businessAddress = ""
         }
+        
+        latitude = business.location.coordinate?.latitude
+        longitude = business.location.coordinate?.longitude
     }
     
-    init(businessIdentifier: String, name: String, rating: Double, reviewCount: UInt, category: String, businessAddress: String) {
+    init(businessIdentifier: String, name: String, rating: Double, reviewCount: UInt, category: String, businessAddress: String, latitude: Double?, longitude: Double?) {
         self.businessIdentifier = businessIdentifier
         self.name = name
         self.rating = rating
         self.reviewCount = reviewCount
         self.category = category
         self.businessAddress = businessAddress
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,6 +59,8 @@ class HistoryYelpBusiness: NSObject, NSCoding{
         reviewCount = aDecoder.decodeObject(forKey: "reviewCount") as! UInt
         category = aDecoder.decodeObject(forKey: "category") as! String
         businessAddress = aDecoder.decodeObject(forKey: "businessAddress") as! String
+        latitude = aDecoder.decodeObject(forKey: "latitude") as! Double?
+        longitude = aDecoder.decodeObject(forKey: "longitude") as! Double?
     }
     
     func encode(with aCoder: NSCoder) {
@@ -62,5 +70,7 @@ class HistoryYelpBusiness: NSObject, NSCoding{
         aCoder.encode(reviewCount, forKey: "reviewCount")
         aCoder.encode(category, forKey: "category")
         aCoder.encode(businessAddress, forKey: "businessAddress")
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
     }
 }
