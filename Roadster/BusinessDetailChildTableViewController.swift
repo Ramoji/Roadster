@@ -360,7 +360,15 @@ class BusinessDetailChildTableViewController: UITableViewController {
         return hourString!
     }
     
+    @IBAction func openYelpWebPage(_ sender: UIButton){
+        if let urlString = business.url{
+            guard let url = URL(string: urlString) else {return}
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
     func getEstimatedTravelTime(with userLocation: CLLocation){ //Must check if business coordinate is not nil before calling this function!
+        guard let _ = business.latitude, let _ = business.longitude else {return}
         let directionsRequest = MKDirectionsRequest()
         let startPlacemartk = MKPlacemark(coordinate: userLocation.coordinate)
         let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: business.latitude!, longitude: business.longitude!))
@@ -370,18 +378,61 @@ class BusinessDetailChildTableViewController: UITableViewController {
         directions.calculateETA{estimatedTravelTimeResponse, error in
             if error == nil{
                 if let estimatedTravelTimeResponse = estimatedTravelTimeResponse{
-                    let expectedTravelTimeString = String(describing: Int(round(estimatedTravelTimeResponse.expectedTravelTime / 60)))
-                    let buttonTitle = "Directions (\(expectedTravelTimeString) min drive)"
-                    let buttonTitleNSString = NSString(string: buttonTitle)
-                    let buttonTitleDirectionsRange = buttonTitleNSString.range(of: "Directions")
-                    let buttonTitleTravelTimeRange = buttonTitleNSString.range(of: "(\(expectedTravelTimeString) min drive)")
-                    let mutableAttributedTitleString = NSMutableAttributedString(string: buttonTitle)
-                    mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 15), range: buttonTitleDirectionsRange)
-                    mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 13), range: buttonTitleTravelTimeRange)
+                    let estimatedTimeInHours = (round(((estimatedTravelTimeResponse.expectedTravelTime / 60) / 60) * 10)) / 10
+                    let estimatedTravelTimeInt = Int(estimatedTimeInHours)
+                    
+                    if estimatedTravelTimeInt == 0 { // travel time less than an hour.
+                        
+                        let expectedTravelTimeString = String(describing: Int(round(estimatedTravelTimeResponse.expectedTravelTime / 60)))
+                        let buttonTitle = "Directions (\(expectedTravelTimeString) min drive)"
+                        let buttonTitleNSString = NSString(string: buttonTitle)
+                        let buttonTitleDirectionsRange = buttonTitleNSString.range(of: "Directions")
+                        let buttonTitleTravelTimeRange = buttonTitleNSString.range(of: "(\(expectedTravelTimeString) min drive)")
+                        let mutableAttributedTitleString = NSMutableAttributedString(string: buttonTitle)
+                        mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 15), range: buttonTitleDirectionsRange)
+                        mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 13), range: buttonTitleTravelTimeRange)
+                        self.directionsButton.setAttributedTitle(mutableAttributedTitleString, for: UIControlState.normal)
+                    } else { // travel time more than one hour driving.
+                        
+                        let hourMultiplier = estimatedTravelTimeInt
+                        let minuteMultiplier = estimatedTimeInHours - Double(hourMultiplier)
+                        print("*** Hour multilier is: \(hourMultiplier)")
+                        print("*** Minute multiplier is: \(minuteMultiplier)")
+                        
+                        var estimatedTravelTimeString = ""
+                        
+                        if hourMultiplier == 1 {
+                            estimatedTravelTimeString = "(\(hourMultiplier) hour"
+                        } else if hourMultiplier == 0 {
+                            
+                        } else {
+                            estimatedTravelTimeString = "(\(hourMultiplier) hours"
+                        }
+                        
+                        if minuteMultiplier == 0 {
+                            estimatedTravelTimeString = estimatedTravelTimeString + " drive)"
+                        } else {
+                            estimatedTravelTimeString = estimatedTravelTimeString + " and \(Int(60 * minuteMultiplier)) min drive)"
+                        }
+                        
+                        let buttonTitle = "Directions \(estimatedTravelTimeString)"
+                        let buttonTitleNSString = NSString(string: buttonTitle)
+                        let buttonTitleDirectionsRange = buttonTitleNSString.range(of: "Directions")
+                        let buttonTitleTravelTimeRange = buttonTitleNSString.range(of: estimatedTravelTimeString)
+                        let mutableAttributedTitleString = NSMutableAttributedString(string: buttonTitle)
+                        mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 15), range: buttonTitleDirectionsRange)
+                        mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 13), range: buttonTitleTravelTimeRange)
+                        self.directionsButton.setAttributedTitle(mutableAttributedTitleString, for: UIControlState.normal)
+                    }
+                    
+                    print("*** Estimated travel time in hours is: \(estimatedTimeInHours)")
+                    print("*** Estimated travel time Int is: \(estimatedTravelTimeInt)")
+                    
+                    
+                    
                     self.directionsButton.titleLabel?.numberOfLines = 2
                     self.directionsButton.titleLabel?.textAlignment = .center
                     self.directionsButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-                    self.directionsButton.setAttributedTitle(mutableAttributedTitleString, for: UIControlState.normal)
                     self.directionsButton.setNeedsLayout()
                     
                 }

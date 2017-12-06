@@ -1843,6 +1843,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="JMo-w5-Rrz" firstAttribute="leading" secondItem="hyP-zp-3ez" secondAttribute="leading" constant="15" id="7gX-eM-0ok"/>
+                                                <constraint firstAttribute="trailing" secondItem="JMo-w5-Rrz" secondAttribute="trailing" constant="15" id="ZSX-4w-2ub"/>
                                                 <constraint firstAttribute="bottom" secondItem="JMo-w5-Rrz" secondAttribute="bottom" constant="1.5" id="jvn-9a-UG3"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1868,16 +1869,6 @@
                                                         <constraint firstAttribute="height" constant="76" id="54k-wb-vcD"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More pictures on Yelp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGi-hH-JJ9">
-                                                    <rect key="frame" x="15" y="171" width="124" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="124" id="91n-YB-D0q"/>
-                                                        <constraint firstAttribute="height" constant="15" id="9av-Tz-zbo"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k3z-VZ-FBd">
                                                     <rect key="frame" x="223" y="87" width="137" height="76"/>
                                                     <constraints>
@@ -1887,14 +1878,14 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="k3z-VZ-FBd" secondAttribute="trailing" constant="15" id="BHP-aI-N8N"/>
+                                                <constraint firstAttribute="trailing" secondItem="pql-ab-hsk" secondAttribute="trailing" constant="15" id="MR9-N7-gaE"/>
                                                 <constraint firstItem="k3z-VZ-FBd" firstAttribute="leading" secondItem="eQA-Mc-1yW" secondAttribute="trailing" constant="1" id="UFe-iV-zMK"/>
-                                                <constraint firstItem="AGi-hH-JJ9" firstAttribute="leading" secondItem="nO0-zF-eOT" secondAttribute="leading" constant="15" id="XBz-Qn-3AR"/>
                                                 <constraint firstItem="pql-ab-hsk" firstAttribute="leading" secondItem="eQA-Mc-1yW" secondAttribute="trailing" constant="1" id="buk-2J-WhT"/>
                                                 <constraint firstAttribute="bottom" secondItem="k3z-VZ-FBd" secondAttribute="bottom" constant="33.5" id="gmB-0l-n9S"/>
                                                 <constraint firstItem="eQA-Mc-1yW" firstAttribute="leading" secondItem="nO0-zF-eOT" secondAttribute="leading" constant="15" id="gpN-zo-Og4"/>
-                                                <constraint firstItem="AGi-hH-JJ9" firstAttribute="top" secondItem="eQA-Mc-1yW" secondAttribute="bottom" constant="8" id="mg1-Px-yft"/>
+                                                <constraint firstAttribute="bottom" secondItem="eQA-Mc-1yW" secondAttribute="bottom" constant="33.5" id="hRi-Ox-XfG"/>
                                                 <constraint firstItem="k3z-VZ-FBd" firstAttribute="top" secondItem="pql-ab-hsk" secondAttribute="bottom" constant="1" id="vnF-2O-8cv"/>
-                                                <constraint firstAttribute="bottom" secondItem="AGi-hH-JJ9" secondAttribute="bottom" constant="10.5" id="wfd-p0-SBQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1917,6 +1908,9 @@
                                                         <constraint firstAttribute="height" constant="20" id="A50-jL-fCH"/>
                                                         <constraint firstAttribute="width" constant="20" id="b9O-4m-2Je"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="openYelpWebPage:" destination="QYt-p3-rdg" eventType="touchUpInside" id="XBx-wn-Shb"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -2211,7 +2205,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lt9-50-mGR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3639" y="-837"/>
+            <point key="canvasLocation" x="3637.5999999999999" y="-837.48125937031489"/>
         </scene>
         <!--Near Static Rest Stop Detail View Controller-->
         <scene sceneID="ic9-3V-A5l">
@@ -4767,6 +4761,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="l0S-iY-EdM" secondAttribute="trailing" constant="15" id="BF4-pJ-WIV"/>
                                                 <constraint firstAttribute="bottom" secondItem="l0S-iY-EdM" secondAttribute="bottom" constant="1.5" id="G9n-nM-ylh"/>
                                                 <constraint firstItem="l0S-iY-EdM" firstAttribute="leading" secondItem="Exk-qF-lxz" secondAttribute="leading" constant="15" id="dAU-N8-Efr"/>
                                             </constraints>
@@ -4800,24 +4795,14 @@
                                                         <constraint firstAttribute="width" constant="137" id="bg8-Rt-4Yj"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More pictures on Yelp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9l-Oz-KBX">
-                                                    <rect key="frame" x="15" y="171" width="124" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="124" id="8jH-oD-CRp"/>
-                                                        <constraint firstAttribute="height" constant="15" id="MCb-Ya-RC5"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="e9l-Oz-KBX" firstAttribute="top" secondItem="65x-Ar-saN" secondAttribute="bottom" constant="8" id="64r-Zz-PDd"/>
+                                                <constraint firstAttribute="bottom" secondItem="65x-Ar-saN" secondAttribute="bottom" constant="33.5" id="6wB-QV-1eZ"/>
                                                 <constraint firstItem="hsf-tH-Agg" firstAttribute="top" secondItem="9gF-ca-JSF" secondAttribute="bottom" constant="1" id="GMk-AK-QxL"/>
-                                                <constraint firstItem="e9l-Oz-KBX" firstAttribute="leading" secondItem="rgj-lT-LbD" secondAttribute="leading" constant="15" id="H4M-AL-bSv"/>
                                                 <constraint firstItem="65x-Ar-saN" firstAttribute="leading" secondItem="rgj-lT-LbD" secondAttribute="leading" constant="15" id="I7c-3i-AN6"/>
+                                                <constraint firstAttribute="trailing" secondItem="hsf-tH-Agg" secondAttribute="trailing" constant="15" id="Mgg-dP-3M5"/>
+                                                <constraint firstAttribute="trailing" secondItem="9gF-ca-JSF" secondAttribute="trailing" constant="15" id="VY2-xp-kPf"/>
                                                 <constraint firstItem="9gF-ca-JSF" firstAttribute="leading" secondItem="65x-Ar-saN" secondAttribute="trailing" constant="1" id="fIA-eJ-4bX"/>
-                                                <constraint firstAttribute="bottom" secondItem="e9l-Oz-KBX" secondAttribute="bottom" constant="10.5" id="iTD-iM-yIo"/>
                                                 <constraint firstItem="hsf-tH-Agg" firstAttribute="leading" secondItem="65x-Ar-saN" secondAttribute="trailing" constant="1" id="qYO-RR-e9f"/>
                                                 <constraint firstAttribute="bottom" secondItem="hsf-tH-Agg" secondAttribute="bottom" constant="33.5" id="wMt-hH-0sl"/>
                                             </constraints>
@@ -4842,6 +4827,9 @@
                                                         <constraint firstAttribute="width" constant="20" id="DTO-Hh-DuH"/>
                                                         <constraint firstAttribute="height" constant="20" id="Gq4-ch-FUq"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <action selector="openYelpWebPage:" destination="FU0-Dx-vjj" eventType="touchUpInside" id="1xI-KM-E11"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
