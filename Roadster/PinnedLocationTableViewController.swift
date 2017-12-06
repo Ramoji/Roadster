@@ -116,8 +116,8 @@ class PinnedLocationsTableViewController: UITableViewController {
         } else if indexPath.section == 2 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.LocationsAddressCell, for: indexPath) as! LocationsAddressCell
-            let mapItem = MKMapItem(placemark: locationList[indexPath.row].placemark)
-            cell.configureCell(for: mapItem, and: currentUserLocation)
+            
+            cell.configureCell(for: locationList[indexPath.row], and: currentUserLocation)
             return cell
             
         } else {

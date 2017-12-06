@@ -224,7 +224,7 @@ class AddressTableViewController: UITableViewController {
        
         guard let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
             let favoriteLocationsPath = documentsDir.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
-            guard FileManager.default.fileExists(atPath: favoriteLocationsPath) else {fatalError("*** No such path exists!")}
+            guard FileManager.default.fileExists(atPath: favoriteLocationsPath) else {return}
             favoriteLocations = NSKeyedUnarchiver.unarchiveObject(withFile: favoriteLocationsPath) as! [FavoriteLocation]
         
         

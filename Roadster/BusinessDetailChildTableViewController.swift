@@ -82,6 +82,7 @@ class BusinessDetailChildTableViewController: UITableViewController {
         registerNibs()
         tableView.backgroundColor = UIColor.clear
         setupTableView()
+        
         favoriteButton.isHidden = false
         favoriteButton.contentMode = .scaleAspectFit
     }

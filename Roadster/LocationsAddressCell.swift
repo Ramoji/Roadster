@@ -16,7 +16,7 @@ class LocationsAddressCell: UITableViewCell {
     @IBOutlet weak var streetAddressLabel: UILabel!
     @IBOutlet weak var cityStateAddressLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var zipCodeLabel: UILabel!
+    @IBOutlet weak var userDefinedAddressNameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
     override func awakeFromNib() {
@@ -32,10 +32,10 @@ class LocationsAddressCell: UITableViewCell {
         
     }
     
-    func configureCell(for mapItem: MKMapItem, and currentUserLocation: CLLocation?){
+    func configureCell(for favoriteLocation: FavoriteLocation , and currentUserLocation: CLLocation?){
         
         prepLabels()
-        
+        let mapItem = MKMapItem(placemark: favoriteLocation.placemark)
         
         if let currentUserLocation = currentUserLocation{
             distanceLabel.isHidden = false
@@ -85,6 +85,10 @@ class LocationsAddressCell: UITableViewCell {
         
         streetAddressLabel.text = streetAddress
         cityStateAddressLabel.text = cityStateCountry
+        
+        if let locationName = favoriteLocation.locationName{
+            userDefinedAddressNameLabel.text = locationName.capitalized
+        }
     }
     
     func prepLabels(){

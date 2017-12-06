@@ -4842,7 +4842,6 @@
                                                         <constraint firstAttribute="width" constant="20" id="DTO-Hh-DuH"/>
                                                         <constraint firstAttribute="height" constant="20" id="Gq4-ch-FUq"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -4853,8 +4852,37 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="phoneCell" rowHeight="55" id="DFV-3D-HKR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="hoursCell" rowHeight="55" id="nHh-2d-qAm" userLabel="Add To Favorite Cell">
                                         <rect key="frame" x="0.0" y="339" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nHh-2d-qAm" id="xh5-Xa-Aw3">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by1-Q4-3Rn">
+                                                    <rect key="frame" x="18" y="17" width="121" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-L9-C7X">
+                                                    <rect key="frame" x="325" y="17.5" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="DUe-iK-OJT"/>
+                                                        <constraint firstAttribute="width" constant="20" id="hZp-XG-Apx"/>
+                                                    </constraints>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="WXv-L9-C7X" secondAttribute="trailing" constant="30" id="82g-YS-SzN"/>
+                                                <constraint firstItem="by1-Q4-3Rn" firstAttribute="leading" secondItem="xh5-Xa-Aw3" secondAttribute="leading" constant="18" id="J7V-qa-Ccq"/>
+                                                <constraint firstItem="by1-Q4-3Rn" firstAttribute="centerY" secondItem="xh5-Xa-Aw3" secondAttribute="centerY" id="YXN-x8-ePf"/>
+                                                <constraint firstItem="WXv-L9-C7X" firstAttribute="centerY" secondItem="xh5-Xa-Aw3" secondAttribute="centerY" id="chX-nY-Ssd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="phoneCell" rowHeight="55" id="DFV-3D-HKR">
+                                        <rect key="frame" x="0.0" y="394" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DFV-3D-HKR" id="Zed-WT-eFS">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
@@ -4872,7 +4900,6 @@
                                                         <constraint firstAttribute="width" constant="20" id="Xxr-eB-sIu"/>
                                                         <constraint firstAttribute="height" constant="20" id="za9-KW-hUA"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="makePhoneCall:" destination="FU0-Dx-vjj" eventType="touchUpInside" id="UWn-iQ-9Jt"/>
                                                     </connections>
@@ -4887,7 +4914,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="addressCell" rowHeight="112" id="z0d-T5-JVp">
-                                        <rect key="frame" x="0.0" y="394" width="375" height="112"/>
+                                        <rect key="frame" x="0.0" y="449" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z0d-T5-JVp" id="ehw-Je-BUK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
@@ -4899,7 +4926,6 @@
                                                         <constraint firstAttribute="width" constant="20" id="SNf-QF-HXe"/>
                                                         <constraint firstAttribute="height" constant="20" id="Y57-rT-jcz"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="exportAddress:" destination="FU0-Dx-vjj" eventType="touchUpInside" id="ScB-fL-mwQ"/>
                                                     </connections>
@@ -4919,7 +4945,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="hoursCell" rowHeight="190" id="Vrn-Nn-xCF">
-                                        <rect key="frame" x="0.0" y="506" width="375" height="190"/>
+                                        <rect key="frame" x="0.0" y="561" width="375" height="190"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vrn-Nn-xCF" id="O0D-7l-I7B">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="189.5"/>
@@ -5053,7 +5079,7 @@
                             <tableViewSection headerTitle="Section-2" id="1XU-8b-Noe">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4Gz-Yd-gcC">
-                                        <rect key="frame" x="0.0" y="724" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="779" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Gz-Yd-gcC" id="62r-kj-KtI">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -5061,7 +5087,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="C1N-8W-kXV">
-                                        <rect key="frame" x="0.0" y="768" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="823" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1N-8W-kXV" id="st9-Me-Iic">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -5069,7 +5095,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="n6w-gq-Iw2">
-                                        <rect key="frame" x="0.0" y="812" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="867" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n6w-gq-Iw2" id="RRE-WJ-hz0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -5089,6 +5115,7 @@
                         <outlet property="businessHoursNotAvailableLabel" destination="ZX6-W5-aU8" id="ge5-jt-fbs"/>
                         <outlet property="directionsButton" destination="l0S-iY-EdM" id="LB5-8p-Gfp"/>
                         <outlet property="exportButton" destination="ebz-2L-H0A" id="XDs-Ra-hCg"/>
+                        <outlet property="favoriteButton" destination="WXv-L9-C7X" id="F1Q-EC-SiG"/>
                         <outlet property="fridayHoursLabel" destination="pSV-6n-ucq" id="zNO-t7-yxH"/>
                         <outlet property="hoursStackView" destination="VZ6-w7-dEa" id="RzG-DZ-CUl"/>
                         <outlet property="imageView1" destination="65x-Ar-saN" id="JOe-t2-POF"/>
