@@ -59,11 +59,7 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
         setUpViewForRestStop()
         mapView.mapType = .hybrid
         
-        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: { comments, rating in
-            
-            self.comments = comments
-            self.tableView.reloadData()
-        })
+        
     }
     
     func registerNibs(){
@@ -122,6 +118,13 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     }
     
     func setUpViewForRestStop(){
+        
+        HTTPHelper.shared.getComments(latitude: restStop.latitude, longitude: restStop.longitude, reloadTableViewClosure: { comments, rating in
+            
+            self.comments = comments
+            self.tableView.reloadData()
+        })
+        
         let iconSize = CGSize(width: 25.0, height: 25.0)
         let vehicleIconSize = CGSize(width: 25.0, height: 25.0)
         prepIconViews()
@@ -286,6 +289,5 @@ extension NearRestStopChildDetailTableViewController: NearStaticRestStopDetailVi
     }
     
     func nearStaticRestStopDetailViewControllerDidRequestUpdate(_ narStaticRestStopDetailViewControllerwith: NearStaticRestStopDetailViewController, restStop: USRestStop) {
-        
     }
 }

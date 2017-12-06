@@ -30,11 +30,11 @@ class NearStaticRestStopDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         constraintContainerView()
-        
-        
-        
-        
-
+        NotificationCenter.default.addObserver(self, selector: #selector(needsUpdate), name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: nil)
+        configureSelfViews()
+    }
+    
+    func configureSelfViews(){
         latitudeLabel.text =  restStop.latitude.convertToString()
         longitudeLabel.text = restStop.longitude.convertToString()
         
@@ -56,8 +56,6 @@ class NearStaticRestStopDetailViewController: UIViewController {
             self.ratingImageView.image = image.resizeImage(CGSize(width: 100.0, height: 27.0)).withRenderingMode(.alwaysOriginal)
             
         })
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,6 +69,16 @@ class NearStaticRestStopDetailViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         setUpView()
+    }
+    
+    func needsUpdate(){
+
+        if let nearRestStopChildDetailTableViewController = nearRestStopChildDetailTableViewController{
+            nearRestStopChildDetailTableViewController.restStop = self.restStop
+            nearRestStopChildDetailTableViewController.setUpViewForRestStop()
+        }
+        configureSelfViews()
+        
     }
     
     func constraintContainerView(){

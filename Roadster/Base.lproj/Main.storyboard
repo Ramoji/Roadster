@@ -1861,13 +1861,6 @@
                                                         <constraint firstAttribute="height" constant="153" id="3NS-Me-WIF"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k3z-VZ-FBd">
-                                                    <rect key="frame" x="223" y="87" width="137" height="76"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="137" id="5H0-JB-OM9"/>
-                                                        <constraint firstAttribute="height" constant="76" id="qy6-Wr-lb3"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pql-ab-hsk">
                                                     <rect key="frame" x="223" y="10" width="137" height="76"/>
                                                     <constraints>
@@ -1885,6 +1878,13 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k3z-VZ-FBd">
+                                                    <rect key="frame" x="223" y="87" width="137" height="76"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="137" id="5H0-JB-OM9"/>
+                                                        <constraint firstAttribute="height" constant="76" id="qy6-Wr-lb3"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="k3z-VZ-FBd" firstAttribute="leading" secondItem="eQA-Mc-1yW" secondAttribute="trailing" constant="1" id="UFe-iV-zMK"/>
@@ -1940,19 +1940,19 @@
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axK-fJ-nXq">
-                                                    <rect key="frame" x="317" y="17.5" width="20" height="20"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocK-85-Vcs">
+                                                    <rect key="frame" x="322" y="17.5" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="5JA-ep-6jI"/>
-                                                        <constraint firstAttribute="width" constant="20" id="O3u-40-DOp"/>
+                                                        <constraint firstAttribute="width" constant="20" id="4d3-lH-IB4"/>
+                                                        <constraint firstAttribute="height" constant="20" id="LJj-sW-09b"/>
                                                     </constraints>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1OR-Ca-zCY" firstAttribute="leading" secondItem="wU9-rR-JtZ" secondAttribute="leading" constant="18" id="NFm-rE-aC4"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="axK-fJ-nXq" secondAttribute="trailing" constant="22" id="Wm5-FC-ujP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ocK-85-Vcs" secondAttribute="trailing" constant="17" id="SGv-Hv-b46"/>
                                                 <constraint firstItem="1OR-Ca-zCY" firstAttribute="centerY" secondItem="wU9-rR-JtZ" secondAttribute="centerY" id="bB8-eS-RDz"/>
-                                                <constraint firstItem="axK-fJ-nXq" firstAttribute="centerY" secondItem="wU9-rR-JtZ" secondAttribute="centerY" id="sIo-iG-Cxi"/>
+                                                <constraint firstItem="ocK-85-Vcs" firstAttribute="centerY" secondItem="wU9-rR-JtZ" secondAttribute="centerY" id="cLI-na-VpA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2190,7 +2190,7 @@
                         <outlet property="businessHoursNotAvailableLabel" destination="Fqr-8h-Ufy" id="DsB-Z9-BJO"/>
                         <outlet property="directionsButton" destination="JMo-w5-Rrz" id="rnE-WE-zoa"/>
                         <outlet property="exportButton" destination="Gue-h6-QqB" id="jdo-kF-SKH"/>
-                        <outlet property="favoriteButton" destination="axK-fJ-nXq" id="KFF-Yv-BPm"/>
+                        <outlet property="favoriteButton" destination="ocK-85-Vcs" id="eo0-jb-BfF"/>
                         <outlet property="fridayHoursLabel" destination="dx0-Y1-rcs" id="mXM-kq-74b"/>
                         <outlet property="hoursStackView" destination="PXP-JT-utY" id="ue4-zy-JsG"/>
                         <outlet property="imageView1" destination="eQA-Mc-1yW" id="BiK-ch-ggz"/>
@@ -3046,7 +3046,7 @@
         <scene sceneID="1ou-2o-d6y">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BHO-h7-NoE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="States" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="States" image="states" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SdD-xU-DOJ">
                         <autoresizingMask key="autoresizingMask"/>
@@ -3064,7 +3064,7 @@
         <scene sceneID="1nv-u3-0fk">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SAK-fG-wo2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Near By" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Near By" image="nearBy" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CXY-HK-OXP">
                         <autoresizingMask key="autoresizingMask"/>
@@ -3992,7 +3992,7 @@
         <scene sceneID="jbk-a0-dmd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JJE-Um-yc6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="More" id="cTa-Wn-cie"/>
+                    <tabBarItem key="tabBarItem" title="More" image="more" id="cTa-Wn-cie"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gL7-6B-jJO">
                         <autoresizingMask key="autoresizingMask"/>
@@ -4028,7 +4028,7 @@
         <scene sceneID="S4c-Ni-Jg3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lvs-vd-2vL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Locations" id="w63-Gz-evh"/>
+                    <tabBarItem key="tabBarItem" title="Locations" image="locations" id="w63-Gz-evh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LR0-Dg-Azd">
                         <autoresizingMask key="autoresizingMask"/>
@@ -5903,7 +5903,9 @@
     <resources>
         <image name="0stars" width="260" height="52"/>
         <image name="closeButton" width="400" height="400"/>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="locations" width="32" height="32"/>
+        <image name="more" width="32" height="32"/>
+        <image name="nearBy" width="32" height="32"/>
+        <image name="states" width="32" height="32"/>
     </resources>
 </document>

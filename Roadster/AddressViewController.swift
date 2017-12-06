@@ -28,17 +28,14 @@ class AddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
-        
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(needsUpdate), name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: nil)
         view.addShadow(withCornerRadius: 15.0)
-        
-        
+       setUpView()
+    }
+    
+    
 
+    func setUpView(){
         closeButton.setImage(#imageLiteral(resourceName: "closeButton").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         
         var addressString = ""
@@ -58,8 +55,15 @@ class AddressViewController: UIViewController {
             distanceLabel.text = String(format: "%.1f", distanceFromUser) + " mi"
         }
     }
-
     
+    func needsUpdate(){
+        if let addressTableViewController = addressTableViewController{
+            addressTableViewController.mapItem = mapItem
+            addressTableViewController.currentUserLocation = currentUserLocation
+            addressTableViewController.needsUpdate()
+        }
+        setUpView()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -68,7 +72,7 @@ class AddressViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        needsUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {

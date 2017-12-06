@@ -79,19 +79,24 @@ class BusinessDetailChildTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imageViews = [imageView1, imageView2, imageView3]
-        sectionOneHeaderViewContainer = getSectionOneHeaderView()
         registerNibs()
         tableView.backgroundColor = UIColor.clear
+        setupTableView()
+        favoriteButton.isHidden = false
+        favoriteButton.contentMode = .scaleAspectFit
+    }
+    
+    func setupTableView(){
+        sectionOneHeaderViewContainer = getSectionOneHeaderView()
         loadFavoriteBusinessesList()
         if let business = self.business{
             updateTableView(with: business)
         }
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("*** in business detail child view contorller viewDidAppear(:)!")
         loadFavoriteBusinessesList()
         if let business = self.business{
             updateTableView(with: business)
@@ -292,6 +297,12 @@ class BusinessDetailChildTableViewController: UITableViewController {
         exportButton.setImage(#imageLiteral(resourceName: "export").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         phoneButton.setImage(#imageLiteral(resourceName: "yelpPhone").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         websiteButton.setImage(#imageLiteral(resourceName: "website").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        if doesBusinessExistInBusinessFavoriteList(){
+            favoriteButton.setImage(#imageLiteral(resourceName: "checkmark").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        } else {
+            favoriteButton.setImage(nil, for: .normal)
+        }
     }
     
     func constructHoursString(weekDayHours: [String: AnyObject]?) -> String{
@@ -632,8 +643,10 @@ extension BusinessDetailChildTableViewController{
         } else if cell?.reuseIdentifier == BusinessDetailChildTableViewControllerCellIdentifiers.addToFavoritesCell{
             if doesBusinessExistInBusinessFavoriteList() {
                 removeBusinessFromFavoriteList()
+                favoriteButton.setImage(nil, for: .normal)
             } else {
                 addToFavorite()
+                favoriteButton.setImage(#imageLiteral(resourceName: "checkmark").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
             }
             
             tableView.reloadData()
@@ -664,10 +677,9 @@ extension BusinessDetailChildTableViewController{
                 for favorite in favoriteBusinesses{
                     if let business = business, let id = business.id{
                         if id == favorite.businessIdentifier{
-                            favoriteButton.setImage(#imageLiteral(resourceName: "Checkmark").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+                            favoriteButton.setImage(#imageLiteral(resourceName: "checkmark").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
                         }
                     }
-                    favoriteButton.setImage(nil, for: .normal)
                 }
                 
             }

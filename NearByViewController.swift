@@ -23,7 +23,8 @@ struct ChildControllersUpperConstraints {
 
 struct NearByViewControllerNotificationIDs{
     static let businessDetailViewControllerNeedsUpdate = "businessDetailViewControllerNeedsUpdate"
-     
+    static let nearStaticRestStopDetailViewControllerNeedsUpdate = "nearStaticRestStopDetailViewControllerNeedsUpdate"
+    static let addressViewControllerNeedsUpdate = "addressViewControllerNeedsUpdate"
 }
 
 class NearByViewController: UIViewController {
@@ -183,7 +184,7 @@ class NearByViewController: UIViewController {
             var yelpBusinessAnnotations: [YelpBusinessAnnotation] = [] // Created YelpBusinessAnnotation to bridge YLPBusiness, because YLPBusiness does not conform to MKAnnotation.
             for business in businessList{
                 if business.location.coordinate != nil {
-                    let businessAnnotation = YelpBusinessAnnotation(coordinate: CLLocationCoordinate2D(latitude: (business.location.coordinate?.latitude)!, longitude: (business.location.coordinate?.longitude)!), title: business.name)
+                    let businessAnnotation = YelpBusinessAnnotation(coordinate: CLLocationCoordinate2D(latitude: (business.location.coordinate?.latitude)!, longitude: (business.location.coordinate?.longitude)!), title: business.name, businessID: business.identifier)
                     yelpBusinessAnnotations.append(businessAnnotation)
                 }
             }
@@ -861,6 +862,14 @@ extension NearByViewController: MKMapViewDelegate{
                 annotationView.image = #imageLiteral(resourceName: "yelpLocation").resizeImage(CGSize(width: 20.0, height: 20.0))
             }
             break
+            
+        case is MKMapItem:
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "addressPin")
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "yelpBusiness")
+                annotationView.image = #imageLiteral(resourceName: "addressMapItemCellPin").resizeImage(CGSize(width: 20.0, height: 20.0))
+            }
+            break
         default:
             print("*** Incorrect type sent to mapView(:viewFor:) selector")
         }
@@ -870,19 +879,59 @@ extension NearByViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
         if view.annotation is USRestStop {
             view.image = #imageLiteral(resourceName: "restStop").resizeImage(CGSize(width: 50.0, height: 50.0))
+            if let nearStaticRestStopDetailViewController = nearStaticRestStopDetailViewController{
+                nearStaticRestStopDetailViewController.restStop = view.annotation as! USRestStop
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: self)
+            } else {
+                addNearStaticRestStopDetailViewController(with: view.annotation as! USRestStop)
+                if let businessSearchResultTableController = businessSearchResultTableController{
+                    animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
+                    animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
+                }
+            }
         } else if view.annotation is YelpBusinessAnnotation{
             view.image = #imageLiteral(resourceName: "yelpLocation").resizeImage(CGSize(width: 50.0, height: 50.0))
+            if let businessDetailViewController = businessDetailViewController{
+                let yelpBusinessAnnotation = view.annotation as! YelpBusinessAnnotation
+                businessDetailViewController.businessID = yelpBusinessAnnotation.businessID
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.businessDetailViewControllerNeedsUpdate), object: self)
+            } else {
+                let yelpBusinessAnnotation = view.annotation as! YelpBusinessAnnotation
+                if let businessID = yelpBusinessAnnotation.businessID{
+                    addBusinessDetailViewController(withBusinessID: businessID, and: currentUserLocation)
+                    if let businessSearchResultTableController = businessSearchResultTableController{
+                        animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
+                        animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
+                    }
+                }
+                
+            }
         } else if view.annotation is MKPlacemark{
-            
+            view.image = #imageLiteral(resourceName: "addressMapItemCellPin").resizeImage(CGSize(width: 50.0, height: 50.0))
+            if let _ = addressViewController{
+                let mapItem = MKMapItem(placemark: view.annotation as! MKPlacemark)
+                addressViewController.mapItem = mapItem
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: self)
+            } else {
+                let mapItem = MKMapItem(placemark: view.annotation as! MKPlacemark)
+                addAddressViewController(with: mapItem, and: currentUserLocation)
+                if let businessSearchResultTableController = businessSearchResultTableController{
+                    animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+                    animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
+                }
+            }
         }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.annotation is USRestStop {
             view.image = #imageLiteral(resourceName: "restStop").resizeImage(CGSize(width: 20.0, height: 20.0))
+            
         } else if view.annotation is YelpBusinessAnnotation{
             view.image = #imageLiteral(resourceName: "yelpLocation").resizeImage(CGSize(width: 20.0, height: 20.0))
+            
         } else if view.annotation is MKPlacemark{
+            view.image = #imageLiteral(resourceName: "addressMapItemCellPin").resizeImage(CGSize(width: 20.0, height: 20.0))
             
         }
     }
@@ -949,20 +998,35 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             let pointOfInterest = poi as! USRestStop
             latitude = pointOfInterest.latitude
             longitude = pointOfInterest.longitude
-            addNearStaticRestStopDetailViewController(with: pointOfInterest)
-            animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
+            if let _ = nearStaticRestStopDetailViewController{
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: self)
+            } else {
+                addNearStaticRestStopDetailViewController(with: pointOfInterest)
+                animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
+            }
+            
         } else if poi is YLPBusiness{
             let yelpBusiness = poi as! YLPBusiness
             latitude = yelpBusiness.location.coordinate?.latitude
             longitude = yelpBusiness.location.coordinate?.longitude
-            addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
+            
+            if let _ = businessDetailViewController{
+                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.businessDetailViewControllerNeedsUpdate), object: self)
+            } else {
+                addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
+            }
             animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
         } else if poi is MKMapItem{
             let mapItem = poi as! MKMapItem
             if let location = mapItem.placemark.location{
                 latitude = location.coordinate.latitude
                 longitude = location.coordinate.longitude
-                addAddressViewController(with: mapItem, and: currentLocation)
+                
+                if let _ = addressViewController{
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: self)
+                } else {
+                    addAddressViewController(with: mapItem, and: currentLocation)
+                }
             }
             
             animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
@@ -1080,7 +1144,7 @@ extension UIView{
 
 extension NearByViewController: BusinessDetailViewControllerDelegate{
     
-    func businessDetailViewControllerDidTapCloseButton(_ businessDetail: BusinessDetailViewController) {
+    func terminateBusinessDetailViewController(){
         
         if let _ = businessDetailViewController{
             animateToHidingLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier){isComplete in
@@ -1098,6 +1162,12 @@ extension NearByViewController: BusinessDetailViewControllerDelegate{
         }
     }
     
+    func businessDetailViewControllerDidTapCloseButton(_ businessDetail: BusinessDetailViewController) {
+        
+        terminateBusinessDetailViewController()
+        
+    }
+    
     func businessDetailDidRequestUpdate(_ businessDetail: BusinessDetailViewController, business: Business) {
         
     }
@@ -1110,24 +1180,28 @@ extension NearByViewController: BusinessDetailViewControllerDelegate{
 }
 
 extension NearByViewController: NearStaticRestStopDetailViewControllerDelegate{
-    func nearStaticRestStopDetailViewControllerDidTapCloseButton(_ nearStaticRestStopDetailViewController: NearStaticRestStopDetailViewController) {
-        
-        
-            animateToHidingLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint){isCompleted in
-                if isCompleted{
+    
+    func terminateNearStaticRestStopDetailViewController(){
+        animateToHidingLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint){isCompleted in
+            if isCompleted{
                 
-                    self.nearStaticRestStopDetailViewController.willMove(toParentViewController: nil)
-                    self.nearStaticRestStopDetailViewController.removeFromParentViewController()
-                    self.nearStaticRestStopDetailViewController.view.removeFromSuperview()
-                    self.nearStaticRestStopDetailViewController = nil
-                    self.removeDimView()
-                    self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
-                    if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
-                        self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                    }
+                self.nearStaticRestStopDetailViewController.willMove(toParentViewController: nil)
+                self.nearStaticRestStopDetailViewController.removeFromParentViewController()
+                self.nearStaticRestStopDetailViewController.view.removeFromSuperview()
+                self.nearStaticRestStopDetailViewController = nil
+                self.removeDimView()
+                self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+                if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
+                    self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
             }
-
+        }
+    }
+    
+    func nearStaticRestStopDetailViewControllerDidTapCloseButton(_ nearStaticRestStopDetailViewController: NearStaticRestStopDetailViewController) {
+        
+           terminateNearStaticRestStopDetailViewController()
+        
     }
     
     func nearStaticRestStopDetailViewControllerDidRequestUpdate(_ narStaticRestStopDetailViewControllerwith: NearStaticRestStopDetailViewController, restStop: USRestStop) {
@@ -1136,8 +1210,9 @@ extension NearByViewController: NearStaticRestStopDetailViewControllerDelegate{
 }
 
 extension NearByViewController: AddressViewControllerDelegate{
-    func addressViewControllerDidTapCloseButton(_ addressViewController: AddressViewController) {
-        print("*** In address view controller delegate!")
+    
+    func terminateAddressViewController(){
+        
         animateToHidingLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint){isComplete in
             if isComplete{
                 self.addressViewController.willMove(toParentViewController: nil)
@@ -1150,6 +1225,12 @@ extension NearByViewController: AddressViewControllerDelegate{
                 }
             }
         }
+    }
+    
+    func addressViewControllerDidTapCloseButton(_ addressViewController: AddressViewController) {
+        
+        terminateAddressViewController()
+        
     }
 }
 

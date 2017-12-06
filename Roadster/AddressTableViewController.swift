@@ -59,7 +59,8 @@ class AddressTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Favorite locations count is: \(favoriteLocations.count)")
+        needsUpdate()
+        
     }
     
     
@@ -67,6 +68,11 @@ class AddressTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func needsUpdate(){
+        loadFavoriteLocationsList()
+        prepTableView()
     }
 
     
@@ -106,6 +112,10 @@ class AddressTableViewController: UITableViewController {
         
         
         addressTextView.text = addressString
+        
+        tableView.reloadData()
+        
+        
         
     }
     
@@ -148,10 +158,11 @@ class AddressTableViewController: UITableViewController {
     
     func addToFavorite(){
         
-        guard !doesMapItemExistInFavoriteLocationsList() else {
+        if doesMapItemExistInFavoriteLocationsList(){
+            
             removeMapItemFromFavoriteList()
             tableView.reloadData()
-            print("favorite list count is: \(favoriteLocations.count)")
+            
             return
         }
         
@@ -173,6 +184,7 @@ class AddressTableViewController: UITableViewController {
                 
                 self.saveFavoriteLocationsList()
                 self.tableView.reloadData()
+                
             }
         }
         
@@ -189,6 +201,8 @@ class AddressTableViewController: UITableViewController {
     }
     
     func doesMapItemExistInFavoriteLocationsList() -> Bool{
+        guard favoriteLocations.count != 0 else {return false}
+        
         for favoriteLocation in favoriteLocations{
             if favoriteLocation.placemark.coordinate.latitude == mapItem.placemark.coordinate.latitude && favoriteLocation.placemark.coordinate.longitude == mapItem.placemark.coordinate.longitude{return true}
         }
@@ -209,8 +223,8 @@ class AddressTableViewController: UITableViewController {
     func loadFavoriteLocationsList(){
        
         guard let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
-            let favoriteLocationsPath = documentsDir.appendingPathComponent("favoriteLocationsPath").path
-            guard FileManager.default.fileExists(atPath: favoriteLocationsPath) else {return}
+            let favoriteLocationsPath = documentsDir.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
+            guard FileManager.default.fileExists(atPath: favoriteLocationsPath) else {fatalError("*** No such path exists!")}
             favoriteLocations = NSKeyedUnarchiver.unarchiveObject(withFile: favoriteLocationsPath) as! [FavoriteLocation]
         
         
@@ -230,7 +244,6 @@ class AddressTableViewController: UITableViewController {
         reportLocationIssueViewController.delegate = self
         present(reportLocationIssueNavigationController, animated: true, completion: nil)
     
-        print("*** In report an issue!")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -268,14 +281,13 @@ class AddressTableViewController: UITableViewController {
         guard let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
         let favoriteLocationsPath = documentsDir.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
         if NSKeyedArchiver.archiveRootObject(favoriteLocations, toFile: favoriteLocationsPath){
-            print("Saved favorited list successfully!")
+            
         } else {
-            print("failed favorited list successfully!")
+            
         }
         
     }
-    
-    
+
     @IBAction func unwindToAddressTableViewController(_ sender: UIStoryboardSegue){
         let reportLocationIssueViewController = storyboard?.instantiateViewController(withIdentifier: "reportLocationIssueViewController") as! ReportLocationIssueTableViewController
         reportLocationIssueViewController.delegate = self

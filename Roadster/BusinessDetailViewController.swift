@@ -87,6 +87,7 @@ class BusinessDetailViewController: UIViewController{
     
         constraintContainerView()
         setUpView()
+         NotificationCenter.default.addObserver(self, selector: #selector(needsUpdate), name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.businessDetailViewControllerNeedsUpdate), object: nil)
         view.layer.cornerRadius = 15
         view.clipsToBounds = true
         getBusinessFromYelpAPI()
@@ -103,6 +104,11 @@ class BusinessDetailViewController: UIViewController{
     }
     
     func configureBusinessDetailViewController(){
+    }
+    
+    func needsUpdate(){
+        getBusinessFromYelpAPI()
+        setUpLocationManager()
     }
     
     func getBusinessFromYelpAPI(){

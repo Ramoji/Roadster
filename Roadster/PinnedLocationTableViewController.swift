@@ -409,6 +409,7 @@ class PinnedLocationsTableViewController: UITableViewController {
             for (index, element) in locationList.enumerated(){
                 if location.placemark.coordinate.latitude == element.placemark.coordinate.latitude && location.placemark.coordinate.longitude == element.placemark.coordinate.longitude{
                     locationList.remove(at: index)
+                    print("*** BITCH DELETED LOCATIONS FROM LOCATION VIEW CONTROLLER!")
                 }
             }
             
