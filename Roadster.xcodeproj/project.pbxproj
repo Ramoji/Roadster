@@ -74,6 +74,10 @@
 		8C2C7A6F1ED692540033CED3 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */; };
 		8C2C7A711ED77D8A0033CED3 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */; };
 		8C2C7C8A1ED874B30033CED3 /* PasswordRecoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */; };
+		8C4647AB1FDA98FF00F2D115 /* HistoryAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4647AA1FDA98FF00F2D115 /* HistoryAddressCell.xib */; };
+		8C4647AD1FDA993A00F2D115 /* HistoryAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4647AC1FDA993A00F2D115 /* HistoryAddressCell.swift */; };
+		8C4647AF1FDA9F3300F2D115 /* SearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C4647AE1FDA9F3300F2D115 /* SearchHistoryCell.xib */; };
+		8C4647B11FDA9FAC00F2D115 /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4647B01FDA9FAC00F2D115 /* SearchHistoryCell.swift */; };
 		8C49BA011F28902900F425DD /* BusinessSearchResultFirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C49BA001F28902900F425DD /* BusinessSearchResultFirstCell.xib */; };
 		8C49BA051F28D8A500F425DD /* BusinessSearchResultFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C49BA041F28D8A500F425DD /* BusinessSearchResultFirstCell.swift */; };
 		8C56C6831FAE969100025BDA /* HowToTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C56C6821FAE969100025BDA /* HowToTableViewController.swift */; };
@@ -181,6 +185,10 @@
 		8C2C7A6E1ED692540033CED3 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		8C2C7A701ED77D8A0033CED3 /* MoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		8C2C7C891ED874B30033CED3 /* PasswordRecoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordRecoveryViewController.swift; sourceTree = "<group>"; };
+		8C4647AA1FDA98FF00F2D115 /* HistoryAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryAddressCell.xib; sourceTree = "<group>"; };
+		8C4647AC1FDA993A00F2D115 /* HistoryAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAddressCell.swift; sourceTree = "<group>"; };
+		8C4647AE1FDA9F3300F2D115 /* SearchHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryCell.xib; sourceTree = "<group>"; };
+		8C4647B01FDA9FAC00F2D115 /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
 		8C49BA001F28902900F425DD /* BusinessSearchResultFirstCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusinessSearchResultFirstCell.xib; sourceTree = "<group>"; };
 		8C49BA041F28D8A500F425DD /* BusinessSearchResultFirstCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessSearchResultFirstCell.swift; sourceTree = "<group>"; };
 		8C56C6821FAE969100025BDA /* HowToTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToTableViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +295,8 @@
 				8C1C2D541F786470007AB364 /* LocationsBusinessCell.xib */,
 				8C1C2D561F786480007AB364 /* LocationsAddressCell.xib */,
 				8C0EC2C61F8639E700487D0F /* MoreTableViewControllerCell.xib */,
+				8C4647AA1FDA98FF00F2D115 /* HistoryAddressCell.xib */,
+				8C4647AE1FDA9F3300F2D115 /* SearchHistoryCell.xib */,
 			);
 			name = "xib files";
 			sourceTree = "<group>";
@@ -319,6 +329,8 @@
 				8C1C2D5A1F78F4F0007AB364 /* LocationsBusinessCell.swift */,
 				8C1C2D5C1F78F500007AB364 /* LocationsAddressCell.swift */,
 				8C6269231F86316D00E42282 /* MoreTableViewControllerCell.swift */,
+				8C4647AC1FDA993A00F2D115 /* HistoryAddressCell.swift */,
+				8C4647B01FDA9FAC00F2D115 /* SearchHistoryCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -506,7 +518,9 @@
 				8C1C2D531F786435007AB364 /* LocationsRestStopCell.xib in Resources */,
 				8C0A033C1EF3BFEC003B805A /* datastore.sqlite-wal in Resources */,
 				21C8E62D1D7FD44A007F67E2 /* LaunchScreen.storyboard in Resources */,
+				8C4647AB1FDA98FF00F2D115 /* HistoryAddressCell.xib in Resources */,
 				8CB12E021E6FC518008AD7B7 /* OnlyOneRestStopCell.xib in Resources */,
+				8C4647AF1FDA9F3300F2D115 /* SearchHistoryCell.xib in Resources */,
 				21CBA7E81E213A8E000E1015 /* YelpTableViewCell.xib in Resources */,
 				8C0A033B1EF3BFEC003B805A /* datastore.sqlite-shm in Resources */,
 				21C8E62A1D7FD44A007F67E2 /* Assets.xcassets in Resources */,
@@ -609,12 +623,14 @@
 				21E9BDFE1DEF85BB00127C7C /* FirstRestStopCell.swift in Sources */,
 				8C0A03401EF3C029003B805A /* USRestStop+CoreDataClass.swift in Sources */,
 				8C6269221F84F6DB00E42282 /* UserGuideTableViewController.swift in Sources */,
+				8C4647AD1FDA993A00F2D115 /* HistoryAddressCell.swift in Sources */,
 				8C894BE01EC6D0CA00601C16 /* CustomUITextView.swift in Sources */,
 				8C1C2D611F7E3ABD007AB364 /* PinnedFavoriteStaticDetailTableViewController.swift in Sources */,
 				212315A71DB1C1560068F190 /* NearByViewController.swift in Sources */,
 				218766481DB3483200DF8E81 /* RestStopListMapViewController.swift in Sources */,
 				21CBA7EA1E218997000E1015 /* YelpTableViewCell.swift in Sources */,
 				8C9DD2C31F0A976600A123E4 /* YelpBusinessAnnotation.swift in Sources */,
+				8C4647B11FDA9FAC00F2D115 /* SearchHistoryCell.swift in Sources */,
 				21A337F21E08C423003EAC1F /* BusinessDetailViewController.swift in Sources */,
 				216A2BAD1DEB15BC0097DC83 /* StaticDetailTableViewController.swift in Sources */,
 				21852DF01D966B7D00FE2A53 /* HighwayListViewController.swift in Sources */,

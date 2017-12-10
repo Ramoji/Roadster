@@ -38,7 +38,8 @@ extension Double {
 
 extension NSLayoutConstraint{
     func hasExceeded(verticalUpperLimit:  CGFloat) -> Bool{
-        return self.constant < verticalUpperLimit
+        print("In hasExceeded method!: the constraint constant is: \(self.constant) AND the vertical upper limit is: \(verticalUpperLimit)")
+        if self.constant < verticalUpperLimit{return true} else {return false}
     }
     
     func hasExceeded(middleLimit: CGFloat) -> Bool{

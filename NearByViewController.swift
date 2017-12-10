@@ -317,8 +317,12 @@ class NearByViewController: UIViewController {
         businessSearchResultTableController.searchBar.text = ""
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
+        print("*** constraint is: \(businessSearchResultControllerTopConstraint.constant)")
         if businessSearchResultControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
+            print("*** HAS EXCEEDED!")
             totalExceedingUpperLimit += yTransaction
+            
+            print("*** totalExceedingUpperLimit: \(totalExceedingUpperLimit)")
             businessSearchResultControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
             if sender.state == .ended {
                 
@@ -330,19 +334,19 @@ class NearByViewController: UIViewController {
             businessSearchResultControllerTopConstraint.constant += yTransaction
             
             if sender.state == .ended {
-                if (businessSearchResultControllerTopConstraint.constant > -500 && businessSearchResultControllerTopConstraint.constant < -300  && yVelocity > 0){
+                if (businessSearchResultControllerTopConstraint.constant > verticalUpperLimit && businessSearchResultControllerTopConstraint.constant < verticalMiddleLimit  && yVelocity > 0){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                     
-                } else if (businessSearchResultControllerTopConstraint.constant > -500 && businessSearchResultControllerTopConstraint.constant < -300 && yVelocity < 0){
+                } else if (businessSearchResultControllerTopConstraint.constant > verticalUpperLimit && businessSearchResultControllerTopConstraint.constant < verticalMiddleLimit && yVelocity < 0){
                     
                     animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                     
-                } else if ((businessSearchResultControllerTopConstraint.constant > -300 && businessSearchResultControllerTopConstraint.constant < -55 && yVelocity > 0)){
+                } else if (businessSearchResultControllerTopConstraint.constant > verticalMiddleLimit && businessSearchResultControllerTopConstraint.constant < -55 && yVelocity > 0){
                     
                     animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                     
-                } else if ((businessSearchResultControllerTopConstraint.constant > -300 && businessSearchResultControllerTopConstraint.constant < -55 && yVelocity < 0)){
+                } else if (businessSearchResultControllerTopConstraint.constant > verticalMiddleLimit && businessSearchResultControllerTopConstraint.constant < -55 && yVelocity < 0){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                     
@@ -354,6 +358,8 @@ class NearByViewController: UIViewController {
         
         
         sender.setTranslation(CGPoint.zero, in: self.view)
+        
+        print("*** Business search result controller top constraint is: \(businessSearchResultControllerTopConstraint.constant)")
         
     }
     
@@ -377,19 +383,19 @@ class NearByViewController: UIViewController {
             businessDetailViewControllerTopConstraint.constant += yTransaction
             
             if sender.state == .ended {
-                if (businessDetailViewControllerTopConstraint.constant > -500 && businessDetailViewControllerTopConstraint.constant < -300  && yVelocity > 0){
+                if (businessDetailViewControllerTopConstraint.constant > verticalUpperLimit && businessDetailViewControllerTopConstraint.constant < verticalMiddleLimit  && yVelocity > 0){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
                     
-                } else if (businessDetailViewControllerTopConstraint.constant > -500 && businessDetailViewControllerTopConstraint.constant < -300 && yVelocity < 0){
+                } else if (businessDetailViewControllerTopConstraint.constant > verticalUpperLimit && businessDetailViewControllerTopConstraint.constant < verticalMiddleLimit && yVelocity < 0){
                     
                     animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
                     
-                } else if ((businessDetailViewControllerTopConstraint.constant > -300 && businessDetailViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
+                } else if ((businessDetailViewControllerTopConstraint.constant > verticalMiddleLimit && businessDetailViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
                     
                     animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
                     
-                } else if ((businessDetailViewControllerTopConstraint.constant > -300 && businessDetailViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
+                } else if ((businessDetailViewControllerTopConstraint.constant > verticalMiddleLimit && businessDetailViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
                     
@@ -664,12 +670,13 @@ class NearByViewController: UIViewController {
         businessSearchResultTableController.delegate = self
         businessSearchResultTableController.managedObjectContext = managedObjectContext
         
+        
         view.addSubview(businessSearchResultTableController.view)
         self.addChildViewController(businessSearchResultTableController)
         businessSearchResultTableController.didMove(toParentViewController: self)
         
         businessSearchResultTableController.view.translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = businessSearchResultTableController.view.heightAnchor.constraint(equalToConstant: self.view.bounds.height * 1.12)
+        let heightConstraint = businessSearchResultTableController.view.heightAnchor.constraint(equalToConstant: self.view.bounds.height)
         let leadingConstraint = businessSearchResultTableController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let widthConstraint = businessSearchResultTableController.view.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
         let topViewUpperConstraint = businessSearchResultTableController.view.topAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -55)
@@ -680,6 +687,7 @@ class NearByViewController: UIViewController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(businessSearchResultTableControllerdidPan(_:)))
         businessSearchResultTableController.view.addGestureRecognizer(panGestureRecognizer)
     }
+    
     
  
     func addNearStaticRestStopDetailViewController(with restStop: USRestStop){
@@ -728,19 +736,19 @@ class NearByViewController: UIViewController {
             nearStaticRestStopDetailViewControllerTopConstraint.constant += yTransaction
             
             if sender.state == .ended {
-                if (nearStaticRestStopDetailViewControllerTopConstraint.constant > -500 && nearStaticRestStopDetailViewControllerTopConstraint.constant < -300  && yVelocity > 0){
+                if (nearStaticRestStopDetailViewControllerTopConstraint.constant > verticalUpperLimit && nearStaticRestStopDetailViewControllerTopConstraint.constant < verticalMiddleLimit  && yVelocity > 0){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
                     
-                } else if (nearStaticRestStopDetailViewControllerTopConstraint.constant > -500 && nearStaticRestStopDetailViewControllerTopConstraint.constant < -300 && yVelocity < 0){
+                } else if (nearStaticRestStopDetailViewControllerTopConstraint.constant > verticalUpperLimit && nearStaticRestStopDetailViewControllerTopConstraint.constant < verticalMiddleLimit && yVelocity < 0){
                     
                     animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
                     
-                } else if ((nearStaticRestStopDetailViewControllerTopConstraint.constant > -300 && nearStaticRestStopDetailViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
+                } else if ((nearStaticRestStopDetailViewControllerTopConstraint.constant > verticalMiddleLimit && nearStaticRestStopDetailViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
                     
                     animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
                     
-                } else if ((nearStaticRestStopDetailViewControllerTopConstraint.constant > -300 && nearStaticRestStopDetailViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
+                } else if ((nearStaticRestStopDetailViewControllerTopConstraint.constant > verticalMiddleLimit && nearStaticRestStopDetailViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
                     
@@ -805,19 +813,19 @@ class NearByViewController: UIViewController {
             
             
             if sender.state == .ended {
-                if (addressViewControllerTopConstraint.constant > -500 && addressViewControllerTopConstraint.constant < -300  && yVelocity > 0){
+                if (addressViewControllerTopConstraint.constant > verticalUpperLimit && addressViewControllerTopConstraint.constant < verticalMiddleLimit  && yVelocity > 0){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
                     
-                } else if (addressViewControllerTopConstraint.constant > -500 && addressViewControllerTopConstraint.constant < -300 && yVelocity < 0){
+                } else if (addressViewControllerTopConstraint.constant > verticalUpperLimit && addressViewControllerTopConstraint.constant < verticalMiddleLimit && yVelocity < 0){
                     
                     animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
                     
-                } else if ((addressViewControllerTopConstraint.constant > -300 && addressViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
+                } else if ((addressViewControllerTopConstraint.constant > verticalMiddleLimit && addressViewControllerTopConstraint.constant < -55 && yVelocity > 0)){
                     
                     animateToLowerLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
                     
-                } else if ((addressViewControllerTopConstraint.constant > -300 && addressViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
+                } else if ((addressViewControllerTopConstraint.constant > verticalMiddleLimit && addressViewControllerTopConstraint.constant < -55 && yVelocity < 0)){
                     
                     animateToMiddleLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
                     
@@ -835,8 +843,12 @@ class NearByViewController: UIViewController {
         
     }
    
-    
-    
+//    
+//    func getTabBarCoordinatesInBusinessSearchResultTableViewController() -> CGPoint{
+//        if let tabBarController = tabBarController{
+//            let tabBarCoordinatedInNearByViewController = tabBarController.tabBar.convert(tabBarController.tabBar.bounds, to: self.view)
+//        }
+//    }
     
 }
 
@@ -986,7 +998,6 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
         self.activityIndicator.stopAnimating()
         self.activityIndicator.isHidden = true
         self.mapView.isHidden = false
-        animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
     }
     
     func businessSearchResultTableViewDidSelectRow(_ searchResultTable: BusinessSearchResultTableViewController, with poi: AnyObject, and currentLocation: CLLocation) {
@@ -1098,6 +1109,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
     func businessSearchResultTableViewControllerSearchBarDidBeginEditing(_ searchResultTable: BusinessSearchResultTableViewController) {
         animateToUpperLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
     }
+
 }
 
 extension NearByViewController: UITextFieldDelegate{

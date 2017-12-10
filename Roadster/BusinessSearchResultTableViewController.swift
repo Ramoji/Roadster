@@ -19,6 +19,7 @@ protocol BusinessSearchResultTableViewControllerDelegate: class {
     func businessSearchResultTableViewDidSelectRow(_ searchResultTable: BusinessSearchResultTableViewController, with poi: AnyObject, and currentLocation: CLLocation)
     func businessSearchResultTableViewControllerNeedsUpdatedMapRegion(_ searchResultTable: BusinessSearchResultTableViewController) -> MKCoordinateRegion
     func businessSearchResultTableViewControllerSearchBarDidBeginEditing(_ searchResultTable: BusinessSearchResultTableViewController)
+    
 }
 
 class BusinessSearchResultTableViewController: UIViewController{
@@ -52,6 +53,12 @@ class BusinessSearchResultTableViewController: UIViewController{
     var searchHistory: [AnyObject] = []
     
     var addressDetector: NSDataDetector!
+    
+    var searchTimer: Timer!
+    
+    var queryTerm = ""
+    
+    
 
     
     override func viewDidLoad() {
@@ -114,6 +121,67 @@ class BusinessSearchResultTableViewController: UIViewController{
                 }
                 
             }
+            
+            if element is MKMapItem && historyElement is FavoriteLocation{
+                let castedElement = element as! MKMapItem
+                let placemark = castedElement.placemark
+                let castedFavoriteLocation = historyElement as! FavoriteLocation
+                
+                var streetAddress1: String {
+                    if let subThoro = placemark.subThoroughfare{
+                        return subThoro
+                    } else {return ""}
+                }
+                
+                var street1: String {
+                    if let thoro = placemark.thoroughfare{
+                       return thoro
+                    } else {return ""}
+                }
+                
+                var city1: String{
+                    if let administrative = placemark.administrativeArea{
+                        return administrative
+                    } else {return ""}
+                }
+                
+                var country1: String{
+                    if let country = placemark.country{
+                        return country
+                    } else {return ""}
+                }
+                
+                var streetAddress2: String {
+                    if let subThoro = castedFavoriteLocation.placemark.subThoroughfare{
+                        return subThoro
+                    } else {return ""}
+                }
+                
+                var street2: String {
+                    if let thoro = castedFavoriteLocation.placemark.thoroughfare{
+                        return thoro
+                    } else {return ""}
+                }
+                
+                var city2: String{
+                    if let administrative = castedFavoriteLocation.placemark.administrativeArea{
+                        return administrative
+                    } else {return ""}
+                }
+                
+                var country2: String{
+                    if let country = castedFavoriteLocation.placemark.country{
+                        return country
+                    } else {return ""}
+                }
+                
+                if street1 == street2 && street1 == street2 && city1 == city2 && country1 == country2{
+                    searchHistory.remove(at: index)
+                    searchHistory.insert(historyElement, at: 0)
+                    archiveSearchHistory()
+                    return
+                }
+            }
         }
         
         if element is YLPBusiness{
@@ -122,6 +190,10 @@ class BusinessSearchResultTableViewController: UIViewController{
         } else if element is USRestStop{
             let historyUSRestStop = HistoryUSRestStop(restStop: element as! USRestStop)
             searchHistory.insert(historyUSRestStop, at: 0)
+        } else if element is MKMapItem{
+            let castedMapItem = element as! MKMapItem
+            let favoriteLocation = FavoriteLocation(placemark: castedMapItem.placemark, locationName: castedMapItem.placemark.name)
+            searchHistory.insert(favoriteLocation, at: 0)
         }
         
         archiveSearchHistory()
@@ -145,8 +217,22 @@ class BusinessSearchResultTableViewController: UIViewController{
     func loadSearchHistory(){
         tableViewDataSourceList = searchHistory
         let businessSearchResultFirstCell = BusinessSearchResultFirstCell()
+        let searchHistoryCell = SearchHistoryCell()
         tableViewDataSourceList.insert(businessSearchResultFirstCell, at: 0)
+        tableViewDataSourceList.insert(searchHistoryCell, at: 1)
+        
         tableView.reloadData()
+    }
+    
+    func timerDidFire(_ sender: Any){
+        if searchCompleter.isSearching{
+            searchCompleter.cancel()
+            searchCompleter.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
+            searchCompleter.queryFragment = queryTerm
+        } else {
+            searchCompleter.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
+            searchCompleter.queryFragment = queryTerm
+        }
     }
     
 
@@ -207,7 +293,12 @@ class BusinessSearchResultTableViewController: UIViewController{
         let topConstraint = tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor)
         let leadingConstraint = tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailingConstraint = tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let heightConstraint = tableView.heightAnchor.constraint(equalToConstant: 450)
+        
+        let tableViewHeight = (self.view.bounds.height * 0.75) - 50
+        
+        let heightConstraint = tableView.heightAnchor.constraint(equalToConstant: tableViewHeight)
+        
+    
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, heightConstraint])
         tableView.clipsToBounds = true
         tableView.backgroundColor = UIColor.clear
@@ -222,6 +313,13 @@ class BusinessSearchResultTableViewController: UIViewController{
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell)
         nib = UINib(nibName: CustomCellTypeIdentifiers.addressMapItemCell, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.addressMapItemCell)
+        nib = UINib(nibName: CustomCellTypeIdentifiers.LocationsAddressCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.LocationsAddressCell)
+        nib = UINib(nibName: CustomCellTypeIdentifiers.historyAddressCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.historyAddressCell)
+        nib = UINib(nibName: CustomCellTypeIdentifiers.searchHistoryCell, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.searchHistoryCell)
+        
     }
     
     func setUpView(){
@@ -450,6 +548,7 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             cell = yelpTableViewCell
         } else if element is BusinessSearchResultFirstCell{
             let serviceCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, for: indexPath) as! BusinessSearchResultFirstCell
+            serviceCell.separatorInset = UIEdgeInsets(top: 0, left: self.view.bounds.width, bottom: 0, right: 0)
             serviceCell.delegate = self
             cell = serviceCell
         } else if element is MKMapItem{
@@ -457,6 +556,15 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             let addressCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.addressMapItemCell, for: indexPath) as! AddressMapItemCell
             addressCell.configureCell(for: element as! MKMapItem)
             cell = addressCell
+        } else if element is FavoriteLocation{
+            let addressCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.historyAddressCell, for: indexPath) as! HistoryAddressCell
+            let favoriteLocation = element as! FavoriteLocation
+            addressCell.configureCell(for: favoriteLocation, and: currentUserLocation)
+            cell = addressCell
+        } else if element is SearchHistoryCell{
+            let searchHistoryCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.searchHistoryCell, for: indexPath) as! SearchHistoryCell
+            searchHistoryCell.configureCell()
+            cell = searchHistoryCell
         }
         
         return cell
@@ -470,6 +578,8 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
             return 164
         } else if tableViewDataSourceList[indexPath.row] is MKMapItem{
             return 62
+        } else if indexPath.row == 1 && tableViewDataSourceList[indexPath.row] is SearchHistoryCell{
+            return 22
         } else {
             return 84
         }
@@ -483,7 +593,7 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
         }()
         
         
-            addToSearchHistory(selectedElement)
+        addToSearchHistory(selectedElement)
         
         searchBar.resignFirstResponder()
         delegate?.businessSearchResultTableViewDidSelectRow(self, with: selectedElement, and: currentUserLocation)
@@ -520,15 +630,17 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
             return
         } else if searchBar.text != "" {
             removeServiceCellFromTableView()
+            queryTerm = searchText
         }
         
         
-        if searchCompleter.isSearching{
-            searchCompleter.cancel()
+        if let searchTimer = searchTimer{
+            searchTimer.invalidate()
         }
         
-        searchCompleter.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
-        searchCompleter.queryFragment = searchText
+        searchTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(timerDidFire(_:)), userInfo: nil, repeats: false)
+        
+       
         
     }
     
@@ -561,11 +673,12 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
 extension BusinessSearchResultTableViewController: MKLocalSearchCompleterDelegate{
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter){
+        
         guard completer.results.count != 0 else {return}
         
         var searchTerm: String = completer.results.first!.title
         if completer.results.first!.subtitle != "" {
-            searchTerm += ", " + completer.results.first!.subtitle
+            searchTerm = searchTerm + ", " + completer.results.first!.subtitle
         }
         
         
