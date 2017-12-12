@@ -2680,9 +2680,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptX-FM-Yqf">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptX-FM-Yqf">
                                 <rect key="frame" x="0.0" y="57" width="375" height="260"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <segue destination="mA4-s5-PZ7" kind="embed" identifier="addressTableViewControllerSegue" id="R9O-yk-Wf7"/>
                                 </connections>
@@ -2723,10 +2722,14 @@
                         <constraints>
                             <constraint firstItem="4tN-xC-7ZX" firstAttribute="top" secondItem="xqF-ZY-HBD" secondAttribute="bottom" constant="1" id="7G8-jo-yZk"/>
                             <constraint firstAttribute="trailing" secondItem="Owr-yZ-TxE" secondAttribute="trailing" constant="15" id="DmG-SG-UcE"/>
+                            <constraint firstAttribute="trailing" secondItem="ptX-FM-Yqf" secondAttribute="trailing" id="FAC-ZA-uXr"/>
+                            <constraint firstItem="ptX-FM-Yqf" firstAttribute="top" secondItem="xqF-ZY-HBD" secondAttribute="bottom" constant="21" id="Mg2-r9-n2b"/>
                             <constraint firstItem="Owr-yZ-TxE" firstAttribute="top" secondItem="Sj0-5K-VFd" secondAttribute="top" constant="15" id="QSa-he-PKZ"/>
+                            <constraint firstItem="ptX-FM-Yqf" firstAttribute="leading" secondItem="Sj0-5K-VFd" secondAttribute="leading" id="bEv-4g-0Ft"/>
                             <constraint firstItem="xqF-ZY-HBD" firstAttribute="top" secondItem="Sj0-5K-VFd" secondAttribute="top" constant="15" id="hMy-e6-R9e"/>
                             <constraint firstItem="4tN-xC-7ZX" firstAttribute="leading" secondItem="Sj0-5K-VFd" secondAttribute="leading" constant="15" id="lB4-Il-rtg"/>
                             <constraint firstItem="xqF-ZY-HBD" firstAttribute="leading" secondItem="Sj0-5K-VFd" secondAttribute="leading" constant="15" id="ldR-f0-wdr"/>
+                            <constraint firstItem="vAg-Vk-T2p" firstAttribute="top" secondItem="ptX-FM-Yqf" secondAttribute="bottom" constant="350" id="sAZ-zI-TKf"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2780,6 +2783,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="s1t-44-9sU" secondAttribute="bottom" constant="10.5" id="U9T-1h-GW9"/>
                                                 <constraint firstItem="s1t-44-9sU" firstAttribute="centerX" secondItem="dH4-cU-iBW" secondAttribute="centerX" id="m9n-3D-svg"/>
+                                                <constraint firstAttribute="trailing" secondItem="s1t-44-9sU" secondAttribute="trailing" constant="15" id="pgg-LS-aV3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

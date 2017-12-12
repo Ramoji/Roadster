@@ -191,7 +191,7 @@ class NearByViewController: UIViewController {
             mapView.addAnnotations(yelpBusinessAnnotations)
             mapView.showsUserLocation = true
             
-        } else {
+        } else if list is [MKMapItem] {
             mapView.showsCompass = true
             mapView.showsScale = true
             mapView.setRegion(mapRegionRectTuple.mapRegion, animated: true)
@@ -202,10 +202,19 @@ class NearByViewController: UIViewController {
             }
             mapView.addAnnotations(annotations)
             mapView.showsUserLocation = true
+        } else if list is [FavoriteLocation]{
+            mapView.showsCompass = true
+            mapView.showsScale = true
+            mapView.setRegion(mapRegionRectTuple.mapRegion, animated: true)
+            let favoriteLocations = list as! [FavoriteLocation]
+            var annotations: [FavoriteLocation] = []
+            for favoriteLocation in favoriteLocations{
+                annotations.append(favoriteLocation)
+            }
+            mapView.addAnnotations(annotations)
+            mapView.showsUserLocation = true
         }
-        
-       mapView.setVisibleMapRect(mapRegionRectTuple.mapRect, edgePadding: UIEdgeInsets(top: 30.0, left: 0.0, bottom: 280.0, right: 0.0), animated: true)
-        
+                
     }
     
     
@@ -223,15 +232,50 @@ class NearByViewController: UIViewController {
         }
         
         if pointsOfInterestList is [USRestStop]{
+            
+            
+            
             let list = pointsOfInterestList as! [USRestStop]
-            let sortedLatitude = list.sorted{lhs, rhs in
-                return lhs.latitude < rhs.latitude
+            var unsortedLatitudes: [Double] = []
+            var unsortedLongitudes: [Double] = []
+            
+            guard list.count > 1  else {
+                let restStopCLLocations = CLLocation(latitude: list.first!.latitude, longitude: list.first!.longitude)
+                
+                let distanceFromUser = currentUserLocation.distance(from: restStopCLLocations)
+                let userCLLocationCoordinate2D = CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+                let region = MKCoordinateRegionMakeWithDistance(userCLLocationCoordinate2D, distanceFromUser + 100000, distanceFromUser + 10000)
+            
+                let upperLeftCoordinate = CLLocation(latitude: region.span.latitudeDelta + (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta - (region.span.longitudeDelta * 0.5))
+                let lowerRightCoordinate = CLLocation(latitude: region.span.latitudeDelta - (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta + (region.span.longitudeDelta * 0.5))
+                
+                let upperRightMapPoint = MKMapPointForCoordinate(upperLeftCoordinate.coordinate)
+                let lowerLeftMapPoint = MKMapPointForCoordinate(lowerRightCoordinate.coordinate)
+                
+                let mapRect = MKMapRectMake(min(lowerLeftMapPoint.x, upperRightMapPoint.x), min(lowerLeftMapPoint.y, upperRightMapPoint.y), abs(upperRightMapPoint.x - lowerLeftMapPoint.x), abs(upperRightMapPoint.y - lowerLeftMapPoint.y))
+                
+                return (mapRegion: region, mapRect: mapRect)
+            
             }
-            let sortedLongitude = list.sorted{ lhs, rhs in
-                return lhs.longitude < rhs.longitude
+            
+            for restStop in list{
+                unsortedLatitudes.append(restStop.latitude)
+                unsortedLongitudes.append(restStop.longitude)
             }
-            let lowerLeftCoordinate = CLLocation(latitude: (sortedLatitude.first?.latitude)!, longitude: (sortedLongitude.first?.longitude)!)
-            let upperRightCoordinate = CLLocation(latitude: (sortedLatitude.last?.latitude)!, longitude: (sortedLongitude.last?.longitude)!)
+            
+
+            let sortedLatitude = unsortedLatitudes.sorted{lhs, rhs in
+                return lhs < rhs
+            }
+            let sortedLongitude = unsortedLongitudes.sorted{ lhs, rhs in
+                return lhs < rhs
+            }
+            
+            
+        
+            
+            let lowerLeftCoordinate = CLLocation(latitude: sortedLatitude.first!, longitude: sortedLongitude.first!)
+            let upperRightCoordinate = CLLocation(latitude: sortedLatitude.last!, longitude: sortedLongitude.last!)
 
             let lowerLeftMapPoint = MKMapPointForCoordinate(lowerLeftCoordinate.coordinate)
             let upperRightMapPoint = MKMapPointForCoordinate(upperRightCoordinate.coordinate)
@@ -246,6 +290,44 @@ class NearByViewController: UIViewController {
             
             var unsortedLatitude: [Double] = []
             var unsortedLongitude: [Double] = []
+            
+            let userCLLocationCoordinate2D = CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+            
+            guard list.count > 1  else {
+                
+                guard let businessCoordinates = list.first!.location.coordinate else {
+                    
+                    
+                    let region = MKCoordinateRegionMakeWithDistance(userCLLocationCoordinate2D, 10000, 10000)
+                    
+                    let upperLeftCoordinate = CLLocation(latitude: region.span.latitudeDelta + (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta - (region.span.longitudeDelta * 0.5))
+                    let lowerRightCoordinate = CLLocation(latitude: region.span.latitudeDelta - (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta + (region.span.longitudeDelta * 0.5))
+                    
+                    let upperRightMapPoint = MKMapPointForCoordinate(upperLeftCoordinate.coordinate)
+                    let lowerLeftMapPoint = MKMapPointForCoordinate(lowerRightCoordinate.coordinate)
+                    
+                    let mapRect = MKMapRectMake(min(lowerLeftMapPoint.x, upperRightMapPoint.x), min(lowerLeftMapPoint.y, upperRightMapPoint.y), abs(upperRightMapPoint.x - lowerLeftMapPoint.x), abs(upperRightMapPoint.y - lowerLeftMapPoint.y))
+                    
+                    return (mapRegion: region, mapRect: mapRect)
+                }
+                
+                let businessCLLocation = CLLocation(latitude: businessCoordinates.latitude, longitude: businessCoordinates.longitude)
+                
+                let distanceFromUser = currentUserLocation.distance(from: businessCLLocation)
+            
+                let region = MKCoordinateRegionMakeWithDistance(userCLLocationCoordinate2D, distanceFromUser + 100000, distanceFromUser + 10000)
+                
+                let upperLeftCoordinate = CLLocation(latitude: region.span.latitudeDelta + (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta - (region.span.longitudeDelta * 0.5))
+                let lowerRightCoordinate = CLLocation(latitude: region.span.latitudeDelta - (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta + (region.span.longitudeDelta * 0.5))
+                
+                let upperRightMapPoint = MKMapPointForCoordinate(upperLeftCoordinate.coordinate)
+                let lowerLeftMapPoint = MKMapPointForCoordinate(lowerRightCoordinate.coordinate)
+                
+                let mapRect = MKMapRectMake(min(lowerLeftMapPoint.x, upperRightMapPoint.x), min(lowerLeftMapPoint.y, upperRightMapPoint.y), abs(upperRightMapPoint.x - lowerLeftMapPoint.x), abs(upperRightMapPoint.y - lowerLeftMapPoint.y))
+                
+                return (mapRegion: region, mapRect: mapRect)
+                
+            }
             
             for business in list {
                 if business.location.coordinate != nil {
@@ -274,10 +356,35 @@ class NearByViewController: UIViewController {
             
             return (mapRegion: region, mapRect: mapRect)
             
-        } else {
+        } else if pointsOfInterestList is [MKMapItem]{
+            
+            
             let list = pointsOfInterestList as! [MKMapItem]
             var unsortedLatitude: [Double] = []
             var unsortedLongitude: [Double] = []
+            
+            
+            guard list.count > 1  else {
+                
+                let mapItem = list.first!
+                let addressCLLocations = CLLocation(latitude: mapItem.placemark.coordinate.latitude, longitude: mapItem.placemark.coordinate.longitude)
+                
+                let distanceFromUser = currentUserLocation.distance(from: addressCLLocations)
+                let userCLLocationCoordinate2D = CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+                let region = MKCoordinateRegionMakeWithDistance(userCLLocationCoordinate2D, distanceFromUser + 100000, distanceFromUser + 10000)
+                
+                let upperLeftCoordinate = CLLocation(latitude: region.span.latitudeDelta + (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta - (region.span.longitudeDelta * 0.5))
+                let lowerRightCoordinate = CLLocation(latitude: region.span.latitudeDelta - (region.span.latitudeDelta * 0.5), longitude: region.span.longitudeDelta + (region.span.longitudeDelta * 0.5))
+                
+                let upperRightMapPoint = MKMapPointForCoordinate(upperLeftCoordinate.coordinate)
+                let lowerLeftMapPoint = MKMapPointForCoordinate(lowerRightCoordinate.coordinate)
+                
+                let mapRect = MKMapRectMake(min(lowerLeftMapPoint.x, upperRightMapPoint.x), min(lowerLeftMapPoint.y, upperRightMapPoint.y), abs(upperRightMapPoint.x - lowerLeftMapPoint.x), abs(upperRightMapPoint.y - lowerLeftMapPoint.y))
+                
+                return (mapRegion: region, mapRect: mapRect)
+                
+            }
+            
             
             for mkMapItem in list {
                 unsortedLatitude.append(mkMapItem.placemark.coordinate.latitude)
@@ -302,6 +409,20 @@ class NearByViewController: UIViewController {
             
             let region = MKCoordinateRegionForMapRect(mapRect)
             
+            return (mapRegion: region, mapRect: mapRect)
+        } else /*if pointsOfInterestList is [FavoriteLocation]*/{
+            let list = pointsOfInterestList as! [FavoriteLocation]
+           // guard list.count != 0 else {return}
+            // We dont need to check if the list only has one element because the user only taps on one FavoriteLocation at a time.
+            let favoriteLocation = list.first!
+            let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: favoriteLocation.placemark.coordinate.latitude, longitude: favoriteLocation.coordinate.longitude), 5000, 5000)
+            let a = MKMapPointForCoordinate(CLLocationCoordinate2DMake(
+                region.center.latitude + region.span.latitudeDelta / 2,
+                region.center.longitude - region.span.longitudeDelta / 2))
+            let b = MKMapPointForCoordinate(CLLocationCoordinate2DMake(
+                region.center.latitude - region.span.latitudeDelta / 2,
+                region.center.longitude + region.span.longitudeDelta / 2))
+            let mapRect = MKMapRectMake(min(a.x,b.x),min(a.y,b.y), abs(a.x-b.x), abs(a.y-b.y))
             return (mapRegion: region, mapRect: mapRect)
         }
     }
@@ -889,11 +1010,21 @@ extension NearByViewController: MKMapViewDelegate{
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+        
+        var latitude: Double = 0.0
+        var longitude: Double = 0.0
+        
         if view.annotation is USRestStop {
+            let restStop = view.annotation as! USRestStop
+            
+            latitude = restStop.latitude
+            longitude = restStop.longitude
+            
             view.image = #imageLiteral(resourceName: "restStop").resizeImage(CGSize(width: 50.0, height: 50.0))
             if let nearStaticRestStopDetailViewController = nearStaticRestStopDetailViewController{
                 nearStaticRestStopDetailViewController.restStop = view.annotation as! USRestStop
                 NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: self)
+                animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
             } else {
                 addNearStaticRestStopDetailViewController(with: view.annotation as! USRestStop)
                 if let businessSearchResultTableController = businessSearchResultTableController{
@@ -902,16 +1033,23 @@ extension NearByViewController: MKMapViewDelegate{
                 }
             }
         } else if view.annotation is YelpBusinessAnnotation{
+            
+            let business = view.annotation as! YelpBusinessAnnotation
+            
+            latitude = business.coordinate.latitude
+            longitude = business.coordinate.longitude
+            
             view.image = #imageLiteral(resourceName: "yelpLocation").resizeImage(CGSize(width: 50.0, height: 50.0))
             if let businessDetailViewController = businessDetailViewController{
                 let yelpBusinessAnnotation = view.annotation as! YelpBusinessAnnotation
                 businessDetailViewController.businessID = yelpBusinessAnnotation.businessID
                 NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.businessDetailViewControllerNeedsUpdate), object: self)
+                animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
             } else {
                 let yelpBusinessAnnotation = view.annotation as! YelpBusinessAnnotation
                 if let businessID = yelpBusinessAnnotation.businessID{
                     addBusinessDetailViewController(withBusinessID: businessID, and: currentUserLocation)
-                    if let businessSearchResultTableController = businessSearchResultTableController{
+                    if let _ = businessSearchResultTableController{
                         animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
                         animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
                     }
@@ -919,11 +1057,18 @@ extension NearByViewController: MKMapViewDelegate{
                 
             }
         } else if view.annotation is MKPlacemark{
+            
+            let placemark = view.annotation as! MKPlacemark
+            
+            latitude = placemark.coordinate.latitude
+            longitude = placemark.coordinate.longitude
+            
             view.image = #imageLiteral(resourceName: "addressMapItemCellPin").resizeImage(CGSize(width: 50.0, height: 50.0))
             if let _ = addressViewController{
                 let mapItem = MKMapItem(placemark: view.annotation as! MKPlacemark)
                 addressViewController.mapItem = mapItem
                 NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: self)
+                animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
             } else {
                 let mapItem = MKMapItem(placemark: view.annotation as! MKPlacemark)
                 addAddressViewController(with: mapItem, and: currentUserLocation)
@@ -933,6 +1078,10 @@ extension NearByViewController: MKMapViewDelegate{
                 }
             }
         }
+        
+        let region = MKCoordinateRegionMake(CLLocationCoordinate2D(latitude: latitude, longitude: longitude), mapView.region.span)
+        mapView.setRegion(region, animated: true)
+        
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -952,10 +1101,10 @@ extension NearByViewController: MKMapViewDelegate{
         
         currentUserLocation = CLLocation(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         
-        let region = MKCoordinateRegionMakeWithDistance(currentUserLocation.coordinate, 8000, 8000)
-        mapView.setRegion(region, animated: false)
-        
         if shouldAddSearchTableView{
+            let region = MKCoordinateRegionMakeWithDistance(currentUserLocation.coordinate, 8000, 8000)
+            mapView.setRegion(region, animated: false)
+            
             addChildBusinessSearchTableViewController()
             if let businessSearchResultTableController = businessSearchResultTableController{
                 
@@ -1006,40 +1155,31 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
         var longitude: Double!
         
         if poi is USRestStop{
+            
             let pointOfInterest = poi as! USRestStop
             latitude = pointOfInterest.latitude
             longitude = pointOfInterest.longitude
-            if let _ = nearStaticRestStopDetailViewController{
-                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: self)
-            } else {
-                addNearStaticRestStopDetailViewController(with: pointOfInterest)
-                animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
-            }
+            
+            addNearStaticRestStopDetailViewController(with: pointOfInterest)
+            animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
             
         } else if poi is YLPBusiness{
+            
             let yelpBusiness = poi as! YLPBusiness
             latitude = yelpBusiness.location.coordinate?.latitude
             longitude = yelpBusiness.location.coordinate?.longitude
             
-            if let _ = businessDetailViewController{
-                NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.businessDetailViewControllerNeedsUpdate), object: self)
-            } else {
-                addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
-            }
+            addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
         } else if poi is MKMapItem{
+            
             let mapItem = poi as! MKMapItem
             if let location = mapItem.placemark.location{
                 latitude = location.coordinate.latitude
                 longitude = location.coordinate.longitude
                 
-                if let _ = addressViewController{
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: self)
-                } else {
-                    addAddressViewController(with: mapItem, and: currentLocation)
-                }
             }
-            
+            addAddressViewController(with: mapItem, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
         } else if poi is HistoryUSRestStop{
             
@@ -1072,10 +1212,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
                 print(error.debugDescription)
                 print("*** Failed to fetch managed object to initiate history detail page!")
             }
-            
-            
-            
-            
+        
         } else if poi is HistoryYelpBusiness{
             
             let historyYelpBusiness = poi as! HistoryYelpBusiness
@@ -1084,6 +1221,16 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             addBusinessDetailViewController(withBusinessID: historyYelpBusiness.businessIdentifier, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
             
+        } else if poi is FavoriteLocation{
+            let favoriteLocation = poi as! FavoriteLocation
+            let mapItem = MKMapItem(placemark: favoriteLocation.placemark)
+            if let location = mapItem.placemark.location{
+                latitude = location.coordinate.latitude
+                longitude = location.coordinate.longitude
+                setUpMapView(with: [favoriteLocation], and: CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude:currentUserLocation.coordinate.longitude))
+            }
+            addAddressViewController(with: mapItem, and: currentLocation)
+            animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
         }
         
         mapView.deselectAnnotations(mapView.annotations)
@@ -1092,6 +1239,8 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             if let selectedAnnotation = mapView.findAnnotationFor(latitude: latitude, longitude:
                 longitude){
                 mapView.selectAnnotation(selectedAnnotation, animated: true)
+                let region = MKCoordinateRegionMake(CLLocationCoordinate2D(latitude: latitude, longitude: longitude), mapView.region.span)
+                mapView.setRegion(region, animated: true)
             }
         }
         
@@ -1108,6 +1257,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
     
     func businessSearchResultTableViewControllerSearchBarDidBeginEditing(_ searchResultTable: BusinessSearchResultTableViewController) {
         animateToUpperLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+        mapView.removeAnnotations(mapView.annotations)
     }
 
 }
@@ -1165,7 +1315,7 @@ extension NearByViewController: BusinessDetailViewControllerDelegate{
                     self.businessDetailViewController.removeFromParentViewController()
                     self.businessDetailViewController.view.removeFromSuperview()
                     self.businessDetailViewController = nil
-                    self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+                    self.animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                     if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
                         self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                     }
@@ -1177,6 +1327,11 @@ extension NearByViewController: BusinessDetailViewControllerDelegate{
     func businessDetailViewControllerDidTapCloseButton(_ businessDetail: BusinessDetailViewController) {
         
         terminateBusinessDetailViewController()
+        if let _ = businessSearchResultTableController{
+            businessSearchResultTableController.searchBar.setShowsCancelButton(false, animated: true)
+        }
+        mapView.deselectAnnotations(mapView.annotations)
+        
         
     }
     
@@ -1202,7 +1357,7 @@ extension NearByViewController: NearStaticRestStopDetailViewControllerDelegate{
                 self.nearStaticRestStopDetailViewController.view.removeFromSuperview()
                 self.nearStaticRestStopDetailViewController = nil
                 self.removeDimView()
-                self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+                self.animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                 if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
                     self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
@@ -1212,7 +1367,12 @@ extension NearByViewController: NearStaticRestStopDetailViewControllerDelegate{
     
     func nearStaticRestStopDetailViewControllerDidTapCloseButton(_ nearStaticRestStopDetailViewController: NearStaticRestStopDetailViewController) {
         
-           terminateNearStaticRestStopDetailViewController()
+        terminateNearStaticRestStopDetailViewController()
+        if let _ = businessSearchResultTableController{
+            businessSearchResultTableController.searchBar.setShowsCancelButton(false, animated: true)
+        }
+        mapView.deselectAnnotations(mapView.annotations)
+        
         
     }
     
@@ -1231,7 +1391,7 @@ extension NearByViewController: AddressViewControllerDelegate{
                 self.addressViewController.removeFromParentViewController()
                 self.addressViewController.view.removeFromSuperview()
                 self.addressViewController = nil
-                self.animateToUpperLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
+                self.animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
                 if self.businessSearchResultTableController.tableView.numberOfRows(inSection: 0) != 0 {
                     self.businessSearchResultTableController.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 }
@@ -1242,7 +1402,10 @@ extension NearByViewController: AddressViewControllerDelegate{
     func addressViewControllerDidTapCloseButton(_ addressViewController: AddressViewController) {
         
         terminateAddressViewController()
-        
+        if let _ = businessSearchResultTableController{
+            businessSearchResultTableController.searchBar.setShowsCancelButton(false, animated: true)
+        }
+        mapView.deselectAnnotations(mapView.annotations)
     }
 }
 

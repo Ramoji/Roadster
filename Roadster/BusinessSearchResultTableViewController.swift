@@ -477,8 +477,8 @@ class BusinessSearchResultTableViewController: UIViewController{
         
         let localSearchRequest = MKLocalSearchRequest()
         localSearchRequest.naturalLanguageQuery = string
-        localSearchRequest.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
-        
+        //localSearchRequest.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
+        localSearchRequest.region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude), 500000, 500000)
         let localSearch = MKLocalSearch(request: localSearchRequest)
         localSearch.start(completionHandler: {searchResponse, error in
             guard error == nil else {
@@ -487,7 +487,7 @@ class BusinessSearchResultTableViewController: UIViewController{
             }
             
             guard let mapItems = searchResponse?.mapItems else {return}
-            
+            print("*** Search address mapitems count is: \(mapItems.count)")
             self.tableViewDataSourceList = mapItems
             self.tableView.reloadData()
             self.delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: self.tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: self.currentUserLocation.coordinate.latitude, longitude: self.currentUserLocation.coordinate.longitude))
@@ -588,9 +588,9 @@ extension BusinessSearchResultTableViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let selectedElement: AnyObject = {
-            tableViewDataSourceList[indexPath.row]
-        }()
+        var selectedElement: AnyObject {
+            return tableViewDataSourceList[indexPath.row]
+        }
         
         
         addToSearchHistory(selectedElement)
@@ -647,9 +647,12 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
         
-        addServiceCellToTableView()
         
+        addServiceCellToTableView()
         loadSearchHistory()
+        if tableViewDataSourceList.count != 0 {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
         delegate?.businessSearchResultTableViewControllerSearchBarDidBeginEditing(self)
         
     }

@@ -9,20 +9,24 @@
 import UIKit
 import MapKit
 import CoreLocation
+import MapKit
 
 
-class FavoriteLocation: NSObject, NSCoding{
+class FavoriteLocation: NSObject, NSCoding, MKAnnotation{
     let placemark: MKPlacemark
     let locationName: String?
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     init(placemark: MKPlacemark, locationName: String?) {
         self.placemark = placemark
         self.locationName = locationName
+        coordinate = CLLocationCoordinate2D(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
     }
     
     required init?(coder aDecoder: NSCoder) {
         placemark = aDecoder.decodeObject(forKey: "placemark") as! MKPlacemark
         locationName = aDecoder.decodeObject(forKey: "locationName") as! String?
+        coordinate = CLLocationCoordinate2D(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude)
     }
     
     func encode(with aCoder: NSCoder) {

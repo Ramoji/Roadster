@@ -95,6 +95,7 @@ extension HighwayListViewController: UITableViewDataSource{
             return cell
             
         } else {
+            print("*** ROUTE NAME IS: \(routes[indexPath.row])")
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.CellWithImageView, for: indexPath) as! CellWithImageView
             cell.configureCell(forHighway: routes[indexPath.row], stateAbbreviation: stateAbbreviation, numberOfRestStops: numberOfRestStops(forRoute: routes[indexPath.row]))
             return cell

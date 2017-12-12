@@ -8,8 +8,9 @@
 
 import Foundation
 import YelpAPI
-
-class HistoryUSRestStop:NSObject, NSCoding{
+import MapKit
+import CoreLocation
+class HistoryUSRestStop:NSObject, NSCoding, MKAnnotation{
     
     var closed: Bool
     var direction: String
@@ -34,6 +35,7 @@ class HistoryUSRestStop:NSObject, NSCoding{
     var trucks: Bool
     var vendingMachine: Bool
     var water: Bool
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
     
     init(restStop: USRestStop) {
         self.closed = restStop.closed
@@ -59,6 +61,7 @@ class HistoryUSRestStop:NSObject, NSCoding{
         self.trucks = restStop.trucks
         self.vendingMachine = restStop.vendingMachine
         self.water = restStop.water
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
     required init?(coder aDecoder: NSCoder){
@@ -85,7 +88,7 @@ class HistoryUSRestStop:NSObject, NSCoding{
         self.trucks = aDecoder.decodeBool(forKey: "trucks")
         self.vendingMachine = aDecoder.decodeBool(forKey: "vendingMachine")
         self.water = aDecoder.decodeBool(forKey: "water")
-        
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
     func encode(with aCoder: NSCoder){
@@ -118,3 +121,5 @@ class HistoryUSRestStop:NSObject, NSCoding{
     
     
 }
+
+

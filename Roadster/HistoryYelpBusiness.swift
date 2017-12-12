@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import MapKit
+import CoreLocation
 import YelpAPI
 
-class HistoryYelpBusiness: NSObject, NSCoding{
+class HistoryYelpBusiness: NSObject, NSCoding, MKAnnotation{
     var businessIdentifier: String
     var name: String
     var rating: Double
@@ -18,6 +20,8 @@ class HistoryYelpBusiness: NSObject, NSCoding{
     var businessAddress: String
     var latitude: Double?
     var longitude: Double?
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+    
     
     init(business: YLPBusiness) {
         businessIdentifier = business.identifier
@@ -38,6 +42,10 @@ class HistoryYelpBusiness: NSObject, NSCoding{
         
         latitude = business.location.coordinate?.latitude
         longitude = business.location.coordinate?.longitude
+        
+        if let _ = latitude{
+            coordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
+        }
     }
     
     init(businessIdentifier: String, name: String, rating: Double, reviewCount: UInt, category: String, businessAddress: String, latitude: Double?, longitude: Double?) {
