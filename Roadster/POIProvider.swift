@@ -52,8 +52,11 @@ class POIProvider{
         let restStops = getRestStops(inState: state)
         var routeNames: [String] = []
         for stop in restStops{
-            if stop.routeName != "ADDRESS"{
-                routeNames.append(stop.routeName)
+            if stop.routeName != "ADDRESS" && !stop.routeName.contains("ADDRESS"){
+            
+                if stop.routeName == stop.routeName.uppercased(){
+                    routeNames.append(stop.routeName)
+                }
             }
         }
         
@@ -323,7 +326,6 @@ class POIProvider{
         
         return facilites
     }
-    
     
 }
 
