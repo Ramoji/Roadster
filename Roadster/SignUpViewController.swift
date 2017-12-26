@@ -81,7 +81,7 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        guard passwordTextField.text!.characters.count >= 6 else {
+        guard passwordTextField.text!.count >= 6 else {
             animate(alertBanner: passwordLengthRequirementAlertLabel)
             return
         }

@@ -25,10 +25,10 @@ class OnlyOneRestStopCell: UITableViewCell {
     @IBOutlet weak var imageViewTwelve: UIImageView!
     @IBOutlet weak var imageViewThirteen: UIImageView!
     @IBOutlet weak var imageViewFourteen: UIImageView!
-    var imageViews: [UIImageView]!
     @IBOutlet weak var restStopName: UILabel!
     @IBOutlet weak var noFacilitiesLabel: UILabel!
     @IBOutlet weak var closedLabel: UILabel!
+    var imageViews: [UIImageView]!
 
     override func awakeFromNib() {
         super.awakeFromNib()

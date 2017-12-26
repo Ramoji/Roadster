@@ -194,7 +194,7 @@ class PinnedFrequentStaticDetailTableViewController: UITableViewController {
     }
     
     private func registerNibs(){
-        var nib = UINib(nibName: CustomCellTypeIdentifiers.commentCell, bundle: nil)
+        let nib = UINib(nibName: CustomCellTypeIdentifiers.commentCell, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.commentCell)
     }
     

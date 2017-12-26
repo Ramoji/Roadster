@@ -49,6 +49,42 @@ extension NSLayoutConstraint{
 
 extension String{
    
+    
+    
+}
+
+
+extension MKMapView{
+    func findAnnotationFor(latitude: Double, longitude: Double) -> MKAnnotation?{
+        var foundAnnotation: MKAnnotation?
+        let annotations = self.annotations
+        for annotation in annotations{
+            if annotation.coordinate.latitude == latitude && annotation.coordinate.longitude == longitude{
+                foundAnnotation = annotation
+            }
+        }
+        
+        return foundAnnotation
+    }
+    
+    func deselectAnnotations(_ annotations: [MKAnnotation]){
+        for annotation in annotations{
+            self.deselectAnnotation(annotation, animated: true)
+        }
+    }
+    
+}
+
+extension UIView{
+    func findConstraint(for identifier: String) -> NSLayoutConstraint?{
+        var foundConstraint: NSLayoutConstraint!
+        for constraint in self.constraints{
+            if constraint.identifier == identifier{
+                foundConstraint = constraint
+            }
+        }
+        return foundConstraint
+    }
 }
 
 

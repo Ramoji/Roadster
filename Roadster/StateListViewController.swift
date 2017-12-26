@@ -139,8 +139,7 @@ extension StateListViewController: UISearchResultsUpdating{
     }
 }
 
-extension StateListViewController: UISearchControllerDelegate{
-}
+extension StateListViewController: UISearchControllerDelegate{}
 
 //MARK: - Segues
 extension StateListViewController{
@@ -158,12 +157,7 @@ extension StateListViewController{
     }
 }
 
-extension UIImage{
-    class func blurredViewImage() -> UIImage {
-        let image = UIImage(named: "blurredImage")
-        return image!
-    }
-}
+
 
 
 

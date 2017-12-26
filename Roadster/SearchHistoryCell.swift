@@ -12,7 +12,9 @@ import UIKit
 class SearchHistoryCell: UITableViewCell{
     
     func configureCell(){
+        
         self.backgroundColor = UIColor.clear
+        
     }
-    
+
 }

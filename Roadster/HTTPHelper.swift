@@ -200,8 +200,8 @@ class HTTPHelper{
     
     func postComment(comment: Comment, userEmail: String, completionHandler: @escaping (_ completed: Bool) -> ()){
         let parameters: Parameters = [
-            "latitude": String(comment.latitude),
-            "longitude": String(comment.longitude),
+            "latitude": "\(comment.latitude)",
+            "longitude": "\(comment.longitude)",
             "firstname": comment.firstname,
             "lastname": comment.lastname,
             "email": comment.email,

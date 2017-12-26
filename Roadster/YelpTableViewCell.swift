@@ -18,8 +18,6 @@ class YelpTableViewCell: UITableViewCell {
     @IBOutlet weak var businessRatingLabel: UILabel!
     @IBOutlet weak var businessRatingImageView: UIImageView!
     
-   
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -52,6 +50,7 @@ class YelpTableViewCell: UITableViewCell {
             }
             return categoryMutableString
         }()
+        
         businessTitle.attributedText = categoryMutableString
         
         if !yelpBusiness.location.address.isEmpty{

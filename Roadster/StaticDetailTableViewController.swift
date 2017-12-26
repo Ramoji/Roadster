@@ -55,6 +55,10 @@ class StaticDetailTableViewController: UITableViewController {
     var comments: [Comment] = []
     var averageRating: Double = 0.0
     var commentRating: Double = 0
+    var favoriteList: [Favorite] = []
+    var frequentList: [Frequent] = []
+    
+    
 
     
     
@@ -92,6 +96,8 @@ class StaticDetailTableViewController: UITableViewController {
         view.backgroundColor = UIColor.clear
         tableView.backgroundView = blurredBackgroudView
         setUpTableView()
+        loadFavoriteList()
+        loadFrequentList()
     }
     
     override func loadView() {
@@ -384,6 +390,36 @@ class StaticDetailTableViewController: UITableViewController {
         }
     }
     
+    func loadFavoriteList(){
+        
+        favoriteList = CoreDataHelper.shared.getFavorites()
+        
+        for favorite in favoriteList{
+            if favorite.latitude == restStop.latitude && favorite.longitude == restStop.longitude{
+                favoriteButton.setImage(UIImage(named: "favoriteOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+                return
+            }
+        }
+        
+        favoriteButton.setImage(UIImage(named: "favoriteOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+    
+    }
+    
+    func loadFrequentList(){
+        
+        frequentList = CoreDataHelper.shared.getFrequents()
+        
+        for frequent in frequentList{
+            if frequent.latitude == restStop.latitude && frequent.longitude == restStop.longitude{
+                frequentButton.setImage(UIImage(named: "frequentOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+                return
+            }
+        }
+        
+        frequentButton.setImage(UIImage(named: "frequentOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "reportInfo"{
             let reportInfoTableViewController = segue.destination as! ReportInfoTableViewController
@@ -509,7 +545,7 @@ extension StaticDetailTableViewController: UITextViewDelegate{
         
         let wordLimit = 100
     
-        print("The numeber of remaining words are: \(wordLimit - (textView.text.characters.count / 5))")
+        print("The numeber of remaining words are: \(wordLimit - (textView.text.count / 5))")
         
     }
     
@@ -517,7 +553,7 @@ extension StaticDetailTableViewController: UITextViewDelegate{
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if range.length == 1{
             return true
-        }else if (100 - textView.text.characters.count / 5) <= 0 {
+        }else if (100 - textView.text.count / 5) <= 0 {
             return false
         } else {
             return true

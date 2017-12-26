@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //**********************Getting persistence store*************************
         let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let dataStoreURL = documentsDirectoryURL.appendingPathComponent("datastore.sqlite")
+        print(dataStoreURL.path)
         if !FileManager.default.fileExists(atPath: dataStoreURL.path){
             let sourceSqliteURLs = [Bundle.main.url(forResource: "datastore", withExtension: "sqlite"), Bundle.main.url(forResource: "datastore", withExtension: "sqlite-shm"), Bundle.main.url(forResource: "datastore", withExtension: "sqlite-wal")]
             let destSqliteURLs = [documentsDirectoryURL.appendingPathComponent("datastore.sqlite"), documentsDirectoryURL.appendingPathComponent("datastore.sqlite-shm"), documentsDirectoryURL.appendingPathComponent("datastore.sqlite-wal")]
@@ -99,7 +100,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window?.tintColor = UIColor(red: 67/255, green: 129/255, blue: 244/255, alpha: 1)
         
-        
+        //*******DANGER********
+        //renameHighway(in: "WA", oldHighwayName: "SR-12", newHighwayName: "US-12")
+        //deleteRow(in: "OR", on: "SR-401")
+        //*********************
         
        return true
     }
@@ -129,6 +133,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func defineUserDefaults(){
         UserDefaults.standard.register(defaults: ["firstTimeRun": true])
+    }
+    
+    func deleteRow(in state: String, on highway: String){
+        
+        var restStops: [USRestStop] = []
+        let fetchRequest: NSFetchRequest<USRestStop> = NSFetchRequest()
+        fetchRequest.entity = USRestStop.entity()
+        
+        let statePredicate = NSPredicate(format: "state==%@", state)
+        let highwayPredicate = NSPredicate(format: "routeName==%@", highway)
+        
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [statePredicate, highwayPredicate])
+        
+        fetchRequest.predicate = compoundPredicate
+        
+        do{
+            let managedObjects = try managedObjectContext.fetch(fetchRequest)
+            for managedObject in managedObjects{
+                restStops.append(managedObject)
+            }
+        }catch{
+            fatalError("*** Failed to fetch to delete rest stops!")
+        }
+        
+        for restStop in restStops{
+            do{
+                managedObjectContext.delete(restStop)
+                try managedObjectContext.save()
+                
+            } catch {
+                fatalError("*** failed to delete selected rest stop!")
+            }
+            
+        }
+        
+        
+    }
+    
+    func renameHighway(in state: String, oldHighwayName: String, newHighwayName: String){
+        var restStops: [USRestStop] = []
+        let fetchRequest: NSFetchRequest<USRestStop> = NSFetchRequest()
+        fetchRequest.entity = USRestStop.entity()
+        
+        let statePredicate = NSPredicate(format: "state==%@", state)
+        let highwayPredicate = NSPredicate(format: "routeName==%@", oldHighwayName)
+        
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [statePredicate, highwayPredicate])
+        
+        fetchRequest.predicate = compoundPredicate
+        
+        do{
+            let managedObjects = try managedObjectContext.fetch(fetchRequest)
+            for managedObject in managedObjects{
+                restStops.append(managedObject)
+            }
+        }catch let error as NSError{
+            print(error.debugDescription)
+            fatalError("*** Failed to fetch restStops in order to rename highway name!")
+        }
+        
+        for restStop in restStops{
+            
+            restStop.routeName = newHighwayName
+            do{
+                try managedObjectContext.save()
+                print("*** Saved rest stop name change!")
+            }catch let error as NSError{
+                print(error.debugDescription)
+                fatalError("*** Failed to save new name for rest stop!")
+            }
+        }
     }
 
 }

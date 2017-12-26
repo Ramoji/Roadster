@@ -81,10 +81,6 @@ class BusinessSearchResultFirstCell: UITableViewCell{
         restStopButton.setImage(UIImage(named: "restStop")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         restStopButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
-       
-        
-        
-            
         backgroundColor = UIColor.clear
     }
     

@@ -12,7 +12,7 @@ import CoreLocation
 import Dispatch
 import CoreData
 import YelpAPI
-import QuartzCore
+
 
 struct ChildControllersUpperConstraints {
     static let businessSearchResultControllerTopConstraintIdentifier = "businessSearchResultControllerTopConstraintIdentifier"
@@ -29,7 +29,6 @@ struct NearByViewControllerNotificationIDs{
 
 class NearByViewController: UIViewController {
     
-    //The height for the tab bar is 49 points.
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -1027,7 +1026,7 @@ extension NearByViewController: MKMapViewDelegate{
                 animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
             } else {
                 addNearStaticRestStopDetailViewController(with: view.annotation as! USRestStop)
-                if let businessSearchResultTableController = businessSearchResultTableController{
+                if let _ = businessSearchResultTableController{
                     animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
                     animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
                 }
@@ -1072,7 +1071,7 @@ extension NearByViewController: MKMapViewDelegate{
             } else {
                 let mapItem = MKMapItem(placemark: view.annotation as! MKPlacemark)
                 addAddressViewController(with: mapItem, and: currentUserLocation)
-                if let businessSearchResultTableController = businessSearchResultTableController{
+                if let _ = businessSearchResultTableController{
                     animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
                     animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
                 }
@@ -1271,38 +1270,7 @@ extension NearByViewController: UITextFieldDelegate{
     }
 }
 
-extension MKMapView{
-    func findAnnotationFor(latitude: Double, longitude: Double) -> MKAnnotation?{
-        var foundAnnotation: MKAnnotation?
-        let annotations = self.annotations
-        for annotation in annotations{
-            if annotation.coordinate.latitude == latitude && annotation.coordinate.longitude == longitude{
-                foundAnnotation = annotation
-            }
-        }
-        
-        return foundAnnotation
-    }
-    
-    func deselectAnnotations(_ annotations: [MKAnnotation]){
-        for annotation in annotations{
-            self.deselectAnnotation(annotation, animated: true)
-        }
-    }
-    
-}
 
-extension UIView{
-    func findConstraint(for identifier: String) -> NSLayoutConstraint?{
-        var foundConstraint: NSLayoutConstraint!
-        for constraint in self.constraints{
-            if constraint.identifier == identifier{
-                foundConstraint = constraint
-            }
-        }
-        return foundConstraint
-    }
-}
 
 extension NearByViewController: BusinessDetailViewControllerDelegate{
     

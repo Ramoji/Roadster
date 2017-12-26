@@ -54,9 +54,9 @@ class POIProvider{
         for stop in restStops{
             if stop.routeName != "ADDRESS" && !stop.routeName.contains("ADDRESS"){
             
-                if stop.routeName == stop.routeName.uppercased(){
+                //if stop.routeName == stop.routeName.uppercased(){
                     routeNames.append(stop.routeName)
-                }
+                //}
             }
         }
         
