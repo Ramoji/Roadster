@@ -107,8 +107,10 @@ class BusinessDetailViewController: UIViewController{
     }
     
     func needsUpdate(){
+        
         getBusinessFromYelpAPI()
         setUpLocationManager()
+        
     }
     
     func getBusinessFromYelpAPI(){

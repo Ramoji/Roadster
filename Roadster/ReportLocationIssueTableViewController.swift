@@ -1,8 +1,4 @@
-//
-//  ReportLocationIssueTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 9/1/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -10,7 +6,9 @@ import UIKit
 import Dispatch
 
 protocol ReportLocationIssueTableViewControllerDelegate {
+    
     func reportLocationIssueTableViewControllerDidTapCancelButton(_ reportLocationIssueTableViewController: ReportLocationIssueTableViewController)
+    
 }
 
 class ReportLocationIssueTableViewController: UITableViewController {
@@ -19,12 +17,12 @@ class ReportLocationIssueTableViewController: UITableViewController {
     @IBOutlet weak var textView: UITextView!
     var delegate: ReportLocationIssueTableViewControllerDelegate?
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         sendBarButton.isEnabled = false
         setupTextView()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,11 +30,9 @@ class ReportLocationIssueTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-   
-
     @IBAction func send(_ sender: UIBarButtonItem){
         
-        HTTPHelper.shared.sendEmail(recepient: "wzk014@gmail.com", sender: "", subject: "TEST", emailBody: "SENT FROM WITHIN ROADSTER!")
+        HTTPHelper.shared.sendEmail(recepient: APICredentials.developerEmailAddress, sender: "", subject: "TEST", emailBody: "SENT FROM WITHIN ROADSTER!")
         
         if let navigationController = navigationController{
             let hudView = HUDView.createHUD(inView: navigationController.view, animated: true)

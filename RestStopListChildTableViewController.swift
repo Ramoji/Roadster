@@ -1,8 +1,4 @@
-//
-//  RestStopTableViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 10/15/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -35,9 +31,6 @@ class RestStopListChildTableViewController: UIViewController {
     var restStopDistanceFromUser: [Int] = [Int]()
     var isViewFirstLoad = true
     
-    
-   
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +41,7 @@ class RestStopListChildTableViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
+        
     }
     
     
@@ -204,7 +198,6 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
                     cellToReturn = cell
                 }
                 
-                
             case restStopList.count - 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.EndRestStopCell, for: indexPath) as! EndRestStopCell
                 if let _ = userCurrentLocation{
@@ -228,6 +221,7 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if !restStopList.isEmpty{
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
             delegate?.restStopListTable(self, didPickRestStop: restStopList[indexPath.row])
@@ -249,48 +243,54 @@ extension RestStopListChildTableViewController: UITableViewDataSource, UITableVi
      func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 74
     }
-    
-    
 }
-
 
 extension RestStopListChildTableViewController: CLLocationManagerDelegate{
     
     func getUserLocation(){
+        
         let authStatus = CLLocationManager.authorizationStatus()
         if authStatus == .denied || authStatus == .restricted{
             showLocationServicesDeniedAlert()
         }
         startLocationManager()
+        
     }
     
     func startLocationManager(){
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
+        
     }
     
     func stopLocationManager(){
+        
         location = nil
         locationManager.stopUpdatingLocation()
         locationManager.delegate = nil
+        
     }
     
     func showLocationServicesDeniedAlert(){
+        
         let alert = UIAlertController(title: "Location Services Disabled", message: "Location Services is disabled. Please enable location servises for this app in Settings.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         let newLocation = locations.last
+        
         if let newLocation = newLocation{
             if newLocation.timestamp.timeIntervalSinceNow < -5 {
                 return
             }
-            
-            
+
             if newLocation.horizontalAccuracy < 0 {
                 return
             }
@@ -331,9 +331,3 @@ extension RestStopListChildTableViewController: CLLocationManagerDelegate{
         }
     }
 }
-
-
-
-
-
-

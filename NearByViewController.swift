@@ -1,8 +1,4 @@
-//
-//  NearByViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 10/14/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -29,9 +25,8 @@ struct NearByViewControllerNotificationIDs{
 
 class NearByViewController: UIViewController {
     
-    
     @IBOutlet weak var mapView: MKMapView!
-    
+
     var managedObjectContext: NSManagedObjectContext!
  
     let concurrentQueue = DispatchQueue(label: "myQueue", attributes: .concurrent)
@@ -44,20 +39,14 @@ class NearByViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
-    
     var verticalUpperLimit: CGFloat = -500
     var totalExceedingUpperLimit: CGFloat = -500 //Exceeding limit y transation (change name)
     var verticalLowerLimit: CGFloat = -55
     var verticalHidingLimit: CGFloat = 100
     var verticalMiddleLimit: CGFloat = -250
-    
-    
     var shouldAddSearchTableView = true
-    
     var locationManager: CLLocationManager = CLLocationManager()
-    
     var currentUserLocation: CLLocation!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,28 +55,27 @@ class NearByViewController: UIViewController {
         setUpSegmentedControl()
        
     }
-
-
+    
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
+        super.viewDidAppear(animated)
         if let nearStaticRestStopDetailViewController = nearStaticRestStopDetailViewController{
-            nearStaticRestStopDetailViewController.nearRestStopChildDetailTableViewController.setUpViewForRestStop()
+        nearStaticRestStopDetailViewController.nearRestStopChildDetailTableViewController.setUpViewForRestStop()
         }
         
     }
-    
-    
-    
+
     override func loadView() {
+        
         super.loadView()
+        
     }
-    
-    
-    
+
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
         print("*** Receiving Memory Warning from NearByViewController!")
+        
     }
     
     func initiateTransactionForScreenMovementLimits(){
@@ -98,26 +86,27 @@ class NearByViewController: UIViewController {
         verticalMiddleLimit = self.view.bounds.height * 0.37 * -1
     }
 
-    
     func switchMapSatellite(){
+        
         if segmentedControl.selectedSegmentIndex == 0 {
           mapView.mapType = .standard
         } else if segmentedControl.selectedSegmentIndex == 1 {
             mapView.mapType = .hybrid
         }
+        
     }
     
     
     func showLocationServicesDeniedAlert(){
+        
         let alert = UIAlertController(title: "Location Services Disabled", message: "Location Services is disabled. Please enable location servises in order for this app to function properly.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
+        
     }
    
-    
-    
-    
     func addDimView(){
+        
         if let _ = view.viewWithTag(1001){
             return
         } else {
@@ -131,11 +120,15 @@ class NearByViewController: UIViewController {
             })
         }
     }
+    
     func removeDimView(){
+        
         guard let dimView = view.viewWithTag(1001) else {return}
+        
         dimView.removeFromSuperview()
+        
         UIView.animate(withDuration: 0.3, animations: {
-            //dimView.alpha = 0.0
+            
         }){ (Bool) -> Void in
             dimView.removeFromSuperview()
         }
@@ -148,10 +141,7 @@ class NearByViewController: UIViewController {
         segmentedControl.layer.backgroundColor = UIColor.white.cgColor
         
     }
-    
-    
-    
-    
+
     func setUpMapView(with list: [AnyObject], and currentLocation: CLLocationCoordinate2D){
         
         guard list.count != 0 else {
@@ -230,10 +220,8 @@ class NearByViewController: UIViewController {
             return (mapRegion, mapRect)
         }
         
-        if pointsOfInterestList is [USRestStop]{
-            
-            
-            
+        if pointsOfInterestList is [USRestStop]{  // CASE ONE
+        
             let list = pointsOfInterestList as! [USRestStop]
             var unsortedLatitudes: [Double] = []
             var unsortedLongitudes: [Double] = []
@@ -270,9 +258,6 @@ class NearByViewController: UIViewController {
                 return lhs < rhs
             }
             
-            
-        
-            
             let lowerLeftCoordinate = CLLocation(latitude: sortedLatitude.first!, longitude: sortedLongitude.first!)
             let upperRightCoordinate = CLLocation(latitude: sortedLatitude.last!, longitude: sortedLongitude.last!)
 
@@ -283,7 +268,7 @@ class NearByViewController: UIViewController {
             let region = MKCoordinateRegionForMapRect(mapRect)
             return (mapRegion: region, mapRect: mapRect)
             
-        } else if pointsOfInterestList is [YLPBusiness]{
+        } else if pointsOfInterestList is [YLPBusiness]{  //CASE TWO
             
             let list = pointsOfInterestList as! [YLPBusiness]
             
@@ -355,7 +340,7 @@ class NearByViewController: UIViewController {
             
             return (mapRegion: region, mapRect: mapRect)
             
-        } else if pointsOfInterestList is [MKMapItem]{
+        } else if pointsOfInterestList is [MKMapItem]{ //CASE THREE
             
             
             let list = pointsOfInterestList as! [MKMapItem]
@@ -409,9 +394,9 @@ class NearByViewController: UIViewController {
             let region = MKCoordinateRegionForMapRect(mapRect)
             
             return (mapRegion: region, mapRect: mapRect)
-        } else /*if pointsOfInterestList is [FavoriteLocation]*/{
+            
+        } else { //CASE FOUR list is [FavoriteLocation]
             let list = pointsOfInterestList as! [FavoriteLocation]
-           // guard list.count != 0 else {return}
             // We dont need to check if the list only has one element because the user only taps on one FavoriteLocation at a time.
             let favoriteLocation = list.first!
             let region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: favoriteLocation.placemark.coordinate.latitude, longitude: favoriteLocation.coordinate.longitude), 5000, 5000)
@@ -428,8 +413,8 @@ class NearByViewController: UIViewController {
     
     // MARK: - Gesture recognizer code
     
-   
     func businessSearchResultTableControllerdidPan(_ sender: UIPanGestureRecognizer) {
+        
         guard let businessSearchResultControllerTopConstraint = self.view.findConstraint(for: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier) else {return}
         guard let _ = sender.view else {return}
         businessSearchResultTableController.searchBar.resignFirstResponder()
@@ -437,20 +422,19 @@ class NearByViewController: UIViewController {
         businessSearchResultTableController.searchBar.text = ""
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
-        print("*** constraint is: \(businessSearchResultControllerTopConstraint.constant)")
+        
         if businessSearchResultControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
-            print("*** HAS EXCEEDED!")
+            
             totalExceedingUpperLimit += yTransaction
             
-            print("*** totalExceedingUpperLimit: \(totalExceedingUpperLimit)")
             businessSearchResultControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
             if sender.state == .ended {
                 
-                
                 animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier)
-                
             }
+            
         } else {
+            
             businessSearchResultControllerTopConstraint.constant += yTransaction
             
             if sender.state == .ended {
@@ -479,7 +463,6 @@ class NearByViewController: UIViewController {
         
         sender.setTranslation(CGPoint.zero, in: self.view)
         
-        print("*** Business search result controller top constraint is: \(businessSearchResultControllerTopConstraint.constant)")
         
     }
     
@@ -490,6 +473,7 @@ class NearByViewController: UIViewController {
         
         let yTransaction = sender.translation(in: self.view).y
         let yVelocity = sender.velocity(in: self.view).y
+        
         if businessDetailViewControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
             totalExceedingUpperLimit += yTransaction
             businessDetailViewControllerTopConstraint.constant = logConstraintValueForYPosition(totalExceedingUpperLimit, verticalUpperLimit)
@@ -497,9 +481,10 @@ class NearByViewController: UIViewController {
                 
                 
                 animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
-                
             }
+            
         } else {
+            
             businessDetailViewControllerTopConstraint.constant += yTransaction
             
             if sender.state == .ended {
@@ -529,8 +514,7 @@ class NearByViewController: UIViewController {
         sender.setTranslation(CGPoint.zero, in: self.view)
         
     }
-    
-    
+
     func animateToUpperLimit(yVelocity: CGFloat, and topConstraintIdentifier: String){
         
         guard let topConstraint = self.view.findConstraint(for: topConstraintIdentifier) else {return}
@@ -593,11 +577,6 @@ class NearByViewController: UIViewController {
             print("In default!")
             
         }
-        
-        
-        
-        
-        
     }
     
     func animateToMiddleLimit(yVelocity: CGFloat, and topConstraintIdentifier: String){
@@ -723,9 +702,7 @@ class NearByViewController: UIViewController {
             completionHandler(isComplete)
         }
     }
-    
-    
-    
+
     func logConstraintValueForYPosition(_ yPosition: CGFloat, _ verticalLimit: CGFloat) -> CGFloat{
         return verticalLimit * (1 + log10(yPosition / verticalLimit))
     }
@@ -808,8 +785,6 @@ class NearByViewController: UIViewController {
         businessSearchResultTableController.view.addGestureRecognizer(panGestureRecognizer)
     }
     
-    
- 
     func addNearStaticRestStopDetailViewController(with restStop: USRestStop){
         
         nearStaticRestStopDetailViewController = storyboard?.instantiateViewController(withIdentifier: "nearStaticRestStopDetailViewController")  as! NearStaticRestStopDetailViewController
@@ -836,7 +811,7 @@ class NearByViewController: UIViewController {
     
     func nearStaticRestStopDetailViewControllerDidPan(_ sender: UIPanGestureRecognizer){
         
-        print("*** In nearStaticRestStopDetailViewControllerDidPan(_:)")
+        
         guard let nearStaticRestStopDetailViewControllerTopConstraint = self.view.findConstraint(for: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint) else {return}
         guard let _ = sender.view else {return}
         
@@ -849,8 +824,8 @@ class NearByViewController: UIViewController {
                 
                 
                 animateToUpperLimit(yVelocity: yVelocity, and: ChildControllersUpperConstraints.nearStaticRestStopDetailViewControllerTopConstraint)
-                
             }
+            
         } else {
             
             nearStaticRestStopDetailViewControllerTopConstraint.constant += yTransaction
@@ -885,6 +860,7 @@ class NearByViewController: UIViewController {
     
     
     func addAddressViewController(with mapItem: MKMapItem, and currentLocation: CLLocation){
+        
         addressViewController = storyboard?.instantiateViewController(withIdentifier: "AddressViewController") as! AddressViewController
         addressViewController.mapItem = mapItem
         addressViewController.currentUserLocation = currentLocation
@@ -895,7 +871,6 @@ class NearByViewController: UIViewController {
         addressViewController.didMove(toParentViewController: self)
         
         addressViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
         
         let topConstraint = addressViewController.view.topAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -55.0)
         topConstraint.identifier = ChildControllersUpperConstraints.addressViewControllerTopConstraint
@@ -917,7 +892,7 @@ class NearByViewController: UIViewController {
         guard let addressViewControllerTopConstraint = self.view.findConstraint(for: ChildControllersUpperConstraints.addressViewControllerTopConstraint) else {return}
         let yVelocity = sender.velocity(in: self.view).y
         
-        print(addressViewControllerTopConstraint.constant)
+        
         
         let transaction = sender.translation(in: self.view)
         if addressViewControllerTopConstraint.hasExceeded(verticalUpperLimit: verticalUpperLimit){
@@ -927,11 +902,11 @@ class NearByViewController: UIViewController {
             if sender.state == .ended{
                 animateToUpperLimit(yVelocity: 500, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
             }
+            
         } else {
             
             addressViewControllerTopConstraint.constant += transaction.y
-            
-            
+        
             if sender.state == .ended {
                 if (addressViewControllerTopConstraint.constant > verticalUpperLimit && addressViewControllerTopConstraint.constant < verticalMiddleLimit  && yVelocity > 0){
                     
@@ -954,27 +929,11 @@ class NearByViewController: UIViewController {
                 }
             }
         }
-        
-        
-        
-        
-        
+    
         sender.setTranslation(CGPoint.zero, in: self.view)
         
     }
-   
-//    
-//    func getTabBarCoordinatesInBusinessSearchResultTableViewController() -> CGPoint{
-//        if let tabBarController = tabBarController{
-//            let tabBarCoordinatedInNearByViewController = tabBarController.tabBar.convert(tabBarController.tabBar.bounds, to: self.view)
-//        }
-//    }
-    
 }
-
-
-
-
 
 extension NearByViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -987,7 +946,8 @@ extension NearByViewController: MKMapViewDelegate{
                 annotationView.image = #imageLiteral(resourceName: "restStop").resizeImage(CGSize(width: 20.0, height: 20.0))
             }
             break
-        case is YelpBusinessAnnotation: // rememebr you used YelpBusinessAnnotation to feed in Yelp annotations because YLPBusiness does not conform to MKAnnotation.
+            
+        case is YelpBusinessAnnotation: // Used YelpBusinessAnnotation to feed in Yelp annotations because YLPBusiness does not conform to MKAnnotation.
             annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "yelpBusiness")
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "yelpBusiness")
@@ -1002,6 +962,7 @@ extension NearByViewController: MKMapViewDelegate{
                 annotationView.image = #imageLiteral(resourceName: "addressMapItemCellPin").resizeImage(CGSize(width: 20.0, height: 20.0))
             }
             break
+            
         default:
             print("*** Incorrect type sent to mapView(:viewFor:) selector")
         }
@@ -1053,12 +1014,11 @@ extension NearByViewController: MKMapViewDelegate{
                         animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
                     }
                 }
-                
             }
+            
         } else if view.annotation is MKPlacemark{
             
             let placemark = view.annotation as! MKPlacemark
-            
             latitude = placemark.coordinate.latitude
             longitude = placemark.coordinate.longitude
             
@@ -1099,7 +1059,6 @@ extension NearByViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
         currentUserLocation = CLLocation(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        
         if shouldAddSearchTableView{
             let region = MKCoordinateRegionMakeWithDistance(currentUserLocation.coordinate, 8000, 8000)
             mapView.setRegion(region, animated: false)
@@ -1124,13 +1083,7 @@ extension NearByViewController: MKMapViewDelegate{
             present(limitedServiceAlert, animated: true, completion: nil)
         }
     }
-    
-    
 }
-
-
-
-
 
 extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
     
@@ -1141,7 +1094,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
     }
     
     func businessSearchResultTableViewStopedGettingBusiness(_ searchResultTable: BusinessSearchResultTableViewController, with searchResultList: [AnyObject], at currentLocation: CLLocationCoordinate2D){
-        print("*** In businessSearchResultTableViewStopedGettingBusiness delegate method!")
+    
         setUpMapView(with: searchResultList, and: currentLocation)
         self.activityIndicator.stopAnimating()
         self.activityIndicator.isHidden = true
@@ -1170,6 +1123,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             
             addBusinessDetailViewController(withBusinessID: yelpBusiness.identifier, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessDetailViewControllerTopConstraintIdentifier)
+            
         } else if poi is MKMapItem{
             
             let mapItem = poi as! MKMapItem
@@ -1180,6 +1134,7 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
             }
             addAddressViewController(with: mapItem, and: currentLocation)
             animateToMiddleLimit(yVelocity: 500.0, and: ChildControllersUpperConstraints.addressViewControllerTopConstraint)
+            
         } else if poi is HistoryUSRestStop{
             
             let historyUSRestStop = poi as! HistoryUSRestStop
@@ -1244,9 +1199,6 @@ extension NearByViewController: BusinessSearchResultTableViewControllerDelegate{
         }
         
         animateToHidingLimit(yVelocity: 500, and: ChildControllersUpperConstraints.businessSearchResultControllerTopConstraintIdentifier){isCompleted in }
-        
-        
-        
     }
     
     func businessSearchResultTableViewControllerNeedsUpdatedMapRegion(_ searchResultTable: BusinessSearchResultTableViewController) -> MKCoordinateRegion {
@@ -1308,7 +1260,7 @@ extension NearByViewController: BusinessDetailViewControllerDelegate{
     }
     
     func businessDetailViewControllerDidUpdateUserLocation(_ businessDetail: BusinessDetailViewController, newUserLocation: CLLocation) {
-        print("*** Business detail did up date user location through delegate method!")
+        
         self.currentUserLocation = newUserLocation
         businessSearchResultTableController.currentUserLocation = newUserLocation
     }
@@ -1376,11 +1328,3 @@ extension NearByViewController: AddressViewControllerDelegate{
         mapView.deselectAnnotations(mapView.annotations)
     }
 }
-
-
-
-
-
-
-
-

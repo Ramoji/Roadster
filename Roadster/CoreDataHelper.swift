@@ -1,8 +1,4 @@
-//
-//  CoreDataHelper.swift
-//  Roadster
-//
-//  Created by EA JA on 6/16/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

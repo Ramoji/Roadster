@@ -1,8 +1,4 @@
-//
-//  ReportNewRestStopTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 10/4/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -28,37 +24,42 @@ class ReportNewRestStopTableViewController: UITableViewController {
     var closed = false
     var mileMarker: String!
     
-    
-    
+
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         navigationItem.title = "Report a new rest stop"
         closedSwitch.isOn = false
         closedSwitch.addTarget(self, action: #selector(closedSwitchDidChange), for: .valueChanged)
         NotificationCenter.default.addObserver(self, selector: #selector(textFieldDidChange), name: Notification.Name.UITextFieldTextDidChange, object: mileMarkerTextField)
         
-        
     }
     
     
     
     func closedSwitchDidChange(){
+        
         closed = closedSwitch.isOn
+        
     }
     
     func textFieldDidChange(){
+        
         if let text = mileMarkerTextField.text{
             mileMarker = text
         } else {
             mileMarker = ""
         }
+        
     }
     
  
     
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
     
     @IBAction func submit(_ sender: UIButton){
@@ -96,11 +97,19 @@ class ReportNewRestStopTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section == 2 else {return super.tableView(tableView, viewForHeaderInSection: section)}
+        
+        guard section == 2 else {
+            
+            return super.tableView(tableView, viewForHeaderInSection: section)
+            
+        }
+        
         return getHeaderViewLabel()
+        
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
         guard section == 0 || section == 1 else {return}
         
         let headerView = view as? UITableViewHeaderFooterView
@@ -111,17 +120,23 @@ class ReportNewRestStopTableViewController: UITableViewController {
    
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
         if indexPath.section == 0 || indexPath.section == 2{
             return nil
         } else {
             return indexPath
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         guard indexPath.section == 1 else {return}
+        
         guard let cell = tableView.cellForRow(at: indexPath) else {return}
+        
         switch indexPath.row{
+            
         case 0:
             
             if cell.accessoryType == .checkmark{
@@ -131,8 +146,8 @@ class ReportNewRestStopTableViewController: UITableViewController {
                 disabledFacilities = true
                 cell.accessoryType = .checkmark
             }
-            
             break
+            
         case 1:
             if cell.accessoryType == .checkmark{
                 gasStation = false
@@ -172,6 +187,7 @@ class ReportNewRestStopTableViewController: UITableViewController {
                 cell.accessoryType = .checkmark
             }
             break
+            
         case 5:
             if cell.accessoryType == .checkmark{
                 restroom = false
@@ -251,11 +267,9 @@ class ReportNewRestStopTableViewController: UITableViewController {
       
     }
     
-    
-    
-    
-    
+
     func getHeaderViewLabel() -> UITextView{
+        
         let headerView = UITextView()
         headerView.text = "Please tap on the options above to select the available facilities at this rest stop."
         headerView.font = UIFont.systemFont(ofSize: 14)
@@ -265,12 +279,8 @@ class ReportNewRestStopTableViewController: UITableViewController {
         headerView.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 0, right: 10)
         headerView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1.0)
         headerView.sizeToFit()
-        
         return headerView
+        
     }
     
-    
-    
-
-
 }

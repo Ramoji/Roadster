@@ -18,7 +18,6 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var imageViewNine: UIImageView!
     @IBOutlet weak var imageViewTen: UIImageView!
     var imageViews: [UIImageView]!
-    
     @IBOutlet weak var facilitiesLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -28,26 +27,18 @@ class StaticDetailTableViewController: UITableViewController {
     @IBOutlet weak var truck: UIImageView!
     @IBOutlet weak var sedanCar: UIImageView!
     @IBOutlet weak var trailer: UIImageView!
-    
-    
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var commnetButton: UIButton!
     @IBOutlet weak var cancelComment: UIButton!
     @IBOutlet weak var commentRatingImageView: UIImageView!
     @IBOutlet weak var ratingImageView: UIImageView!
-    
     @IBOutlet weak var commentTextViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var reportInfoButton: UIButton!
     @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var frequentButton: UIButton!
     
     var sectionOneHeaderViewContainerView: UIView!
-    
-    
-    
-    
     
     var restStop: USRestStop!
     var fullStateName: String!
@@ -57,11 +48,6 @@ class StaticDetailTableViewController: UITableViewController {
     var commentRating: Double = 0
     var favoriteList: [Favorite] = []
     var frequentList: [Frequent] = []
-    
-    
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +59,7 @@ class StaticDetailTableViewController: UITableViewController {
         
         ratingImageView.contentMode = .scaleAspectFit
         commentRatingImageView.isUserInteractionEnabled = true
-        ///////////
+        
         let nib = UINib(nibName: "CommentCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "CommentCell")
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -189,8 +175,6 @@ class StaticDetailTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         print("***Receiving Memory Warning from StaticDetailTableViewController!")
     }
-
-    
     
     func setUpMapView(){
         if let restStop = restStop{
@@ -216,15 +200,13 @@ class StaticDetailTableViewController: UITableViewController {
             facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
         }
     }
+    
     @IBAction func comment(_ sender: UIButton) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
         
-        
         let commentText = commentTextView.text!
-        
-        
         
         let email = UserDefaults.standard.object(forKey: DefaultKeys.currentUserEmail) as! String
         let username = UserDefaults.standard.object(forKey: DefaultKeys.currentUsername) as! String
@@ -234,7 +216,6 @@ class StaticDetailTableViewController: UITableViewController {
         let dateString = dateFormatter.string(from: Date())
         
         let comment = Comment(latitude: restStop.coordinate.latitude.convertToString(), longitude: restStop.coordinate.longitude.convertToString(), firstname: firstname, lastname: lastname, email: email, username: username, comment: commentText, date: dateString, rating: commentRating)
-        
     
         HTTPHelper.shared.postComment(comment: comment, userEmail: email){
             completed in
@@ -249,12 +230,12 @@ class StaticDetailTableViewController: UITableViewController {
             }
         }
         
-        
         hideCommentButtons()
     
     }
     
     @IBAction func commentRatingImageViewDidTap(_ sender: UITapGestureRecognizer){
+        
         let tapLocation = sender.location(in: commentRatingImageView)
         if tapLocation.x <= 10{
             commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
@@ -290,13 +271,12 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     @IBAction func cancelComment(_ sender: UIButton) {
-        print("*** In cancel button!")
+        
         hideCommentButtons()
     }
     
-    
     func hideCommentButtons(){
-        //if commentTextView.isFirstResponder{
+        
             resetCommentRatingImageView()
             commentRatingImageView.image = #imageLiteral(resourceName: "0stars").resizeImage(CGSize(width: commentRatingImageView.bounds.width, height: commentRatingImageView.bounds.height)).withRenderingMode(.alwaysOriginal)
             commentTextView.resignFirstResponder()
@@ -314,7 +294,7 @@ class StaticDetailTableViewController: UITableViewController {
                 self.commnetButton.isEnabled = false
                 self.cancelComment.isEnabled = false
             }
-       // }
+       
     }
     
     private func resetCommentRatingImageView(){
@@ -332,19 +312,22 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     @IBAction func saveFavorite(_ sender: UIButton){
+        
         let managedObjectContext = restStop.managedObjectContext!
+        
         if restStop.favorite{
+            
             //change rest stop favotire status and re-save (unfavorite)
             favoriteButton.setImage(UIImage(named: "favoriteOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
             restStop.favorite = false
             do{
                 try managedObjectContext.save()
-                print("*** Deleted favorite!")
+                
             }catch{
                 fatalError("*** Failed to update rest stop favorite status.")
             }
             //remove favorite from core data
-            print("*** latitude: \(restStop.latitude), longitude: \(restStop.longitude)")
+            
             CoreDataHelper.shared.deleteFavorite(latitude: restStop.latitude, longitude: restStop.longitude)
         } else {
             //change rest stop favotire status and re-save (favorite)
@@ -352,16 +335,18 @@ class StaticDetailTableViewController: UITableViewController {
             restStop.favorite = true
             do{
                 try managedObjectContext.save()
-                print("*** Saved favorite!")
+                
             }catch{
                 fatalError("*** Failed to update rest stop favorite status.")
             }
             //save favorite to core data
             CoreDataHelper.shared.saveFavorite(restStop: restStop)
         }
+        
     }
     
     @IBAction func saveFrequent(_ sender: UIButton){
+        
         let managedObjectContext = restStop.managedObjectContext!
         if restStop.frequent{
             //change rest stop frequent status and re-save (unfrequent)
@@ -369,7 +354,7 @@ class StaticDetailTableViewController: UITableViewController {
             restStop.frequent = false
             do {
                 try managedObjectContext.save()
-                print("*** Deleted frequent!")
+                
             } catch {
                 fatalError("*** Failed to update rest stop frequent status.")
             }
@@ -381,13 +366,14 @@ class StaticDetailTableViewController: UITableViewController {
             restStop.frequent = true
             do {
                 try managedObjectContext.save()
-                print("*** Saved frequent!")
+                
             } catch {
                 fatalError("*** Failed to update rest stop frequent status.")
             }
             //save favorite to core data
             CoreDataHelper.shared.saveFrequent(restStop: restStop)
         }
+        
     }
     
     func loadFavoriteList(){
@@ -421,10 +407,12 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "reportInfo"{
             let reportInfoTableViewController = segue.destination as! ReportInfoTableViewController
             reportInfoTableViewController.restStop = restStop
         }
+        
     }
     
     @IBAction func navigate(){
@@ -445,6 +433,7 @@ class StaticDetailTableViewController: UITableViewController {
     }
     
     func getSectionOneHeaderView() -> UIView{
+        
         let sectionOneHeaderView = UILabel()
         let headerAttributedString = NSAttributedString(string: "WHAT PEOPLE SAY", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.lightGray])
         sectionOneHeaderView.attributedText = headerAttributedString
@@ -476,8 +465,6 @@ class StaticDetailTableViewController: UITableViewController {
         
     }
 }
-
-
 
 extension StaticDetailTableViewController: MKMapViewDelegate{
     
@@ -542,11 +529,6 @@ extension StaticDetailTableViewController: UITextViewDelegate{
             commnetButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
             commnetButton.isEnabled = false
         }
-        
-        let wordLimit = 100
-    
-        print("The numeber of remaining words are: \(wordLimit - (textView.text.count / 5))")
-        
     }
     
     
@@ -559,12 +541,6 @@ extension StaticDetailTableViewController: UITextViewDelegate{
             return true
         }
     }
-    
-    
-    
-    
-    
-    
 }
 
 extension StaticDetailTableViewController{
@@ -640,9 +616,6 @@ extension StaticDetailTableViewController{
             }
         }
     }
-    
-   
-    
 }
 
 

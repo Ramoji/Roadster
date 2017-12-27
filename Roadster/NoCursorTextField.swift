@@ -1,8 +1,4 @@
-//
-//  NoCursorTextField.swift
-//  Roadster
-//
-//  Created by A Ja on 12/18/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 

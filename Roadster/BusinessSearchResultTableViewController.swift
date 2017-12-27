@@ -1,8 +1,4 @@
-//
-//  BusinessSearchResultTableViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 12/19/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -15,7 +11,7 @@ import MapKit
 
 protocol BusinessSearchResultTableViewControllerDelegate: class {
     func businessSearchResultTableViewStartedGettingBusiness(_ searchResultTable: BusinessSearchResultTableViewController)
-    func businessSearchResultTableViewStopedGettingBusiness(_ searchResultTable: BusinessSearchResultTableViewController, with searchResultList: [AnyObject], at currentLocation: CLLocationCoordinate2D) // change name to BusinessSearchRequestedMapViewAddAnnotationsViewForBusinesses
+    func businessSearchResultTableViewStopedGettingBusiness(_ searchResultTable: BusinessSearchResultTableViewController, with searchResultList: [AnyObject], at currentLocation: CLLocationCoordinate2D)
     func businessSearchResultTableViewDidSelectRow(_ searchResultTable: BusinessSearchResultTableViewController, with poi: AnyObject, and currentLocation: CLLocation)
     func businessSearchResultTableViewControllerNeedsUpdatedMapRegion(_ searchResultTable: BusinessSearchResultTableViewController) -> MKCoordinateRegion
     func businessSearchResultTableViewControllerSearchBarDidBeginEditing(_ searchResultTable: BusinessSearchResultTableViewController)
@@ -362,7 +358,6 @@ class BusinessSearchResultTableViewController: UIViewController{
                         self.mainQueue.async {
                             self.POIList = (search?.businesses)!
                             if self.POIList.count != 0 && self.shouldUpdateTableView{
-                                print("*** TableView will update!")
                                 self.tableViewDataSourceList = self.POIList
                                 self.tableView.reloadData()
                                 self.delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: self.tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: self.currentUserLocation.coordinate.latitude, longitude: self.currentUserLocation.coordinate.longitude))
@@ -445,9 +440,9 @@ class BusinessSearchResultTableViewController: UIViewController{
         var searchHistoryDataPath = ""
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first{
             searchHistoryDataPath = documentsDirectory.appendingPathComponent("archive").path
-            print("*** Not yet determined if serch history path exisists!")
+            
             guard FileManager.default.fileExists(atPath: searchHistoryDataPath) else {return}
-            print("*** Search history file exists!")
+            
             let history = NSKeyedUnarchiver.unarchiveObject(withFile: searchHistoryDataPath) as! [AnyObject]
             searchHistory = history
             
@@ -477,7 +472,6 @@ class BusinessSearchResultTableViewController: UIViewController{
         
         let localSearchRequest = MKLocalSearchRequest()
         localSearchRequest.naturalLanguageQuery = string
-        //localSearchRequest.region = (delegate?.businessSearchResultTableViewControllerNeedsUpdatedMapRegion(self))!
         localSearchRequest.region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude), 500000, 500000)
         let localSearch = MKLocalSearch(request: localSearchRequest)
         localSearch.start(completionHandler: {searchResponse, error in
@@ -487,7 +481,7 @@ class BusinessSearchResultTableViewController: UIViewController{
             }
             
             guard let mapItems = searchResponse?.mapItems else {return}
-            print("*** Search address mapitems count is: \(mapItems.count)")
+            
             self.tableViewDataSourceList = mapItems
             self.tableView.reloadData()
             self.delegate?.businessSearchResultTableViewStopedGettingBusiness(self, with: self.tableViewDataSourceList, at: CLLocationCoordinate2D(latitude: self.currentUserLocation.coordinate.latitude, longitude: self.currentUserLocation.coordinate.longitude))
@@ -518,8 +512,6 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
         
         let element = tableViewDataSourceList[indexPath.row]
         
-        
-        
         if element is USRestStop{
             let restStop = element as! USRestStop
             let restStopCLLocation = CLLocation(latitude: restStop.latitude, longitude: restStop.longitude)
@@ -541,26 +533,30 @@ extension BusinessSearchResultTableViewController: UITableViewDataSource{
             let restStopCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.UnorderedRestStopCell, for: indexPath) as! UnorderedRestStopCell
             restStopCell.configureHistoryCell(with: restStop, distanceFromUser: distanceFromUser)
             cell = restStopCell
+            
         } else if element is HistoryYelpBusiness{
             let business = element as! HistoryYelpBusiness
             let yelpTableViewCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.YelpTableViewCell, for: indexPath) as! YelpTableViewCell
             yelpTableViewCell.setUpHistoryCell(for: business)
             cell = yelpTableViewCell
+            
         } else if element is BusinessSearchResultFirstCell{
             let serviceCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.BusinessSearchResultFirstCell, for: indexPath) as! BusinessSearchResultFirstCell
             serviceCell.separatorInset = UIEdgeInsets(top: 0, left: self.view.bounds.width, bottom: 0, right: 0)
             serviceCell.delegate = self
             cell = serviceCell
-        } else if element is MKMapItem{
             
+        } else if element is MKMapItem{
             let addressCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.addressMapItemCell, for: indexPath) as! AddressMapItemCell
             addressCell.configureCell(for: element as! MKMapItem)
             cell = addressCell
+            
         } else if element is FavoriteLocation{
             let addressCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.historyAddressCell, for: indexPath) as! HistoryAddressCell
             let favoriteLocation = element as! FavoriteLocation
             addressCell.configureCell(for: favoriteLocation, and: currentUserLocation)
             cell = addressCell
+            
         } else if element is SearchHistoryCell{
             let searchHistoryCell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.searchHistoryCell, for: indexPath) as! SearchHistoryCell
             searchHistoryCell.configureCell()
@@ -654,7 +650,6 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
         delegate?.businessSearchResultTableViewControllerSearchBarDidBeginEditing(self)
-        
     }
     
     
@@ -668,9 +663,6 @@ extension BusinessSearchResultTableViewController: UISearchBarDelegate{
         
         loadSearchHistory()
     }
-    
-    
-    
 }
 
 extension BusinessSearchResultTableViewController: MKLocalSearchCompleterDelegate{

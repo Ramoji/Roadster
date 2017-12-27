@@ -1,8 +1,4 @@
-//
-//  MoreTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 10/4/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -13,9 +9,8 @@ class MoreTableViewController: UITableViewController {
     let moreTableViewControllerOptionList = ["User guide", "Report a new rest stop", "Rate in App Store", "Contact developer"]
     let logInLogOutList = ["Log in", "Log out"]
     
-    
-
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         registerNibs()
         tableView.backgroundView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
@@ -29,15 +24,21 @@ class MoreTableViewController: UITableViewController {
     }
     
     func registerNibs(){
+        
         let nib = UINib(nibName: "MoreTableViewControllerCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.moreTableViewControllerCell)
+        
     }
 
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let cell = tableView.cellForRow(at: indexPath)!
+        
         if indexPath.section == 0 {
+            
             switch indexPath.row{
+                
             case 0:
                 performSegue(withIdentifier: "userGuideTableViewControllerSegue", sender: cell)
                 break
@@ -55,12 +56,14 @@ class MoreTableViewController: UITableViewController {
         } else {
             
             switch indexPath.row{
+                
             case 0:
                 if let storyboard = storyboard{
                     let signInViewController = storyboard.instantiateViewController(withIdentifier: "signInViewController")
                     present(signInViewController, animated: true, completion: nil)
                 }
                 break
+                
             case 1:
                 if UserDefaults.standard.bool(forKey: DefaultKeys.signedIn){
                     
@@ -90,6 +93,7 @@ class MoreTableViewController: UITableViewController {
                 }
                 
                 break
+                
             default:
                 print("*** In default!")
             }
@@ -99,8 +103,6 @@ class MoreTableViewController: UITableViewController {
       tableView.deselectRow(at: indexPath, animated: true)
         
     }
-    
-  
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -115,6 +117,7 @@ class MoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.moreTableViewControllerCell, for: indexPath) as! MoreTableViewControllerCell
         cell.backgroundColor = UIColor.clear
         
@@ -158,6 +161,7 @@ class MoreTableViewController: UITableViewController {
             if indexPath.row == logInLogOutList.count - 1 {
                 cell.separator.isHidden = true
             }
+            
         }
         
         return cell
@@ -188,6 +192,7 @@ class MoreTableViewController: UITableViewController {
     
     
     func getSectionHeaderView(with title: String) -> UIView{
+        
         let sectionHeaderView = UILabel()
         let headerAttributedString = NSAttributedString(string: title.uppercased(), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName: UIColor.darkGray])
         sectionHeaderView.attributedText = headerAttributedString
@@ -210,10 +215,11 @@ class MoreTableViewController: UITableViewController {
     
 
     @IBAction func unwindToMoreTableViewController(segue: UIStoryboardSegue){
-        
+        //Needed for unwind segues...
     }
     
     func contactDeveloper(){
+        
         guard UserDefaults.standard.bool(forKey: DefaultKeys.signedIn) else {
             let signUpViewController = storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
             signUpViewController.originalPresenter = self

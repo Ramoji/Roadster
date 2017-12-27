@@ -1,8 +1,4 @@
-//
-//  AddressTableTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 8/28/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -13,6 +9,7 @@ import MapKit
 
 
 class FavoriteLocation: NSObject, NSCoding, MKAnnotation{
+    
     let placemark: MKPlacemark
     let locationName: String?
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
@@ -36,9 +33,7 @@ class FavoriteLocation: NSObject, NSCoding, MKAnnotation{
     
 }
 
-
 class AddressTableViewController: UITableViewController {
-    
    
     @IBOutlet weak var directionButton: UIButton!
     @IBOutlet weak var addressTextView: UITextView!
@@ -47,9 +42,6 @@ class AddressTableViewController: UITableViewController {
     var currentUserLocation: CLLocation!
     var directions: MKDirections!
     var favoriteLocations: [FavoriteLocation] = []
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +59,6 @@ class AddressTableViewController: UITableViewController {
         
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,9 +69,7 @@ class AddressTableViewController: UITableViewController {
         prepTableView()
     }
 
-    
     func prepTableView(){
-        
         
         getEstimatedTravelTime()
         
@@ -113,14 +101,10 @@ class AddressTableViewController: UITableViewController {
         if let country = mapItem.placemark.country{
             addressString += ", " + country
         }
-        
-        
+    
         addressTextView.text = addressString
         
         tableView.reloadData()
-        
-        
-        
     }
     
     
@@ -149,12 +133,12 @@ class AddressTableViewController: UITableViewController {
                         mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFont(ofSize: 15), range: buttonTitleDirectionsRange)
                         mutableAttributedTitleString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 13), range: buttonTitleTravelTimeRange)
                         self.directionButton.setAttributedTitle(mutableAttributedTitleString, for: UIControlState.normal)
+                        
                     } else { // travel time more than one hour driving.
                         
                         let hourMultiplier = estimatedTravelTimeInt
                         let minuteMultiplier = estimatedTimeInHours - Double(hourMultiplier)
-                        print("*** Hour multilier is: \(hourMultiplier)")
-                        print("*** Minute multiplier is: \(minuteMultiplier)")
+                        
                         
                         var estimatedTravelTimeString = ""
                         
@@ -182,11 +166,6 @@ class AddressTableViewController: UITableViewController {
                         self.directionButton.setAttributedTitle(mutableAttributedTitleString, for: UIControlState.normal)
                     }
                     
-                    print("*** Estimated travel time in hours is: \(estimatedTimeInHours)")
-                    print("*** Estimated travel time Int is: \(estimatedTravelTimeInt)")
-                    
-                    
-                    
                     self.directionButton.titleLabel?.numberOfLines = 2
                     self.directionButton.titleLabel?.textAlignment = .center
                     self.directionButton.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -199,9 +178,11 @@ class AddressTableViewController: UITableViewController {
     
     
     @IBAction func navigate(_ sender: UIButton){
+        
         if let mapItem = mapItem{
             mapItem.openInMaps(launchOptions: nil)
         }
+        
     }
     
     func addToFavorite(){
@@ -221,6 +202,7 @@ class AddressTableViewController: UITableViewController {
         })
         
         let saveAction = UIAlertAction(title: "Save", style: .default){action in
+            
             if let textField = locationNameAlert.textFields?.first{
                 if let locationName = textField.text{
                     let favoriteLocation = FavoriteLocation(placemark: self.mapItem.placemark, locationName: locationName)
@@ -243,9 +225,7 @@ class AddressTableViewController: UITableViewController {
         locationNameAlert.addAction(cancelAction)
         
         present(locationNameAlert, animated: true, completion: nil)
-        
-        
-        
+    
     }
     
     func doesMapItemExistInFavoriteLocationsList() -> Bool{
@@ -295,16 +275,23 @@ class AddressTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.backgroundColor = UIColor.clear
+        
         if indexPath.row == 3 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: self.view.bounds.width, bottom: 0, right: 0)
+            
+            cell.separatorInset = UIEdgeInsets(top: 0, left: self.view.bounds.width, bottom: 0, right:
+                0)
+            
         } else if indexPath.row == 2 {
+            
             if doesMapItemExistInFavoriteLocationsList(){
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
+            
         }
         
         if indexPath.row > 3 {

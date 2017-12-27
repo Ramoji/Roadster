@@ -1,8 +1,4 @@
-//
-//  RestStopList2ViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 10/15/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -42,14 +38,13 @@ class RestStopListMapViewController: UIViewController {
         view.setNeedsLayout()
         mapView.delegate = self
     }
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         print("***Receiving Memory Warning from RestStopListMapViewController!")
     }
     
-   
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
@@ -102,6 +97,7 @@ class RestStopListMapViewController: UIViewController {
                 childController.bound = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)!
                 mapView.removeAnnotations(mapView.annotations)
             }
+            
         } else if routeClassification == PossibleDirections.eastWestRoute{
             if segmentedControl.selectedSegmentIndex == 0 {
                 childController.restStopList = POIProvider.getRestStops(inState: state, onRoute: route, forDirection: PossibleDirections.eastBound)
@@ -137,8 +133,6 @@ class RestStopListMapViewController: UIViewController {
         addChildViewController(childController)
         childController.didMove(toParentViewController: self)
         childController.delegate = self
-        print("*\(routeClassification)")
-        print("$\(PossibleDirections.northSouthRoute)")
         
         switch routeClassification {
         case PossibleDirections.northSouthRoute:
@@ -190,11 +184,10 @@ class RestStopListMapViewController: UIViewController {
         print("***RestStopListMapViewController has deallocated!")
         
     }
-    
-    
 }
 
 extension RestStopListMapViewController: RestStopListChildTableViewControllerDelegate{
+    
     func restStopListTable(_ childTableViewController: RestStopListChildTableViewController, didPickRestStop restStop: USRestStop) {
         let annotations = mapView.annotations
         mapView.removeAnnotations(annotations)
@@ -246,12 +239,3 @@ extension RestStopListMapViewController: MKMapViewDelegate{
     }
     
 }
-
-
-
-
-
-
-
-
-

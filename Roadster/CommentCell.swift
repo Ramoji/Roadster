@@ -1,8 +1,4 @@
-//
-//  CommentCell.swift
-//  Roadster
-//
-//  Created by EA JA on 5/18/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

@@ -47,12 +47,6 @@ extension NSLayoutConstraint{
     }
 }
 
-extension String{
-   
-    
-    
-}
-
 
 extension MKMapView{
     func findAnnotationFor(latitude: Double, longitude: Double) -> MKAnnotation?{

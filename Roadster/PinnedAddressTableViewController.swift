@@ -1,8 +1,4 @@
-//
-//  AddressTableTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 8/28/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -24,9 +20,7 @@ class PinnedAddressTableViewController: UITableViewController {
     var currentUserLocation: CLLocation!
     var directions: MKDirections!
     var favoriteLocations: [FavoriteLocation] = []
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +32,10 @@ class PinnedAddressTableViewController: UITableViewController {
         prepTableView()
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("Favorite locations count is: \(favoriteLocations.count)")
+        
     }
     
     
@@ -52,7 +47,6 @@ class PinnedAddressTableViewController: UITableViewController {
     
     
     func prepTableView(){
-        
         
         getEstimatedTravelTime()
         
@@ -85,14 +79,15 @@ class PinnedAddressTableViewController: UITableViewController {
             addressString += ", " + country
         }
         
-        
         addressTextView.text = addressString
         
     }
     
     
     func getEstimatedTravelTime(){
+        
         guard currentUserLocation != nil else {return}
+        
         let directionsRequest = MKDirectionsRequest()
         let startPlacemartk = MKPlacemark(coordinate: currentUserLocation.coordinate)
         directionsRequest.source = MKMapItem(placemark: startPlacemartk)
@@ -130,9 +125,10 @@ class PinnedAddressTableViewController: UITableViewController {
     func addToFavorite(){
         
         guard !doesMapItemExistInFavoriteLocationsList() else {
+            
             removeMapItemFromFavoriteList()
             tableView.reloadData()
-            print("favorite list count is: \(favoriteLocations.count)")
+            
             return
         }
         
@@ -211,10 +207,10 @@ class PinnedAddressTableViewController: UITableViewController {
         reportLocationIssueViewController.delegate = self
         present(reportLocationIssueNavigationController, animated: true, completion: nil)
         
-        print("*** In report an issue!")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.backgroundColor = UIColor.clear
         if indexPath.row == 3 {
@@ -226,6 +222,7 @@ class PinnedAddressTableViewController: UITableViewController {
                 cell.accessoryType = .none
             }
         }
+        
         return cell
     }
     
@@ -243,10 +240,10 @@ class PinnedAddressTableViewController: UITableViewController {
     }
     
     func saveFavoriteLocationsList(){
+        
         guard let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {return}
         let favoriteLocationsPath = documentsDir.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
         if NSKeyedArchiver.archiveRootObject(favoriteLocations, toFile: favoriteLocationsPath){
-            print("Saved favorited list successfully!")
         } else {
             print("failed favorited list successfully!")
         }
@@ -255,12 +252,12 @@ class PinnedAddressTableViewController: UITableViewController {
     
     
     @IBAction func unwindToAddressTableViewController(_ sender: UIStoryboardSegue){
+        
         let reportLocationIssueViewController = storyboard?.instantiateViewController(withIdentifier: "reportLocationIssueViewController") as! ReportLocationIssueTableViewController
         reportLocationIssueViewController.delegate = self
         present(reportLocationIssueViewController, animated: true, completion: nil)
+        
     }
-    
-    
 }
 
 extension PinnedAddressTableViewController: ReportLocationIssueTableViewControllerDelegate{

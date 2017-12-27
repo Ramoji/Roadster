@@ -1,13 +1,10 @@
-//
-//  POIProvider.swift
-//  Roadster
-//
-//  Created by EA JA on 5/9/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //  POI stands for Ponts of Interest
 
-import Foundation
+//*************** POI stands for "Points of Interest" *****************
 
+import Foundation
 import Foundation
 import CoreData
 import MapKit
@@ -107,7 +104,7 @@ class POIProvider{
         var southBoundRestStops: [USRestStop] = []
         
         for restStop in restStops {
-            print(restStop)
+            
             if restStop.direction.contains("/"){
                 if restStop.direction.contains(PossibleDirections.eastBound){
                     eastBoundRestStops.append(restStop)

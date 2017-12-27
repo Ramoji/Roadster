@@ -1,8 +1,4 @@
-//
-//  LocationsRestStopCell.swift
-//  Roadster
-//
-//  Created by EA JA on 9/25/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -17,7 +13,6 @@ class LocationsRestStopCell: UITableViewCell {
     @IBOutlet weak var noRatingLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
-    
     
     func configureCell(with restStop: USRestStop, distanceFromUser: Int){
         

@@ -1,8 +1,4 @@
-//
-//  UIImage+Resize.swift
-//  Roadster
-//
-//  Created by A Ja on 10/30/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 

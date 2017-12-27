@@ -1,8 +1,4 @@
-//
-//  HUDView.swift
-//  Roadster
-//
-//  Created by EA JA on 9/1/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

@@ -1,8 +1,4 @@
-//
-//  HighwayListViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 9/24/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -10,6 +6,7 @@ import UIKit
 import CoreData
 
 class HighwayListViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
     var state: String!
@@ -18,9 +15,7 @@ class HighwayListViewController: UIViewController {
     let blurredBackgroundView = BlurredBackgroundView(frame: .zero, addBackgroundPic: true)
     var appWindow: UIWindow!
     var fullStateName: String!
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +24,6 @@ class HighwayListViewController: UIViewController {
         tableView.backgroundView = blurredBackgroundView
         navigationItem.title = fullStateName.capitalized
         
-    
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,16 +31,18 @@ class HighwayListViewController: UIViewController {
         print("*** Receiving Memory Warning from HighwayListViewController!")
         
     }
-
     
     func registerNibs(){
+        
         var nib = UINib(nibName: CustomCellTypeIdentifiers.CellWithImageView, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.CellWithImageView)
         nib = UINib(nibName: CustomCellTypeIdentifiers.NoRestStopsCell, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell)
+        
     }
     
     func numberOfRestStops(forRoute route: String) -> Int{
+        
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "USRestStop")
         let entity = NSEntityDescription.entity(forEntityName: "USRestStop", in: managedObjectContext)
         let predicate1 = NSPredicate(format: "routeName = %@", route)
@@ -95,7 +91,7 @@ extension HighwayListViewController: UITableViewDataSource{
             return cell
             
         } else {
-            print("*** ROUTE NAME IS: \(routes[indexPath.row])")
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.CellWithImageView, for: indexPath) as! CellWithImageView
             cell.configureCell(forHighway: routes[indexPath.row], stateAbbreviation: stateAbbreviation, numberOfRestStops: numberOfRestStops(forRoute: routes[indexPath.row]))
             return cell

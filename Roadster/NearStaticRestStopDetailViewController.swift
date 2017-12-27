@@ -1,8 +1,4 @@
-//
-//  NearStaticRestStopDetailViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 8/14/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -28,10 +24,12 @@ class NearStaticRestStopDetailViewController: UIViewController {
     var nearRestStopChildDetailTableViewController: NearRestStopChildDetailTableViewController!
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         constraintContainerView()
         NotificationCenter.default.addObserver(self, selector: #selector(needsUpdate), name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.nearStaticRestStopDetailViewControllerNeedsUpdate), object: nil)
         configureSelfViews()
+        
     }
     
     func configureSelfViews(){
@@ -82,12 +80,14 @@ class NearStaticRestStopDetailViewController: UIViewController {
     }
     
     func constraintContainerView(){
+        
         containerView.translatesAutoresizingMaskIntoConstraints = false
         let topConstraint = containerView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100.0)
         let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let widthConstraint = containerView.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
         let heightConstraint = containerView.heightAnchor.constraint(equalToConstant: 450.0)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, widthConstraint, heightConstraint])
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,16 +98,6 @@ class NearStaticRestStopDetailViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBAction func close(_ sender: UIButton){
         delegates.invokeDelegates{
             $0.nearStaticRestStopDetailViewControllerDidTapCloseButton(self)

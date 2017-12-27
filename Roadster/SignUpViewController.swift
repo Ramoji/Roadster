@@ -1,8 +1,4 @@
-//
-//  SignUpViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 5/22/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -17,19 +13,13 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var square: UIView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var requiredFieldsAlertLabel: UILabel!
     @IBOutlet weak var validEmailAddressAlertLabel: UILabel!
     @IBOutlet weak var passwordLengthRequirementAlertLabel: UILabel!
     @IBOutlet weak var usernameTakenAlertLable: UILabel!
-    
     var originalPresenter: AnyObject!
-    
-    
-
-    
     var labelArray: [UITextField]!
 
     override var prefersStatusBarHidden: Bool{
@@ -38,10 +28,6 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,16 +49,11 @@ class SignUpViewController: UIViewController {
         super.didReceiveMemoryWarning()
         
     }
-    
-    
-    
+
     @IBAction func next(_ sender: UIButton) {
         
         guard areAllFieldsWrittenTo() else {
-            
-        
             animate(alertBanner: requiredFieldsAlertLabel)
-            
             return
         }
         
@@ -105,23 +86,26 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-    
 
-    
     @IBAction func cancel(_ sender: UIButton) {
+        
         requiredFieldsAlertLabel.isHidden = true
         passwordLengthRequirementAlertLabel.isHidden = true
         validEmailAddressAlertLabel.isHidden = true
         dismiss(animated: true, completion: nil)
+        
     }
     
     func areAllFieldsWrittenTo() -> Bool{
+        
         if firstNameTextField.text!.isEmpty || lastnameTextField.text!.isEmpty || usernameTextField.text!.isEmpty || emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
             return false
         } else {return true}
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "confirmEmail"{
             let confirmEmailViewController = segue.destination as! ConfirmEmailViewController
             confirmEmailViewController.firstName = firstNameTextField.text!
@@ -131,6 +115,7 @@ class SignUpViewController: UIViewController {
             confirmEmailViewController.password = passwordTextField.text!
             confirmEmailViewController.originalPresenter = self.originalPresenter
         }
+        
     }
     
     func animate(alertBanner banner: UILabel){

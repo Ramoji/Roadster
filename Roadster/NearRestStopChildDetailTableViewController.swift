@@ -1,8 +1,4 @@
-//
-//  NearViewStaticDetailTableTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 8/14/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -28,23 +24,19 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     @IBOutlet weak var imageViewEight: UIImageView!
     @IBOutlet weak var imageViewNine: UIImageView!
     @IBOutlet weak var imageViewTen: UIImageView!
-    
     @IBOutlet weak var facilitiesLabel: UILabel!
-    
     @IBOutlet weak var truck: UIImageView!
     @IBOutlet weak var sedanCar: UIImageView!
     @IBOutlet weak var trailer: UIImageView!
-    
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var reportInfoButton: UIButton!
     @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var frequentButton: UIButton!
-    
     var comments: [Comment] = []
-    
     var imageViews: [UIImageView]!
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         tableView.backgroundColor = UIColor.clear
         let blurView = BlurredBackgroundView(frame: tableView.bounds, addBackgroundPic: true)
@@ -53,7 +45,18 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 300, right: 0)
         
         registerNibs()
-        imageViews = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour, imageViewFive, imageViewSix, imageViewSeven, imageViewEight, imageViewNine, imageViewTen]
+        
+        imageViews = [imageViewOne,
+                      imageViewTwo,
+                      imageViewThree,
+                      imageViewFour,
+                      imageViewFive,
+                      imageViewSix,
+                      imageViewSeven,
+                      imageViewEight,
+                      imageViewNine,
+                      imageViewTen]
+        
         mapView.isScrollEnabled = false
         setUpViewForRestStop()
         mapView.mapType = .hybrid
@@ -76,8 +79,7 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return super.numberOfSections(in: tableView)
-        
-        
+
     }
     
     override func loadView() {
@@ -126,8 +128,11 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
         
         let iconSize = CGSize(width: 25.0, height: 25.0)
         let vehicleIconSize = CGSize(width: 25.0, height: 25.0)
+        
         prepIconViews()
+        
         if let restStop = restStop{
+            
             mapView.addAnnotation(restStop)
             parkingImageView.image = UIImage(named: "parking")?.resizeImage(iconSize)
             sedanCar.image = UIImage(named: "sedan")?.resizeImage(iconSize)
@@ -138,8 +143,11 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
                 truck.image = UIImage(named: "truck")?.resizeImage(vehicleIconSize)
             }
             parkingImageView.image = UIImage(named: "parking")?.resizeImage(iconSize)
+            
         }
+        
         setUpMapView()
+        
         configureFacilityIcons()
         
         if restStop.favorite{
@@ -176,21 +184,26 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     }
     
     private func prepIconViews(){
+        
         for imageView in imageViews{
             imageView.isHidden = true
             imageView.image = nil
         }
+        
     }
     
     func setUpMapView(){
+        
         if let restStop = restStop{
             let region = MKCoordinateRegionMakeWithDistance(restStop.coordinate, 500, 500)
             mapView.setRegion(region, animated: true)
             mapView.isUserInteractionEnabled = false
         }
+        
     }
     
     private func configureFacilityIcons(){
+        
         let facilites = POIProvider.getFacilityList(forRestStop: restStop)
         for (index, facility) in facilites.enumerated(){
             let imageSize = CGSize(width: 20.0, height: 20.0)
@@ -198,33 +211,35 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
             facilityImageView.isHidden = false
             facilityImageView.image = UIImage(named: facility)?.resizeImage(imageSize)
         }
+        
     }
-
-
-    
-   
     
     @IBAction func saveFrequent(_ sender: UIButton){
+        
         let managedObjectContext = restStop.managedObjectContext!
+        
         if restStop.frequent{
+            
             //change rest stop frequent status and re-save (unfrequent)
             frequentButton.setImage(UIImage(named: "frequentOff")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
             restStop.frequent = false
             do {
                 try managedObjectContext.save()
-                print("*** Deleted frequent!")
+                
             } catch {
                 fatalError("*** Failed to update rest stop frequent status.")
             }
             //remove favorite from core data
             CoreDataHelper.shared.deleteFrequent(latitude: restStop.latitude, longitude: restStop.longitude)
+            
         } else {
+            
             //change rest stop frequent status and re-save (frequent)
             frequentButton.setImage(UIImage(named: "frequentOn")?.resizeImage(CGSize(width: 50.0, height: 50.0)).withRenderingMode(.alwaysOriginal), for: .normal)
             restStop.frequent = true
             do {
                 try managedObjectContext.save()
-                print("*** Saved frequent!")
+                
             } catch {
                 fatalError("*** Failed to update rest stop frequent status.")
             }
@@ -241,12 +256,12 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
             restStop.favorite = false
             do{
                 try managedObjectContext.save()
-                print("*** Deleted favorite!")
+                
             }catch{
                 fatalError("*** Failed to update rest stop favorite status.")
             }
             //remove favorite from core data
-            print("*** latitude: \(restStop.latitude), longitude: \(restStop.longitude)")
+            
             CoreDataHelper.shared.deleteFavorite(latitude: restStop.latitude, longitude: restStop.longitude)
         } else {
             //change rest stop favotire status and re-save (favorite)
@@ -254,7 +269,7 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
             restStop.favorite = true
             do{
                 try managedObjectContext.save()
-                print("*** Saved favorite!")
+                
             }catch{
                 fatalError("*** Failed to update rest stop favorite status.")
             }

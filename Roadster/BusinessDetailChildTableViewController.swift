@@ -1,8 +1,4 @@
-//
-//  BusinessDetailChildTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 7/12/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -53,7 +49,6 @@ class BusinessDetailChildTableViewController: UITableViewController {
     @IBOutlet weak var saturdayHoursLabel: UILabel!
     @IBOutlet weak var sundayHoursLabel: UILabel!
     @IBOutlet weak var businessHoursNotAvailableLabel: UILabel!
-    
     var directions: MKDirections!
     @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var websiteButton: UIButton!
@@ -61,20 +56,14 @@ class BusinessDetailChildTableViewController: UITableViewController {
     @IBOutlet weak var exportButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    
     var business: Business!
     let geocoder: CLGeocoder = CLGeocoder()
     var activityViewController: UIActivityViewController!
-    
     @IBOutlet weak var weekDaysStackView: UIStackView!
     @IBOutlet weak var hoursStackView: UIStackView!
-    
     var sectionOneHeaderViewContainer: UIView!
-    
     var comments: [YelpComment] = []
     var favoriteBusinesses: [HistoryYelpBusiness] = []
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +86,6 @@ class BusinessDetailChildTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("*** in business detail child view contorller viewDidAppear(:)!")
         loadFavoriteBusinessesList()
         if let business = self.business{
             updateTableView(with: business)
@@ -156,7 +144,6 @@ class BusinessDetailChildTableViewController: UITableViewController {
             if !activityViewController.isBeingPresented{
                 present(activityViewController, animated: true, completion: nil)
             }
-        
     }
     
     func registerNibs(){

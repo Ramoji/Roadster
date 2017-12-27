@@ -1,8 +1,4 @@
-//
-//  CypherHelper.swift
-//  Roadster
-//
-//  Created by EA JA on 5/15/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -11,13 +7,18 @@ import CryptoSwift
 import SwiftKeychainWrapper
 
 struct APICredentials {
-    static let API_KEY = "H#4hfgsy4783dget"
-    static let encryptedAPI_KEY = "25a2cbab9fbf5873cbde4c56d526fac68a54f3bb871ca26f2072545458269ff5"
-    static let API_USERNAME = "bOOKERtHEcORGI" //Username to access the API through basic auth!
-    static let encryptedAPI_USERNAME = "ced5e1548ab8332b2919aa4228e2b1a8"
-    static let API_IV = "rerekooBrerekooB" // Used in conjunction with API_KEY to encode
-    static let yelpAPI_ID = "F9jmXf_AL6xCSqDUA0qrJA"
-    static let yelpAPI_secret = "5M4FdJC4hEGsl0XSXSETty7xluz8APQh05rP6HioeuNvoEcwllMKOCrHKFPvCFuh"
+    static let API_KEY = ""
+    static let encryptedAPI_KEY = ""
+    static let API_USERNAME = "" //Username to access the API through basic auth!
+    static let encryptedAPI_USERNAME = ""
+    static let API_IV = "" // Used in conjunction with API_KEY to encode
+    static let yelpAPI_ID = ""
+    static let yelpAPI_secret = ""
+    static let mailGunTempDomain = ""
+    static let mailGunAPIUsername = ""
+    static let mailGunAPIPassword = ""
+    static let mailGunSendEmailAPIEndPointURL = ""
+    static let developerEmailAddress = ""
 }
 
 struct DefaultKeys {

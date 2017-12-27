@@ -1,8 +1,4 @@
-//
-//  RoundCornorTableView.swift
-//  Roadster
-//
-//  Created by EA JA on 2/28/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

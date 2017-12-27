@@ -1,8 +1,4 @@
-//
-//  MoreTableViewControllerCellTableViewCell.swift
-//  Roadster
-//
-//  Created by EA JA on 10/5/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

@@ -1,8 +1,4 @@
-//
-//  ConfirmEmailViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 5/22/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -22,12 +18,13 @@ class ConfirmEmailViewController: UIViewController {
     @IBOutlet weak var anErrorOccuredTryAgainAlertLabel: UILabel!
     
     var originalPresenter: AnyObject!
-
     
     override var prefersStatusBarHidden: Bool{
+        
         get {
             return true
         }
+        
     }
     
     var firstName: String!
@@ -36,8 +33,8 @@ class ConfirmEmailViewController: UIViewController {
     var email: String!
     var password: String!
     
-
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         signUpButton.isEnabled = false
         signUpButton.backgroundColor = UIColor(red: 0, green: 122/256, blue: 255/256, alpha: 0.5)
@@ -49,11 +46,15 @@ class ConfirmEmailViewController: UIViewController {
     @IBAction func signUp(_ sender: UIButton) {
         
         guard email == emailTextField.text! else {
+            
             animate(alertBanner: emailAddressesDoNotMatchAlertLabel)
             return
+            
         }
+        
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+        
         HTTPHelper.shared.registerUser(
             name: firstName.lowercased(),
             lastname: lastname.lowercased(),

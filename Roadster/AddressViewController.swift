@@ -1,8 +1,4 @@
-//
-//  AddressViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 8/28/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -23,9 +19,6 @@ class AddressViewController: UIViewController {
     var currentUserLocation: CLLocation!
     var delegate: AddressViewControllerDelegate?
     
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(needsUpdate), name: Notification.Name(rawValue: NearByViewControllerNotificationIDs.addressViewControllerNeedsUpdate), object: nil)
@@ -33,8 +26,6 @@ class AddressViewController: UIViewController {
        setUpView()
     }
     
-    
-
     func setUpView(){
         closeButton.setImage(#imageLiteral(resourceName: "closeButton").resizeImage(CGSize(width: 20.0, height: 20.0)).withRenderingMode(.alwaysOriginal), for: .normal)
         
@@ -86,13 +77,8 @@ class AddressViewController: UIViewController {
         view.setNeedsLayout()
     }
     
-    
-    
-
     @IBAction func close(_ sender: UIButton){
-        
-        
-        
+    
         delegate?.addressViewControllerDidTapCloseButton(self)
     }
     
@@ -103,7 +89,4 @@ class AddressViewController: UIViewController {
             addressTableViewController.currentUserLocation = currentUserLocation
         }
     }
-    
-    
-
 }

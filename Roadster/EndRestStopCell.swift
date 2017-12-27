@@ -32,7 +32,18 @@ class EndRestStopCell: UITableViewCell {
         
         super.awakeFromNib()
         
-        imageViews = [imageViewOne, imageViewTwo, imageViewThree, imageViewFour, imageViewFive, imageViewSix, imageViewSeven, imageViewEight, imageViewNine, imageViewTen, imageViewEleven, imageViewTwelve]
+        imageViews = [imageViewOne,
+                      imageViewTwo,
+                      imageViewThree,
+                      imageViewFour,
+                      imageViewFive,
+                      imageViewSix,
+                      imageViewSeven,
+                      imageViewEight,
+                      imageViewNine,
+                      imageViewTen,
+                      imageViewEleven,
+                      imageViewTwelve]
         
     }
     

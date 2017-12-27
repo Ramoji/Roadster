@@ -1,8 +1,4 @@
-//
-//  LocationsAddressCell.swift
-//  Roadster
-//
-//  Created by EA JA on 9/25/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -11,8 +7,6 @@ import MapKit
 
 class LocationsAddressCell: UITableViewCell {
 
-    
-    
     @IBOutlet weak var streetAddressLabel: UILabel!
     @IBOutlet weak var cityStateAddressLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!

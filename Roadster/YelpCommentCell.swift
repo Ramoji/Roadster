@@ -1,8 +1,4 @@
-//
-//  YelpCommentCell.swift
-//  Roadster
-//
-//  Created by EA JA on 8/20/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

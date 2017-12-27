@@ -1,8 +1,4 @@
-//
-//  UnorderedRestStopCell.swift
-//  Roadster
-//
-//  Created by EA JA on 7/5/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

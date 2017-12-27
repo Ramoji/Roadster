@@ -17,11 +17,8 @@ class CustomUIPresentationController: UIPresentationController {
         transitionCoordinator?.animate(alongsideTransition: {_ in
             self.myView.alpha = 1
         }, completion: nil)
-        
-        
     }
     
-
     override var shouldRemovePresentersView: Bool {return false}
     
     func drawSeeThroughWindow(){

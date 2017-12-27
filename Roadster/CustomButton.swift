@@ -1,8 +1,4 @@
-//
-//  CustomButton.swift
-//  Roadster
-//
-//  Created by EA JA on 5/13/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

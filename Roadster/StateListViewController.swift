@@ -1,8 +1,4 @@
-//
-//  FirstViewController.swift
-//  Roadster
-//
-//  Created by A Ja on 9/6/16.
+
 //  Copyright © 2016 A Ja. All rights reserved.
 //
 
@@ -43,7 +39,7 @@ class StateListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         registerNibs()
-        print(appWindow.bounds.size.height)
+        
     }
     
     override func loadView() {
@@ -70,11 +66,13 @@ class StateListViewController: UIViewController {
     }
     
     func registerNibs(){
+        
         let cellNib = UINib(nibName: CustomCellTypeIdentifiers.CellWithImageView, bundle: nil)
         tableView.register(cellNib , forCellReuseIdentifier: CustomCellTypeIdentifiers.CellWithImageView)
     }
     
     func setUpTableView(){
+        
         tableView.backgroundView?.backgroundColor = UIColor.clear
         tableView.separatorEffect = UIVibrancyEffect(blurEffect: blurredBackgroundView.blurEffectView.effect as! UIBlurEffect)
         tableView.backgroundView = blurredBackgroundView
@@ -88,6 +86,7 @@ class StateListViewController: UIViewController {
 //MARK: - TableViewDelegate
 
 extension StateListViewController: UITableViewDelegate{
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 74
     }
@@ -104,6 +103,7 @@ extension StateListViewController: UITableViewDelegate{
 //MARK: - TableViewDataSource
 
 extension StateListViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive && searchController.searchBar.text != ""{
             return filteredStateList.count
@@ -111,7 +111,9 @@ extension StateListViewController: UITableViewDataSource{
             return States.numberOfStates()
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.CellWithImageView, for: indexPath) as! CellWithImageView
         
         if searchController.isActive && searchController.searchBar.text != ""{
@@ -129,6 +131,7 @@ extension StateListViewController: UITableViewDataSource{
 }
 
 extension StateListViewController: UISearchResultsUpdating{
+    
     func updateSearchResults(for searchController: UISearchController) {
        let list = States.stateNamesAndNicknamesDictionary()
         filteredStateList = list.filter({
@@ -137,12 +140,14 @@ extension StateListViewController: UISearchResultsUpdating{
         })
         tableView.reloadData()
     }
+    
 }
 
 extension StateListViewController: UISearchControllerDelegate{}
 
 //MARK: - Segues
 extension StateListViewController{
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showHighwayList"{
             let cell = sender as! CellWithImageView
@@ -156,12 +161,3 @@ extension StateListViewController{
         }
     }
 }
-
-
-
-
-
-
-
-
-

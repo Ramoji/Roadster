@@ -1,8 +1,4 @@
-//
-//  OnlyOneRestStopCell.swift
-//  Roadster
-//
-//  Created by EA JA on 3/7/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 

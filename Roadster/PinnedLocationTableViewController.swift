@@ -1,8 +1,4 @@
-//
-//  PinnedLocationTableViewController.swift
-//  Roadster
-//
-//  Created by EA JA on 9/14/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -20,9 +16,8 @@ class PinnedLocationsTableViewController: UITableViewController {
     var locationManager: CLLocationManager!
     var currentUserLocation: CLLocation!
     
-    
-    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
@@ -34,15 +29,13 @@ class PinnedLocationsTableViewController: UITableViewController {
         }
         
         tableView.backgroundView = BlurredBackgroundView(frame: self.view.bounds, addBackgroundPic: true)
-        
-        
-
-        
+    
     }
     
     
 
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
         
     }
@@ -50,10 +43,12 @@ class PinnedLocationsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         if CLLocationManager.authorizationStatus() == .denied{
+            
             let deniedAuthorizationAlert = UIAlertController(title: "Limited Service", message: "Location services disabled. Please enable location services in settings", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             deniedAuthorizationAlert.addAction(alertAction)
             present(deniedAuthorizationAlert, animated: true, completion: nil)
+            
         }
         
         startLocationManager()
@@ -62,9 +57,7 @@ class PinnedLocationsTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
     
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         if favoriteList.count == 0 && frequentList.count == 0 && locationList.count == 0 && businessList.count == 0{
@@ -93,16 +86,17 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        
         if favoriteList.count == 0 && frequentList.count == 0 && locationList.count == 0 && businessList.count == 0{
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell, for: indexPath) as! NoRestStopsCell
             cell.label.text = "No Saved Locations!"
             cell.backgroundColor = UIColor.clear
             return cell
+            
         }
         
         if indexPath.section == 0 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomCellTypeIdentifiers.LocationsRestStopCell, for: indexPath) as! LocationsRestStopCell
             cell.configureCell(with: favoriteList[indexPath.row], currentUserLocation: currentUserLocation)
             return cell
@@ -205,7 +199,7 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        print("*** Section is: \(indexPath.section)")
+        
         switch indexPath.section {
         case 0:
             
@@ -248,11 +242,8 @@ class PinnedLocationsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-  
-   
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         let cell = sender as! UITableViewCell
         let indexPath = tableView.indexPath(for: cell)!
         switch segue.identifier! {
@@ -300,11 +291,16 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     
     func getSectionHeaderView(with title: String) -> UIView{
+        
         let sectionHeaderView = UILabel()
+        
         let headerAttributedString = NSAttributedString(string: title.uppercased(), attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.white])
+        
         sectionHeaderView.attributedText = headerAttributedString
         sectionHeaderView.sizeToFit()
+        
         let headerViewContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: sectionHeaderView.bounds.height + 10))
+        
         sectionHeaderView.translatesAutoresizingMaskIntoConstraints = false
         headerViewContainer.addSubview(sectionHeaderView)
         let headerViewTopConstraint = sectionHeaderView.centerYAnchor.constraint(equalTo: headerViewContainer.centerYAnchor)
@@ -313,31 +309,20 @@ class PinnedLocationsTableViewController: UITableViewController {
         let headerViewHeightConstraint = sectionHeaderView.heightAnchor.constraint(equalToConstant: sectionHeaderView.bounds.height)
         NSLayoutConstraint.activate([headerViewTopConstraint, headerViewLeadingConstraint, headerViewWidthConstraint, headerViewHeightConstraint])
         headerViewContainer.backgroundColor = UIColor.lightGray
-//        let seperator = UIView()
-//        seperator.backgroundColor = UIColor.lightGray
-//        headerViewContainer.addSubview(seperator)
-//        seperator.translatesAutoresizingMaskIntoConstraints = false
-//        let seperatorBottomConstraint = seperator.bottomAnchor.constraint(equalTo: headerViewContainer.bottomAnchor)
-//        let seperatorLeadingConstraint = seperator.leadingAnchor.constraint(equalTo: headerViewContainer.leadingAnchor, constant: 15.0)
-//        let seperatorHeightConstraint = seperator.heightAnchor.constraint(equalToConstant: 0.5)
-//        let seperatorWidthConstraint = seperator.widthAnchor.constraint(equalToConstant: headerViewContainer.bounds.width - 15.0)
-//        
-//        NSLayoutConstraint.activate([seperatorBottomConstraint, seperatorLeadingConstraint, seperatorHeightConstraint, seperatorWidthConstraint])
         
         return headerViewContainer
     }
     
-    
-    
-
     func loadLists(completionHandler: () -> ()){
+        
         favoriteList = CoreDataHelper.shared.getFavorites()
-        print("*** favorite list count is: \(favoriteList.count)")
+        
         frequentList = CoreDataHelper.shared.getFrequents()
-        print("*** frequent list count is: \(frequentList.count)")
+        
         locationList = getFavoriteLocationsList()
         businessList = getFavoriteBusinessList()
         completionHandler()
+        
     }
     
     func getFavoriteLocationsList() -> [FavoriteLocation]{
@@ -364,13 +349,21 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     
     func registerNibs(){
+        
         var nib = UINib(nibName: CustomCellTypeIdentifiers.LocationsRestStopCell, bundle: nil)
+        
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.LocationsRestStopCell)
+        
         nib = UINib(nibName: CustomCellTypeIdentifiers.LocationsAddressCell, bundle: nil)
+        
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.LocationsAddressCell)
+        
         nib = UINib(nibName: CustomCellTypeIdentifiers.LocationsBusinessCell, bundle: nil)
+        
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.LocationsBusinessCell)
+        
         nib = UINib(nibName: CustomCellTypeIdentifiers.NoRestStopsCell, bundle: nil)
+        
         tableView.register(nib, forCellReuseIdentifier: CustomCellTypeIdentifiers.NoRestStopsCell)
     }
     
@@ -385,18 +378,18 @@ class PinnedLocationsTableViewController: UITableViewController {
     }
     
     func deleteTable(item: AnyObject){
+        
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
         }
         
         switch item {
+            
         case is Favorite:
             let favorite = item as! Favorite
-            print("*** Favorite to delete latitude: \(favorite.latitude)")
-            print("*** Favorite to delete longitude: \(favorite.longitude)")
             CoreDataHelper.shared.deleteFavorite(latitude: favorite.latitude, longitude: favorite.longitude)
-            
             break
+            
         case is Frequent:
             
             let frequent = item as! Frequent
@@ -409,14 +402,13 @@ class PinnedLocationsTableViewController: UITableViewController {
             for (index, element) in locationList.enumerated(){
                 if location.placemark.coordinate.latitude == element.placemark.coordinate.latitude && location.placemark.coordinate.longitude == element.placemark.coordinate.longitude{
                     locationList.remove(at: index)
-                    print("*** BITCH DELETED LOCATIONS FROM LOCATION VIEW CONTROLLER!")
                 }
             }
             
             let locationListPath = documentsDirectory.appendingPathComponent(KeyedArchiverKeys.favoriteLocationsListKey).path
             NSKeyedArchiver.archiveRootObject(locationList, toFile: locationListPath)
-            
             break
+            
         case is HistoryYelpBusiness:
             
             let business = item as! HistoryYelpBusiness
@@ -428,8 +420,8 @@ class PinnedLocationsTableViewController: UITableViewController {
             
             let businessListPath = documentsDirectory.appendingPathComponent(KeyedArchiverKeys.favoriteBusinessesListKey).path
             NSKeyedArchiver.archiveRootObject(businessList, toFile: businessListPath)
-            
             break
+            
         default:
             print("*** In delete table view item switch default")
         }
@@ -438,17 +430,15 @@ class PinnedLocationsTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
 }
 
 extension PinnedLocationsTableViewController: CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         guard let newLocation = locations.last else {
             return
         }
-        
-        print("*** In location manager!")
         
         if newLocation.timestamp.timeIntervalSinceNow < -5 {
             stopLocationManager()
@@ -461,12 +451,8 @@ extension PinnedLocationsTableViewController: CLLocationManagerDelegate{
         currentUserLocation = newLocation
         tableView.reloadData()
         
-        print("*** newLocation horizonal accuracy is: \(newLocation.horizontalAccuracy)")
-        print("*** location manager horizonal accuracy is: \(locationManager.desiredAccuracy)")
         if newLocation.horizontalAccuracy <= locationManager.desiredAccuracy{
-            print("*** Done with location manager!")
             stopLocationManager()
         }
     }
-    
 }

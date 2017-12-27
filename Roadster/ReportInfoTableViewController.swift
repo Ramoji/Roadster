@@ -7,7 +7,6 @@ class ReportInfoTableViewController: UITableViewController {
     @IBOutlet var closedSwitch: UISwitch!
     @IBOutlet var mileMarkerTextField: UITextField!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Report Info"
@@ -40,9 +39,6 @@ class ReportInfoTableViewController: UITableViewController {
             return 44.0
         
     }
-    
-    
-    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 2 else {return super.tableView(tableView, viewForHeaderInSection: section)}

@@ -1,8 +1,4 @@
-//
-//  HTTPHelper.swift
-//  Roadster
-//
-//  Created by EA JA on 5/13/17.
+
 //  Copyright © 2017 A Ja. All rights reserved.
 //
 
@@ -86,7 +82,7 @@ class HTTPHelper{
                 }
                 
                 if let _ = responseDictionary["error"] {
-                    print("*** responseDictionary error message is :\(responseDictionary["message"]!)")
+                
                     switch responseDictionary["message"]! as! String{
                     case APIErrorMessages.emailExists:
                         apiCallCompleted(true, APIErrorMessages.emailExists)
@@ -96,7 +92,6 @@ class HTTPHelper{
                         break
                     default:
                         print("*** In register user default case.")
-                        //apiCallCompleted(true, APIErrorMessages.invalidCredentials)
                     }
                 } else {
                     apiCallCompleted(true, nil)
@@ -117,7 +112,7 @@ class HTTPHelper{
         
         var headers: HTTPHeaders = [:]
         let encryptedPassword = cypherHelper.encrypt(string: password)
-        print(encryptedPassword)
+
         if let authorizationHeader = Request.authorizationHeader(user: email, password: encryptedPassword){
             headers[authorizationHeader.key] = authorizationHeader.value
         }
@@ -133,11 +128,7 @@ class HTTPHelper{
                 } catch let error as NSError {
                     print("Failed to parse JSON response: \(error.debugDescription)")
                 }
-                //
-                for element in responseDictionary{
-                    print(element)
-                }
-                //
+                
                 if let _ = responseDictionary["error"]{
                     switch responseDictionary["identifier"]! as! String{
                     case APIErrorMessages.userNotFound:
@@ -172,11 +163,16 @@ class HTTPHelper{
         
         Alamofire.request("http://localhost:8080/getComments", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON{
             response in
+            
+            guard response.result.isSuccess else {
+                return reloadTableViewClosure([], 0.0)
+            }
+            
             let jsonData = Data(bytes: (response.data?.bytes)!)
             do{
                 let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! [AnyObject]
                 for jsonObject in jsonObjects{
-                    print(jsonObject)
+                    
                     let publicComment = jsonObject as! [String: AnyObject]
                     let comment = Comment(
                                           latitude: publicComment["latitude"]! as! String,
@@ -377,18 +373,16 @@ class HTTPHelper{
     
     func sendEmail(recepient: String, sender: String, subject: String, emailBody: String){
         
-        let basicAuthentication = Request.authorizationHeader(user: "api", password: "key-619c0bfe2549ae5067cfc4b3db6a2bcd")
+        let basicAuthentication = Request.authorizationHeader(user: APICredentials.mailGunAPIUsername, password: APICredentials.mailGunAPIPassword)
         
         let headers: HTTPHeaders = [(basicAuthentication?.key)!: (basicAuthentication?.value)!]
-        let parameters: Parameters? = ["from": "Heather Larson<mailgun@sandbox590f92129f0449539d99dda52ed1f197.mailgun.org>",
+        let parameters: Parameters? = ["from": APICredentials.mailGunTempDomain,
                                        "to": recepient,
                                        "subject": subject,
                                        "text": emailBody]
         
         
-        Alamofire.request("https://api.mailgun.net/v3/sandbox590f92129f0449539d99dda52ed1f197.mailgun.org/messages", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON{ response in
-            
-            print(response)
+        Alamofire.request(APICredentials.mailGunSendEmailAPIEndPointURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON{ response in
             
         }
     
@@ -398,7 +392,7 @@ class HTTPHelper{
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: restStopParameters, options: JSONSerialization.WritingOptions.prettyPrinted)
             guard let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) else {return}
-            sendEmail(recepient: "wzk014@gmail.com", sender: "", subject: "New rest stop report from Roadster", emailBody: jsonString)
+            sendEmail(recepient: APICredentials.developerEmailAddress, sender: "", subject: "", emailBody: jsonString)
         } catch let error as NSError{
             print(error.localizedDescription)
             print(error.debugDescription)
@@ -420,7 +414,4 @@ class HTTPHelper{
         
         return averageRating.roundToNearestHalf()
     }
-    
-    
-    
 }
