@@ -769,7 +769,7 @@ class NearByViewController: UIViewController {
         
         
         businessDetailViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = businessDetailViewController.view.heightAnchor.constraint(equalToConstant: 800.0)
+        let heightConstraint = businessDetailViewController.view.heightAnchor.constraint(equalToConstant: abs(verticalUpperLimit))
         let leadingConstraint = businessDetailViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let widthConstraint = businessDetailViewController.view.widthAnchor.constraint(equalToConstant: self.view.bounds.width)
         let topConstraint = businessDetailViewController.view.topAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: -55)
@@ -821,7 +821,7 @@ class NearByViewController: UIViewController {
         
         nearStaticRestStopDetailViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
-        let heightConstraint = nearStaticRestStopDetailViewController.view.heightAnchor.constraint(equalToConstant: 800.0)
+        let heightConstraint = nearStaticRestStopDetailViewController.view.heightAnchor.constraint(equalToConstant: abs(verticalUpperLimit))
         let leadingConstraint = nearStaticRestStopDetailViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingConstraint = nearStaticRestStopDetailViewController.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         let topConstraint = nearStaticRestStopDetailViewController.view.topAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -55)
@@ -902,7 +902,7 @@ class NearByViewController: UIViewController {
         
         let leadingConstraint = addressViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let widthConstraint = addressViewController.view.widthAnchor.constraint(equalToConstant: view.bounds.width)
-        let heightConstraint = addressViewController.view.heightAnchor.constraint(equalToConstant: 800.0)
+        let heightConstraint = addressViewController.view.heightAnchor.constraint(equalToConstant: abs(verticalUpperLimit))
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, widthConstraint, heightConstraint])
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(addressViewControllerDidPan(_:)))

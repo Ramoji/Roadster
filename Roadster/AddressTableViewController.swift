@@ -306,6 +306,11 @@ class AddressTableViewController: UITableViewController {
                 cell.accessoryType = .none
             }
         }
+        
+        if indexPath.row > 3 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: self.view.bounds.width, bottom: 0, right: 0)
+        }
+        
         return cell
     }
     

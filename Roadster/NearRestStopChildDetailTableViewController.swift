@@ -17,7 +17,6 @@ class NearRestStopChildDetailTableViewController: UITableViewController {
     
     var restStop: USRestStop!
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBOutlet weak var parkingImageView: UIImageView!
     @IBOutlet weak var imageViewOne: UIImageView!
     @IBOutlet weak var imageViewTwo: UIImageView!
